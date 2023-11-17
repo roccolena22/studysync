@@ -21,7 +21,6 @@ export default function PersonaleCalendar({ infoLoggedUser }) {
   useEffect(() => {
     const users = getFromLocalStorage("users", []);
 
-    // Ottieni gli eventi solo dell'utente corrente
     const currentUserEvents = users
       .find((user) => user.email === infoLoggedUser.email)?.events || [];
 
@@ -33,14 +32,14 @@ export default function PersonaleCalendar({ infoLoggedUser }) {
       setEvents((prevEvents) => {
         const newEvents = [...prevEvents, eventsFromForm];
         const users = getFromLocalStorage("users", []);
-        const updatedUsers = users.map((user) => {
+        const updatedCurrentUsers = users.map((user) => {
           if (user.email === infoLoggedUser.email) {
             return { ...user, events: newEvents };
           }
           return user;
         });
 
-        addToLocalStorage("users", updatedUsers); // Aggiorna il localStorage qui
+        addToLocalStorage("users", updatedCurrentUsers);
         return newEvents;
       });
   };
