@@ -34,7 +34,7 @@ export default function CardList({
 
   return (
     <div>
-      <div className="sticky top-16 w-full z-10">
+      <div className="sticky top-16 w-full z-20">
         {events.length > 1 && (
           <SearchBar
             placeholder="Search by event date, title or author"

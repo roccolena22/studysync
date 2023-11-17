@@ -15,7 +15,7 @@ export default function EventCard({
   const endDate = moment(event.end, "MM/DD/YY");
 
   return (
-    <div className="w-full">
+    <div className="w-full z-10">
       <HeaderCard
         event={event}
         users={users}

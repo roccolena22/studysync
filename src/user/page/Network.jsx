@@ -21,7 +21,7 @@ export default function Network({ infoLoggedUser }) {
   return (
     <div className="flex flex-col items-center">
       <TitlePage title="Network" />
-      <div className="sticky top-16 z-10 w-full">
+      <div className="sticky top-16 w-full">
         <CardList
           events={events}
           handlePartecipantPopup={handlePartecipantPopup}
