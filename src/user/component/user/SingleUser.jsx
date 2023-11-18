@@ -2,7 +2,7 @@ import React from "react";
 import Button from "../../../shared/component/Button";
 import Badge from "../Badge";
 
-export default function SingleUser({ user, handleFollow, removeFollow, infoLoggedUser }) {
+export default function SingleUser({ user, addFollowed, removeFollow, }) {
 
   return (
     <div className="flex justify-between items-center space-x-4 pb-2 py-2 border-b border-slate-400">
@@ -17,7 +17,7 @@ export default function SingleUser({ user, handleFollow, removeFollow, infoLogge
         <p className="text-slate-500 text-xs">{user.email}</p>
       </div>
       <Button small outline onClick={() => (removeFollow(user.email))} name="UnFollow"/>
-      <Button small  onClick={() => (handleFollow(user.email))} name="Follow"/>
+      <Button small  onClick={() => (addFollowed(user))} name="Follow"/>
     </div>
   );
 }

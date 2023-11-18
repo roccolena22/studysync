@@ -3,15 +3,15 @@ import SearchBar from "../shared/SearchBar";
 import SingleUser from "./SingleUser";
 
 export default function UsersList({
-  infoLoggedUser,
+  loggedUser,
   users,
-  handleFollow,
+  addFollowed,
   removeFollow,
 }) {
   const [searchedUsers, setSearchedUsers] = useState([]);
 
   const usersToSearch = users.filter(
-    (user) => user.email !== infoLoggedUser.email
+    (user) => user.email !== loggedUser.email
   );
   const handleSearch = (dataFromSearch) => {
     setSearchedUsers(dataFromSearch);
@@ -29,9 +29,9 @@ export default function UsersList({
             <div key={user.email}>
               <SingleUser
                 user={user}
-                handleFollow={handleFollow}
+                addFollowed={addFollowed}
                 removeFollow={removeFollow}
-                infoLoggedUser={infoLoggedUser}
+                loggedUser={loggedUser}
               />
             </div>
           )

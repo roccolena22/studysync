@@ -1,7 +1,3 @@
-export function clearLocalStorageKey(key) {
-  localStorage.removeItem(key);
-}
-
 export function getFromLocalStorage(key, initialValue) {
   const storedValue = localStorage.getItem(key);
   return storedValue ? JSON.parse(storedValue) : initialValue;

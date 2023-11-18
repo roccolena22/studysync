@@ -9,7 +9,7 @@ import EditEventForm from "./form/EditEventForm";
 import CardList from "./card/CardList";
 import { getUser } from "../hooks/getUser";
 
-export default function EventsContainer({ infoLoggedUser, indexSection }) {
+export default function EventsListContainer({ loggedUser, indexSection }) {
   const [events, setEvents] = useState([]);
   const [pastEvent, setPastEvent] = useState([]);
   const [nextEvent, setNextEvent] = useState([]);
@@ -20,20 +20,20 @@ export default function EventsContainer({ infoLoggedUser, indexSection }) {
   const [selectedEvent, setSelectedEvent] = useState(null);
 
   useEffect(() => {
-    const currentUser = getUser(infoLoggedUser.email);
+    const currentUser = getUser(loggedUser.email);
     const currentUserEvents = currentUser ? currentUser.events : [];
     setEvents(currentUserEvents);
     setIsDeleted(false);
     setEditedEvent(false);
-  }, [isDeleted, editedEvent, infoLoggedUser]);
+  }, [isDeleted, editedEvent, loggedUser]);
 
   useEffect(() => {
-    const currentUser = getUser(infoLoggedUser.email) || { events: [] };
+    const currentUser = getUser(loggedUser.email) || { events: [] };
     const currentUserEvents = currentUser.events || [];
     setEvents(currentUserEvents);
     setIsDeleted(false);
     setEditedEvent(false);
-  }, [isDeleted, editedEvent, infoLoggedUser]);
+  }, [isDeleted, editedEvent, loggedUser]);
   
   useEffect(() => {
     const now = new Date();
@@ -68,12 +68,12 @@ export default function EventsContainer({ infoLoggedUser, indexSection }) {
   
 
   const handleDelete = (event) => {
-    deleteEventFromLocalStorage(infoLoggedUser.email, event.uuid);
+    deleteEventFromLocalStorage(loggedUser.email, event.uuid);
     setIsDeleted(true);
   };
 
   const handleEdit = (editedEvent) => {
-    updateEventFromLocalStorage(infoLoggedUser.email, editedEvent.uuid, editedEvent )
+    updateEventFromLocalStorage(loggedUser.email, editedEvent.uuid, editedEvent )
     setEditedEvent(true);
   };
 

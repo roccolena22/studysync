@@ -3,17 +3,17 @@ import TitlePage from "../component/shared/TitlePage";
 import { getFromLocalStorage } from "../hooks/localStorageHooks";
 import CardList from "../component/card/CardList";
 
-export default function Network({ infoLoggedUser }) {
+export default function Network({ loggedUser }) {
   const [events, setEvents] = useState([]);
   const [users, setUsers] = useState(getFromLocalStorage("users", []));
   const [partecipantPopupIsOpen, setPartecipantPopupIsOpen] = useState(false);
 
   useEffect(() => {
-    const followed = users.filter((el) => infoLoggedUser.email !== el.email);
+    const followed = users.filter((el) => loggedUser.email !== el.email);
     const allEvents = followed.flatMap((user) => user.events || []);
 
     setEvents(allEvents);
-  }, [infoLoggedUser.email, users]);
+  }, [loggedUser.email, users]);
 
   const handlePartecipantPopup = () => {
     setPartecipantPopupIsOpen(!partecipantPopupIsOpen);

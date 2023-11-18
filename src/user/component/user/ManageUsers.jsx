@@ -2,11 +2,12 @@ import { useState, useEffect } from "react";
 import Button from "../../../shared/component/Button";
 import Popup from "../shared/Popup";
 import FollowerAndFollowed from "./FollowerAndFolowed";
+import { getUser } from "../../hooks/getUser";
 
 export default function ManageUsers({
-  infoLoggedUser,
-  combinedArray,
-  handleFollow,
+  loggedUser,
+  users,
+  addFollowed,
   removeFollow,
 }) {
   const [popupIsOpen, setPopupIsOpen] = useState(false);
@@ -17,16 +18,14 @@ export default function ManageUsers({
     setPopupIsOpen(!popupIsOpen);
   };
 
-  useEffect(() => {
-    const currentUser = combinedArray.find(
-      (el) => infoLoggedUser.email === el.email
-    );
+  const currentUser = getUser(loggedUser.email);
 
+  useEffect(() => {
     if (currentUser) {
       setFollowed(currentUser.followed || []);
       setFollowers(currentUser.followers || []);
     }
-  }, [infoLoggedUser.email, combinedArray]);
+  }, [loggedUser.email, users]);
 
   return (
     <>
@@ -55,8 +54,9 @@ export default function ManageUsers({
           <FollowerAndFollowed
             followed={followed}
             followers={followers}
-            handleFollow={handleFollow}
+            addFollowed={addFollowed}
             removeFollow={removeFollow}
+            loggedUser={loggedUser}
           />
         </Popup>
       )}

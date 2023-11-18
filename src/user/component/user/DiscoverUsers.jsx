@@ -5,9 +5,9 @@ import UsersList from "./UserList";
 import TitlePage from "../shared/TitlePage";
 
 export default function DiscoverUsers({
-  infoLoggedUser,
+  loggedUser,
   users,
-  handleFollow,
+  addFollowed,
   removeFollow,
 }) {
   const [popupIsOpen, setPopupIsOpen] = useState(false);
@@ -36,8 +36,8 @@ export default function DiscoverUsers({
           <TitlePage title="Search among StudySync users" />
           <UsersList
             users={users}
-            infoLoggedUser={infoLoggedUser}
-            handleFollow={handleFollow}
+            loggedUser={loggedUser}
+            addFollowed={addFollowed}
             removeFollow={removeFollow}
           />
         </Popup>

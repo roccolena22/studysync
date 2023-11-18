@@ -5,7 +5,7 @@ import DeleteAccount from "./DeleteAccount";
 import EditPasswordForm from "./form/EditPasswordForm";
 import TitleSection from "./shared/TitleSection";
 
-export default function InfoAccount({ infoLoggedUser }) {
+export default function InfoAccount({ loggedUser }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClose = () => {
@@ -14,7 +14,7 @@ export default function InfoAccount({ infoLoggedUser }) {
 
   return (
     <div className="pt-6 w-full flex flex-col justify-center">
-      <ProfileInfoForm infoLoggedUser={infoLoggedUser} />
+      <ProfileInfoForm loggedUser={loggedUser} />
       <TitleSection title="Edit password" />
       <div className="pt-6">
         <EditPasswordForm />

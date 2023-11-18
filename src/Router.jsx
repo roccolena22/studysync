@@ -42,7 +42,7 @@ const Router = () => {
             path="/"
             element={
               <Protected isLogged={loggedUser}>
-                <Dashboard infoLoggedUser={loggedUser} />
+                <Dashboard loggedUser={loggedUser} />
               </Protected>
             }
           />
@@ -50,7 +50,7 @@ const Router = () => {
             path="/account"
             element={
               <Protected isLogged={loggedUser}>
-                <Account infoLoggedUser={loggedUser} />
+                <Account loggedUser={loggedUser} />
               </Protected>
             }
           />
@@ -58,7 +58,7 @@ const Router = () => {
             path="/calendar"
             element={
               <Protected isLogged={loggedUser}>
-                <CalendarPage infoLoggedUser={loggedUser} />
+                <CalendarPage loggedUser={loggedUser} />
               </Protected>
             }
           />
@@ -66,7 +66,7 @@ const Router = () => {
             path="/network"
             element={
               <Protected isLogged={loggedUser}>
-                <Network infoLoggedUser={loggedUser} />{" "}
+                <Network loggedUser={loggedUser} />{" "}
               </Protected>
             }
           />

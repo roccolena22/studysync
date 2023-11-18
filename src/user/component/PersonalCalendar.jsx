@@ -11,7 +11,7 @@ import {
 import TitlePage from "./shared/TitlePage";
 import Popup from "./shared/Popup";
 
-export default function PersonaleCalendar({ infoLoggedUser }) {
+export default function PersonaleCalendar({ loggedUser }) {
   const [isPopupOpen, setPopupOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
   const [events, setEvents] = useState([]);
@@ -22,10 +22,10 @@ export default function PersonaleCalendar({ infoLoggedUser }) {
     const users = getFromLocalStorage("users", []);
 
     const currentUserEvents = users
-      .find((user) => user.email === infoLoggedUser.email)?.events || [];
+      .find((user) => user.email === loggedUser.email)?.events || [];
 
     setEvents(currentUserEvents);
-  }, [infoLoggedUser]);
+  }, [loggedUser]);
 
   const handleEventsFromForm = (eventsFromForm) => {
     eventsFromForm &&
@@ -33,7 +33,7 @@ export default function PersonaleCalendar({ infoLoggedUser }) {
         const newEvents = [...prevEvents, eventsFromForm];
         const users = getFromLocalStorage("users", []);
         const updatedCurrentUsers = users.map((user) => {
-          if (user.email === infoLoggedUser.email) {
+          if (user.email === loggedUser.email) {
             return { ...user, events: newEvents };
           }
           return user;

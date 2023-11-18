@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { UserInfoValidator } from "./validator/UserInfoValidator";
 
-export default function ProfileInfoForm({ handleUserInfo, infoLoggedUser }) {
+export default function ProfileInfoForm({ handleUserInfo, loggedUser }) {
 
 
   const {
@@ -14,9 +14,9 @@ export default function ProfileInfoForm({ handleUserInfo, infoLoggedUser }) {
   } = useForm({
     resolver: yupResolver(UserInfoValidator),
     defaultValues: {
-      name: infoLoggedUser.name,
-      surname: infoLoggedUser.surname,
-      email: infoLoggedUser.email,
+      name: loggedUser.name,
+      surname: loggedUser.surname,
+      email: loggedUser.email,
     },
   });
 
