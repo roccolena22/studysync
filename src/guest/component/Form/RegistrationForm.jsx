@@ -14,6 +14,7 @@ import bcrypt from "bcryptjs";
 import { setUser } from "../../../redux/authSlice";
 import { useDispatch } from "react-redux";
 import { getUser } from "../../../user/hooks/getUser";
+import { addToDatabase } from "../../../api/usersApi";
 
 export default function RegistrationForm() {
   const [users, setUsers] = useState(getFromLocalStorage("users", []));
@@ -52,6 +53,8 @@ export default function RegistrationForm() {
   });
 
   const onSubmit = (data) => {
+    console.log(data);
+
     if (role === null) {
       return;
     }
@@ -68,12 +71,21 @@ export default function RegistrationForm() {
       const saltRounds = 10;
       bcrypt.hash(data.password, saltRounds, (err, hash) => {
         data.password = hash;
-        data.confirmPassword = hash; 
-        
+        data.confirmPassword = hash;
 
         const updatedUsers = [...users, data];
         setUsers(updatedUsers);
         addToLocalStorage("users", updatedUsers);
+        const updateDataArray = [{
+          firstName: data.firstName,
+          lastName: data.lastName,
+          email: data.email,
+          role: data.role,
+          password: data.password,
+        }];
+
+        // Chiamare la funzione con l'oggetto creato
+        addToDatabase("users", updateDataArray);
         dispatch(setUser(data));
         navigate("/");
       });
