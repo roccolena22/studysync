@@ -85,13 +85,13 @@ export default function RegistrationForm() {
       <div className="flex space-x-4">
         <Input
           label="Name"
-          errorMessage={errors.name?.message}
-          register={register("name")}
+          errorMessage={errors.firstName?.message}
+          register={register("firstName")}
         />
         <Input
           label="Surname"
-          errorMessage={errors.surname?.message}
-          register={register("surname")}
+          errorMessage={errors.lastName?.message}
+          register={register("lastName")}
         />
       </div>
       <Input

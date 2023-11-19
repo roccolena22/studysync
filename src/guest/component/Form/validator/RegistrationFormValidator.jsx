@@ -1,11 +1,11 @@
 import * as yup from "yup";
 
 export const RegistrationFormValidator = yup.object().shape({
-  name: yup
+  firstName: yup
     .string()
     .max(50, "Password is too long")
     .required("First name is required"),
-  surname: yup
+  lastName: yup
     .string()
     .max(100, "Password is too long")
     .required("Last name is required"),
