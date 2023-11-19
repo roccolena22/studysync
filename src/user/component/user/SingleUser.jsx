@@ -9,8 +9,8 @@ export default function SingleUser({ user, addFollowed, removeFollow, }) {
       <div className="flex flex-col">
         <div className="flex space-x-2 items-center">
           <div className="space-x-1">
-            <span>{user.name}</span>
-            <span>{user.surname}</span>
+            <span>{user.firstName}</span>
+            <span>{user.lastName}</span>
           </div>
           <Badge text={user.role} />
         </div>

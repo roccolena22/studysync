@@ -13,7 +13,7 @@ import {
 export default function Dashboard({ loggedUser }) {
   const [indexSection, setIndexSection] = useState(0);
   const [users, setUsers] = useState(getFromLocalStorage("users", []));
-  const [followed, setFollowed] = useState(loggedUser.followed);
+  const [followed, setFollowed] = useState(loggedUser.followed || []);
 
   const simpleLoggedUser = {
     ...loggedUser,
@@ -28,21 +28,16 @@ export default function Dashboard({ loggedUser }) {
     setFollowed((prevFollowed) => [...prevFollowed, updatedUser]);
   };
 
-  const removeFollow = (email) => {};
+  const removeFollow = (email) => {
+    // Aggiungi la logica per rimuovere il follow
+  };
 
   useEffect(() => {
     const updatedFollowed = users.map((user) => {
       if (user.email === loggedUser.email) {
         return {
           ...user,
-          followed: [
-            ...followed.map(({ name, surname, email, role }) => ({
-              name,
-              surname,
-              email,
-              role,
-            })),
-          ],
+          followed: [...followed],
         };
       } else {
         return user;
@@ -50,7 +45,7 @@ export default function Dashboard({ loggedUser }) {
     });
 
     const combinedArray =
-      followed.length > 0
+      followed && followed.length > 0
         ? updatedFollowed.map((item1) => {
             const matchingItem2 = followed.find(
               (item2) => item2 && item1 && item2.email === item1.email

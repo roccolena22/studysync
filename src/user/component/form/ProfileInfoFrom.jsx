@@ -14,8 +14,8 @@ export default function ProfileInfoForm({ handleUserInfo, loggedUser }) {
   } = useForm({
     resolver: yupResolver(UserInfoValidator),
     defaultValues: {
-      name: loggedUser.name,
-      surname: loggedUser.surname,
+      firstName: loggedUser.firstName,
+      lastName: loggedUser.lastName,
       email: loggedUser.email,
     },
   });
@@ -31,14 +31,14 @@ export default function ProfileInfoForm({ handleUserInfo, loggedUser }) {
           <Input
             label="Name"
             placeholder="Enter your first name"
-            register={register("name")}
-            errorMessage={errors.name?.message}
+            register={register("firstName")}
+            errorMessage={errors.firstName?.message}
           />
           <Input
             label="Surname"
             placeholder="Enter your first surname"
-            register={register("surname")}
-            errorMessage={errors.surname?.message}
+            register={register("lastName")}
+            errorMessage={errors.lastName?.message}
           />
         </div>
         <Input

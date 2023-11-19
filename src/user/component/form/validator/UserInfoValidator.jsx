@@ -1,11 +1,11 @@
 import * as yup from "yup";
 
 export const UserInfoValidator = yup.object().shape({
-  name: yup
+  firstName: yup
     .string()
     .max(30, "The name cannot exceed 30 characters")
     .required("Name is required"),
-  surname: yup
+  lastName: yup
     .string()
     .max(30, "The surname cannot exceed 30 characters")
     .required("Surname is required"),

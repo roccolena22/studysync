@@ -8,7 +8,7 @@ export default function SearchBar({ placeholder, data, dataFromSearch }) {
   const filterData = () => {
     const lowerCaseSearchTerm = searchTerm.toLowerCase();
     const filteredData = data.filter((element) =>
-      ["title", "name", "surname", "start", "end", "email"].some((property) =>
+      ["title", "firstName", "lastName", "start", "end", "email"].some((property) =>
         element[property]?.toLowerCase().includes(lowerCaseSearchTerm)
       )
     );
