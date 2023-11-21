@@ -5,6 +5,7 @@ import NoEvents from "../shared/NoEvents";
 import GadgetBox from "../shared/GadgetBox";
 
 export default function CardList({
+  loggedUser,
   events,
   handleDelete,
   handlePartecipantPopup,
@@ -49,6 +50,7 @@ export default function CardList({
             <div className="w-full pt-6">
               <GadgetBox>
                   <EventCard
+                  loggedUser={loggedUser}
                     event={event}
                     handleDelete={handleDelete}
                     handlePartecipantPopup={handlePartecipantPopup}

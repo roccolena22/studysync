@@ -3,7 +3,7 @@ import TabMenu from "../navigation/TabMenu";
 import UsersList from "./UserList";
 
 export default function FollowerAndFollowed({
-  followed,
+  following,
   followers,
   loggedUser,
   addFollowed,
@@ -17,13 +17,13 @@ export default function FollowerAndFollowed({
   return (
     <div className="pt-2">
       <TabMenu
-        firstSectionName="Followed"
+        firstSectionName="following"
         secondSectionName="Followers"
         handleSections={handleSections}
       />
       {indexSection === 0 ? (
         <UsersList
-          users={followed}
+          users={following}
           loggedUser={loggedUser}
           addFollowed={addFollowed}
           removeFollow={removeFollow}

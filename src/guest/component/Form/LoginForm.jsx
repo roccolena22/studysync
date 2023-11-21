@@ -1,23 +1,24 @@
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useNavigate } from 'react-router-dom';
-import Button from '../../../shared/component/Button';
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
-import { LoginFormValidator } from './validator/LoginFormValidator';
-import Input from '../../../shared/component/Input';
-import Icon from '../../../shared/component/Icon';
-import bcrypt from 'bcryptjs';
-import { setUser } from '../../../redux/authSlice'
-import { useDispatch } from 'react-redux';
-import { getUser } from '../../../user/hooks/getUser';
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useNavigate } from "react-router-dom";
+import Button from "../../../shared/component/Button";
+import { Link } from "react-router-dom";
+import { useState } from "react";
+import { LoginFormValidator } from "./validator/LoginFormValidator";
+import Input from "../../../shared/component/Input";
+import Icon from "../../../shared/component/Icon";
+import bcrypt from "bcryptjs";
+import { setUser } from "../../../redux/authSlice";
+import { useDispatch } from "react-redux";
+import { addToLocalStorage } from "../../../user/hooks/localStorageHooks";
+import { getFromDatabase } from "../../../api/usersApi";
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [loginError, setLoginError] = useState(null);
 
   const navigate = useNavigate();
-  const dispatch = useDispatch(); 
+  const dispatch = useDispatch();
 
   const {
     handleSubmit,
@@ -27,19 +28,36 @@ export default function LoginForm() {
     resolver: yupResolver(LoginFormValidator),
   });
 
-  const onSubmit = (data) => {
-    const user = getUser(data.email)
-    if (user) {
-      bcrypt.compare(data.password, user.password, (err, result) => {
-        if (result) {
-          dispatch(setUser(user));
-          navigate('/');
+  const onSubmit = async (data) => {
+    try {
+      const usersFromDatabase = await getFromDatabase("users");
+
+      const loggedUser = usersFromDatabase.find(
+        (user) => user.fields.email === data.email
+      );
+
+      addToLocalStorage("loggedUser", loggedUser.fields);
+
+      if (loggedUser) {
+        const userPassword = loggedUser.fields && loggedUser.fields.password;
+
+        if (userPassword) {
+          const result = await bcrypt.compare(data.password, userPassword);
+
+          if (result) {
+            dispatch(setUser(loggedUser.fields));
+            navigate("/");
+          } else {
+            setLoginError("Invalid email or password");
+          }
         } else {
-          setLoginError('Invalid email or password');
+          setLoginError("Invalid email or password");
         }
-      });
-    } else {
-      setLoginError('Invalid email or password');
+      } else {
+        setLoginError("Invalid email or password");
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
     }
   };
 
@@ -52,13 +70,13 @@ export default function LoginForm() {
       <Input
         label="E-mail"
         errorMessage={errors.email?.message}
-        register={register('email')}
+        register={register("email")}
       />
       <Input
         label="Password"
         errorMessage={errors.password?.message}
-        register={register('password')}
-        type={showPassword ? 'text' : 'password'}
+        register={register("password")}
+        type={showPassword ? "text" : "password"}
       >
         {showPassword ? (
           <Icon name="eyeInvisible" onClick={handleShowPassword} />

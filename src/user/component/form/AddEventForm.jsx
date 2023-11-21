@@ -6,17 +6,15 @@ import { EventFormValidator } from "./validator/EventFormValidator";
 import Input from "../../../shared/component/Input";
 import DropdownMenu from "../shared/DropdownMenu";
 import { useState } from "react";
-import { v4 as uuidv4 } from "uuid";
-import { useSelector } from "react-redux";
+import { addToDatabase } from "../../../api/usersApi";
 
 export default function AddEventForm({
+  loggedUser,
   selectedDate,
   handleEventsFromForm,
   setSelectedDate,
 }) {
   const [selectedMode, setSelectedMode] = useState("In person");
-
-  const loggedUser = useSelector((state) => state.auth.user);
 
   const {
     handleSubmit,
@@ -30,8 +28,28 @@ export default function AddEventForm({
   const onSubmit = (data) => {
     data.start = moment(selectedDate);
     data.end = moment(selectedDate);
-    data.uuid = uuidv4();
-    data.authorId = loggedUser.email;
+    data.authorId = loggedUser.id;
+    data.authorEmail = loggedUser.email;
+
+    const EventArray = [
+      {
+        title: data.title,
+        location: data.location,
+        platform: data.platform,
+        startTime: data.startTime,
+        endTime: data.endTime,
+        mode: data.mode,
+        places: data.places,
+        info: data.info,
+        // start: data.start,
+        // end: data.end,
+        authorEmail: data.authorEmail,
+        authorId: data.authorId,
+      },
+    ];
+
+    addToDatabase("events", EventArray);
+
     handleEventsFromForm(data);
     setSelectedDate(null);
     reset();

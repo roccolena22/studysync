@@ -8,11 +8,13 @@ export default function UsersList({
   addFollowed,
   removeFollow,
 }) {
+
   const [searchedUsers, setSearchedUsers] = useState([]);
 
   const usersToSearch = users.filter(
     (user) => user.email !== loggedUser.email
   );
+  
   const handleSearch = (dataFromSearch) => {
     setSearchedUsers(dataFromSearch);
   };
@@ -25,13 +27,12 @@ export default function UsersList({
       />
       <div className="pt-6">
         {(searchedUsers.length > 0 ? searchedUsers : usersToSearch).map(
-          (user) => (
-            <div key={user.email}>
+          (user, index) => (
+            <div key={index}>
               <SingleUser
                 user={user}
                 addFollowed={addFollowed}
                 removeFollow={removeFollow}
-                loggedUser={loggedUser}
               />
             </div>
           )

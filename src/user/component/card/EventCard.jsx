@@ -5,6 +5,7 @@ import OptionsCard from "./OptionsCard";
 import Badge from "../Badge";
 
 export default function EventCard({
+  loggedUser,
   event,
   handleDelete,
   handleEditPopup,
@@ -17,6 +18,7 @@ export default function EventCard({
   return (
     <div className="w-full z-10">
       <HeaderCard
+      loggedUser={loggedUser}
         event={event}
         users={users}
         handlePartecipantPopup={handlePartecipantPopup}

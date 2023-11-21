@@ -1,62 +1,40 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import TabMenu from "../component/navigation/TabMenu";
 import EventsListContainer from "../component/EventsListContainer";
 import TitlePage from "../component/shared/TitlePage";
 import GadgetBox from "../component/shared/GadgetBox";
 import DiscoverUsers from "../component/user/DiscoverUsers";
 import ManageUsers from "../component/user/ManageUsers";
-import {
-  addToLocalStorage,
-  getFromLocalStorage,
-} from "../hooks/localStorageHooks";
+import { addToLocalStorage, getFromLocalStorage } from "../hooks/localStorageHooks";
+import { addToDatabase } from "../../api/usersApi";
 
 export default function Dashboard({ loggedUser }) {
   const [indexSection, setIndexSection] = useState(0);
-  const [users, setUsers] = useState(getFromLocalStorage("users", []));
-  const [followed, setFollowed] = useState(loggedUser.followed || []);
+  const [followers, setFollowers] = useState(getFromLocalStorage("followers", []));
 
-  const simpleLoggedUser = {
-    ...loggedUser,
-    password: undefined,
-    confirmPassword: undefined,
-    followed: undefined,
-    followers: undefined,
-  };
+  const usersFromDatabase = getFromLocalStorage("usersFromDatabase", []); //sarà sostituito con la chiamata al database
+
+  const arrayWithFieldsOnly = usersFromDatabase.map((item) => item.fields);
+
+  const [users, setUsers] = useState(arrayWithFieldsOnly);
 
   const addFollowed = (userFollowed) => {
-    const updatedUser = { ...userFollowed, followers: [simpleLoggedUser] };
-    setFollowed((prevFollowed) => [...prevFollowed, updatedUser]);
+
+    const followersArray = [
+      {
+        idFrom: loggedUser.id,
+        idTo: userFollowed.id,
+      },
+    ];
+    
+    addToDatabase("followers", followersArray);
+
+    setFollowers((prevFollowers) => [...prevFollowers, followersArray]);
+
+    addToLocalStorage("followers", followers)
   };
 
-  const removeFollow = (email) => {
-    // Aggiungi la logica per rimuovere il follow
-  };
-
-  useEffect(() => {
-    const updatedFollowed = users.map((user) => {
-      if (user.email === loggedUser.email) {
-        return {
-          ...user,
-          followed: [...followed],
-        };
-      } else {
-        return user;
-      }
-    });
-
-    const combinedArray =
-      followed && followed.length > 0
-        ? updatedFollowed.map((item1) => {
-            const matchingItem2 = followed.find(
-              (item2) => item2 && item1 && item2.email === item1.email
-            );
-            return matchingItem2 ? { ...item1, ...matchingItem2 } : item1;
-          })
-        : updatedFollowed;
-
-    addToLocalStorage("users", combinedArray);
-    setUsers(combinedArray);
-  }, [followed, loggedUser]);
+  const removeFollow = (email) => {};
 
   const handleSections = (index) => {
     setIndexSection(index);
@@ -76,6 +54,7 @@ export default function Dashboard({ loggedUser }) {
         </GadgetBox>
         <GadgetBox>
           <ManageUsers
+          followers={followers}
             loggedUser={loggedUser}
             users={users}
             addFollowed={addFollowed}

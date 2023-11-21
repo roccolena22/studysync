@@ -4,46 +4,26 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import moment from "moment";
 import "moment/locale/it";
 import AddEventForm from "./form/AddEventForm";
+import TitlePage from "./shared/TitlePage";
+import Popup from "./shared/Popup";
 import {
   addToLocalStorage,
   getFromLocalStorage,
 } from "../hooks/localStorageHooks";
-import TitlePage from "./shared/TitlePage";
-import Popup from "./shared/Popup";
 
 export default function PersonaleCalendar({ loggedUser }) {
   const [isPopupOpen, setPopupOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
-  const [events, setEvents] = useState([]);
+  const [events, setEvents] = useState(getFromLocalStorage("events", []));
 
   const localizer = momentLocalizer(moment);
 
-  useEffect(() => {
-    const users = getFromLocalStorage("users", []);
-
-    const currentUserEvents = users
-      .find((user) => user.email === loggedUser.email)?.events || [];
-
-    setEvents(currentUserEvents);
-  }, [loggedUser]);
-
   const handleEventsFromForm = (eventsFromForm) => {
-    eventsFromForm &&
-      setEvents((prevEvents) => {
-        const newEvents = [...prevEvents, eventsFromForm];
-        const users = getFromLocalStorage("users", []);
-        const updatedCurrentUsers = users.map((user) => {
-          if (user.email === loggedUser.email) {
-            return { ...user, events: newEvents };
-          }
-          return user;
-        });
-
-        addToLocalStorage("users", updatedCurrentUsers);
-        return newEvents;
-      });
+    setEvents((prevEvents) => [...prevEvents, eventsFromForm]);
   };
-
+  useEffect(() => {
+    addToLocalStorage("events", events);
+  }, [events]);
   const handleSelectSlot = (slotInfo) => {
     const selectedDateFormatted = moment(slotInfo.start).toDate();
     const currentDate = new Date();
@@ -100,6 +80,7 @@ export default function PersonaleCalendar({ loggedUser }) {
           </TitlePage>
           <div className="pt-4">
             <AddEventForm
+              loggedUser={loggedUser}
               selectedDate={selectedDate}
               handleEventsFromForm={handleEventsFromForm}
               setSelectedDate={setSelectedDate}

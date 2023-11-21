@@ -13,8 +13,7 @@ import {
 import bcrypt from "bcryptjs";
 import { setUser } from "../../../redux/authSlice";
 import { useDispatch } from "react-redux";
-import { getUser } from "../../../user/hooks/getUser";
-import { addToDatabase } from "../../../api/usersApi";
+import { addToDatabase, getFromDatabase } from "../../../api/usersApi";
 
 export default function RegistrationForm() {
   const [users, setUsers] = useState(getFromLocalStorage("users", []));
@@ -52,43 +51,55 @@ export default function RegistrationForm() {
     resolver: yupResolver(RegistrationFormValidator),
   });
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    try {
+      const usersFromDatabase = await getFromDatabase("users");
+      console.log(usersFromDatabase);
+      addToLocalStorage("usersFromDatabase", usersFromDatabase);
+      if (role === null) {
+        return;
+      }
+      const existingUser = usersFromDatabase.find(
+        (user) => user.fields.email === data.email
+      );
 
-    if (role === null) {
-      return;
-    }
+      if (existingUser) {
+        setError(true);
+      } else {
+        setError(false);
 
-    const existingUser = getUser(data.email);
+        data.role = role;
 
-    if (existingUser) {
-      setError(true);
-    } else {
-      setError(false);
+        const saltRounds = 10;
+        const hash = await bcrypt.hash(data.password, saltRounds);
 
-      data.role = role;
-
-      const saltRounds = 10;
-      bcrypt.hash(data.password, saltRounds, (err, hash) => {
         data.password = hash;
         data.confirmPassword = hash;
 
         const updatedUsers = [...users, data];
         setUsers(updatedUsers);
         addToLocalStorage("users", updatedUsers);
-        const updateDataArray = [{
-          firstName: data.firstName,
-          lastName: data.lastName,
-          email: data.email,
-          role: data.role,
-          password: data.password,
-        }];
+        const updateDataArray = [
+          {
+            firstName: data.firstName,
+            lastName: data.lastName,
+            email: data.email,
+            role: data.role,
+            password: data.password,
+          },
+        ];
 
         // Chiamare la funzione con l'oggetto creato
-        addToDatabase("users", updateDataArray);
+        await addToDatabase("users", updateDataArray);
         dispatch(setUser(data));
         navigate("/");
-      });
+      }
+    } catch (error) {
+      console.error(
+        "Errore durante il recupero degli utenti dal database:",
+        error
+      );
+      // Gestisci l'errore in base alle tue esigenze.
     }
   };
 

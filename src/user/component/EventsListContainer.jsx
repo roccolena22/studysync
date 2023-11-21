@@ -34,10 +34,10 @@ export default function EventsListContainer({ loggedUser, indexSection }) {
     setIsDeleted(false);
     setEditedEvent(false);
   }, [isDeleted, editedEvent, loggedUser]);
-  
+
   useEffect(() => {
     const now = new Date();
-  
+
     const past = events
       .filter((event) => event && event.end && event.endTime)
       .filter((event) => {
@@ -47,7 +47,7 @@ export default function EventsListContainer({ loggedUser, indexSection }) {
         return endDate < now;
       });
 
-      const next = events
+    const next = events
       .filter((event) => event && event.end && event.endTime)
       .filter((event) => {
         const endDate = new Date(event.end);
@@ -55,17 +55,16 @@ export default function EventsListContainer({ loggedUser, indexSection }) {
         endDate.setHours(endTime[0], endTime[1], 0, 0);
         return endDate > now;
       });
-  
+
     const updatedPast = past.map((event) => ({
       ...event,
       status: "Finished",
     }));
     const updatedNext = next.map((event) => ({ ...event, status: "Active" }));
-  
+
     setPastEvent(updatedPast);
     setNextEvent(updatedNext);
   }, [events]);
-  
 
   const handleDelete = (event) => {
     deleteEventFromLocalStorage(loggedUser.email, event.uuid);
@@ -73,7 +72,11 @@ export default function EventsListContainer({ loggedUser, indexSection }) {
   };
 
   const handleEdit = (editedEvent) => {
-    updateEventFromLocalStorage(loggedUser.email, editedEvent.uuid, editedEvent )
+    updateEventFromLocalStorage(
+      loggedUser.email,
+      editedEvent.uuid,
+      editedEvent
+    );
     setEditedEvent(true);
   };
 
@@ -97,6 +100,7 @@ export default function EventsListContainer({ loggedUser, indexSection }) {
         <div className="w-full">
           {indexSection === 0 ? (
             <CardList
+              loggedUser={loggedUser}
               events={nextEvent}
               handleDelete={handleDelete}
               handleUpdatePopup={handleUpdatePopup}
@@ -104,6 +108,7 @@ export default function EventsListContainer({ loggedUser, indexSection }) {
             />
           ) : (
             <CardList
+              loggedUser={loggedUser}
               events={pastEvent}
               handleDelete={handleDelete}
               handleUpdatePopup={handleUpdatePopup}
