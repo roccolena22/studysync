@@ -18,7 +18,6 @@ export default function PersonaleCalendar({ loggedUser }) {
     setEvents((prevEvents) => [...prevEvents, eventsFromForm]);
   };
 
-
   const handleSelectSlot = (slotInfo) => {
     const selectedDateFormatted = moment(slotInfo.start).toDate();
     const currentDate = new Date();
@@ -31,7 +30,9 @@ export default function PersonaleCalendar({ loggedUser }) {
     }
   };
 
-const loggedUserEvents = events.filter((event)=>event.authorId === loggedUser.id)
+  const loggedUserEvents = events.filter(
+    (event) => event.authorId === loggedUser.id
+  );
 
   const handlePopup = () => {
     setPopupOpen(!isPopupOpen);

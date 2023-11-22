@@ -8,6 +8,7 @@ import DropdownMenu from "../shared/DropdownMenu";
 import { useState } from "react";
 import { addToDatabase } from "../../../api/apiRequest";
 import { useDispatch } from "react-redux";
+import { addEvent } from "../../../redux/eventsSlice";
 
 export default function AddEventForm({
   loggedUser,
@@ -18,7 +19,6 @@ export default function AddEventForm({
   const [selectedMode, setSelectedMode] = useState("In person");
 
   const dispatch = useDispatch();
-
 
   const {
     handleSubmit,
@@ -34,6 +34,8 @@ export default function AddEventForm({
     data.end = moment(selectedDate);
     data.authorId = loggedUser.id;
     data.authorEmail = loggedUser.email;
+    data.authorFirstName = loggedUser.firstName;
+    data.authorLastName = loggedUser.lastName;
 
     const EventArray = [
       {
@@ -49,11 +51,13 @@ export default function AddEventForm({
         // end: data.end,
         authorEmail: data.authorEmail,
         authorId: data.authorId,
+        authorFirstName: data.authorFirstName,
+        authorLastName: data.authorLastName,
       },
     ];
 
     addToDatabase("events", EventArray);
-    dispatch(EventArray)
+    dispatch(addEvent(EventArray))
 
     handleEventsFromForm(data);
     setSelectedDate(null);

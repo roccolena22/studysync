@@ -6,8 +6,7 @@ const eventsSlice = createSlice({
   initialState: [],
   reducers: {
     addEvent: (state, action) => {
-      // Aggiungi il nuovo evento allo stato
-      state.push(action.payload);
+      return action.payload;
     },
     // Puoi aggiungere altre azioni qui se necessario
   },

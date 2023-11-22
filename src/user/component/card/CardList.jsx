@@ -17,22 +17,6 @@ export default function CardList({
     setEventsSearched(dataFromSearch);
   };
 
-  const sortEventsByDateAndTime = (events) => {
-    return events
-      .filter((event) => event && event.start && event.startTime)
-      .slice()
-      .sort((event1, event2) => {
-        const date1 = new Date(event1.start + " " + event1.startTime);
-        const date2 = new Date(event2.start + " " + event2.startTime);
-        return date1 - date2;
-      });
-  };
-  
-  const list =
-    eventsSearched && eventsSearched.length > 0
-      ? eventsSearched
-      : sortEventsByDateAndTime(events);
-
   return (
     <div>
       <div className="sticky top-16 w-full z-20">
@@ -44,18 +28,18 @@ export default function CardList({
           />
         )}
       </div>
-      {list.length > 0 ? (
-        list.map((event, index) => (
+      {events.length > 0 ? (
+        events.map((event, index) => (
           <div key={index}>
             <div className="w-full pt-6">
               <GadgetBox>
-                  <EventCard
+                <EventCard
                   loggedUser={loggedUser}
-                    event={event}
-                    handleDelete={handleDelete}
-                    handlePartecipantPopup={handlePartecipantPopup}
-                    handleEditPopup={() => handleUpdatePopup(event)}
-                  />
+                  event={event}
+                  handleDelete={handleDelete}
+                  handlePartecipantPopup={handlePartecipantPopup}
+                  handleEditPopup={() => handleUpdatePopup(event)}
+                />
               </GadgetBox>
             </div>
           </div>

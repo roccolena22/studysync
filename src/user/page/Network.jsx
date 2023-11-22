@@ -1,31 +1,27 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import TitlePage from "../component/shared/TitlePage";
 import CardList from "../component/card/CardList";
-import { getFromDatabase } from "../../api/apiRequest";
 
-export default function Network({ loggedUser }) {
+export default function Network({ loggedUser, followers, events }) {
   const [partecipantPopupIsOpen, setPartecipantPopupIsOpen] = useState(false);
-
-  const fetchEvents = async () => {
-    const eventsFromDatabase = await getFromDatabase("events");
-    const eventsFields = eventsFromDatabase.map((item) => item.fields);
-  };
-
-  useEffect(() => {
-    fetchEvents();
-  }, []);
 
   const handlePartecipantPopup = () => {
     setPartecipantPopupIsOpen(!partecipantPopupIsOpen);
   };
+
+const filterFollowers = followers.filter((user)=> user.idTo === loggedUser.id);
+const loggedUserFollowers = filterFollowers.map((user)=>({idFrom: user.idFrom}))
+
+const networkEvents = events.filter(event => loggedUserFollowers.some(item => item.idFrom === event.authorId));
+
   return (
     <div className="flex flex-col items-center">
       <TitlePage title="Network" />
       <div className="sticky top-16 w-full">
-        {/* <CardList
-          events={events}
+        <CardList
+          events={networkEvents}
           handlePartecipantPopup={handlePartecipantPopup}
-        /> */}
+        />
       </div>
     </div>
   );

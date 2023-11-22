@@ -7,20 +7,25 @@ import GadgetBox from "../component/shared/GadgetBox";
 import DiscoverUsers from "../component/user/DiscoverUsers";
 import ManageUsers from "../component/user/ManageUsers";
 import { addToDatabase, getFromDatabase } from "../../api/apiRequest";
-import { addFollower, removeFollower, setFollowers } from "../../redux/followersSlice";
+import {
+  addFollower,
+  removeFollower,
+  setFollowers,
+} from "../../redux/followersSlice";
+import { addEvent } from "../../redux/eventsSlice";
 
 export default function Dashboard({ loggedUser, users, followers }) {
   const [indexSection, setIndexSection] = useState(0);
-
-  console.log(users);
-
+  const [userEvents, setUserEvents] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchFollowers = async () => {
       try {
         const followersFromDatabase = await getFromDatabase("followers");
-        const arrayWithFieldsOnly = followersFromDatabase.map((item) => item.fields);
+        const arrayWithFieldsOnly = followersFromDatabase.map(
+          (item) => item.fields
+        );
         dispatch(setFollowers(arrayWithFieldsOnly));
       } catch (error) {
         console.error("Errore nel recupero dei follower dal database", error);
@@ -30,6 +35,20 @@ export default function Dashboard({ loggedUser, users, followers }) {
     fetchFollowers();
   }, [dispatch]);
 
+  useEffect(() => {
+    const fetchEvents = async () => {
+      const eventsFromDatabase = await getFromDatabase("events");
+      const eventsFields = eventsFromDatabase.map((item) => item.fields);
+      dispatch(addEvent(eventsFields));
+
+      const filteredEvents = eventsFields.filter(
+        (event) => event.authorId === loggedUser.id
+      );
+
+      setUserEvents(filteredEvents);
+    };
+    fetchEvents();
+  }, []);
 
   const addFollowers = async (userFollowed) => {
     const followersArray = [
@@ -42,14 +61,15 @@ export default function Dashboard({ loggedUser, users, followers }) {
     try {
       await addToDatabase("followers", followersArray);
       dispatch(addFollower(followersArray[0]));
-
     } catch (error) {
       console.error("Errore nell'aggiunta dei follower", error);
     }
   };
 
   const removeFollow = (email) => {
-    const followerToRemove = followers.find((follower) => follower.email === email);
+    const followerToRemove = followers.find(
+      (follower) => follower.email === email
+    );
     if (followerToRemove) {
       try {
         // Rimuovi il follower dal database
@@ -97,6 +117,7 @@ export default function Dashboard({ loggedUser, users, followers }) {
       <EventsListContainer
         indexSection={indexSection}
         loggedUser={loggedUser}
+        events={userEvents}
       />
     </div>
   );

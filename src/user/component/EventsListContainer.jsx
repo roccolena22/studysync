@@ -9,62 +9,17 @@ import EditEventForm from "./form/EditEventForm";
 import CardList from "./card/CardList";
 import { getUser } from "../hooks/getUser";
 
-export default function EventsListContainer({ loggedUser, indexSection }) {
-  const [events, setEvents] = useState([]);
-  const [pastEvent, setPastEvent] = useState([]);
-  const [nextEvent, setNextEvent] = useState([]);
+export default function EventsListContainer({ loggedUser, indexSection, events }) {
   const [isDeleted, setIsDeleted] = useState(false);
   const [editedEvent, setEditedEvent] = useState(false);
   const [editPopupIsOpen, setEditPopupIsOpen] = useState(false);
   const [partecipantPopupIsOpen, setPartecipantPopupIsOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
-
+ 
   useEffect(() => {
-    const currentUser = getUser(loggedUser.email);
-    const currentUserEvents = currentUser ? currentUser.events : [];
-    setEvents(currentUserEvents);
     setIsDeleted(false);
     setEditedEvent(false);
   }, [isDeleted, editedEvent, loggedUser]);
-
-  useEffect(() => {
-    const currentUser = getUser(loggedUser.email) || { events: [] };
-    const currentUserEvents = currentUser.events || [];
-    setEvents(currentUserEvents);
-    setIsDeleted(false);
-    setEditedEvent(false);
-  }, [isDeleted, editedEvent, loggedUser]);
-
-  useEffect(() => {
-    const now = new Date();
-
-    const past = events
-      .filter((event) => event && event.end && event.endTime)
-      .filter((event) => {
-        const endDate = new Date(event.end);
-        const endTime = event.endTime.split(":");
-        endDate.setHours(endTime[0], endTime[1], 0, 0);
-        return endDate < now;
-      });
-
-    const next = events
-      .filter((event) => event && event.end && event.endTime)
-      .filter((event) => {
-        const endDate = new Date(event.end);
-        const endTime = event.endTime.split(":");
-        endDate.setHours(endTime[0], endTime[1], 0, 0);
-        return endDate > now;
-      });
-
-    const updatedPast = past.map((event) => ({
-      ...event,
-      status: "Finished",
-    }));
-    const updatedNext = next.map((event) => ({ ...event, status: "Active" }));
-
-    setPastEvent(updatedPast);
-    setNextEvent(updatedNext);
-  }, [events]);
 
   const handleDelete = (event) => {
     deleteEventFromLocalStorage(loggedUser.email, event.uuid);
@@ -101,7 +56,7 @@ export default function EventsListContainer({ loggedUser, indexSection }) {
           {indexSection === 0 ? (
             <CardList
               loggedUser={loggedUser}
-              events={nextEvent}
+              events={events}
               handleDelete={handleDelete}
               handleUpdatePopup={handleUpdatePopup}
               handlePartecipantPopup={handlePartecipantPopup}
@@ -109,7 +64,7 @@ export default function EventsListContainer({ loggedUser, indexSection }) {
           ) : (
             <CardList
               loggedUser={loggedUser}
-              events={pastEvent}
+              events={events}
               handleDelete={handleDelete}
               handleUpdatePopup={handleUpdatePopup}
               handlePartecipantPopup={handlePartecipantPopup}
