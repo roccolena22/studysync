@@ -2,30 +2,38 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../../../shared/component/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { RegistrationFormValidator } from "./validator/RegistrationFormValidator";
 import Input from "../../../shared/component/Input";
 import Icon from "../../../shared/component/Icon";
-import {
-  addToLocalStorage,
-  getFromLocalStorage,
-} from "../../../user/hooks/localStorageHooks";
 import bcrypt from "bcryptjs";
-import { setUser } from "../../../redux/authSlice";
+import { setLoggedUser } from "../../../redux/authSlice";
+import { setUsers } from "../../../redux/usersSlice";
 import { useDispatch } from "react-redux";
-import { addToDatabase, getFromDatabase } from "../../../api/usersApi";
+import { addToDatabase, getFromDatabase } from "../../../api/apiRequest";
 
 export default function RegistrationForm() {
-  const [users, setUsers] = useState(getFromLocalStorage("users", []));
+  const [allUsers, setAllUsers] = useState([]);
   const [showPassword, setShowPassword] = useState(false);
   const [role, setRole] = useState(null);
   const [checkedTeacher, setCheckedTeacher] = useState(false);
   const [checkedStudent, setCheckedStudent] = useState(false);
-
   const [error, setError] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const usersFromDatabase = await getFromDatabase("users");
+      const usersFields = usersFromDatabase.map((item) => item.fields);
+      setAllUsers(usersFields);
+      dispatch(setUsers(usersFields));
+
+    };
+
+    fetchUsers();
+  }, []);
 
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -54,8 +62,6 @@ export default function RegistrationForm() {
   const onSubmit = async (data) => {
     try {
       const usersFromDatabase = await getFromDatabase("users");
-      console.log(usersFromDatabase);
-      addToLocalStorage("usersFromDatabase", usersFromDatabase);
       if (role === null) {
         return;
       }
@@ -76,9 +82,8 @@ export default function RegistrationForm() {
         data.password = hash;
         data.confirmPassword = hash;
 
-        const updatedUsers = [...users, data];
+        const updatedUsers = [...allUsers, data];
         setUsers(updatedUsers);
-        addToLocalStorage("users", updatedUsers);
         const updateDataArray = [
           {
             firstName: data.firstName,
@@ -91,7 +96,7 @@ export default function RegistrationForm() {
 
         // Chiamare la funzione con l'oggetto creato
         await addToDatabase("users", updateDataArray);
-        dispatch(setUser(data));
+        dispatch(setLoggedUser(data));
         navigate("/");
       }
     } catch (error) {

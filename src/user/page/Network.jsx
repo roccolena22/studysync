@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
 import TitlePage from "../component/shared/TitlePage";
-import { getFromLocalStorage } from "../hooks/localStorageHooks";
 import CardList from "../component/card/CardList";
+import { getFromDatabase } from "../../api/apiRequest";
 
 export default function Network({ loggedUser }) {
-  const [events, setEvents] = useState([]);
-  const [users, setUsers] = useState(getFromLocalStorage("users", []));
   const [partecipantPopupIsOpen, setPartecipantPopupIsOpen] = useState(false);
 
-  useEffect(() => {
-    const followed = users.filter((el) => loggedUser.email !== el.email);
-    const allEvents = followed.flatMap((user) => user.events || []);
+  const fetchEvents = async () => {
+    const eventsFromDatabase = await getFromDatabase("events");
+    const eventsFields = eventsFromDatabase.map((item) => item.fields);
+  };
 
-    setEvents(allEvents);
-  }, [loggedUser.email, users]);
+  useEffect(() => {
+    fetchEvents();
+  }, []);
 
   const handlePartecipantPopup = () => {
     setPartecipantPopupIsOpen(!partecipantPopupIsOpen);
@@ -22,10 +22,10 @@ export default function Network({ loggedUser }) {
     <div className="flex flex-col items-center">
       <TitlePage title="Network" />
       <div className="sticky top-16 w-full">
-        <CardList
+        {/* <CardList
           events={events}
           handlePartecipantPopup={handlePartecipantPopup}
-        />
+        /> */}
       </div>
     </div>
   );

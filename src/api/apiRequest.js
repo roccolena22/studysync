@@ -1,7 +1,7 @@
 const API_ENDPOINT =
-  "https://v1.nocodeapi.com/roccolena/airtable/gpChlrmCvOIlPumv";
+  "https://v1.nocodeapi.com/mandrake5909/airtable/DjoNIrosOjSjolHS";
 const API_KEY =
-  "patNnytdYu13u73Ht.8abd11bf543cf2bd3f773b5e3f96b2f7ff7976426d980cfbdb44a3cc9a8bcf1b";
+  "patwdAD7rzex8Ij5W.ce2b7b7b37bf5383da9e6cd10e22ad52deff5371fe8f754c078b23eb6751c077";
 
 // POST
 export async function addToDatabase(tableName, data) {

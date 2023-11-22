@@ -1,19 +1,32 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "../../../shared/component/Button";
 import Popup from "../shared/Popup";
 import FollowerAndFollowed from "./FollowerAndFolowed";
-import { getFromLocalStorage } from "../../hooks/localStorageHooks";
+import { getFromDatabase } from "../../../api/apiRequest";
 
 export default function ManageUsers({
   loggedUser,
   followers,
-  addFollowed,
+  addFollowers,
   removeFollow,
 }) {
   const [popupIsOpen, setPopupIsOpen] = useState(false);
+  const [users, setUsers] = useState([])
 
-  const usersFromLocalStorage = getFromLocalStorage("usersFromDatabase");
-  const users = usersFromLocalStorage.map((item) => item.fields);
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const usersFromDatabase = await getFromDatabase("users");
+        const arrayWithFieldsOnly = usersFromDatabase.map((item) => item.fields);
+        setUsers(arrayWithFieldsOnly)
+      } catch (error) {
+        console.error("Errore nel recupero dei follower dal database", error);
+      }
+    };
+
+    fetchUsers();
+  }, []);
+
   const userConnections = followers.flat();
 
   const followingIds = userConnections
@@ -58,7 +71,7 @@ export default function ManageUsers({
           <FollowerAndFollowed
             following={loggedUserFollowing}
             followers={loggedUserFollowers}
-            addFollowed={addFollowed}
+            addFollowers={addFollowers}
             removeFollow={removeFollow}
             loggedUser={loggedUser}
           />

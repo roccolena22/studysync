@@ -1,40 +1,66 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import TabMenu from "../component/navigation/TabMenu";
 import EventsListContainer from "../component/EventsListContainer";
 import TitlePage from "../component/shared/TitlePage";
 import GadgetBox from "../component/shared/GadgetBox";
 import DiscoverUsers from "../component/user/DiscoverUsers";
 import ManageUsers from "../component/user/ManageUsers";
-import { addToLocalStorage, getFromLocalStorage } from "../hooks/localStorageHooks";
-import { addToDatabase } from "../../api/usersApi";
+import { addToDatabase, getFromDatabase } from "../../api/apiRequest";
+import { addFollower, removeFollower, setFollowers } from "../../redux/followersSlice";
 
-export default function Dashboard({ loggedUser }) {
+export default function Dashboard({ loggedUser, users, followers }) {
   const [indexSection, setIndexSection] = useState(0);
-  const [followers, setFollowers] = useState(getFromLocalStorage("followers", []));
 
-  const usersFromDatabase = getFromLocalStorage("usersFromDatabase", []); //sarà sostituito con la chiamata al database
+  console.log(users);
 
-  const arrayWithFieldsOnly = usersFromDatabase.map((item) => item.fields);
+  const dispatch = useDispatch();
 
-  const [users, setUsers] = useState(arrayWithFieldsOnly);
+  useEffect(() => {
+    const fetchFollowers = async () => {
+      try {
+        const followersFromDatabase = await getFromDatabase("followers");
+        const arrayWithFieldsOnly = followersFromDatabase.map((item) => item.fields);
+        dispatch(setFollowers(arrayWithFieldsOnly));
+      } catch (error) {
+        console.error("Errore nel recupero dei follower dal database", error);
+      }
+    };
 
-  const addFollowed = (userFollowed) => {
+    fetchFollowers();
+  }, [dispatch]);
 
+
+  const addFollowers = async (userFollowed) => {
     const followersArray = [
       {
         idFrom: loggedUser.id,
         idTo: userFollowed.id,
       },
     ];
-    
-    addToDatabase("followers", followersArray);
 
-    setFollowers((prevFollowers) => [...prevFollowers, followersArray]);
+    try {
+      await addToDatabase("followers", followersArray);
+      dispatch(addFollower(followersArray[0]));
 
-    addToLocalStorage("followers", followers)
+    } catch (error) {
+      console.error("Errore nell'aggiunta dei follower", error);
+    }
   };
 
-  const removeFollow = (email) => {};
+  const removeFollow = (email) => {
+    const followerToRemove = followers.find((follower) => follower.email === email);
+    if (followerToRemove) {
+      try {
+        // Rimuovi il follower dal database
+        // ...
+
+        dispatch(removeFollower(followerToRemove));
+      } catch (error) {
+        console.error("Errore nella rimozione del follower", error);
+      }
+    }
+  };
 
   const handleSections = (index) => {
     setIndexSection(index);
@@ -48,16 +74,15 @@ export default function Dashboard({ loggedUser }) {
           <DiscoverUsers
             loggedUser={loggedUser}
             users={users}
-            addFollowed={addFollowed}
+            addFollowers={addFollowers}
             removeFollow={removeFollow}
           />
         </GadgetBox>
         <GadgetBox>
           <ManageUsers
-          followers={followers}
+            followers={followers}
             loggedUser={loggedUser}
-            users={users}
-            addFollowed={addFollowed}
+            addFollowers={addFollowers}
             removeFollow={removeFollow}
           />
         </GadgetBox>

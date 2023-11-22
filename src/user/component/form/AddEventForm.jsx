@@ -6,7 +6,8 @@ import { EventFormValidator } from "./validator/EventFormValidator";
 import Input from "../../../shared/component/Input";
 import DropdownMenu from "../shared/DropdownMenu";
 import { useState } from "react";
-import { addToDatabase } from "../../../api/usersApi";
+import { addToDatabase } from "../../../api/apiRequest";
+import { useDispatch } from "react-redux";
 
 export default function AddEventForm({
   loggedUser,
@@ -15,6 +16,9 @@ export default function AddEventForm({
   setSelectedDate,
 }) {
   const [selectedMode, setSelectedMode] = useState("In person");
+
+  const dispatch = useDispatch();
+
 
   const {
     handleSubmit,
@@ -49,6 +53,7 @@ export default function AddEventForm({
     ];
 
     addToDatabase("events", EventArray);
+    dispatch(EventArray)
 
     handleEventsFromForm(data);
     setSelectedDate(null);

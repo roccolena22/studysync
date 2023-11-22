@@ -8,10 +8,10 @@ import { LoginFormValidator } from "./validator/LoginFormValidator";
 import Input from "../../../shared/component/Input";
 import Icon from "../../../shared/component/Icon";
 import bcrypt from "bcryptjs";
-import { setUser } from "../../../redux/authSlice";
 import { useDispatch } from "react-redux";
-import { addToLocalStorage } from "../../../user/hooks/localStorageHooks";
-import { getFromDatabase } from "../../../api/usersApi";
+import { getFromDatabase } from "../../../api/apiRequest";
+import { setUsers } from "../../../redux/usersSlice";
+import { setLoggedUser } from "../../../redux/authSlice";
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -31,12 +31,10 @@ export default function LoginForm() {
   const onSubmit = async (data) => {
     try {
       const usersFromDatabase = await getFromDatabase("users");
-
+      const usersFields = usersFromDatabase.map((item) => item.fields);
       const loggedUser = usersFromDatabase.find(
         (user) => user.fields.email === data.email
       );
-
-      addToLocalStorage("loggedUser", loggedUser.fields);
 
       if (loggedUser) {
         const userPassword = loggedUser.fields && loggedUser.fields.password;
@@ -45,7 +43,8 @@ export default function LoginForm() {
           const result = await bcrypt.compare(data.password, userPassword);
 
           if (result) {
-            dispatch(setUser(loggedUser.fields));
+            dispatch(setLoggedUser(loggedUser.fields));
+            dispatch(setUsers(usersFields));
             navigate("/");
           } else {
             setLoginError("Invalid email or password");

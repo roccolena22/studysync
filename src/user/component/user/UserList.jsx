@@ -5,7 +5,7 @@ import SingleUser from "./SingleUser";
 export default function UsersList({
   loggedUser,
   users,
-  addFollowed,
+  addFollowers,
   removeFollow,
 }) {
 
@@ -31,7 +31,7 @@ export default function UsersList({
             <div key={index}>
               <SingleUser
                 user={user}
-                addFollowed={addFollowed}
+                addFollowers={addFollowers}
                 removeFollow={removeFollow}
               />
             </div>

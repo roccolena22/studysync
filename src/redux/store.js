@@ -1,11 +1,15 @@
-// store.js
 import { configureStore } from '@reduxjs/toolkit';
 import authReducer from './authSlice';
+import followersReducer from './followersSlice';
+import usersReducer from './usersSlice';
+import eventsReducer from './eventsSlice';
 
 const store = configureStore({
   reducer: {
     auth: authReducer,
-    // Altri reducer possono essere inclusi qui se necessario
+    followers: followersReducer,
+    users: usersReducer,
+    events: eventsReducer,
   },
 });
 

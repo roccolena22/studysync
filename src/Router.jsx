@@ -19,6 +19,8 @@ import { useSelector } from "react-redux";
 
 const Router = () => {
   const loggedUser = useSelector((state) => state.auth.user);
+  const followers = useSelector((state) => state.followers);
+  const users = useSelector((state)=> state.users);
 
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -42,7 +44,7 @@ const Router = () => {
             path="/"
             element={
               <Protected isLogged={loggedUser}>
-                <Dashboard loggedUser={loggedUser} />
+                <Dashboard loggedUser={loggedUser} followers={followers} users={users}/>
               </Protected>
             }
           />
@@ -66,7 +68,7 @@ const Router = () => {
             path="/network"
             element={
               <Protected isLogged={loggedUser}>
-                <Network loggedUser={loggedUser} />{" "}
+                <Network loggedUser={loggedUser} followers={followers}/>
               </Protected>
             }
           />

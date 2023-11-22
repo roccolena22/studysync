@@ -6,24 +6,19 @@ import "moment/locale/it";
 import AddEventForm from "./form/AddEventForm";
 import TitlePage from "./shared/TitlePage";
 import Popup from "./shared/Popup";
-import {
-  addToLocalStorage,
-  getFromLocalStorage,
-} from "../hooks/localStorageHooks";
 
 export default function PersonaleCalendar({ loggedUser }) {
   const [isPopupOpen, setPopupOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
-  const [events, setEvents] = useState(getFromLocalStorage("events", []));
+  const [events, setEvents] = useState([]);
 
   const localizer = momentLocalizer(moment);
 
   const handleEventsFromForm = (eventsFromForm) => {
     setEvents((prevEvents) => [...prevEvents, eventsFromForm]);
   };
-  useEffect(() => {
-    addToLocalStorage("events", events);
-  }, [events]);
+
+
   const handleSelectSlot = (slotInfo) => {
     const selectedDateFormatted = moment(slotInfo.start).toDate();
     const currentDate = new Date();
@@ -35,6 +30,8 @@ export default function PersonaleCalendar({ loggedUser }) {
       handlePopup();
     }
   };
+
+const loggedUserEvents = events.filter((event)=>event.authorId === loggedUser.id)
 
   const handlePopup = () => {
     setPopupOpen(!isPopupOpen);
@@ -59,7 +56,7 @@ export default function PersonaleCalendar({ loggedUser }) {
       <div className="w-full">
         <Calendar
           localizer={localizer}
-          events={events}
+          events={loggedUserEvents}
           startAccessor="start"
           endAccessor="end"
           selectable={true}

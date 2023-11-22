@@ -7,7 +7,7 @@ import TitlePage from "../shared/TitlePage";
 export default function DiscoverUsers({
   loggedUser,
   users,
-  addFollowed,
+  addFollowers,
   removeFollow,
 }) {
   const [popupIsOpen, setPopupIsOpen] = useState(false);
@@ -37,7 +37,7 @@ export default function DiscoverUsers({
           <UsersList
             users={users}
             loggedUser={loggedUser}
-            addFollowed={addFollowed}
+            addFollowers={addFollowers}
             removeFollow={removeFollow}
           />
         </Popup>
