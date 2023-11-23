@@ -21,16 +21,16 @@ export default function EditEventForm({ event, handleEdit }) {
       platform: event.platform,
       info: event.info,
       mode: event.mode,
-      start: event.start,
-      end: event.end,
+      startDate: event.startDate,
+      endDate: event.endDate,
       startTime: event.startTime,
       endTime: event.endTime,
       places: event.places,
     },
   });
 
-  const formattedStartDate = moment(event.start).format("L");
-  const formattedEndDate = moment(event.end).format("L");
+  // const formattedStartDate = moment(event.start).format("L");
+  // const formattedEndDate = moment(event.end).format("L");
 
   const onSubmit = (data) => {
     const editedData = {
@@ -40,11 +40,12 @@ export default function EditEventForm({ event, handleEdit }) {
       platform: data.platform,
       info: data.info,
       mode: data.mode,
-      start: formattedStartDate,
-      end: formattedEndDate,
+      startDate: data.startDate,
+      endDate: data.endDate,
       startTime: data.startTime,
       endTime: data.endTime,
       places: data.places,
+      apiId: event.apiId
     };
     handleEdit(editedData);
   };
@@ -71,23 +72,27 @@ export default function EditEventForm({ event, handleEdit }) {
             />
           </div>
         </div>
-        <Input
-          label="Date"
-          errorMessage={errors.start?.message}
-          type="date"
-          register={register("start")}
-        />
         <div className="flex space-x-4">
+          <Input
+            label="Start date"
+            errorMessage={errors.startDate?.message}
+            register={register("startDate")}
+          />
           <Input
             label="Start time"
             errorMessage={errors.startTime?.message}
-            type="time"
             register={register("startTime")}
+          />
+        </div>
+        <div className="flex space-x-4">
+          <Input
+            label="End date"
+            errorMessage={errors.endDate?.message}
+            register={register("endDate")}
           />
           <Input
             label="End time"
             errorMessage={errors.endTime?.message}
-            type="time"
             register={register("endTime")}
           />
         </div>

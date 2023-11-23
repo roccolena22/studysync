@@ -12,9 +12,12 @@ import { addEvent } from "../../../redux/eventsSlice";
 
 export default function AddEventForm({
   loggedUser,
-  selectedDate,
-  handleEventsFromForm,
-  setSelectedDate,
+  startDate,
+  setStartDate,
+  endDate,
+  setEndDate,
+  startTime,
+  endTime,
 }) {
   const [selectedMode, setSelectedMode] = useState("In person");
 
@@ -27,11 +30,15 @@ export default function AddEventForm({
     reset,
   } = useForm({
     resolver: yupResolver(EventFormValidator),
+    defaultValues: {
+      startTime: startTime,
+      endTime: endTime,
+    },
   });
 
   const onSubmit = (data) => {
-    data.start = moment(selectedDate);
-    data.end = moment(selectedDate);
+    data.startDate = startDate;
+    data.endDate = endDate;
     data.authorId = loggedUser.id;
     data.authorEmail = loggedUser.email;
     data.authorFirstName = loggedUser.firstName;
@@ -47,8 +54,8 @@ export default function AddEventForm({
         mode: data.mode,
         places: data.places,
         info: data.info,
-        // start: data.start,
-        // end: data.end,
+        startDate: data.startDate,
+        endDate: data.endDate,
         authorEmail: data.authorEmail,
         authorId: data.authorId,
         authorFirstName: data.authorFirstName,
@@ -57,10 +64,10 @@ export default function AddEventForm({
     ];
 
     addToDatabase("events", EventArray);
-    dispatch(addEvent(EventArray))
+    dispatch(addEvent(EventArray));
 
-    handleEventsFromForm(data);
-    setSelectedDate(null);
+    setStartDate(null);
+    setEndDate(null);
     reset();
   };
 
@@ -141,13 +148,13 @@ export default function AddEventForm({
             label="Start time"
             errorMessage={errors.startTime?.message}
             register={register("startTime")}
-            type="time"
+            type="text"
           />
           <Input
             label="End time"
             errorMessage={errors.endTime?.message}
             register={register("endTime")}
-            type="time"
+            type="text"
           />
         </div>
 

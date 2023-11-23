@@ -17,6 +17,8 @@ import { addEvent } from "../../redux/eventsSlice";
 export default function Dashboard({ loggedUser, users, followers }) {
   const [indexSection, setIndexSection] = useState(0);
   const [userEvents, setUserEvents] = useState([]);
+  const [editedEvent, setEditedEvent] = useState(false);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -37,18 +39,24 @@ export default function Dashboard({ loggedUser, users, followers }) {
 
   useEffect(() => {
     const fetchEvents = async () => {
-      const eventsFromDatabase = await getFromDatabase("events");
-      const eventsFields = eventsFromDatabase.map((item) => item.fields);
-      dispatch(addEvent(eventsFields));
-
-      const filteredEvents = eventsFields.filter(
+      const eventsFromDatabase = await getFromDatabase("events");  
+      const eventsWithApiId = eventsFromDatabase.map((event) => ({
+        ...event.fields,
+        apiId: event.id,
+      }));
+  
+      dispatch(addEvent(eventsWithApiId));
+  
+      const filteredEvents = eventsWithApiId.filter(
         (event) => event.authorId === loggedUser.id
       );
-
+  
       setUserEvents(filteredEvents);
     };
+  
     fetchEvents();
-  }, []);
+  }, [dispatch, loggedUser.id, editedEvent]);
+  
 
   const addFollowers = async (userFollowed) => {
     const followersArray = [
@@ -100,6 +108,7 @@ export default function Dashboard({ loggedUser, users, followers }) {
         </GadgetBox>
         <GadgetBox>
           <ManageUsers
+          users={users}
             followers={followers}
             loggedUser={loggedUser}
             addFollowers={addFollowers}
@@ -115,6 +124,7 @@ export default function Dashboard({ loggedUser, users, followers }) {
         />
       </div>
       <EventsListContainer
+      setEditedEvent={setEditedEvent}
         indexSection={indexSection}
         loggedUser={loggedUser}
         events={userEvents}

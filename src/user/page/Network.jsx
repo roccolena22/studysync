@@ -4,7 +4,6 @@ import CardList from "../component/card/CardList";
 
 export default function Network({ loggedUser, followers, events }) {
   const [partecipantPopupIsOpen, setPartecipantPopupIsOpen] = useState(false);
-
   const handlePartecipantPopup = () => {
     setPartecipantPopupIsOpen(!partecipantPopupIsOpen);
   };

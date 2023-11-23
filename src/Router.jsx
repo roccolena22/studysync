@@ -61,7 +61,7 @@ const Router = () => {
             path="/calendar"
             element={
               <Protected isLogged={loggedUser}>
-                <CalendarPage loggedUser={loggedUser} />
+                <CalendarPage loggedUser={loggedUser} followers={followers} events={events}/>
               </Protected>
             }
           />

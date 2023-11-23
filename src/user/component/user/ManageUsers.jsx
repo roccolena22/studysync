@@ -5,27 +5,13 @@ import FollowerAndFollowed from "./FollowerAndFolowed";
 import { getFromDatabase } from "../../../api/apiRequest";
 
 export default function ManageUsers({
+  users,
   loggedUser,
   followers,
   addFollowers,
   removeFollow,
 }) {
   const [popupIsOpen, setPopupIsOpen] = useState(false);
-  const [users, setUsers] = useState([])
-
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const usersFromDatabase = await getFromDatabase("users");
-        const arrayWithFieldsOnly = usersFromDatabase.map((item) => item.fields);
-        setUsers(arrayWithFieldsOnly)
-      } catch (error) {
-        console.error("Errore nel recupero dei follower dal database", error);
-      }
-    };
-
-    fetchUsers();
-  }, []);
 
   const userConnections = followers.flat();
 
