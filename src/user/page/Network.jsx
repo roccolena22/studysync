@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 import TitlePage from "../component/shared/TitlePage";
 import CardList from "../component/card/CardList";
 import Popup from "../component/shared/Popup";
@@ -7,7 +6,6 @@ import UsersList from "../component/user/UserList";
 
 export default function Network({ loggedUser, followers, events, users }) {
 
-  console.log(events)
   const [reservationsPopupIsOpen, setReservationsPopupIsOpen] = useState(false);
 
   const filterFollowers = followers && followers.filter(

@@ -47,7 +47,7 @@ const Router = () => {
             path="/"
             element={
               <Protected isLogged={loggedUser}>
-                <Dashboard loggedUser={loggedUser} users={users} bookeds={bookeds} followers={followers}/>
+                <Dashboard loggedUser={loggedUser} users={users} bookeds={bookeds} followers={followers} events={events}/>
               </Protected>
             }
           />

@@ -8,7 +8,7 @@ import DropdownMenu from "../shared/DropdownMenu";
 import { useState } from "react";
 import { addToDatabase } from "../../../api/apiRequest";
 import { useDispatch } from "react-redux";
-import { addEvent } from "../../../redux/eventsSlice";
+import { setEvent } from "../../../redux/eventsSlice";
 
 export default function AddEventForm({
   loggedUser,
@@ -61,7 +61,7 @@ export default function AddEventForm({
       authorLastName: data.authorLastName,
     };
     await addToDatabase("events", fullEvent);
-    dispatch(addEvent([fullEvent]));
+    dispatch(setEvent([fullEvent]));
 
     setStartDate(null);
     setEndDate(null);

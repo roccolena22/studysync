@@ -5,7 +5,7 @@ const eventsSlice = createSlice({
   name: 'events',
   initialState: [],
   reducers: {
-    addEvent: (state, action) => {
+    setEvent: (state, action) => {
       return action.payload;
     },
     // Puoi aggiungere altre azioni qui se necessario
@@ -13,7 +13,7 @@ const eventsSlice = createSlice({
 });
 
 // Esporta le azioni del tuo slice
-export const { addEvent } = eventsSlice.actions;
+export const { setEvent } = eventsSlice.actions;
 
 // Esporta il tuo reducer
 export default eventsSlice.reducer;

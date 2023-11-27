@@ -2,25 +2,56 @@ import React, { useEffect, useState } from "react";
 import Popup from "./shared/Popup";
 import EditEventForm from "./form/EditEventForm";
 import CardList from "./card/CardList";
-import { updateDatabaseRecord } from "../../api/apiRequest";
+import { deleteFromDatabase, getFromDatabase, updateDatabaseRecord } from "../../api/apiRequest";
 import AlertNotification from "../../shared/component/AlertNotification";
+import { setEvent } from "../../redux/eventsSlice";
+import { useDispatch } from "react-redux";
+
 
 export default function EventsListContainer({
   loggedUser,
   indexSection,
   events,
-  handleEditEvent,
 }) {
-  const [isDeleted, setIsDeleted] = useState(false);
   const [editPopupIsOpen, setEditPopupIsOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [alertMessage, setAlertMessage] = useState(false);
   const [reservationsPopupIsOpen, setReservationsPopupIsOpen] = useState(false);
+  const dispatch = useDispatch();
+
+    const fetchEvents = async () => {
+      const eventsFromDatabase = await getFromDatabase("events");
+      const eventsWithApiId = eventsFromDatabase.map((event) => ({
+        ...event.fields,
+        apiId: event.id,
+      }));
+      const filteredEvents = eventsWithApiId.filter(
+        (event) => event.authorId === loggedUser.id
+      );
+      dispatch(setEvent(filteredEvents));
+    };
+
+    fetchEvents();
+
+
+  useEffect(() => {
+    // Chiamare la funzione fetchEvents all'interno di useEffect
+    fetchEvents(loggedUser, dispatch);
+  }, [dispatch, loggedUser]);
 
   const handleDelete = (event) => {
-    // deleteEventFromLocalStorage(loggedUser.email, event.uuid);
-    setIsDeleted(true);
+    deleteFromDatabase("events", event.apiId);
+    fetchEvents();
   };
+
+  const updateEvent = async (editedEvent) => {
+    const oldEvent = events.find((event) => event.id === editedEvent.id);
+    const changedValues = findChangedParams(oldEvent, editedEvent);
+    await updateDatabaseRecord("events", editedEvent.apiId, changedValues);
+    fetchEvents();
+    setAlertMessage(true);
+  };
+
 
   const findChangedParams = (originalObject, updatedObject) => {
     const changedParams = {};
@@ -37,14 +68,6 @@ export default function EventsListContainer({
     }
 
     return changedParams;
-  };
-
-  const updateEvent = async (editedEvent) => {
-    const oldEvent = events.find((event) => event.id === editedEvent.id);
-    const changedValues = findChangedParams(oldEvent, editedEvent);
-    await updateDatabaseRecord("events", editedEvent.apiId, changedValues);
-    handleEditEvent(true);
-    setAlertMessage(true);
   };
 
   const handleUpdatePopup = (event) => {

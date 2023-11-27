@@ -12,12 +12,10 @@ import {
   removeFollower,
   setFollowers,
 } from "../../redux/followersSlice";
-import { addEvent } from "../../redux/eventsSlice";
+import { setEvent } from "../../redux/eventsSlice";
 
-export default function Dashboard({ loggedUser, users, followers }) {
+export default function Dashboard({ loggedUser, users, followers, events }) {
   const [indexSection, setIndexSection] = useState(0);
-  const [userEvents, setUserEvents] = useState([]);
-  const [editedEvent, setEditedEvent] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -37,25 +35,7 @@ export default function Dashboard({ loggedUser, users, followers }) {
     fetchFollowers();
   }, [dispatch]);
 
-  useEffect(() => {
-    const fetchEvents = async () => {
-      const eventsFromDatabase = await getFromDatabase("events");
-      const eventsWithApiId = eventsFromDatabase.map((event) => ({
-        ...event.fields,
-        apiId: event.id,
-      }));
-
-      dispatch(addEvent(eventsWithApiId));
-
-      const filteredEvents = eventsWithApiId.filter(
-        (event) => event.authorId === loggedUser.id
-      );
-
-      setUserEvents(filteredEvents);
-    };
-
-    fetchEvents();
-  }, [dispatch, loggedUser.id, editedEvent]);
+  
 
   const addFollowers = async (userFollowed) => {
     const newFollower = {
@@ -120,10 +100,10 @@ export default function Dashboard({ loggedUser, users, followers }) {
         />
       </div>
       <EventsListContainer
-        setEditedEvent={setEditedEvent}
+        
         indexSection={indexSection}
         loggedUser={loggedUser}
-        events={userEvents}
+        events={events}
       />
     </div>
   );
