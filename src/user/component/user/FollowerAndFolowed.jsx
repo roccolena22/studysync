@@ -24,7 +24,6 @@ export default function FollowerAndFollowed({
       {indexSection === 0 ? (
         <UsersList
           users={following}
-          followers={followers}
           loggedUser={loggedUser}
           addFollowers={addFollowers}
           removeFollow={removeFollow}
@@ -33,7 +32,6 @@ export default function FollowerAndFollowed({
       ) : (
         <UsersList
           users={followers}
-          followers={followers}
           loggedUser={loggedUser}
           addFollowers={addFollowers}
           removeFollow={removeFollow}

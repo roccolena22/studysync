@@ -8,11 +8,7 @@ export default function UsersList({
   addFollowers,
   removeFollow,
   excludeLogged,
-  followers,
 }) {
-
-  console.log(users);
-  console.log(followers)
 
   const [searchedUsers, setSearchedUsers] = useState([]);
 

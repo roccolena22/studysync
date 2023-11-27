@@ -15,6 +15,7 @@ export default function ManageUsers({
 
   const userConnections = followers.flat();
 
+
   const followingIds = userConnections
     .filter((user) => user.idFrom === loggedUser.id)
     .map((user) => user.idTo);

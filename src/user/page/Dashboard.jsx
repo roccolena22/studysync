@@ -39,36 +39,32 @@ export default function Dashboard({ loggedUser, users, followers }) {
 
   useEffect(() => {
     const fetchEvents = async () => {
-      const eventsFromDatabase = await getFromDatabase("events");  
+      const eventsFromDatabase = await getFromDatabase("events");
       const eventsWithApiId = eventsFromDatabase.map((event) => ({
         ...event.fields,
         apiId: event.id,
       }));
-  
+
       dispatch(addEvent(eventsWithApiId));
-  
+
       const filteredEvents = eventsWithApiId.filter(
         (event) => event.authorId === loggedUser.id
       );
-  
+
       setUserEvents(filteredEvents);
     };
-  
+
     fetchEvents();
   }, [dispatch, loggedUser.id, editedEvent]);
-  
 
   const addFollowers = async (userFollowed) => {
-    const followersArray = [
-      {
-        idFrom: loggedUser.id,
-        idTo: userFollowed.id,
-      },
-    ];
-
+    const newFollower = {
+      idFrom: loggedUser.id,
+      idTo: userFollowed.id,
+    };
     try {
-      await addToDatabase("followers", followersArray);
-      dispatch(addFollower(followersArray[0]));
+      await addToDatabase("followers", newFollower);
+      dispatch(addFollower(newFollower));
     } catch (error) {
       console.error("Errore nell'aggiunta dei follower", error);
     }
@@ -108,7 +104,7 @@ export default function Dashboard({ loggedUser, users, followers }) {
         </GadgetBox>
         <GadgetBox>
           <ManageUsers
-          users={users}
+            users={users}
             followers={followers}
             loggedUser={loggedUser}
             addFollowers={addFollowers}
@@ -124,7 +120,7 @@ export default function Dashboard({ loggedUser, users, followers }) {
         />
       </div>
       <EventsListContainer
-      setEditedEvent={setEditedEvent}
+        setEditedEvent={setEditedEvent}
         indexSection={indexSection}
         loggedUser={loggedUser}
         events={userEvents}

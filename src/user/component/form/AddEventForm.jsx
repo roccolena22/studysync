@@ -36,7 +36,7 @@ export default function AddEventForm({
     },
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     data.startDate = startDate;
     data.endDate = endDate;
     data.authorId = loggedUser.id;
@@ -44,27 +44,24 @@ export default function AddEventForm({
     data.authorFirstName = loggedUser.firstName;
     data.authorLastName = loggedUser.lastName;
 
-    const EventArray = [
-      {
-        title: data.title,
-        location: data.location,
-        platform: data.platform,
-        startTime: data.startTime,
-        endTime: data.endTime,
-        mode: data.mode,
-        places: data.places,
-        info: data.info,
-        startDate: data.startDate,
-        endDate: data.endDate,
-        authorEmail: data.authorEmail,
-        authorId: data.authorId,
-        authorFirstName: data.authorFirstName,
-        authorLastName: data.authorLastName,
-      },
-    ];
-
-    addToDatabase("events", EventArray);
-    dispatch(addEvent(EventArray));
+    const fullEvent = {
+      authorId: data.authorId,
+      title: data.title,
+      location: data.location,
+      platform: data.platform,
+      startTime: data.startTime,
+      endTime: data.endTime,
+      mode: data.mode,
+      places: data.places,
+      info: data.info,
+      startDate: data.startDate,
+      endDate: data.endDate,
+      authorEmail: data.authorEmail,
+      authorFirstName: data.authorFirstName,
+      authorLastName: data.authorLastName,
+    };
+    await addToDatabase("events", fullEvent);
+    dispatch(addEvent([fullEvent]));
 
     setStartDate(null);
     setEndDate(null);
