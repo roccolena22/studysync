@@ -8,8 +8,8 @@ export default function EventCard({
   event,
   handleDelete,
   handleEditPopup,
-  handlePartecipantPopup,
   users,
+  handleReservationsPopup,
 }) {
   const startDate = moment(event.start, "MM/DD/YY");
   const endDate = moment(event.end, "MM/DD/YY");
@@ -19,7 +19,7 @@ export default function EventCard({
       <HeaderCard
         event={event}
         users={users}
-        handlePartecipantPopup={handlePartecipantPopup}
+        handleReservationsPopup={handleReservationsPopup}
       />
       <div className="relative py-4">
         <TimeBox
@@ -31,7 +31,6 @@ export default function EventCard({
           <p className="text-md font-semibold text-green-700">{event.title}</p>
           <Badge
             text={event.status}
-            handlePartecipantPopup={handlePartecipantPopup}
           />
         </div>
         <div className="py-2">

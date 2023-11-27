@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import GadgetBox from "../../user/component/shared/GadgetBox";
 import Icon from "./Icon";
 
 const AlertNotification = ({ message, type, onClose }) => {
@@ -20,8 +19,8 @@ const AlertNotification = ({ message, type, onClose }) => {
 
   return (
     <div
-      className={`fixed top-14 left-50% z-50 w-56 rounded-lg shadow-lg bg-white ${
-        type === "error" ? "text-red-500" : "text-green-700"
+      className={`fixed top-14 left-1/2 z-[150] w-56 rounded-lg shadow-lg bg-white animate-bounce ${
+        type === "error" ? "text-red-500 border-2 border-red-500" : "text-green-700 border border-green-700"
       } `}
     >
       <div

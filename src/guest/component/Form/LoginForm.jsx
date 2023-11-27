@@ -31,7 +31,10 @@ export default function LoginForm() {
   const onSubmit = async (data) => {
     try {
       const usersFromDatabase = await getFromDatabase("users");
-      const usersFields = usersFromDatabase.map((item) => item.fields);
+      const usersWithApiId = usersFromDatabase.map((user) => ({
+        ...user.fields,
+        apiId: user.id,
+      }));
       const loggedUser = usersFromDatabase.find(
         (user) => user.fields.email === data.email
       );
@@ -44,7 +47,7 @@ export default function LoginForm() {
 
           if (result) {
             dispatch(setLoggedUser(loggedUser.fields));
-            dispatch(setUsers(usersFields));
+            dispatch(setUsers(usersWithApiId));
             navigate("/");
           } else {
             setLoginError("Invalid email or password");

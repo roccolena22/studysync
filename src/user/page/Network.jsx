@@ -1,17 +1,34 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import TitlePage from "../component/shared/TitlePage";
 import CardList from "../component/card/CardList";
+import Popup from "../component/shared/Popup";
+import UsersList from "../component/user/UserList";
 
-export default function Network({ loggedUser, followers, events }) {
-  const [partecipantPopupIsOpen, setPartecipantPopupIsOpen] = useState(false);
-  const handlePartecipantPopup = () => {
-    setPartecipantPopupIsOpen(!partecipantPopupIsOpen);
+export default function Network({ loggedUser, followers, events, users }) {
+
+  console.log(events)
+  const [reservationsPopupIsOpen, setReservationsPopupIsOpen] = useState(false);
+
+  const filterFollowers = followers && followers.filter(
+    (user) => user.idTo === loggedUser.id
+  );
+  const loggedUserFollowers = filterFollowers.map((user) => ({
+    idFrom: user.idFrom,
+  }));
+
+  const networkEvents = events.filter((event) =>
+    loggedUserFollowers.some((item) => item.idFrom === event.authorId)
+  );
+
+  const handleReservationsPopup = () => {
+    setReservationsPopupIsOpen(!reservationsPopupIsOpen);
   };
 
-const filterFollowers = followers.filter((user)=> user.idTo === loggedUser.id);
-const loggedUserFollowers = filterFollowers.map((user)=>({idFrom: user.idFrom}))
-
-const networkEvents = events.filter(event => loggedUserFollowers.some(item => item.idFrom === event.authorId));
+  const handleCloseReservationsPopup = () => {
+    setReservationsPopupIsOpen(!reservationsPopupIsOpen);
+    setReservationsPopupIsOpen(false);
+  };
 
   return (
     <div className="flex flex-col items-center">
@@ -19,9 +36,17 @@ const networkEvents = events.filter(event => loggedUserFollowers.some(item => it
       <div className="sticky top-16 w-full">
         <CardList
           events={networkEvents}
-          handlePartecipantPopup={handlePartecipantPopup}
+          handleReservationsPopup={handleReservationsPopup}
         />
       </div>
+      {reservationsPopupIsOpen && (
+        <Popup
+          handleClose={handleCloseReservationsPopup}
+          title="List of reservations"
+        >
+          <UsersList users={users} loggedUser={loggedUser} />
+        </Popup>
+      )}
     </div>
   );
 }

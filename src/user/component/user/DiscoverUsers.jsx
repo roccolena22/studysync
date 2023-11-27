@@ -2,7 +2,6 @@ import { useState } from "react";
 import Popup from "../shared/Popup";
 import Button from "../../../shared/component/Button";
 import UsersList from "./UserList";
-import TitlePage from "../shared/TitlePage";
 
 export default function DiscoverUsers({
   loggedUser,
@@ -32,13 +31,13 @@ export default function DiscoverUsers({
       </div>
 
       {popupIsOpen && (
-        <Popup handleClose={handlePopup}>
-          <TitlePage title="Search among StudySync users" />
+        <Popup handleClose={handlePopup} title="Search among StudySync users">
           <UsersList
             users={users}
             loggedUser={loggedUser}
             addFollowers={addFollowers}
             removeFollow={removeFollow}
+            excludeLogged
           />
         </Popup>
       )}

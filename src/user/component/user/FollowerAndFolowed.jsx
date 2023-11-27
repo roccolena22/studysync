@@ -24,16 +24,20 @@ export default function FollowerAndFollowed({
       {indexSection === 0 ? (
         <UsersList
           users={following}
+          followers={followers}
           loggedUser={loggedUser}
           addFollowers={addFollowers}
           removeFollow={removeFollow}
+          excludeLogged
         />
       ) : (
         <UsersList
           users={followers}
+          followers={followers}
           loggedUser={loggedUser}
           addFollowers={addFollowers}
           removeFollow={removeFollow}
+          excludeLogged
         />
       )}
     </div>

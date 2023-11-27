@@ -7,17 +7,23 @@ export default function UsersList({
   users,
   addFollowers,
   removeFollow,
+  excludeLogged,
+  followers,
 }) {
+
+  console.log(users);
+  console.log(followers)
 
   const [searchedUsers, setSearchedUsers] = useState([]);
 
-  const usersToSearch = users.filter(
-    (user) => user.email !== loggedUser.email
-  );
+  const usersToSearch = excludeLogged
+  ? users.filter((user) => user.email !== loggedUser.email)
+  : users;
   
   const handleSearch = (dataFromSearch) => {
     setSearchedUsers(dataFromSearch);
   };
+  
   return (
     <div>
       <SearchBar
@@ -41,3 +47,6 @@ export default function UsersList({
     </div>
   );
 }
+
+  
+  

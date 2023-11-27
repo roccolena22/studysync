@@ -8,8 +8,8 @@ export default function CardList({
   loggedUser,
   events,
   handleDelete,
-  handlePartecipantPopup,
   handleUpdatePopup,
+  handleReservationsPopup,
 }) {
   const [eventsSearched, setEventsSearched] = useState(null);
 
@@ -37,8 +37,8 @@ export default function CardList({
                   loggedUser={loggedUser}
                   event={event}
                   handleDelete={handleDelete}
-                  handlePartecipantPopup={handlePartecipantPopup}
                   handleEditPopup={() => handleUpdatePopup(event)}
+                  handleReservationsPopup={handleReservationsPopup}
                 />
               </GadgetBox>
             </div>

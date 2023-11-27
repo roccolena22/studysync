@@ -15,7 +15,7 @@ export default function TopNavigationMenu() {
   };
   return (
     <div className="flex space-x-6">
-      <Link to="/" className="hidden md:block md:flex flex-col items-center">
+      <Link to="/" className="hidden md:block md:flex flex-col items-center transition delay-150 duration-300 ease-in-out">
         <Icon
           name="dashboard"
           style={`rounded-full w-8 h-8 p-2 hover:border border-full border-rose-400 text-white ${

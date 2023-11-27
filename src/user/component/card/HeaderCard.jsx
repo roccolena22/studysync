@@ -1,9 +1,12 @@
 import { useLocation } from "react-router-dom";
-import BookedBox from "./BookedBox";
+import ReservationsButton from "./ReservationsButton";
+import Button from "../../../shared/component/Button";
 
-export default function HeaderCard({ event, handlePartecipantPopup }) {
+export default function HeaderCard({ event, handleReservationsPopup }) {
   const location = useLocation();
 
+
+  
   const network = location.pathname === "/network" ? true : false;
   return (
     <div className="flex justify-between items-center border-b border-slate-300 pb-1 rounded-t-lg">
@@ -17,15 +20,12 @@ export default function HeaderCard({ event, handlePartecipantPopup }) {
         <p className="text-xs text-slate-400">{event.authorEmail}</p>
       </div>
       <div className="flex space-x-2">
-        {network && (
-          <p className="text-xs text-rose-500 hover:border-b border-green-700">
-            Join
-          </p>
-        )}
-        <BookedBox
+        <ReservationsButton
           places={event.places}
-          handlePartecipantPopup={handlePartecipantPopup}
+          handleReservationsPopup={handleReservationsPopup}
+          event={event}
         />
+        {network && <Button small name="Join"/>}
       </div>
     </div>
   );

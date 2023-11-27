@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { updateEventFromLocalStorage } from "../hooks/localStorageHooks";
 import Popup from "./shared/Popup";
-import TitlePage from "./shared/TitlePage";
 import EditEventForm from "./form/EditEventForm";
 import CardList from "./card/CardList";
 import { updateDatabaseRecord } from "../../api/apiRequest";
+import AlertNotification from "../../shared/component/AlertNotification";
 
 export default function EventsListContainer({
   loggedUser,
   indexSection,
   events,
-  setEditedEvent,
+  handleEditEvent,
 }) {
   const [isDeleted, setIsDeleted] = useState(false);
   const [editPopupIsOpen, setEditPopupIsOpen] = useState(false);
-  const [partecipantPopupIsOpen, setPartecipantPopupIsOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
+  const [alertMessage, setAlertMessage] = useState(false);
+  const [reservationsPopupIsOpen, setReservationsPopupIsOpen] = useState(false);
 
   const handleDelete = (event) => {
     // deleteEventFromLocalStorage(loggedUser.email, event.uuid);
@@ -39,12 +39,12 @@ export default function EventsListContainer({
     return changedParams;
   };
 
-  const handleEdit = async (editedEvent) => {
-    console.log(editedEvent.apiId);
+  const updateEvent = async (editedEvent) => {
     const oldEvent = events.find((event) => event.id === editedEvent.id);
     const changedValues = findChangedParams(oldEvent, editedEvent);
     await updateDatabaseRecord("events", editedEvent.apiId, changedValues);
-    setEditedEvent(true);
+    handleEditEvent(true);
+    setAlertMessage(true);
   };
 
   const handleUpdatePopup = (event) => {
@@ -52,15 +52,24 @@ export default function EventsListContainer({
     setEditPopupIsOpen(!editPopupIsOpen);
   };
 
-  const handleUpdateClosePopup = () => {
+  const handleCloseEditPopup = () => {
     setSelectedEvent(null);
     setEditPopupIsOpen(false);
   };
 
-  const handlePartecipantPopup = () => {
-    setPartecipantPopupIsOpen(!partecipantPopupIsOpen);
+  const handleAlertClose = () => {
+    setAlertMessage(!alertMessage);
+  };
+  const handleReservationsPopup = () => {
+    setReservationsPopupIsOpen(!reservationsPopupIsOpen);
   };
 
+  const handleCloseReservationsPopup = () => {
+    setReservationsPopupIsOpen(!reservationsPopupIsOpen);
+    setReservationsPopupIsOpen(false);
+  };
+
+  
   return (
     <div className="w-full">
       {events && (
@@ -71,7 +80,7 @@ export default function EventsListContainer({
               events={events}
               handleDelete={handleDelete}
               handleUpdatePopup={handleUpdatePopup}
-              handlePartecipantPopup={handlePartecipantPopup}
+              handleReservationsPopup={handleReservationsPopup}
             />
           ) : (
             <CardList
@@ -79,17 +88,32 @@ export default function EventsListContainer({
               events={events}
               handleDelete={handleDelete}
               handleUpdatePopup={handleUpdatePopup}
-              handlePartecipantPopup={handlePartecipantPopup}
+              handleReservationsPopup={handleReservationsPopup}
             />
           )}
         </div>
       )}
 
       {editPopupIsOpen && (
-        <Popup handleClose={handleUpdateClosePopup}>
-          <TitlePage title="Edit event" />
-          <EditEventForm event={selectedEvent} handleEdit={handleEdit} />
+        <Popup handleClose={handleCloseEditPopup} title="Edit event">
+          <EditEventForm event={selectedEvent} updateEvent={updateEvent} />
         </Popup>
+      )}
+
+      {reservationsPopupIsOpen && (
+        <Popup
+          handleClose={handleCloseReservationsPopup}
+          title="List of reservations"
+        >
+          <UsersList users={users} loggedUser={loggedUser} />
+        </Popup>
+      )}
+
+      {alertMessage && (
+        <AlertNotification
+          message="event edited successfully"
+          onClose={handleAlertClose}
+        />
       )}
     </div>
   );

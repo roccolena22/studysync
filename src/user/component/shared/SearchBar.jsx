@@ -22,10 +22,9 @@ export default function SearchBar({ placeholder, data, dataFromSearch }) {
     setIsSearching(false);
   };
 
-  const handleKeyPress = (e) => {
-    if (e.key === "Enter") {
-      filterData();
-    }
+  const handleInputChange = (e) => {
+    setSearchTerm(e.target.value);
+    filterData();
   };
 
   return (
@@ -35,8 +34,7 @@ export default function SearchBar({ placeholder, data, dataFromSearch }) {
           className="w-full border border-slate-400 h-6 sm:h-7 border rounded-lg py-2 px-3 pr-10 focus:outline-none shadow-lg"
           placeholder={placeholder}
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          onKeyDown={handleKeyPress}
+          onChange={handleInputChange}
         />
         <div>
           {isSearching ? (

@@ -16,7 +16,7 @@ export default function SingleUser({ user, addFollowers, removeFollow, }) {
         </div>
         <p className="text-slate-500 text-xs">{user.email}</p>
       </div>
-      <Button small outline onClick={() => (removeFollow(user.email))} name="UnFollow"/>
+      <Button small outline onClick={() => (removeFollow())} name="UnFollow"/>
       <Button small  onClick={() => (addFollowers(user))} name="Follow"/>
     </div>
   );

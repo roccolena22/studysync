@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import moment from "moment";
 import "moment/locale/it";
 import AddEventForm from "./form/AddEventForm";
-import TitlePage from "./shared/TitlePage";
 import Popup from "./shared/Popup";
 import AlertNotification from "../../shared/component/AlertNotification";
+import TitleSection from "./shared/TitleSection";
 
 export default function PersonaleCalendar({ loggedUser, followers, events }) {
   const [isPopupOpen, setPopupOpen] = useState(false);
@@ -42,16 +42,14 @@ export default function PersonaleCalendar({ loggedUser, followers, events }) {
     }
   };
 
-  const userInCalendar = followers.filter(
+  const userInCalendar = followers && followers.filter(
     (user) => user.idFrom === loggedUser.id
   );
 
   const authorIds = userInCalendar.map((item) => item.idTo);
   const newIds = [...authorIds, loggedUser.id];
 
-  const filteredEvents = events.filter((event) =>
-    newIds.includes(event.authorId)
-  );
+  const filteredEvents = events ? events.filter((event) => newIds.includes(event.authorId)) : [];
 
   const formattedEvents = filteredEvents.map((originalEvent) => ({
     id: originalEvent.id,
@@ -108,7 +106,7 @@ export default function PersonaleCalendar({ loggedUser, followers, events }) {
       </div>
       {startDate && isPopupOpen && (
         <Popup handleClose={handlePopup}>
-          <TitlePage>
+          <TitleSection>
             <p>Create a new event</p>
             <div className="flex space-x-2">
               <div>
@@ -120,7 +118,7 @@ export default function PersonaleCalendar({ loggedUser, followers, events }) {
                 <span className="pl-1">{endDate}</span>
               </div>
             </div>
-          </TitlePage>
+          </TitleSection>
           <div className="pt-4">
             <AddEventForm
               loggedUser={loggedUser}
@@ -137,7 +135,7 @@ export default function PersonaleCalendar({ loggedUser, followers, events }) {
       {alertMessage && (
         <AlertNotification
           message={alertMessage}
-          type="error" // Puoi personalizzare il tipo di notifica (success, error, ecc.)
+          type="error" 
           onClose={handleAlertClose}
         />
       )}

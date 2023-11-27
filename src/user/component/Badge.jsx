@@ -1,4 +1,4 @@
-export default function Badge({ text, handlePartecipantPopup }) {
+export default function Badge({ text }) {
 
     const colorMapping = {
       Finished: "bg-red-800",
@@ -12,7 +12,6 @@ export default function Badge({ text, handlePartecipantPopup }) {
     return (
         <div
           className={`text-[12px] text-white rounded px-1 w-fit h-fit ${backgroundColor}`}
-          onClick={handlePartecipantPopup}
         >
           <p className="font-semibold">{text}</p>
         </div>

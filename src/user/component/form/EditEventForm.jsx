@@ -7,7 +7,7 @@ import { EventFormValidator } from "./validator/EventFormValidator";
 import Input from "../../../shared/component/Input";
 import DropdownMenu from "../shared/DropdownMenu";
 
-export default function EditEventForm({ event, handleEdit }) {
+export default function EditEventForm({ event, updateEvent }) {
   const [selectedMode, setSelectedMode] = useState(event.mode);
   const {
     handleSubmit,
@@ -47,7 +47,7 @@ export default function EditEventForm({ event, handleEdit }) {
       places: data.places,
       apiId: event.apiId
     };
-    handleEdit(editedData);
+    updateEvent(editedData);
   };
 
   const modes = ["In person", "Remotely", "Mixed"];

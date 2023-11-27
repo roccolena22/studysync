@@ -23,17 +23,17 @@ export default function RegistrationForm() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      const usersFromDatabase = await getFromDatabase("users");
-      const usersFields = usersFromDatabase.map((item) => item.fields);
-      setAllUsers(usersFields);
-      dispatch(setUsers(usersFields));
+  // useEffect(() => {
+  //   const fetchUsers = async () => {
+  //     const usersFromDatabase = await getFromDatabase("users");
+  //     const usersFields = usersFromDatabase.map((item) => item.fields);
+  //     setAllUsers(usersFields);
+  //     dispatch(setUsers(usersFields));
 
-    };
+  //   };
 
-    fetchUsers();
-  }, []);
+  //   fetchUsers();
+  // }, []);
 
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -62,11 +62,14 @@ export default function RegistrationForm() {
   const onSubmit = async (data) => {
     try {
       const usersFromDatabase = await getFromDatabase("users");
+      const usersFields = usersFromDatabase.map((item) => item.fields);
+      setAllUsers(usersFields);
+      dispatch(setUsers(usersFields));
       if (role === null) {
         return;
       }
-      const existingUser = usersFromDatabase.find(
-        (user) => user.fields.email === data.email
+      const existingUser = allUsers.find(
+        (user) => user.email === data.email
       );
 
       if (existingUser) {
@@ -84,18 +87,18 @@ export default function RegistrationForm() {
 
         const updatedUsers = [...allUsers, data];
         setUsers(updatedUsers);
-        const updateDataArray = [
+        const updateObj = 
           {
             firstName: data.firstName,
             lastName: data.lastName,
             email: data.email,
             role: data.role,
             password: data.password,
-          },
-        ];
+          }
+        ;
 
         // Chiamare la funzione con l'oggetto creato
-        await addToDatabase("users", updateDataArray);
+        await addToDatabase("users", updateObj);
         dispatch(setLoggedUser(data));
         navigate("/");
       }

@@ -15,21 +15,23 @@ export default function InfoAccount({ loggedUser }) {
   return (
     <div className="pt-6 w-full flex flex-col justify-center">
       <ProfileInfoForm loggedUser={loggedUser} />
-      <TitleSection title="Edit password" />
       <div className="pt-6">
-        <EditPasswordForm />
+        <TitleSection title="Edit password" />
+        <div className="pt-6">
+          <EditPasswordForm />
+        </div>
+        <p
+          className="text-red-800 font-semibold cursor-pointer pt-16 text-center"
+          onClick={handleClose}
+        >
+          Delete Account
+        </p>
+        {isOpen && (
+          <Popup handleClose={handleClose}>
+            <DeleteAccount />
+          </Popup>
+        )}
       </div>
-      <p
-        className="text-red-800 font-semibold cursor-pointer pt-16 text-center"
-        onClick={handleClose}
-      >
-        Delete Account
-      </p>
-      {isOpen && (
-        <Popup handleClose={handleClose}>
-          <DeleteAccount />
-        </Popup>
-      )}
     </div>
   );
 }
