@@ -1,10 +1,14 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   addToDatabase,
   deleteFromDatabase,
   getFromDatabase,
 } from "../../../api/apiRequest";
-import { addFollower, setFollowers } from "../../../redux/followersSlice";
+import {
+  addFollower,
+  removeFollower,
+  setFollowers,
+} from "../../../redux/followersSlice";
 import GadgetBox from "../shared/GadgetBox";
 import DiscoverUsers from "./DiscoverUsers";
 import ManageUsers from "./ManageUsers";
@@ -16,10 +20,10 @@ export default function FollowersContainer({ followers, users, loggedUser }) {
   const fetchFollowers = async () => {
     try {
       const followersFromDatabase = await getFromDatabase("followers");
-      const followers = followersFromDatabase.map((user) => ({
+      const onlyFollowers = followersFromDatabase.map((user) => ({
         ...user.fields,
       }));
-      dispatch(setFollowers(followers));
+      dispatch(setFollowers(onlyFollowers));
     } catch (error) {
       console.error("Errore nel recupero dei follower dal database", error);
     }
@@ -37,16 +41,21 @@ export default function FollowersContainer({ followers, users, loggedUser }) {
     try {
       await addToDatabase("followers", newFollower);
       dispatch(addFollower(newFollower));
+      fetchFollowers();
     } catch (error) {
       console.error("Errore nell'aggiunta dei follower", error);
     }
   };
-
   const removeFollow = async (userToRemove) => {
     const result = followers.find((item) => item.idTo === userToRemove.id);
-
-    await deleteFromDatabase("followers", result.id);
-    fetchFollowers();
+    if (result.id) {
+      try {
+        await deleteFromDatabase("followers", result.id);
+        dispatch(removeFollower(result));
+      } catch (error) {
+        console.error("Errore nella rimozione del follower", error);
+      }
+    }
   };
 
   return (
