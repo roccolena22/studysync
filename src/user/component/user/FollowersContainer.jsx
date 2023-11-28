@@ -37,7 +37,6 @@ export default function FollowersContainer({ followers, users, loggedUser }) {
     try {
       await addToDatabase("followers", newFollower);
       dispatch(addFollower(newFollower));
-      fetchFollowers();
     } catch (error) {
       console.error("Errore nell'aggiunta dei follower", error);
     }
