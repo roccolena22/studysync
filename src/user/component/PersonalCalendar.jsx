@@ -5,7 +5,6 @@ import moment from "moment";
 import "moment/locale/it";
 import AddEventForm from "./form/AddEventForm";
 import Popup from "./shared/Popup";
-import AlertNotification from "../../shared/component/AlertNotification";
 import TitleSection from "./shared/TitleSection";
 
 export default function PersonaleCalendar({ loggedUser, followers, events }) {
@@ -13,7 +12,6 @@ export default function PersonaleCalendar({ loggedUser, followers, events }) {
   const [startDate, setStartDate] = useState(null);
   const [startTime, setStartTime] = useState(null);
   const [endTime, setEndTime] = useState(null);
-  const [alertMessage, setAlertMessage] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const localizer = momentLocalizer(moment);
 
@@ -34,7 +32,7 @@ export default function PersonaleCalendar({ loggedUser, followers, events }) {
     const currentDate = new Date();
     currentDate.setDate(currentDate.getDate() - 1);
     if (startDateFormatted <= currentDate) {
-      setAlertMessage("You cannot create events in the past tense");
+      alert("You cannot create events in the past tense");
     } else {
       setStartDate(moment(slotInfo.start).format("L"));
       setEndDate(moment(slotInfo.end).format("L"));
@@ -84,11 +82,6 @@ export default function PersonaleCalendar({ loggedUser, followers, events }) {
     setPopupOpen(!isPopupOpen);
   };
 
-
-  const handleAlertClose = () => {
-    setAlertMessage(!alertMessage);
-  };
-
   return (
     <div className="w-full flex flex-col items-center">
       <div className="w-full">
@@ -131,13 +124,6 @@ export default function PersonaleCalendar({ loggedUser, followers, events }) {
             />
           </div>
         </Popup>
-      )}
-      {alertMessage && (
-        <AlertNotification
-          message={alertMessage}
-          type="error" 
-          onClose={handleAlertClose}
-        />
       )}
     </div>
   );

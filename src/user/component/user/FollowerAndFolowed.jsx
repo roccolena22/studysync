@@ -17,7 +17,7 @@ export default function FollowerAndFollowed({
   return (
     <div className="pt-2">
       <TabMenu
-        firstSectionName="following"
+        firstSectionName="Following"
         secondSectionName="Followers"
         handleSections={handleSections}
       />

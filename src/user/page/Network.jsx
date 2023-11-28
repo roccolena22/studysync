@@ -1,22 +1,17 @@
 import { useState } from "react";
 import TitlePage from "../component/shared/TitlePage";
-import CardList from "../component/card/CardList";
+import EventList from "../component/card/EventList";
 import Popup from "../component/shared/Popup";
 import UsersList from "../component/user/UserList";
 
 export default function Network({ loggedUser, followers, events, users }) {
-
   const [reservationsPopupIsOpen, setReservationsPopupIsOpen] = useState(false);
 
-  const filterFollowers = followers && followers.filter(
-    (user) => user.idTo === loggedUser.id
-  );
-  const loggedUserFollowers = filterFollowers.map((user) => ({
-    idFrom: user.idFrom,
-  }));
+  const following =
+    followers && followers.filter((user) => user.idFrom === loggedUser.id);
 
   const networkEvents = events.filter((event) =>
-    loggedUserFollowers.some((item) => item.idFrom === event.authorId)
+    following.some((item) => item.idTo === event.authorId)
   );
 
   const handleReservationsPopup = () => {
@@ -25,14 +20,13 @@ export default function Network({ loggedUser, followers, events, users }) {
 
   const handleCloseReservationsPopup = () => {
     setReservationsPopupIsOpen(!reservationsPopupIsOpen);
-    setReservationsPopupIsOpen(false);
   };
 
   return (
     <div className="flex flex-col items-center">
       <TitlePage title="Network" />
       <div className="sticky top-16 w-full">
-        <CardList
+        <EventList
           events={networkEvents}
           handleReservationsPopup={handleReservationsPopup}
         />

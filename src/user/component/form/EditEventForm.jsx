@@ -45,7 +45,7 @@ export default function EditEventForm({ event, updateEvent }) {
       startTime: data.startTime,
       endTime: data.endTime,
       places: data.places,
-      apiId: event.apiId
+      id: event.id
     };
     updateEvent(editedData);
   };

@@ -1,8 +1,8 @@
-import TimeBox from "./TimeBox";
 import HeaderCard from "./HeaderCard";
 import moment from "moment";
 import OptionsCard from "./OptionsCard";
-import Badge from "../Badge";
+import { useLocation } from "react-router-dom";
+import Button from "../../../shared/component/Button";
 
 export default function EventCard({
   event,
@@ -10,10 +10,28 @@ export default function EventCard({
   handleEditPopup,
   users,
   handleReservationsPopup,
+  indexSection,
 }) {
-  const startDate = moment(event.start, "MM/DD/YY");
-  const endDate = moment(event.end, "MM/DD/YY");
+  const location = useLocation();
+  const startDate = moment(
+    `${event.startDate} ${event.startTime}`,
+    "MM/DD/YYYY HH:mm"
+  );
+  const endDate = moment(
+    `${event.endDate} ${event.endTime}`,
+    "MM/DD/YYYY HH:mm"
+  );
+  const duration = moment.duration(endDate.diff(startDate));
 
+  let formattedDuration;
+
+  if (duration.hours() === 0) {
+    // Se le ore sono 0, mostra solo i minuti
+    formattedDuration = `${duration.minutes()} min`;
+  } else {
+    // Altrimenti, mostra sia ore che minuti
+    formattedDuration = `${duration.hours()}h ${duration.minutes()}m`;
+  }
   return (
     <div className="w-full">
       <HeaderCard
@@ -21,19 +39,20 @@ export default function EventCard({
         users={users}
         handleReservationsPopup={handleReservationsPopup}
       />
-      <div className="relative py-4">
-        <TimeBox
-          date={startDate.format("DD/MM/YY")}
-          time={event.startTime}
-          status={event.status}
-        />
-        <div className="flex flex-col-reverse sm:flex-row sm:justify-between items-center pt-6 sm:pt-4">
+      <div className="pb-2">
+        <div className="flex items-center pt-6 sm:pt-4">
           <p className="text-md font-semibold text-green-700">{event.title}</p>
-          <Badge
-            text={event.status}
-          />
         </div>
         <div className="py-2">
+          <div className="text-gray-700">
+            <span className="font-semibold text-sm">Start:</span>
+            <span className="text-xs sm:text-sm pl-1">{event.startDate}</span>
+            <span className="text-xs sm:text-sm pl-1">{event.startTime}</span>
+          </div>
+          <div className="text-gray-700">
+            <span className="font-semibold text-sm">Duration:</span>
+            {formattedDuration}
+          </div>
           {event.mode && (
             <div className="text-gray-700">
               <span className="font-semibold text-sm">Mode:</span>
@@ -53,19 +72,18 @@ export default function EventCard({
             </div>
           )}
         </div>
-        <div className="flex justify-center sm:justify-end">
-          <OptionsCard
-            event={event}
-            handleOpenEditPopup={handleEditPopup}
-            handleDelete={handleDelete}
-          />
+        <div className="flex justify-end">
+          {location.pathname !== "/network" ? (
+            <OptionsCard
+              event={event}
+              handleOpenEditPopup={handleEditPopup}
+              handleDelete={handleDelete}
+              indexSection={indexSection}
+            />
+          ) : (
+            <Button small name="Join" />
+          )}
         </div>
-        <TimeBox
-          date={endDate.format("DD/MM/YY")}
-          time={event.endTime}
-          type="end"
-          status={event.status}
-        />
       </div>
     </div>
   );

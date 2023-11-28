@@ -4,12 +4,13 @@ import SearchBar from "../shared/SearchBar";
 import NoEvents from "../shared/NoEvents";
 import GadgetBox from "../shared/GadgetBox";
 
-export default function CardList({
+export default function EventCardList({
   loggedUser,
   events,
   handleDelete,
   handleUpdatePopup,
   handleReservationsPopup,
+  indexSection,
 }) {
   const [eventsSearched, setEventsSearched] = useState(null);
 
@@ -30,8 +31,7 @@ export default function CardList({
       </div>
       {events.length > 0 ? (
         events.map((event, index) => (
-          <div key={index}>
-            <div className="w-full pt-6">
+          <div key={index} className="py-6">
               <GadgetBox>
                 <EventCard
                   loggedUser={loggedUser}
@@ -39,9 +39,9 @@ export default function CardList({
                   handleDelete={handleDelete}
                   handleEditPopup={() => handleUpdatePopup(event)}
                   handleReservationsPopup={handleReservationsPopup}
+                  indexSection={indexSection}
                 />
               </GadgetBox>
-            </div>
           </div>
         ))
       ) : (

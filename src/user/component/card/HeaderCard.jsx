@@ -19,14 +19,11 @@ export default function HeaderCard({ event, handleReservationsPopup }) {
         </div>
         <p className="text-xs text-slate-400">{event.authorEmail}</p>
       </div>
-      <div className="flex space-x-2">
         <ReservationsButton
           places={event.places}
           handleReservationsPopup={handleReservationsPopup}
           event={event}
         />
-        {network && <Button small name="Join"/>}
-      </div>
     </div>
   );
 }

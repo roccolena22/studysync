@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Button from "../../../shared/component/Button";
 import Popup from "../shared/Popup";
 import FollowerAndFollowed from "./FollowerAndFolowed";
-import { getFromDatabase } from "../../../api/apiRequest";
 
 export default function ManageUsers({
   users,

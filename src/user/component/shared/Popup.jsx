@@ -12,7 +12,7 @@ export default function Popup({ children, handleClose, title }) {
             onClick={handleClose}
           />
         </div>
-        <TitleSection title={title}/>
+        {title && <TitleSection title={title} />}
         {children}
       </div>
     </div>
