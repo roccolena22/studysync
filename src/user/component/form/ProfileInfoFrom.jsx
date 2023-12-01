@@ -3,10 +3,9 @@ import Input from "../../../shared/component/Input";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { UserInfoValidator } from "./validator/UserInfoValidator";
+import { updateDatabaseRecord } from "../../../api/apiRequest";
 
-export default function ProfileInfoForm({ handleUserInfo, loggedUser }) {
-
-
+export default function ProfileInfoForm({ loggedUser }) {
   const {
     handleSubmit,
     formState: { errors },
@@ -20,8 +19,8 @@ export default function ProfileInfoForm({ handleUserInfo, loggedUser }) {
     },
   });
 
-  const onSubmit = (data) => {
-    handleUserInfo(data);
+  const onSubmit = async (data) => {
+    await updateDatabaseRecord("users", loggedUser.id, data);
   };
 
   return (
@@ -48,7 +47,7 @@ export default function ProfileInfoForm({ handleUserInfo, loggedUser }) {
           errorMessage={errors.email?.message}
         />
         <div className="flex justify-end">
-          <Button name="Update" />
+          <Button type="submit" name="Update" />
         </div>
       </div>
     </form>

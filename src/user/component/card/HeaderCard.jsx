@@ -1,13 +1,7 @@
-import { useLocation } from "react-router-dom";
 import ReservationsButton from "./ReservationsButton";
-import Button from "../../../shared/component/Button";
 
 export default function HeaderCard({ event, handleReservationsPopup }) {
-  const location = useLocation();
 
-
-  
-  const network = location.pathname === "/network" ? true : false;
   return (
     <div className="flex justify-between items-center border-b border-slate-300 pb-1 rounded-t-lg">
       <div>

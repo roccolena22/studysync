@@ -60,6 +60,7 @@ export default function AddEventForm({
       authorFirstName: data.authorFirstName,
       authorLastName: data.authorLastName,
     };
+
     await addToDatabase("events", fullEvent);
     dispatch(setEvent([fullEvent]));
 

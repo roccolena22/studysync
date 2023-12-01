@@ -18,13 +18,18 @@ export default function SearchBar({ placeholder, data, dataFromSearch }) {
 
   const clearSearch = () => {
     setSearchTerm("");
-    dataFromSearch([]);
+    dataFromSearch(data);
     setIsSearching(false);
   };
 
   const handleInputChange = (e) => {
     setSearchTerm(e.target.value);
-    filterData();
+    if (e.target.value === "") {
+      dataFromSearch(data);
+      setIsSearching(false);
+    } else {
+      filterData();
+    }
   };
 
   return (

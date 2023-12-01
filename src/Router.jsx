@@ -24,7 +24,6 @@ const Router = () => {
   const events = useSelector((state)=> state.events);
   const bookings = useSelector((state)=> state.bookings);
 
-
   const router = createBrowserRouter(
     createRoutesFromElements(
       <>
@@ -55,7 +54,7 @@ const Router = () => {
             path="/account"
             element={
               <Protected isLogged={loggedUser}>
-                <Account loggedUser={loggedUser} />
+                <Account loggedUser={loggedUser} users={users}/>
               </Protected>
             }
           />

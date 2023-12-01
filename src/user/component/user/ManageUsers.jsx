@@ -14,7 +14,6 @@ export default function ManageUsers({
 
   const userConnections = followers.flat();
 
-
   const followingIds = userConnections
     .filter((user) => user.idFrom === loggedUser.id)
     .map((user) => user.idTo);
@@ -23,33 +22,39 @@ export default function ManageUsers({
     .filter((user) => user.idTo === loggedUser.id)
     .map((user) => user.idFrom);
 
-  const loggedUserFollowing = users.filter((user) => followingIds.includes(user.id));
-  const loggedUserFollowers = users.filter((user) => followersIds.includes(user.id));
+  const loggedUserFollowing = users.filter((user) =>
+    followingIds.includes(user.id)
+  );
+  const loggedUserFollowers = users.filter((user) =>
+    followersIds.includes(user.id)
+  );
 
   const handlePopup = () => {
     setPopupIsOpen(!popupIsOpen);
   };
 
   return (
-    <>
+    <div className="">
       <div className="w-full flex flex-col items-center">
-        <div className="flex justify-around w-full pb-4">
+        <div className="flex justify-around w-full space-x-2 pb-4 text-lg font-bold text-gray-700">
           <div className="space-x-1">
-            <span className="text-lg font-bold text-gray-700">Following:</span>
+            <span>Following:</span>
             <span>{followingIds.length}</span>
           </div>
           <div className="space-x-1">
-            <span className="text-lg font-bold text-gray-700">Followers:</span>
+            <span>Followers:</span>
             <span>{followersIds.length}</span>
           </div>
         </div>
-        <Button
-          name="Manage"
-          outline
-          large
-          className="bg-rose-500 text-white hover:bg-rose-600 hover:border-rose-600"
-          onClick={handlePopup}
-        />
+        <div>
+          <Button
+            name="Manage"
+            outline
+            large
+            className="bg-rose-500 text-white hover:bg-rose-600 hover:border-rose-600"
+            onClick={handlePopup}
+          />
+        </div>
       </div>
 
       {popupIsOpen && (
@@ -63,6 +68,6 @@ export default function ManageUsers({
           />
         </Popup>
       )}
-    </>
+    </div>
   );
 }

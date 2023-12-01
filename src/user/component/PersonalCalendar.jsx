@@ -63,7 +63,6 @@ export default function PersonaleCalendar({ loggedUser, followers, events }) {
     authorEmail: originalEvent.authorEmail,
   }));
 
-  
   const eventStyleGetter = (event) => {
     const style = {
       backgroundColor: event.authorId === loggedUser.id ? '#f43f5e' : '#15803D',

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import moment from "moment";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Button from "../../../shared/component/Button";
@@ -29,23 +28,20 @@ export default function EditEventForm({ event, updateEvent }) {
     },
   });
 
-  // const formattedStartDate = moment(event.start).format("L");
-  // const formattedEndDate = moment(event.end).format("L");
-
   const onSubmit = (data) => {
     const editedData = {
       ...event,
       title: data.title,
+      mode: data.mode,
       location: data.location,
       platform: data.platform,
       info: data.info,
-      mode: data.mode,
       startDate: data.startDate,
       endDate: data.endDate,
       startTime: data.startTime,
       endTime: data.endTime,
       places: data.places,
-      id: event.id
+      id: event.id,
     };
     updateEvent(editedData);
   };

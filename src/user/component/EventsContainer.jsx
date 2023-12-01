@@ -54,28 +54,33 @@ export default function EventsContainer({ loggedUser, indexSection, events }) {
   };
 
   const updateEvent = async (editedEvent) => {
-    const oldEvent = events.find((event) => event.id === editedEvent.id);
-    const changedValues = findChangedParams(oldEvent, editedEvent);
-    await updateDatabaseRecord("events", editedEvent.id, changedValues);
-    fetchEvents();
-    setEditPopupIsOpen(false);
-  };
+    const fullEvent = {
+      authorId: editedEvent.authorId,
+      title: editedEvent.title,
+      mode: editedEvent.mode,
+      location:
+        editedEvent.mode === "In person" || editedEvent.mode === "Mixed"
+          ? editedEvent.location
+          : "",
+      platform:
+        editedEvent.mode === "Remotely" || editedEvent.mode === "Mixed"
+          ? editedEvent.platform
+          : "",
+      startTime: editedEvent.startTime,
+      endTime: editedEvent.endTime,
+      places: editedEvent.places,
+      info: editedEvent.info,
+      startDate: editedEvent.startDate,
+      endDate: editedEvent.endDate,
+      authorEmail: editedEvent.authorEmail,
+      authorFirstName: editedEvent.authorFirstName,
+      authorLastName: editedEvent.authorLastName,
+    };
 
-  const findChangedParams = (originalObject, updatedObject) => {
-    const changedParams = {};
-
-    for (const key in updatedObject) {
-      if (
-        Object.prototype.hasOwnProperty.call(originalObject, key) &&
-        Object.prototype.hasOwnProperty.call(updatedObject, key)
-      ) {
-        if (originalObject[key] !== updatedObject[key]) {
-          changedParams[key] = updatedObject[key];
-        }
-      }
-    }
-
-    return changedParams;
+      await updateDatabaseRecord("events", editedEvent.id, fullEvent);
+      fetchEvents();
+      setEditPopupIsOpen(false);
+    
   };
 
   const handleUpdatePopup = (event) => {

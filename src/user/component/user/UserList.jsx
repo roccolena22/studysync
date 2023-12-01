@@ -22,11 +22,15 @@ export default function UsersList({
   
   return (
     <div>
+    {
+      usersToSearch.length > 1 &&
       <SearchBar
         placeholder="Search for a user based on their name or email"
         data={usersToSearch}
         dataFromSearch={handleSearch}
       />
+    }
+      
       <div className="pt-6">
         {(searchedUsers.length > 0 ? searchedUsers : usersToSearch).map(
           (user, index) => (

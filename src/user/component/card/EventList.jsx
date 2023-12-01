@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import EventCard from "./EventCard";
 import SearchBar from "../shared/SearchBar";
 import NoEvents from "../shared/NoEvents";
@@ -12,10 +11,8 @@ export default function EventCardList({
   handleReservationsPopup,
   indexSection,
 }) {
-  const [eventsSearched, setEventsSearched] = useState(null);
 
   const handleSearch = (dataFromSearch) => {
-    setEventsSearched(dataFromSearch);
   };
 
   return (
@@ -29,9 +26,17 @@ export default function EventCardList({
           />
         )}
       </div>
-      {events.length > 0 ? (
-        events.map((event, index) => (
-          <div key={index} className="py-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-6">
+        {events.length > 0 ? (
+          events.map((event, index) => (
+            <div
+              key={index}
+              className={
+                events.length % 2 === 1 && index === 0
+                  ? "sm:col-span-2"
+                  : "sm:col-span-1"
+              }
+            >
               <GadgetBox>
                 <EventCard
                   loggedUser={loggedUser}
@@ -42,11 +47,14 @@ export default function EventCardList({
                   indexSection={indexSection}
                 />
               </GadgetBox>
+            </div>
+          ))
+        ) : (
+          <div className="col-span-2">
+            <NoEvents />
           </div>
-        ))
-      ) : (
-        <NoEvents />
-      )}
+        )}
+      </div>
     </div>
   );
 }
