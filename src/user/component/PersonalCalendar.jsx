@@ -99,7 +99,8 @@ export default function PersonaleCalendar({ loggedUser, followers, events }) {
       {startDate && isPopupOpen && (
         <Popup handleClose={handlePopup}>
           <TitleSection>
-            <p>Create a new event</p>
+          <div className="flex justify-between">
+          <p>Create a new event</p>
             <div className="flex space-x-2">
               <div>
                 <span className="text-green-700">Start:</span>
@@ -110,6 +111,8 @@ export default function PersonaleCalendar({ loggedUser, followers, events }) {
                 <span className="pl-1">{endDate}</span>
               </div>
             </div>
+          </div>
+            
           </TitleSection>
           <div className="pt-4">
             <AddEventForm
