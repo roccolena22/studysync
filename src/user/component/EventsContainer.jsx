@@ -9,6 +9,7 @@ import {
 } from "../../api/apiRequest";
 import { setEvent } from "../../redux/eventsSlice";
 import { useDispatch } from "react-redux";
+import UsersList from "./user/UserList";
 
 export default function EventsContainer({ loggedUser, indexSection, events }) {
   const [editPopupIsOpen, setEditPopupIsOpen] = useState(false);
@@ -113,6 +114,7 @@ export default function EventsContainer({ loggedUser, indexSection, events }) {
               handleUpdatePopup={handleUpdatePopup}
               handleReservationsPopup={handleReservationsPopup}
               indexSection={indexSection}
+              
             />
           ) : (
             <EventList

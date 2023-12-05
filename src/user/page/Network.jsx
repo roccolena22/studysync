@@ -3,6 +3,7 @@ import TitlePage from "../component/shared/TitlePage";
 import EventList from "../component/card/EventList";
 import Popup from "../component/shared/Popup";
 import UsersList from "../component/user/UserList";
+import { addToDatabase } from "../../api/apiRequest";
 
 export default function Network({ loggedUser, followers, events, users }) {
   const [reservationsPopupIsOpen, setReservationsPopupIsOpen] = useState(false);
@@ -22,6 +23,13 @@ export default function Network({ loggedUser, followers, events, users }) {
     setReservationsPopupIsOpen(!reservationsPopupIsOpen);
   };
 
+  const addToBooked = async (idEvent) => {
+    await addToDatabase("bookings", {
+      eventId: idEvent,
+      bookedId: loggedUser.id,
+    });
+  };
+
   return (
     <div className="flex flex-col items-center">
       <TitlePage title="Network" />
@@ -29,6 +37,7 @@ export default function Network({ loggedUser, followers, events, users }) {
         <EventList
           events={networkEvents}
           handleReservationsPopup={handleReservationsPopup}
+          addToBooked={addToBooked}
         />
       </div>
       {reservationsPopupIsOpen && (

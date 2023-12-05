@@ -11,6 +11,7 @@ export default function EventCardList({
   handleUpdatePopup,
   handleReservationsPopup,
   indexSection,
+  addToBooked,
 }) {
   const [searchedEvents, setSearchedEvents] = useState([]);
 
@@ -48,6 +49,7 @@ export default function EventCardList({
                   handleEditPopup={() => handleUpdatePopup(event)}
                   handleReservationsPopup={handleReservationsPopup}
                   indexSection={indexSection}
+                  addToBooked={addToBooked}
                 />
               </GadgetBox>
             </div>

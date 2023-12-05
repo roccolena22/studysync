@@ -11,8 +11,8 @@ export default function EventCard({
   users,
   handleReservationsPopup,
   indexSection,
+  addToBooked,
 }) {
-
   const location = useLocation();
 
   return (
@@ -23,7 +23,7 @@ export default function EventCard({
         handleReservationsPopup={handleReservationsPopup}
       />
       <div className="pb-2">
-        <EventDetails event={event}/>
+        <EventDetails event={event} />
       </div>
       <div className="absolute bottom-0 right-0">
         {location.pathname !== "/network" ? (
@@ -34,7 +34,7 @@ export default function EventCard({
             indexSection={indexSection}
           />
         ) : (
-          <Button small name="Join" />
+          <Button small name="Join" onClick={() => addToBooked(event.id)} />
         )}
       </div>
     </div>
