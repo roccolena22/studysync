@@ -44,7 +44,7 @@ export default function PersonaleCalendar({ loggedUser, followers, events }) {
   const newIds = [...authorIds, loggedUser.id];
 
   const filteredEvents = events
-    ? events.filter((event) => newIds.includes(event.authorId[0]))
+    ? events.filter((event) => newIds.includes(event.authorId))
     : [];
 
   const formattedEvents = filteredEvents.map((originalEvent) => ({
@@ -62,7 +62,7 @@ export default function PersonaleCalendar({ loggedUser, followers, events }) {
 
   const eventStyleGetter = (event) => {
     const style = {
-      backgroundColor: event.authorId[0] === loggedUser.id ? "#f43f5e" : "#15803D",
+      backgroundColor: event.authorId === loggedUser.id ? "#f43f5e" : "#15803D",
       borderRadius: "4px",
       color: "white",
       borderColor: event.authorId === loggedUser.id ? "#f43f5e" : "#15803D",

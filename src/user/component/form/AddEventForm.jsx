@@ -36,22 +36,17 @@ export default function AddEventForm({
   });
 
   const onSubmit = async (data) => {
-    data.startDate = startDate;
-    data.endDate = endDate;
-    data.authorId = loggedUser.id;
     const fullEvent = {
-      authorId: [data.authorId],
-      title: data.title,
-      location: data.location,
-      platform: data.platform,
-      startTime: data.startTime,
-      endTime: data.endTime,
-      mode: data.mode,
-      places: data.places,
-      info: data.info,
-      startDate: data.startDate,
-      endDate: data.endDate,
+      authorId: loggedUser.id,
+      email: loggedUser.email,
+      firstName: loggedUser.firstName,
+      lastName: loggedUser.lastName,
+      startDate,
+      endDate,
+      ...data,
     };
+
+    console.log(fullEvent);
 
     await addToDatabase("events", fullEvent);
     dispatch(setEvent([fullEvent]));

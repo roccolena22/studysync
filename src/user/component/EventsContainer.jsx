@@ -27,7 +27,7 @@ export default function EventsContainer({ loggedUser, indexSection, events }) {
     }));
 
     const filteredEvents = events.filter(
-      (event) => event.authorId[0] === loggedUser.id
+      (event) => event.authorId === loggedUser.id
     );
     const currentDate = new Date();
 

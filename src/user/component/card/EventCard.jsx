@@ -32,7 +32,7 @@ export default function EventCard({
             indexSection={indexSection}
           />
         )}
-        {loggedUser.id !== event.authorId[0] && (
+        {loggedUser.id !== event.authorId && (
           <Button small name="Join" onClick={() => addToBooked(event)} />
         )}
       </div>

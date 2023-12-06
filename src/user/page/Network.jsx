@@ -12,7 +12,7 @@ export default function Network({ loggedUser, followers, events, users }) {
     followers && followers.filter((user) => user.idFrom === loggedUser.id);
 
   const networkEvents = events.filter((event) =>
-    following.some((item) => item.idTo === event.authorId[0])
+    following.some((item) => item.idTo === event.authorId)
   );
 
   const handleReservationsPopup = () => {
