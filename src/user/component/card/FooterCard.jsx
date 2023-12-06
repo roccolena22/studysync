@@ -9,23 +9,29 @@ export default function FooterCard({
   return (
     <div className="flex space-x-2">
       {indexSection === 1 ? (
-        <Icon
-          name="delete"
+        <div
+          className="flex flex-col cursor-pointer text-cyan-700 items-center"
           onClick={() => handleDelete(event)}
-          style="w-5 h-5 rounded-full hover-bg-slate-200 cursor-pointer"
-        />
+        >
+          <Icon name="delete" style="w-3 h-3" />
+          <span className="text-[10px] text-red-800">DELETE</span>
+        </div>
       ) : (
         <>
-          <Icon
-            name="edit"
+          <div
+            className="flex flex-col cursor-pointer text-cyan-700 items-center"
             onClick={handleOpenEditPopup}
-            style="w-5 h-5 rounded-full hover:bg-slate-200 cursor-pointer"
-          />
-          <Icon
-            name="delete"
+          >
+            <Icon name="edit" style="w-3 h-3" />
+            <span className="text-[10px]">EDIT</span>
+          </div>
+          <div
+            className="flex flex-col cursor-pointer text-cyan-700 items-center"
             onClick={() => handleDelete(event)}
-            style="w-5 h-5 rounded-full hover-bg-slate-200 cursor-pointer"
-          />
+          >
+            <Icon name="delete" style="w-3 h-3" color="red-800" />
+            <span className="text-[10px] text-red-800">DELETE</span>
+          </div>
         </>
       )}
     </div>

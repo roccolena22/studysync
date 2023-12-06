@@ -36,7 +36,7 @@ export default function ManageUsers({
   return (
     <div className="">
       <div className="w-full flex flex-col items-center">
-        <div className="flex justify-around w-full space-x-2 pb-4 text-lg font-bold text-sky-700">
+        <div className="flex justify-around w-full space-x-2 pb-4 text-lg font-bold text-rose-500">
           <div className="space-x-1">
             <span>Following:</span>
             <span>{followingIds.length}</span>
@@ -51,7 +51,7 @@ export default function ManageUsers({
             name="Manage"
             outline
             large
-            className="bg-rose-500 text-white hover:bg-rose-600 hover:border-rose-600"
+            className="bg-cyan-700 text-white hover:bg-rose-500 hover:border-rose-500"
             onClick={handlePopup}
           />
         </div>

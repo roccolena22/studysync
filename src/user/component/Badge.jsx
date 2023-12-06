@@ -2,7 +2,7 @@ export default function Badge({ text }) {
 
     const colorMapping = {
       Finished: "bg-red-800",
-      Active: "bg-blue-500",
+      Active: "bg-cyan-700",
       teacher: "bg-purple-300",
       student: "bg-yellow-300",
     };

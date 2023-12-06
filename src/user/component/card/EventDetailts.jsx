@@ -27,7 +27,7 @@ export default function EventDetails({ event }) {
   return (
     <div>
       <div className="flex items-center pt-6 sm:pt-4">
-        <p className="text-md font-semibold text-rose-500">{event.title}</p>
+        <p className="text-md font-semibold text-green-600">{event.title}</p>
       </div>
       <div className="text-gray-700">
         <span className="font-semibold text-sm">Start:</span>

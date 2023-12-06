@@ -18,14 +18,14 @@ export default function DiscoverUsers({
   return (
     <>
       <div className="w-full flex flex-col justify-between items-center">
-        <p className="text-lg pb-4 font-bold text-sky-700">
+        <p className="text-lg pb-4 font-bold text-rose-500">
           Discover new users to follow
         </p>
         <Button
           name="Discover"
           outline
           large
-          className="bg-rose-500 text-white hover:bg-rose-600 hover:border-rose-600"
+          className="bg-cyan-700 text-white hover:bg-rose-500 hover:border-rose-500"
           onClick={handlePopup}
         />
       </div>

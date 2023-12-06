@@ -62,10 +62,10 @@ export default function PersonaleCalendar({ loggedUser, followers, events }) {
 
   const eventStyleGetter = (event) => {
     const style = {
-      backgroundColor: event.authorId === loggedUser.id ? "#0369a1" : "#0ea5e9",
+      backgroundColor: event.authorId === loggedUser.id ? "#16A34A" : "#0ea5e9",
       borderRadius: "4px",
       color: "white",
-      borderColor: event.authorId === loggedUser.id ? "#0369a1" : "#0ea5e9",
+      borderColor: event.authorId === loggedUser.id ? "#16A34A" : "#0ea5e9",
       display: "block",
       margin: "2px",
     };
@@ -121,7 +121,7 @@ export default function PersonaleCalendar({ loggedUser, followers, events }) {
               <p>Create a new event</p>
               <div className="flex space-x-2">
                 <div>
-                  <span className="text-sky-700">Start:</span>
+                  <span className="text-rose-500">Start:</span>
                   <span className="pl-1">{startDate}</span>
                 </div>
                 <div>

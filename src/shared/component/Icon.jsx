@@ -9,10 +9,9 @@ import { RiDeleteBinLine } from "react-icons/ri";
 import { IoIosArrowUp } from "react-icons/io";
 import { IoIosArrowDown } from "react-icons/io";
 import { LuContact } from "react-icons/lu";
-import { BsEye } from "react-icons/bs";
 import { AiOutlineAlert } from "react-icons/ai";
 import { BiNetworkChart } from "react-icons/bi";
-import { AiOutlineEdit } from "react-icons/ai";
+import { MdOutlineEdit } from "react-icons/md";
 import { BiClipboard } from "react-icons/bi";
 import { TfiSave } from "react-icons/tfi";
 import { IoIosClose } from "react-icons/io";
@@ -22,9 +21,9 @@ import { HiUserGroup } from "react-icons/hi";
 import { AiOutlineEye } from "react-icons/ai";
 import { AiOutlineEyeInvisible } from "react-icons/ai";
 
-export default function Icon({ name, style, white, onClick }) {
-  const classNames = `${style} ${white ? "text-white" : "text-rose-500"}`;
-
+export default function Icon({ name, style, color, onClick }) {
+  const colorClass = color ? `text-${color}` : "text-cyan-700";
+  const classNames = `${style} ${colorClass}`;
   const iconMapping = {
     logo: <BsCcCircle className={classNames} onClick={onClick} />,
     dashboard: (
@@ -41,7 +40,7 @@ export default function Icon({ name, style, white, onClick }) {
     contact: <LuContact className={classNames} onClick={onClick} />,
     alert: <AiOutlineAlert className={classNames} onClick={onClick} />,
     network: <BiNetworkChart className={classNames} onClick={onClick} />,
-    edit: <AiOutlineEdit className={classNames} onClick={onClick} />,
+    edit: <MdOutlineEdit className={classNames} onClick={onClick} />,
     board: <BiClipboard className={classNames} onClick={onClick} />,
     save: <TfiSave className={classNames} onClick={onClick} />,
     close: <IoIosClose className={classNames} onClick={onClick} />,

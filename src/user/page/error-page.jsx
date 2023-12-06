@@ -14,7 +14,7 @@ export default function ErrorPage({ isLogged }) {
       >
         <div>
           <div className="flex flex-col items-center">
-            <p className="text-lg text-rose-500 pb-4">Oops!</p>
+            <p className="text-lg text-cyan-700 pb-4">Oops!</p>
             <p>Sorry, an unexpected error has occurred.</p>
             {isLogged ? (
               <p>Do you want to return to the Dashboard?</p>

@@ -6,7 +6,7 @@ export default function ReservationsButtonButton({
 }) {
   return (
     <div
-      className="flex flex-col cursor-pointer text-rose-500 items-center"
+      className="flex flex-col cursor-pointer text-cyan-700 items-center"
       onClick={() => handleReservationsPopup()}
     >
       <Icon name="group" style="w-3 h-3"/>

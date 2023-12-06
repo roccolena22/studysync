@@ -15,10 +15,14 @@ export default function TopNavigationMenu() {
   };
   return (
     <div className="flex space-x-6">
-      <Link to="/" className="hidden md:block md:flex flex-col items-center transition delay-150 duration-300 ease-in-out">
+      <Link
+        to="/"
+        className="hidden md:block md:flex flex-col items-center transition delay-150 duration-300 ease-in-out"
+      >
         <Icon
+          color="white"
           name="dashboard"
-          style={`rounded-full w-8 h-8 p-2 hover:border border-full border-rose-400 text-white ${
+          style={`rounded-full w-8 h-8 p-2 hover:border border-full border-rose-400 ${
             location.pathname === "/" ? "bg-rose-400" : ""
           }`}
         />
@@ -29,8 +33,9 @@ export default function TopNavigationMenu() {
         className="hidden md:block md:flex flex-col items-center"
       >
         <Icon
+          color="white"
           name="network"
-          style={`rounded-full w-8 h-8 p-2 hover:border border-full border-rose-400 text-white ${
+          style={`rounded-full w-8 h-8 p-2 hover:border border-full border-rose-400 ${
             location.pathname === "/network" ? "bg-rose-400" : ""
           }`}
         />
@@ -41,8 +46,9 @@ export default function TopNavigationMenu() {
         className="hidden md:block md:flex flex-col items-center"
       >
         <Icon
+          color="white"
           name="calendar"
-          style={`rounded-full w-8 h-8 p-2 hover:border border-full border-rose-400 text-white ${
+          style={`rounded-full w-8 h-8 p-2 hover:border border-full border-rose-400 ${
             location.pathname === "/calendar" ? "bg-rose-400" : ""
           }`}
         />
@@ -50,8 +56,9 @@ export default function TopNavigationMenu() {
       </Link>
       <Link to="/account" className="flex flex-col items-center">
         <Icon
+          color="white"
           name="account"
-          style={`rounded-full w-8 h-8 p-2 hover:border border-full border-rose-400 text-white ${
+          style={`rounded-full w-8 h-8 p-2 hover:border border-full border-rose-400 ${
             location.pathname === "/account" ? "bg-rose-400" : ""
           }`}
         />
@@ -59,8 +66,9 @@ export default function TopNavigationMenu() {
       </Link>
       <div className="flex flex-col items-center" onClick={handleLogout}>
         <Icon
+          color="white"
           name="logout"
-          style={`rounded-full w-8 h-8 p-2 hover:border border-full border-rose-400 text-white ${
+          style={`rounded-full w-8 h-8 p-2 hover:border border-full border-rose-400 ${
             location.pathname === "/login" ? "bg-rose-400" : ""
           }`}
         />

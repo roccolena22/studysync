@@ -14,7 +14,7 @@ export default function SingleUser({ user, addFollowers, removeFollow, }) {
           </div>
           <Badge text={user.role} />
         </div>
-        <p className="text-slate-500 text-xs">{user.email}</p>
+        <p className="text-slate-600 text-xs">{user.email}</p>
       </div>
       <Button small outline onClick={() => (removeFollow(user))} name="UnFollow"/>
       <Button small  onClick={() => (addFollowers(user))} name="Follow"/>

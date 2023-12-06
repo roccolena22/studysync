@@ -8,7 +8,7 @@ export default function Login() {
     <GuestContainer>
         <AppName  />
       <LoginForm />
-      <Link to="/recovery-password" className="text-xs text-rose-500 text-center">
+      <Link to="/recovery-password" className="text-xs text-cyan-700 text-center">
         <p>Did you forget your password?</p>
       </Link>
     </GuestContainer>
