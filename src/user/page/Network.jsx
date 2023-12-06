@@ -12,7 +12,7 @@ export default function Network({ loggedUser, followers, events, users }) {
     followers && followers.filter((user) => user.idFrom === loggedUser.id);
 
   const networkEvents = events.filter((event) =>
-    following.some((item) => item.idTo === event.authorId)
+    following.some((item) => item.idTo === event.authorId[0])
   );
 
   const handleReservationsPopup = () => {
@@ -23,9 +23,9 @@ export default function Network({ loggedUser, followers, events, users }) {
     setReservationsPopupIsOpen(!reservationsPopupIsOpen);
   };
 
-  const addToBooked = async (idEvent) => {
+  const addToBooked = async (event) => {
     await addToDatabase("bookings", {
-      eventId: idEvent,
+      eventId: event.id,
       bookedId: loggedUser.id,
     });
   };
@@ -35,6 +35,7 @@ export default function Network({ loggedUser, followers, events, users }) {
       <TitlePage title="Network" />
       <div className="sticky top-16 w-full">
         <EventList
+          loggedUser={loggedUser}
           events={networkEvents}
           handleReservationsPopup={handleReservationsPopup}
           addToBooked={addToBooked}

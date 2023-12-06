@@ -1,4 +1,3 @@
-import moment from "moment";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Button from "../../../shared/component/Button";
@@ -40,12 +39,8 @@ export default function AddEventForm({
     data.startDate = startDate;
     data.endDate = endDate;
     data.authorId = loggedUser.id;
-    data.authorEmail = loggedUser.email;
-    data.authorFirstName = loggedUser.firstName;
-    data.authorLastName = loggedUser.lastName;
-
     const fullEvent = {
-      authorId: data.authorId,
+      authorId: [data.authorId],
       title: data.title,
       location: data.location,
       platform: data.platform,
@@ -56,9 +51,6 @@ export default function AddEventForm({
       info: data.info,
       startDate: data.startDate,
       endDate: data.endDate,
-      authorEmail: data.authorEmail,
-      authorFirstName: data.authorFirstName,
-      authorLastName: data.authorLastName,
     };
 
     await addToDatabase("events", fullEvent);

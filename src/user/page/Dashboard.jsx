@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import TabMenu from "../component/navigation/TabMenu";
 import EventsContainer from "../component/EventsContainer";
 import TitlePage from "../component/shared/TitlePage";
-
 import FollowersContainer from "../component/user/FollowersContainer";
 
 export default function Dashboard({ loggedUser, users, followers, events }) {

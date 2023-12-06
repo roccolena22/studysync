@@ -1,22 +1,20 @@
 import HeaderCard from "./HeaderCard";
-import OptionsCard from "./OptionsCard";
-import { useLocation } from "react-router-dom";
 import Button from "../../../shared/component/Button";
 import EventDetails from "./EventDetailts";
+import FooterCard from "./FooterCard";
 
 export default function EventCard({
+  loggedUser,
   event,
   handleDelete,
   handleEditPopup,
   users,
   handleReservationsPopup,
-  indexSection,
   addToBooked,
+  indexSection,
 }) {
-  const location = useLocation();
-
   return (
-    <div className="w-full h-60 relative">
+    <div className="w-full h-60 relative ">
       <HeaderCard
         event={event}
         users={users}
@@ -26,15 +24,16 @@ export default function EventCard({
         <EventDetails event={event} />
       </div>
       <div className="absolute bottom-0 right-0">
-        {location.pathname !== "/network" ? (
-          <OptionsCard
+        {handleDelete && (
+          <FooterCard
             event={event}
             handleOpenEditPopup={handleEditPopup}
             handleDelete={handleDelete}
             indexSection={indexSection}
           />
-        ) : (
-          <Button small name="Join" onClick={() => addToBooked(event.id)} />
+        )}
+        {loggedUser.id !== event.authorId[0] && (
+          <Button small name="Join" onClick={() => addToBooked(event)} />
         )}
       </div>
     </div>

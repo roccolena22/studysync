@@ -9,7 +9,7 @@ export default function ReservationsButtonButton({
       className="flex flex-col cursor-pointer text-rose-500 items-center"
       onClick={() => handleReservationsPopup()}
     >
-      <Icon name="group" />
+      <Icon name="group" style="w-3 h-3"/>
       <span className="text-[10px]">0{places && "/" + places}</span>
     </div>
   );

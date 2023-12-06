@@ -6,9 +6,12 @@ import "moment/locale/it";
 import AddEventForm from "./form/AddEventForm";
 import Popup from "./shared/Popup";
 import TitleSection from "./shared/TitleSection";
+import EventCard from "./card/EventCard";
 
 export default function PersonaleCalendar({ loggedUser, followers, events }) {
-  const [isPopupOpen, setPopupOpen] = useState(false);
+  const [newEventPopup, setNewEventPopup] = useState(false);
+  const [eventPopup, setEventPopup] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState(null);
   const [startDate, setStartDate] = useState(null);
   const [startTime, setStartTime] = useState(null);
   const [endTime, setEndTime] = useState(null);
@@ -17,58 +20,52 @@ export default function PersonaleCalendar({ loggedUser, followers, events }) {
 
   const handleSelectSlot = (slotInfo) => {
     const startDateFormatted = moment(slotInfo.start).toDate();
-    const startHours = slotInfo.start.getHours();
-    const startMinutes = slotInfo.start.getMinutes();
-    const startTime = `${startHours % 12 === 0 ? 12 : startHours % 12}:${
-      startMinutes < 10 ? "0" : ""
-    }${startMinutes}`;
-    const endHours = slotInfo.end.getHours();
-    const endMinutes = slotInfo.end.getMinutes();
-    const endTime = `${endHours % 12 === 0 ? 12 : endHours % 12}:${
-      endMinutes < 10 ? "0" : ""
-    }${endMinutes}`;
+    const startTime = moment(slotInfo.start).format("HH:mm");
+    const endTime = moment(slotInfo.end).format("HH:mm");
     setStartTime(startTime);
     setEndTime(endTime);
+
     const currentDate = new Date();
     currentDate.setDate(currentDate.getDate() - 1);
+
     if (startDateFormatted <= currentDate) {
       alert("You cannot create events in the past tense");
     } else {
       setStartDate(moment(slotInfo.start).format("L"));
       setEndDate(moment(slotInfo.end).format("L"));
-      handlePopup();
+      handleNewEventPopup();
     }
   };
 
-  const userInCalendar = followers && followers.filter(
-    (user) => user.idFrom === loggedUser.id
-  );
+  const userInCalendar =
+    followers && followers.filter((user) => user.idFrom === loggedUser.id);
 
   const authorIds = userInCalendar.map((item) => item.idTo);
   const newIds = [...authorIds, loggedUser.id];
 
-  const filteredEvents = events ? events.filter((event) => newIds.includes(event.authorId)) : [];
+  const filteredEvents = events
+    ? events.filter((event) => newIds.includes(event.authorId[0]))
+    : [];
 
   const formattedEvents = filteredEvents.map((originalEvent) => ({
-    id: originalEvent.id,
     title: originalEvent.title,
     start: new Date(originalEvent.startDate + " " + originalEvent.startTime),
     end: new Date(originalEvent.endDate + " " + originalEvent.endTime),
-    location: originalEvent.location,
-    mode: originalEvent.mode,
-    authorFirstName: originalEvent.authorFirstName,
-    authorLastName: originalEvent.authorLastName,
     authorId: originalEvent.authorId,
+    mode: originalEvent.mode,
+    firstName: originalEvent.firstName,
+    lastName: originalEvent.lastName,
     places: originalEvent.places,
-    authorEmail: originalEvent.authorEmail,
+    location: originalEvent.location,
+    email: originalEvent.email,
   }));
 
   const eventStyleGetter = (event) => {
     const style = {
-      backgroundColor: event.authorId === loggedUser.id ? '#f43f5e' : '#15803D',
+      backgroundColor: event.authorId[0] === loggedUser.id ? "#f43f5e" : "#15803D",
       borderRadius: "4px",
       color: "white",
-      borderColor: event.authorId === loggedUser.id ? '#f43f5e' : '#15803D',
+      borderColor: event.authorId === loggedUser.id ? "#f43f5e" : "#15803D",
       display: "block",
       margin: "2px",
     };
@@ -77,9 +74,30 @@ export default function PersonaleCalendar({ loggedUser, followers, events }) {
     };
   };
 
-  const handlePopup = () => {
-    setPopupOpen(!isPopupOpen);
+  const handleNewEventPopup = () => {
+    setNewEventPopup(!newEventPopup);
   };
+
+  const handleEventPopup = () => {
+    setEventPopup(!eventPopup);
+  };
+  const handleEventClick = (event) => {
+    setSelectedEvent(event);
+    handleEventPopup();
+  };
+
+  const EventInCalendar = ({ event }) => (
+    <div
+      onClick={() => handleEventClick(event)}
+      className="bg-green-100 rounded-lg p-2 text-green-900"
+    >
+      <p className=" py-2 text-[14px]">{event.title}</p>
+      <div className="text-[10px] space-x-1">
+        <span>Mode:</span>
+        <span>{event.mode}</span>
+      </div>
+    </div>
+  );
 
   return (
     <div className="w-full flex flex-col items-center">
@@ -94,25 +112,27 @@ export default function PersonaleCalendar({ loggedUser, followers, events }) {
           defaultView="week"
           style={{ height: 500 }}
           eventPropGetter={eventStyleGetter}
+          components={{
+            event: EventInCalendar,
+          }}
         />
       </div>
-      {startDate && isPopupOpen && (
-        <Popup handleClose={handlePopup}>
+      {startDate && newEventPopup && (
+        <Popup handleClose={handleNewEventPopup}>
           <TitleSection>
-          <div className="flex justify-between">
-          <p>Create a new event</p>
-            <div className="flex space-x-2">
-              <div>
-                <span className="text-green-700">Start:</span>
-                <span className="pl-1">{startDate}</span>
-              </div>
-              <div>
-                <span className="text-red-800">End:</span>
-                <span className="pl-1">{endDate}</span>
+            <div className="flex justify-between">
+              <p>Create a new event</p>
+              <div className="flex space-x-2">
+                <div>
+                  <span className="text-green-700">Start:</span>
+                  <span className="pl-1">{startDate}</span>
+                </div>
+                <div>
+                  <span className="text-red-800">End:</span>
+                  <span className="pl-1">{endDate}</span>
+                </div>
               </div>
             </div>
-          </div>
-            
           </TitleSection>
           <div className="pt-4">
             <AddEventForm
@@ -125,6 +145,12 @@ export default function PersonaleCalendar({ loggedUser, followers, events }) {
               setEndDate={setEndDate}
             />
           </div>
+        </Popup>
+      )}
+
+      {eventPopup && (
+        <Popup handleClose={handleEventPopup}>
+          <EventCard event={selectedEvent} loggedUser={loggedUser}/>
         </Popup>
       )}
     </div>

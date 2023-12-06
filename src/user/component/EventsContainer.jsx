@@ -27,14 +27,13 @@ export default function EventsContainer({ loggedUser, indexSection, events }) {
     }));
 
     const filteredEvents = events.filter(
-      (event) => event.authorId === loggedUser.id
+      (event) => event.authorId[0] === loggedUser.id
     );
     const currentDate = new Date();
 
     const nextEvents = filteredEvents.filter(
       (event) => new Date(`${event.endDate} ${event.endTime}`) >= currentDate
     );
-
     const pastEvents = filteredEvents.filter(
       (event) => new Date(`${event.endDate} ${event.endTime}`) < currentDate
     );
@@ -73,9 +72,6 @@ export default function EventsContainer({ loggedUser, indexSection, events }) {
       info: editedEvent.info,
       startDate: editedEvent.startDate,
       endDate: editedEvent.endDate,
-      authorEmail: editedEvent.authorEmail,
-      authorFirstName: editedEvent.authorFirstName,
-      authorLastName: editedEvent.authorLastName,
     };
 
       await updateDatabaseRecord("events", editedEvent.id, fullEvent);

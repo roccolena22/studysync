@@ -10,15 +10,14 @@ export default function EventCardList({
   handleDelete,
   handleUpdatePopup,
   handleReservationsPopup,
-  indexSection,
   addToBooked,
+  indexSection
 }) {
   const [searchedEvents, setSearchedEvents] = useState([]);
 
   const handleSearch = (dataFromSearch) => {
     setSearchedEvents(dataFromSearch);
   };
-
   return (
     <div>
       <div className="sticky top-16 w-full z-20">
@@ -48,8 +47,8 @@ export default function EventCardList({
                   handleDelete={handleDelete}
                   handleEditPopup={() => handleUpdatePopup(event)}
                   handleReservationsPopup={handleReservationsPopup}
-                  indexSection={indexSection}
                   addToBooked={addToBooked}
+                  indexSection={indexSection}
                 />
               </GadgetBox>
             </div>

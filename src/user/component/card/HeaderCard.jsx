@@ -7,11 +7,11 @@ export default function HeaderCard({ event, handleReservationsPopup }) {
       <div>
         <div className="space-x-1">
           <span className="text-sm text-green-700">
-            {event.authorFirstName}
+            {event.firstName[0]}
           </span>
-          <span className="text-sm text-green-700">{event.authorLastName}</span>
+          <span className="text-sm text-green-700">{event.lastName[0]}</span>
         </div>
-        <p className="text-xs text-slate-400">{event.authorEmail}</p>
+        <p className="text-xs text-slate-400">{event.email[0]}</p>
       </div>
         <ReservationsButton
           places={event.places}
