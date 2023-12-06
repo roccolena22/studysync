@@ -1,8 +1,8 @@
+import React, { useState } from "react";
 import EventCard from "./EventCard";
 import SearchBar from "../shared/SearchBar";
 import NoEvents from "../shared/NoEvents";
 import GadgetBox from "../shared/GadgetBox";
-import { useState } from "react";
 
 export default function EventCardList({
   loggedUser,
@@ -11,31 +11,38 @@ export default function EventCardList({
   handleUpdatePopup,
   handleReservationsPopup,
   addToBooked,
-  indexSection
+  indexSection,
 }) {
   const [searchedEvents, setSearchedEvents] = useState([]);
+
+  const sortedEvents = events.sort((a, b) => {
+    const dateA = new Date(`${a.endDate} ${a.endTime}`);
+    const dateB = new Date(`${b.endDate} ${b.endTime}`);
+    return dateA - dateB;
+  });
 
   const handleSearch = (dataFromSearch) => {
     setSearchedEvents(dataFromSearch);
   };
+
   return (
     <div>
       <div className="sticky top-16 w-full z-20">
-        {events.length > 1 && (
+        {sortedEvents.length > 1 && (
           <SearchBar
             placeholder="Search by event date, title or author"
-            data={events}
+            data={sortedEvents}
             dataFromSearch={handleSearch}
           />
         )}
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-6">
-        {(searchedEvents.length > 0 ? searchedEvents : events).map(
+        {(searchedEvents.length > 0 ? searchedEvents : sortedEvents).map(
           (event, index) => (
             <div
               key={index}
               className={
-                events.length % 2 === 1 && index === 0
+                sortedEvents.length % 2 === 1 && index === 0
                   ? "sm:col-span-2"
                   : "sm:col-span-1"
               }
@@ -54,7 +61,7 @@ export default function EventCardList({
             </div>
           )
         )}
-        {searchedEvents.length === 0 === events === 0 && (
+        {((searchedEvents.length === 0) === sortedEvents) === 0 && (
           <div className="col-span-2">
             <NoEvents />
           </div>
