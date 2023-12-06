@@ -62,10 +62,10 @@ export default function PersonaleCalendar({ loggedUser, followers, events }) {
 
   const eventStyleGetter = (event) => {
     const style = {
-      backgroundColor: event.authorId === loggedUser.id ? "#f43f5e" : "#15803D",
+      backgroundColor: event.authorId === loggedUser.id ? "#0369a1" : "#0ea5e9",
       borderRadius: "4px",
       color: "white",
-      borderColor: event.authorId === loggedUser.id ? "#f43f5e" : "#15803D",
+      borderColor: event.authorId === loggedUser.id ? "#0369a1" : "#0ea5e9",
       display: "block",
       margin: "2px",
     };
@@ -87,10 +87,7 @@ export default function PersonaleCalendar({ loggedUser, followers, events }) {
   };
 
   const EventInCalendar = ({ event }) => (
-    <div
-      onClick={() => handleEventClick(event)}
-      className="bg-green-100 rounded-lg p-2 text-green-900"
-    >
+    <div onClick={() => handleEventClick(event)}>
       <p className=" py-2 text-[14px]">{event.title}</p>
       <div className="text-[10px] space-x-1">
         <span>Mode:</span>
@@ -124,7 +121,7 @@ export default function PersonaleCalendar({ loggedUser, followers, events }) {
               <p>Create a new event</p>
               <div className="flex space-x-2">
                 <div>
-                  <span className="text-green-700">Start:</span>
+                  <span className="text-sky-700">Start:</span>
                   <span className="pl-1">{startDate}</span>
                 </div>
                 <div>
@@ -150,7 +147,7 @@ export default function PersonaleCalendar({ loggedUser, followers, events }) {
 
       {eventPopup && (
         <Popup handleClose={handleEventPopup}>
-          <EventCard event={selectedEvent} loggedUser={loggedUser}/>
+          <EventCard event={selectedEvent} loggedUser={loggedUser} />
         </Popup>
       )}
     </div>

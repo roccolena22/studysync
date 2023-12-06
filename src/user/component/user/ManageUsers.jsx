@@ -36,7 +36,7 @@ export default function ManageUsers({
   return (
     <div className="">
       <div className="w-full flex flex-col items-center">
-        <div className="flex justify-around w-full space-x-2 pb-4 text-lg font-bold text-gray-700">
+        <div className="flex justify-around w-full space-x-2 pb-4 text-lg font-bold text-sky-700">
           <div className="space-x-1">
             <span>Following:</span>
             <span>{followingIds.length}</span>

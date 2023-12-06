@@ -23,12 +23,12 @@ export default function TabMenu({
     <div className="w-full">
       <div className="flex">
         <div onClick={() => handleIndex(0)} className={sectionClass(0)}>
-          <p className="text-xs md:text-sm lg:text-lg border-l sm:border-none px-2 sm:px-0">
+          <p className="text-rose-500 md:text-sm lg:text-lg border-l sm:border-none px-2 sm:px-0">
             {firstSectionName}
           </p>
         </div>
         <div onClick={() => handleIndex(1)} className={sectionClass(1)}>
-          <p className="text-xs md:text-sm lg:text-lg text-end border-x sm:border-none px-2 sm:px-0">
+          <p className="text-rose-500 md:text-sm lg:text-lg text-end border-x sm:border-none px-2 sm:px-0">
             {secondSectionName}
           </p>
         </div>
