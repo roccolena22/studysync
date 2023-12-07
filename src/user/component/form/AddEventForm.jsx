@@ -38,15 +38,10 @@ export default function AddEventForm({
   const onSubmit = async (data) => {
     const fullEvent = {
       authorId: loggedUser.id,
-      email: loggedUser.email,
-      firstName: loggedUser.firstName,
-      lastName: loggedUser.lastName,
       startDate,
       endDate,
       ...data,
     };
-
-    console.log(fullEvent);
 
     await addToDatabase("events", fullEvent);
     dispatch(setEvent([fullEvent]));

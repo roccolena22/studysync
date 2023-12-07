@@ -1,4 +1,5 @@
 import Icon from "../../../shared/component/Icon";
+import IconAndName from "../user/IconAndName";
 
 export default function FooterCard({
   event,
@@ -9,29 +10,25 @@ export default function FooterCard({
   return (
     <div className="flex space-x-2">
       {indexSection === 1 ? (
-        <div
-          className="flex flex-col cursor-pointer text-cyan-700 items-center"
+        <IconAndName
+          iconName="delete"
+          name="delete"
           onClick={() => handleDelete(event)}
-        >
-          <Icon name="delete" style="w-3 h-3" />
-          <span className="text-[10px] text-red-800">DELETE</span>
-        </div>
+          color="text-red-800"
+        />
       ) : (
         <>
-          <div
-            className="flex flex-col cursor-pointer text-cyan-700 items-center"
+          <IconAndName
+            iconName="edit"
+            name="edit"
             onClick={handleOpenEditPopup}
-          >
-            <Icon name="edit" style="w-3 h-3" />
-            <span className="text-[10px]">EDIT</span>
-          </div>
-          <div
-            className="flex flex-col cursor-pointer text-cyan-700 items-center"
+          />
+          <IconAndName
+            iconName="delete"
+            name="delete"
             onClick={() => handleDelete(event)}
-          >
-            <Icon name="delete" style="w-3 h-3" color="red-800" />
-            <span className="text-[10px] text-red-800">DELETE</span>
-          </div>
+            color="text-red-800"
+          />
         </>
       )}
     </div>

@@ -5,7 +5,6 @@ import TitlePage from "../component/shared/TitlePage";
 import FollowersContainer from "../component/user/FollowersContainer";
 
 export default function Dashboard({ loggedUser, users, followers, events }) {
-
   const [indexSection, setIndexSection] = useState(0);
 
   const handleSections = (index) => {
@@ -27,6 +26,7 @@ export default function Dashboard({ loggedUser, users, followers, events }) {
         indexSection={indexSection}
         loggedUser={loggedUser}
         events={events}
+        users={users}
       />
     </div>
   );

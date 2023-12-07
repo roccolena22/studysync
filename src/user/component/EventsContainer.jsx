@@ -11,7 +11,7 @@ import { setEvent } from "../../redux/eventsSlice";
 import { useDispatch } from "react-redux";
 import UsersList from "./user/UserList";
 
-export default function EventsContainer({ loggedUser, indexSection, events }) {
+export default function EventsContainer({ loggedUser, indexSection, events, users }) {
   const [editPopupIsOpen, setEditPopupIsOpen] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [reservationsPopupIsOpen, setReservationsPopupIsOpen] = useState(false);
@@ -22,11 +22,23 @@ export default function EventsContainer({ loggedUser, indexSection, events }) {
 
   const fetchEvents = async () => {
     const eventsFromDatabase = await getFromDatabase("events");
-    const events = eventsFromDatabase.map((event) => ({
+    const onlyEvents = eventsFromDatabase.map((event) => ({
       ...event.fields,
     }));
+    const transformArray = (onlyEvents) => {
+      return onlyEvents.map((originalObject) => {
+        const transformed = { ...originalObject };
+        transformed.authorId = originalObject.authorId[0];
+        transformed.lastName = originalObject.lastName[0];
+        transformed.firstName = originalObject.firstName[0];
+        transformed.email = originalObject.email[0];
 
-    const filteredEvents = events.filter(
+        return transformed;
+      });
+    };
+
+    const transformedEventsArray = transformArray(onlyEvents);
+    const filteredEvents = transformedEventsArray.filter(
       (event) => event.authorId === loggedUser.id
     );
     const currentDate = new Date();
@@ -41,7 +53,7 @@ export default function EventsContainer({ loggedUser, indexSection, events }) {
     setNextEvents(nextEvents);
     setPastEvents(pastEvents);
 
-    dispatch(setEvent(events));
+    dispatch(setEvent(transformedEventsArray));
   };
 
   useEffect(() => {
@@ -74,10 +86,9 @@ export default function EventsContainer({ loggedUser, indexSection, events }) {
       endDate: editedEvent.endDate,
     };
 
-      await updateDatabaseRecord("events", editedEvent.id, fullEvent);
-      fetchEvents();
-      setEditPopupIsOpen(false);
-    
+    await updateDatabaseRecord("events", editedEvent.id, fullEvent);
+    fetchEvents();
+    setEditPopupIsOpen(false);
   };
 
   const handleUpdatePopup = (event) => {
@@ -110,7 +121,6 @@ export default function EventsContainer({ loggedUser, indexSection, events }) {
               handleUpdatePopup={handleUpdatePopup}
               handleReservationsPopup={handleReservationsPopup}
               indexSection={indexSection}
-              
             />
           ) : (
             <EventList

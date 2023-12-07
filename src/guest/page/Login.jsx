@@ -9,7 +9,7 @@ export default function Login() {
         <AppName  />
       <LoginForm />
       <Link to="/recovery-password" className="text-xs text-cyan-700 text-center">
-        <p>Did you forget your password?</p>
+        <p className="pb-2">Did you forget your password?</p>
       </Link>
     </GuestContainer>
   );
