@@ -9,7 +9,7 @@ import Input from "../../../shared/component/Input";
 import Icon from "../../../shared/component/Icon";
 import bcrypt from "bcryptjs";
 import { useDispatch } from "react-redux";
-import { getFromDatabase } from "../../../api/apiRequest";
+import { getListFromDatabase } from "../../../api/apiRequest";
 import { setUsers } from "../../../redux/usersSlice";
 import { setLoggedUser } from "../../../redux/authSlice";
 
@@ -30,7 +30,7 @@ export default function LoginForm() {
 
   const onSubmit = async (data) => {
     try {
-      const usersFromDatabase = await getFromDatabase("users");
+      const usersFromDatabase = await getListFromDatabase("users");
       const users = usersFromDatabase.map((user) => ({
         ...user.fields,
       }));

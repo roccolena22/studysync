@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import {
   addToDatabase,
   deleteFromDatabase,
-  getFromDatabase,
+  getListFromDatabase,
 } from "../../../api/apiRequest";
 import {
   addFollower,
@@ -19,7 +19,7 @@ export default function FollowersContainer({ followers, users, loggedUser }) {
 
   const fetchFollowers = async () => {
     try {
-      const followersFromDatabase = await getFromDatabase("followers");
+      const followersFromDatabase = await getListFromDatabase("followers");
       const onlyFollowers = followersFromDatabase.map((user) => ({
         ...user.fields,
       }));

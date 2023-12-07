@@ -33,10 +33,11 @@ export default function Network({ loggedUser, followers, events, users }) {
   return (
     <div className="flex flex-col items-center">
       <Title title="Network" />
-      <div className="sticky top-16 w-full">
+      <div className="w-full">
         <EventList
           loggedUser={loggedUser}
           events={networkEvents}
+          users={users}
           handleReservationsPopup={handleReservationsPopup}
           addToBooked={addToBooked}
         />

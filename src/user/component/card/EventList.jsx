@@ -7,10 +7,9 @@ import GadgetBox from "../shared/GadgetBox";
 export default function EventCardList({
   loggedUser,
   events,
+  fetchEvents,
   users,
   handleDelete,
-  handleUpdatePopup,
-  handleReservationsPopup,
   addToBooked,
   indexSection,
 }) {
@@ -51,11 +50,11 @@ export default function EventCardList({
               <GadgetBox>
                 <EventCard
                 users={users}
+                fetchEvents={fetchEvents}
+
                   loggedUser={loggedUser}
                   event={event}
                   handleDelete={handleDelete}
-                  handleEditPopup={() => handleUpdatePopup(event)}
-                  handleReservationsPopup={handleReservationsPopup}
                   addToBooked={addToBooked}
                   indexSection={indexSection}
                 />

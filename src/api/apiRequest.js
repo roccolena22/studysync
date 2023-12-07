@@ -3,10 +3,31 @@ const API_KEY =
 const baseId = "appuffXtZ3FVbuxF4";
 
 // GET
-export async function getFromDatabase(tableName) {
+export async function getListFromDatabase(tableName) {
   try {
     const response = await fetch(
       `https://api.airtable.com/v0/${baseId}/${tableName}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${API_KEY}`,
+        },
+      }
+    );
+
+    const responseData = await response.json();
+    return responseData.records;
+  } catch (error) {
+    console.error("Error during GET request:", error);
+    throw error;
+  }
+}
+
+//GET signle record
+export async function getRecordFromDatabase(tableName, recordId) {
+  try {
+    const response = await fetch(
+      `https://api.airtable.com/v0/${baseId}/${tableName}/${recordId}`,
       {
         method: "GET",
         headers: {

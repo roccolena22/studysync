@@ -10,7 +10,7 @@ import bcrypt from "bcryptjs";
 import { setLoggedUser } from "../../../redux/authSlice";
 import { setUsers } from "../../../redux/usersSlice";
 import { useDispatch } from "react-redux";
-import { addToDatabase, getFromDatabase } from "../../../api/apiRequest";
+import { addToDatabase, getListFromDatabase } from "../../../api/apiRequest";
 
 export default function RegistrationForm() {
   const [allUsers, setAllUsers] = useState([]);
@@ -49,7 +49,7 @@ export default function RegistrationForm() {
 
   const onSubmit = async (data) => {
     try {
-      const usersFromDatabase = await getFromDatabase("users");
+      const usersFromDatabase = await getListFromDatabase("users");
       const usersFields = usersFromDatabase.map((item) => item.fields);
       setAllUsers(usersFields);
       dispatch(setUsers(usersFields));
