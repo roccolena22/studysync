@@ -41,7 +41,7 @@ export default function EventCard({
 
   
 const fetchBookeds = async () =>{
-  const bookedUsers = await getRecordFromDatabase("users", event.bookedIds[0])
+  const bookedUsers = await getRecordFromDatabase("users", "iddellutente")
   console.log(bookedUsers)
 }
 
