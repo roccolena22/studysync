@@ -13,22 +13,22 @@ export default function TabMenu({
   };
 
   const sectionClass = (sectionIndex) =>
-    `w-1/2 cursor-pointer ${
+    `w-1/2 cursor-pointer rounded-t-lg ${
       index === sectionIndex
-        ? "border-b-4 border-cyan-700 pb-2"
-        : "border-b-2 border-slate-400 pb-2"
+        ? "p-2 bg-white"
+        : " border-zinc-100 p-2"
     }`;
 
   return (
-    <div className="w-full">
+    <div className="w-full bg-zinc-100 rounded-t-lg">
       <div className="flex">
         <div onClick={() => handleIndex(0)} className={sectionClass(0)}>
-          <p className="text-cyan-700 md:text-sm lg:text-lg border-l sm:border-none px-2 sm:px-0">
+          <p className="text-xs md:text-sm lg:text-lg px-2 sm:px-0">
             {firstSectionName}
           </p>
         </div>
         <div onClick={() => handleIndex(1)} className={sectionClass(1)}>
-          <p className="text-cyan-700 md:text-sm lg:text-lg text-end border-x sm:border-none px-2 sm:px-0">
+          <p className="text-xs md:text-sm lg:text-lg text-end px-2 sm:px-0">
             {secondSectionName}
           </p>
         </div>

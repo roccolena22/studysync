@@ -1,14 +1,14 @@
 import Badge from "../component/Badge";
 import InfoAccount from "../component/InfoAccount";
-import TitlePage from "../component/shared/TitlePage";
+import Title from "../component/shared/Title";
 
 export default function Account({loggedUser, users}) {
 
   return (
     <div className="flex flex-col items-center">
-      <TitlePage title="Info Account">
+      <Title title="Info Account">
         <Badge text={loggedUser.role} />
-      </TitlePage>
+      </Title>
       <InfoAccount loggedUser={loggedUser} users={users}/>
     </div>
   );

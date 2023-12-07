@@ -23,7 +23,19 @@ export default function FollowersContainer({ followers, users, loggedUser }) {
       const onlyFollowers = followersFromDatabase.map((user) => ({
         ...user.fields,
       }));
-      dispatch(setFollowers(onlyFollowers));
+
+      const transformArray = (onlyFollowers) => {
+        return onlyFollowers.map((originalObject) => {
+          const transformed = { ...originalObject };
+          transformed.idTo = originalObject.idTo[0];
+
+          return transformed;
+        });
+      };
+
+      const transformedEventsArray = transformArray(onlyFollowers);
+
+      dispatch(setFollowers(transformedEventsArray));
     } catch (error) {
       console.error("Errore nel recupero dei follower dal database", error);
     }
@@ -36,7 +48,7 @@ export default function FollowersContainer({ followers, users, loggedUser }) {
   const addFollowers = async (userFollowed) => {
     const newFollower = {
       idFrom: loggedUser.id,
-      idTo: userFollowed.id,
+      idTo: [userFollowed.id],
     };
     try {
       await addToDatabase("followers", newFollower);
@@ -59,7 +71,7 @@ export default function FollowersContainer({ followers, users, loggedUser }) {
   };
 
   return (
-    <div className="flex w-full space-x-4 pt-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 w-full gap-4 pt-6">
       <GadgetBox>
         <DiscoverUsers
           loggedUser={loggedUser}

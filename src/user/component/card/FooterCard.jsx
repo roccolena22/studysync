@@ -12,7 +12,7 @@ export default function FooterCard({
       {indexSection === 1 ? (
         <IconAndName
           iconName="delete"
-          name="delete"
+          label="delete"
           onClick={() => handleDelete(event)}
           color="text-red-800"
         />
@@ -20,12 +20,12 @@ export default function FooterCard({
         <>
           <IconAndName
             iconName="edit"
-            name="edit"
+            label="edit"
             onClick={handleOpenEditPopup}
           />
           <IconAndName
             iconName="delete"
-            name="delete"
+            label="delete"
             onClick={() => handleDelete(event)}
             color="text-red-800"
           />

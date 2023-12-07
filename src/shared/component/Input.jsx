@@ -10,7 +10,7 @@ export default function Input({
   return (
     <div className="mb-4 w-full">
       <label className="font-semibold">{label}:</label>
-      <div className="flex items-center border border-slate-400 rounded-lg px-3 py-2 w-full bg-white">
+      <div className="flex items-center border border-zinc-400 rounded-lg px-3 py-2 w-full bg-white">
         <input
           {...register}
           type={type}

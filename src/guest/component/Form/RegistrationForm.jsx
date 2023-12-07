@@ -2,7 +2,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../../../shared/component/Button";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { RegistrationFormValidator } from "./validator/RegistrationFormValidator";
 import Input from "../../../shared/component/Input";
 import Icon from "../../../shared/component/Icon";
@@ -22,18 +22,6 @@ export default function RegistrationForm() {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   const fetchUsers = async () => {
-  //     const usersFromDatabase = await getFromDatabase("users");
-  //     const usersFields = usersFromDatabase.map((item) => item.fields);
-  //     setAllUsers(usersFields);
-  //     dispatch(setUsers(usersFields));
-
-  //   };
-
-  //   fetchUsers();
-  // }, []);
 
   const handleShowPassword = () => {
     setShowPassword(!showPassword);

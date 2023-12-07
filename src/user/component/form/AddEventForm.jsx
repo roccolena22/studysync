@@ -37,7 +37,7 @@ export default function AddEventForm({
 
   const onSubmit = async (data) => {
     const fullEvent = {
-      authorId: loggedUser.id,
+      authorId: [loggedUser.id],
       startDate,
       endDate,
       ...data,

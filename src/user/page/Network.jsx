@@ -1,5 +1,5 @@
 import { useState } from "react";
-import TitlePage from "../component/shared/TitlePage";
+import Title from "../component/shared/Title";
 import EventList from "../component/card/EventList";
 import Popup from "../component/shared/Popup";
 import UsersList from "../component/user/UserList";
@@ -25,14 +25,14 @@ export default function Network({ loggedUser, followers, events, users }) {
 
   const addToBooked = async (event) => {
     await addToDatabase("bookings", {
-      eventId: event.id,
+      eventId: [event.id],
       bookedId: loggedUser.id,
     });
   };
 
   return (
     <div className="flex flex-col items-center">
-      <TitlePage title="Network" />
+      <Title title="Network" />
       <div className="sticky top-16 w-full">
         <EventList
           loggedUser={loggedUser}

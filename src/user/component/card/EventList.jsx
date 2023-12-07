@@ -7,6 +7,7 @@ import GadgetBox from "../shared/GadgetBox";
 export default function EventCardList({
   loggedUser,
   events,
+  users,
   handleDelete,
   handleUpdatePopup,
   handleReservationsPopup,
@@ -49,6 +50,7 @@ export default function EventCardList({
             >
               <GadgetBox>
                 <EventCard
+                users={users}
                   loggedUser={loggedUser}
                   event={event}
                   handleDelete={handleDelete}

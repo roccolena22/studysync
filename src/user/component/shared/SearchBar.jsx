@@ -33,10 +33,10 @@ export default function SearchBar({ placeholder, data, dataFromSearch }) {
   };
 
   return (
-    <div className="py-6 px-4 flex items-center shadow-lg w-full rounded-b-2xl bg-gray-200">
+    <div className="py-6 px-4 flex items-center shadow-lg w-full rounded-b-2xl bg-white">
       <div className="flex items-center space-x-4 w-full">
         <input
-          className="w-full border border-slate-400 h-6 sm:h-7 border rounded-lg py-2 px-3 pr-10 focus:outline-none shadow-lg"
+          className="w-full bg-zinc-100 border border-zinc-400 h-6 sm:h-7 border rounded-lg py-2 px-3 pr-10 focus:outline-none shadow-lg"
           placeholder={placeholder}
           value={searchTerm}
           onChange={handleInputChange}

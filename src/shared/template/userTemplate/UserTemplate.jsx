@@ -4,7 +4,7 @@ import Footer from "../../../user/component/navigation/Footer";
 
 export default function UserTemplate() {
   return (
-    <div className="flex flex-col min-h-screen items-center bg-gray-100">
+    <div className="flex flex-col min-h-screen items-center bg-zinc-50 text-zinc-700">
       <div className="sticky top-0 z-10 w-full">
         <Navbar />
       </div>

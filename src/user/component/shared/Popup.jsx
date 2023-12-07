@@ -1,5 +1,5 @@
 import Icon from "../../../shared/component/Icon";
-import TitleSection from "./TitleSection";
+import Title from "./Title";
 
 export default function Popup({ children, handleClose, title }) {
   return (
@@ -12,7 +12,7 @@ export default function Popup({ children, handleClose, title }) {
             onClick={handleClose}
           />
         </div>
-        {title && <TitleSection title={title} />}
+        {title && <Title title={title} />}
         {children}
       </div>
     </div>

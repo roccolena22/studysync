@@ -5,7 +5,7 @@ import moment from "moment";
 import "moment/locale/it";
 import AddEventForm from "./form/AddEventForm";
 import Popup from "./shared/Popup";
-import TitleSection from "./shared/TitleSection";
+import Title from "./shared/Title";
 import EventCard from "./card/EventCard";
 
 export default function PersonaleCalendar({ loggedUser, followers, events }) {
@@ -116,12 +116,12 @@ export default function PersonaleCalendar({ loggedUser, followers, events }) {
       </div>
       {startDate && newEventPopup && (
         <Popup handleClose={handleNewEventPopup}>
-          <TitleSection>
+          <Title>
             <div className="flex justify-between">
               <p>Create a new event</p>
               <div className="flex space-x-2">
                 <div>
-                  <span className="text-rose-500">Start:</span>
+                  <span className="text-green-500">Start:</span>
                   <span className="pl-1">{startDate}</span>
                 </div>
                 <div>
@@ -130,7 +130,7 @@ export default function PersonaleCalendar({ loggedUser, followers, events }) {
                 </div>
               </div>
             </div>
-          </TitleSection>
+          </Title>
           <div className="pt-4">
             <AddEventForm
               loggedUser={loggedUser}

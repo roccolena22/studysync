@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import TabMenu from "../component/navigation/TabMenu";
 import EventsContainer from "../component/EventsContainer";
-import TitlePage from "../component/shared/TitlePage";
+import Title from "../component/shared/Title";
 import FollowersContainer from "../component/user/FollowersContainer";
 
 export default function Dashboard({ loggedUser, users, followers, events }) {
@@ -13,7 +13,7 @@ export default function Dashboard({ loggedUser, users, followers, events }) {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <TitlePage title="Dashboard" />
+      <Title title="Dashboard" />
       <FollowersContainer followers={followers} users={users} loggedUser={loggedUser}/>
       <div className="w-full pt-10">
         <TabMenu

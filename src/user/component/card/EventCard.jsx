@@ -5,14 +5,16 @@ import FooterCard from "./FooterCard";
 
 export default function EventCard({
   loggedUser,
+  users,
   event,
   handleDelete,
   handleEditPopup,
-  users,
   handleReservationsPopup,
   addToBooked,
   indexSection,
 }) {
+ 
+
   return (
     <div className="w-full h-60 relative ">
       <HeaderCard

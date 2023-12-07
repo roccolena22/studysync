@@ -3,7 +3,7 @@ import ProfileInfoForm from "./form/ProfileInfoFrom";
 import Popup from "./shared/Popup";
 import DeleteAccount from "./DeleteAccount";
 import EditPasswordForm from "./form/EditPasswordForm";
-import TitleSection from "./shared/TitleSection";
+import Title from "./shared/Title";
 
 export default function InfoAccount({ loggedUser, users }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,7 +16,7 @@ export default function InfoAccount({ loggedUser, users }) {
     <div className="pt-6 w-full flex flex-col justify-center">
       <ProfileInfoForm loggedUser={loggedUser} />
       <div className="pt-6">
-        <TitleSection title="Edit password" />
+        <Title title="Edit password" />
         <div className="pt-6">
           <EditPasswordForm loggedUser={loggedUser} users={users}/>
         </div>

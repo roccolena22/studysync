@@ -32,6 +32,7 @@ export default function EventsContainer({ loggedUser, indexSection, events, user
         transformed.lastName = originalObject.lastName[0];
         transformed.firstName = originalObject.firstName[0];
         transformed.email = originalObject.email[0];
+        transformed.bookedIds = originalObject.bookedIds;
 
         return transformed;
       });
@@ -117,6 +118,7 @@ export default function EventsContainer({ loggedUser, indexSection, events, user
             <EventList
               loggedUser={loggedUser}
               events={nextEvents}
+              users={users}
               handleDelete={handleDelete}
               handleUpdatePopup={handleUpdatePopup}
               handleReservationsPopup={handleReservationsPopup}
@@ -126,6 +128,7 @@ export default function EventsContainer({ loggedUser, indexSection, events, user
             <EventList
               loggedUser={loggedUser}
               events={pastEvents}
+              users={users}
               handleDelete={handleDelete}
               handleUpdatePopup={handleUpdatePopup}
               handleReservationsPopup={handleReservationsPopup}

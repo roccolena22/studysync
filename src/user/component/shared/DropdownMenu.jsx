@@ -10,7 +10,7 @@ const DropdownMenu = ({
       <p className="font-semibold block">{label}</p>
       <div>
         <select
-          className="w-full border border-slate-400 rounded-lg px-2 py-2 w-full cursor-pointer"
+          className="w-full border border-zinc-400 rounded-lg px-2 py-2 w-full cursor-pointer"
           {...register}
           onChange={(e) => {
             onOptionSelected(e.target.value);

@@ -7,7 +7,7 @@ export default function Badge({ text }) {
       student: "bg-yellow-300",
     };
   
-    const backgroundColor = colorMapping[text] || "bg-gray-800";
+    const backgroundColor = colorMapping[text] || "bg-zinc-800";
   
     return (
         <div
