@@ -17,14 +17,14 @@ export default function TabMenu({
       sectionIndex === 0
         ? index === sectionIndex
           ? "p-2 bg-white rounded-r-lg"
-          : "border-zinc-100 p-2"
+          : "p-2"
         : index === sectionIndex
         ? "p-2 bg-white rounded-l-lg"
-        : "border-zinc-100 p-2"
+        : "p-2"
     }`;
 
   return (
-    <div className="w-full bg-zinc-100 rounded-t-lg">
+    <div className="w-full bg-zinc-100 rounded-t-lg shadow-lg">
       <div className="flex">
         <div onClick={() => handleIndex(0)} className={sectionClass(0)}>
           <p className="text-xs md:text-sm lg:text-lg px-2 sm:px-0">
