@@ -23,8 +23,6 @@ export default function EventsContainer({ loggedUser, indexSection, events, user
         transformed.lastName = originalObject.lastName[0];
         transformed.firstName = originalObject.firstName[0];
         transformed.email = originalObject.email[0];
-        transformed.bookedIds = originalObject.bookedIds;
-
         return transformed;
       });
     };

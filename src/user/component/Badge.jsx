@@ -4,16 +4,17 @@ export default function Badge({ text }) {
       Finished: "bg-red-800",
       Active: "bg-cyan-700",
       teacher: "bg-purple-300",
-      student: "bg-yellow-300",
+      student: "bg-yellow-400",
+      Soldout: "bg-red-800"
     };
   
     const backgroundColor = colorMapping[text] || "bg-zinc-800";
   
     return (
         <div
-          className={`text-[12px] text-white rounded px-1 w-fit h-fit ${backgroundColor}`}
+          className={`text-[12px] text-white rounded px-1 w-fit ${backgroundColor}`}
         >
-          <p className="font-semibold">{text}</p>
+          <p className="font-semibold">{text.toUpperCase()}</p>
         </div>
     );
   }

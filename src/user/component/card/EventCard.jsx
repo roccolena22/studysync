@@ -4,9 +4,12 @@ import EventDetails from "./EventDetailts";
 import FooterCard from "./FooterCard";
 import EditEventForm from "../form/EditEventForm";
 import UsersList from "../user/UserList";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Popup from "../shared/Popup";
-import {getRecordFromDatabase, updateDatabaseRecord } from "../../../api/apiRequest";
+import {
+  getListFromDatabase,
+  updateDatabaseRecord,
+} from "../../../api/apiRequest";
 
 export default function EventCard({
   loggedUser,
@@ -20,6 +23,7 @@ export default function EventCard({
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [editPopupIsOpen, setEditPopupIsOpen] = useState(false);
   const [reservationsPopupIsOpen, setReservationsPopupIsOpen] = useState(false);
+  const [bookedUsers, setBookedUsers] = useState([]);
 
   const handleUpdatePopup = (event) => {
     setSelectedEvent(event);
@@ -31,20 +35,44 @@ export default function EventCard({
     setEditPopupIsOpen(false);
   };
 
-  const handleReservationsPopup = () => {
+  const handleReservationsPopup = async () => {
     setReservationsPopupIsOpen(!reservationsPopupIsOpen);
   };
+
+  const handleBookings = async (event) => {
+    try {
+      const bookings = await getListFromDatabase("bookings");
+
+      if (!event.bookingsRecordId || !bookings.length) {
+        console.log("Empty arrays. No action taken.");
+        return;
+      }
+
+      const idsArray = bookings
+        .filter((el) => event.bookingsRecordId.includes(el.id))
+        .map((item) => item.bookedId);
+
+      if (!idsArray.length) {
+        console.log("Empty idsArray. No action taken.");
+        return;
+      }
+
+      const bookedUsers = users.filter((el) => idsArray.includes(el.id));
+      setBookedUsers(bookedUsers);
+    } catch (error) {
+      console.error("Error handling reservations:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (event && Array.isArray(event.bookingsRecordId)) {
+      handleBookings(event);
+    }
+  }, [event]);
 
   const handleCloseReservationsPopup = () => {
     setReservationsPopupIsOpen(!reservationsPopupIsOpen);
   };
-
-  
-const fetchBookeds = async () =>{
-  const bookedUsers = await getRecordFromDatabase("users", "iddellutente")
-  console.log(bookedUsers)
-}
-
 
   const updateEvent = async (editedEvent) => {
     const fullEvent = {
@@ -76,11 +104,17 @@ const fetchBookeds = async () =>{
         <HeaderCard
           event={event}
           handleReservationsPopup={handleReservationsPopup}
+          bookedUsers={bookedUsers}
         />
-        <div className="pb-2">
+
+        <div className="pb-2 flex justify-between">
           <EventDetails event={event} />
         </div>
         <div className="absolute bottom-0 right-0">
+          {loggedUser.id !== event.authorId &&
+            bookedUsers.length < event.places && (
+              <Button small name="Join" onClick={() => addToBooked(event)} />
+            )}
           {handleDelete && (
             <FooterCard
               event={event}
@@ -89,9 +123,6 @@ const fetchBookeds = async () =>{
               indexSection={indexSection}
             />
           )}
-          {loggedUser.id !== event.authorId && (
-            <Button small name="Join" onClick={() => addToBooked(event)} />
-          )}
         </div>
       </div>
       {reservationsPopupIsOpen && (
@@ -99,7 +130,13 @@ const fetchBookeds = async () =>{
           handleClose={handleCloseReservationsPopup}
           title="List of reservations"
         >
-          <UsersList users={users} loggedUser={loggedUser} />
+          {bookedUsers.length > 0 ? (
+            <UsersList users={bookedUsers} loggedUser={loggedUser} />
+          ) : (
+            <p className="pt-6 text-xl text-zinc-400">
+              There are no reservations for this event
+            </p>
+          )}
         </Popup>
       )}
       {editPopupIsOpen && (

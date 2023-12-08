@@ -17,17 +17,22 @@ export default function DiscoverUsers({
 
   return (
     <>
-      <div className="w-full flex flex-col justify-between items-center">
-        <p className="sm:text-lg pb-4 font-semibold">
+    <div className="relative h-24">
+    <div className="w-full flex flex-col justify-between items-center">
+        <p className="sm:text-lg font-semibold text-center">
           Discover new users to follow
         </p>
+        <div className="absolute bottom-0">
         <Button
           name="Discover"
           outline
           large
           onClick={handlePopup}
         />
+        </div>
       </div>
+    </div>
+     
 
       {popupIsOpen && (
         <Popup handleClose={handlePopup} title="Search among StudySync users">
