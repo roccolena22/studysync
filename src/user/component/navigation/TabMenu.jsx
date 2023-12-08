@@ -14,9 +14,13 @@ export default function TabMenu({
 
   const sectionClass = (sectionIndex) =>
     `w-1/2 cursor-pointer rounded-t-lg ${
-      index === sectionIndex
-        ? "p-2 bg-white"
-        : " border-zinc-100 p-2"
+      sectionIndex === 0
+        ? index === sectionIndex
+          ? "p-2 bg-white rounded-r-lg"
+          : "border-zinc-100 p-2"
+        : index === sectionIndex
+        ? "p-2 bg-white rounded-l-lg"
+        : "border-zinc-100 p-2"
     }`;
 
   return (
@@ -32,7 +36,7 @@ export default function TabMenu({
             {secondSectionName}
           </p>
         </div>
-      </div>     
+      </div>
     </div>
   );
 }
