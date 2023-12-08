@@ -14,9 +14,11 @@ export async function getListFromDatabase(tableName) {
         },
       }
     );
-
     const responseData = await response.json();
-    return responseData.records;
+    const dataFromDatabase = responseData.records.map((element) => ({
+      ...element.fields,
+    }));
+    return dataFromDatabase;
   } catch (error) {
     console.error("Error during GET request:", error);
     throw error;
@@ -37,7 +39,10 @@ export async function getRecordFromDatabase(tableName, recordId) {
     );
 
     const responseData = await response.json();
-    return responseData.records;
+    const dataFromDatabase = responseData.records.map((element) => ({
+      ...element.fields,
+    }));
+    return dataFromDatabase;
   } catch (error) {
     console.error("Error during GET request:", error);
     throw error;

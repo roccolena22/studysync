@@ -13,7 +13,6 @@ import { useDispatch } from "react-redux";
 import { addToDatabase, getListFromDatabase } from "../../../api/apiRequest";
 
 export default function RegistrationForm() {
-  const [allUsers, setAllUsers] = useState([]);
   const [showPassword, setShowPassword] = useState(false);
   const [role, setRole] = useState(null);
   const [checkedTeacher, setCheckedTeacher] = useState(false);
@@ -49,17 +48,11 @@ export default function RegistrationForm() {
 
   const onSubmit = async (data) => {
     try {
-      const usersFromDatabase = await getListFromDatabase("users");
-      const usersFields = usersFromDatabase.map((item) => item.fields);
-      setAllUsers(usersFields);
-      dispatch(setUsers(usersFields));
+      const users = await getListFromDatabase("users");
       if (role === null) {
         return;
       }
-      const existingUser = allUsers.find(
-        (user) => user.email === data.email
-      );
-
+      const existingUser = users.find((user) => user.email === data.email);
       if (existingUser) {
         setError(true);
       } else {
@@ -73,21 +66,18 @@ export default function RegistrationForm() {
         data.password = hash;
         data.confirmPassword = hash;
 
-        const updatedUsers = [...allUsers, data];
-        setUsers(updatedUsers);
-        const updateObj = 
-          {
-            firstName: data.firstName,
-            lastName: data.lastName,
-            email: data.email,
-            role: data.role,
-            password: data.password,
-          }
-        ;
-
-        // Chiamare la funzione con l'oggetto creato
+        const updatedUsers = [...users, data];
+        dispatch(setUsers(updatedUsers));
+        const updateObj = {
+          firstName: data.firstName,
+          lastName: data.lastName,
+          email: data.email,
+          role: data.role,
+          password: data.password,
+        };
         await addToDatabase("users", updateObj);
-        dispatch(setLoggedUser(data));
+        const loggedUser = users.find((user) => user.email === data.email);
+        dispatch(setLoggedUser(loggedUser));
         navigate("/");
       }
     } catch (error) {
@@ -95,7 +85,6 @@ export default function RegistrationForm() {
         "Errore durante il recupero degli utenti dal database:",
         error
       );
-      // Gestisci l'errore in base alle tue esigenze.
     }
   };
 

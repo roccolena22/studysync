@@ -16,11 +16,8 @@ export default function EventsContainer({ loggedUser, indexSection, events, user
 
   const fetchEvents = async () => {
     const eventsFromDatabase = await getListFromDatabase("events");
-    const onlyEvents = eventsFromDatabase.map((event) => ({
-      ...event.fields,
-    }));
-    const transformArray = (onlyEvents) => {
-      return onlyEvents.map((originalObject) => {
+    const transformArray = (eventsFromDatabase) => {
+      return eventsFromDatabase.map((originalObject) => {
         const transformed = { ...originalObject };
         transformed.authorId = originalObject.authorId[0];
         transformed.lastName = originalObject.lastName[0];
@@ -32,7 +29,7 @@ export default function EventsContainer({ loggedUser, indexSection, events, user
       });
     };
 
-    const transformedEventsArray = transformArray(onlyEvents);
+    const transformedEventsArray = transformArray(eventsFromDatabase);
     const filteredEvents = transformedEventsArray.filter(
       (event) => event.authorId === loggedUser.id
     );

@@ -20,12 +20,8 @@ export default function FollowersContainer({ followers, users, loggedUser }) {
   const fetchFollowers = async () => {
     try {
       const followersFromDatabase = await getListFromDatabase("followers");
-      const onlyFollowers = followersFromDatabase.map((user) => ({
-        ...user.fields,
-      }));
-
-      const transformArray = (onlyFollowers) => {
-        return onlyFollowers.map((originalObject) => {
+      const transformArray = (followersFromDatabase) => {
+        return followersFromDatabase.map((originalObject) => {
           const transformed = { ...originalObject };
           transformed.idTo = originalObject.idTo[0];
 
@@ -33,7 +29,7 @@ export default function FollowersContainer({ followers, users, loggedUser }) {
         });
       };
 
-      const transformedEventsArray = transformArray(onlyFollowers);
+      const transformedEventsArray = transformArray(followersFromDatabase);
 
       dispatch(setFollowers(transformedEventsArray));
     } catch (error) {

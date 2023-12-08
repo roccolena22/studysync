@@ -1,8 +1,7 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useNavigate } from "react-router-dom";
 import Button from "../../../shared/component/Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { LoginFormValidator } from "./validator/LoginFormValidator";
 import Input from "../../../shared/component/Input";
@@ -30,22 +29,19 @@ export default function LoginForm() {
 
   const onSubmit = async (data) => {
     try {
-      const usersFromDatabase = await getListFromDatabase("users");
-      const users = usersFromDatabase.map((user) => ({
-        ...user.fields,
-      }));
-      const loggedUser = usersFromDatabase.find(
-        (user) => user.fields.email === data.email
+      const users = await getListFromDatabase("users");
+      const loggedUser = users.find(
+        (user) => user.email === data.email
       );
 
       if (loggedUser) {
-        const userPassword = loggedUser.fields && loggedUser.fields.password;
+        const userPassword = loggedUser && loggedUser.password;
 
         if (userPassword) {
           const result = await bcrypt.compare(data.password, userPassword);
 
           if (result) {
-            dispatch(setLoggedUser(loggedUser.fields));
+            dispatch(setLoggedUser(loggedUser));
             dispatch(setUsers(users));
             navigate("/");
           } else {
