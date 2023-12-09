@@ -10,7 +10,6 @@ export default function CalendarPage({ loggedUser, followers, events }) {
 
   const handleBookedEvents = async () => {
     const bookings = await getListFromDatabase("bookings");
-
     const eventsByBooked = events.filter((event) => {
       if (event.bookingsRecordId) {
         return event.bookingsRecordId.some((bookingId) =>
@@ -22,14 +21,13 @@ export default function CalendarPage({ loggedUser, followers, events }) {
       }
       return false;
     });
-
     const eventsByAuthor = events.filter(
       (event) => event.authorId === loggedUser.id
     );
-
     const allEvents = [...eventsByAuthor, ...eventsByBooked];
     setLoggedUserEvents(allEvents);
   };
+
   useEffect(() => {
     handleBookedEvents();
   }, [events]);

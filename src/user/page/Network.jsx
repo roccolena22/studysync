@@ -3,7 +3,11 @@ import Title from "../component/shared/Title";
 import EventList from "../component/card/EventList";
 import Popup from "../component/shared/Popup";
 import UsersList from "../component/user/UserList";
-import { addToDatabase } from "../../api/apiRequest";
+import {
+  addToDatabase,
+  deleteFromDatabase,
+  getListFromDatabase,
+} from "../../api/apiRequest";
 
 export default function Network({ loggedUser, followers, events, users }) {
   const [reservationsPopupIsOpen, setReservationsPopupIsOpen] = useState(false);
@@ -23,11 +27,25 @@ export default function Network({ loggedUser, followers, events, users }) {
     setReservationsPopupIsOpen(!reservationsPopupIsOpen);
   };
 
-  const addToBooked = async (event) => {
+  const addToBooked = async (id) => {
     await addToDatabase("bookings", {
-      eventId: [event.id],
+      eventId: [id],
       bookedId: loggedUser.id,
     });
+  };
+
+  const leaveEvent = async (eventIdToRemove) => {
+    const bookings = await getListFromDatabase("bookings");
+    const result = bookings.find((item) =>
+      item.eventId.includes(eventIdToRemove)
+    );
+    if (result.id && result.bookedId === loggedUser.id) {
+      try {
+        await deleteFromDatabase("bookings", result.id);
+      } catch (error) {
+        console.error("Errore nella rimozione del follower", error);
+      }
+    }
   };
 
   return (
@@ -40,6 +58,7 @@ export default function Network({ loggedUser, followers, events, users }) {
           users={users}
           handleReservationsPopup={handleReservationsPopup}
           addToBooked={addToBooked}
+          leaveEvent={leaveEvent}
         />
       </div>
       {reservationsPopupIsOpen && (

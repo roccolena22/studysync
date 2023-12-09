@@ -4,13 +4,14 @@ import SearchBar from "../shared/SearchBar";
 import NoEvents from "../shared/NoEvents";
 import GadgetBox from "../shared/GadgetBox";
 
-export default function EventCardList({
+export default function EventList({
   loggedUser,
   events,
   fetchEvents,
   users,
   handleDelete,
   addToBooked,
+  leaveEvent,
   indexSection,
 }) {
   const [searchedEvents, setSearchedEvents] = useState([]);
@@ -51,11 +52,11 @@ export default function EventCardList({
                 <EventCard
                 users={users}
                 fetchEvents={fetchEvents}
-
                   loggedUser={loggedUser}
                   event={event}
                   handleDelete={handleDelete}
                   addToBooked={addToBooked}
+                  leaveEvent={leaveEvent}
                   indexSection={indexSection}
                 />
               </GadgetBox>

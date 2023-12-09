@@ -16,6 +16,7 @@ export default function EventCard({
   event,
   handleDelete,
   addToBooked,
+  leaveEvent,
   indexSection,
   users,
   fetchEvents,
@@ -42,7 +43,6 @@ export default function EventCard({
   const handleBookings = async (event) => {
     try {
       const bookings = await getListFromDatabase("bookings");
-
       if (!event.bookingsRecordId || !bookings.length) {
         console.log("Empty arrays. No action taken.");
         return;
@@ -98,6 +98,7 @@ export default function EventCard({
     fetchEvents();
     setEditPopupIsOpen(false);
   };
+
   return (
     <>
       <div className="w-full h-60 relative ">
@@ -106,15 +107,17 @@ export default function EventCard({
           handleReservationsPopup={handleReservationsPopup}
           bookedUsers={bookedUsers}
         />
-
         <div className="pb-2 flex justify-between">
           <EventDetails event={event} />
         </div>
         <div className="absolute bottom-0 right-0">
           {loggedUser.id !== event.authorId &&
             bookedUsers.length < event.places && (
-              <Button small name="Join" onClick={() => addToBooked(event)} />
+              <Button small name="Join" onClick={() => addToBooked(event.id)} />
             )}
+          {bookedUsers.some((user) => user.id === loggedUser.id) && (
+            <Button small name="Leave" onClick={() => leaveEvent(event.id)} />
+          )}
           {handleDelete && (
             <FooterCard
               event={event}
