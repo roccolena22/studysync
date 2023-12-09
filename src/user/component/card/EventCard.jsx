@@ -36,11 +36,11 @@ export default function EventCard({
     setEditPopupIsOpen(false);
   };
 
-  const handleReservationsPopup = async () => {
+  const handleReservationsPopup = () => {
     setReservationsPopupIsOpen(!reservationsPopupIsOpen);
   };
 
-  const handleBookings = async (event) => {
+  const handleBookings = async () => {
     try {
       const bookings = await getListFromDatabase("bookings");
       if (!event.bookingsRecordId || !bookings.length) {
@@ -66,7 +66,7 @@ export default function EventCard({
 
   useEffect(() => {
     if (event && Array.isArray(event.bookingsRecordId)) {
-      handleBookings(event);
+      handleBookings();
     }
   }, [event]);
 
@@ -99,6 +99,29 @@ export default function EventCard({
     setEditPopupIsOpen(false);
   };
 
+  const isUserBooked = bookedUsers.some((user) => user.id === loggedUser.id);
+  const isUserNotBooked = !isUserBooked;
+
+  const renderJoinButton = () => {
+    if (
+      loggedUser.id !== event.authorId &&
+      bookedUsers.length < event.places &&
+      isUserNotBooked
+    ) {
+      return (
+        <Button small name="Join" onClick={() => addToBooked(event.id)} />
+      );
+    }
+    return null;
+  };
+
+  const renderLeaveButton = () => {
+    if (isUserBooked) {
+      return <Button small name="Leave" onClick={() => leaveEvent(event.id)} />;
+    }
+    return null;
+  };
+
   return (
     <>
       <div className="w-full h-60 relative ">
@@ -111,13 +134,8 @@ export default function EventCard({
           <EventDetails event={event} />
         </div>
         <div className="absolute bottom-0 right-0">
-          {loggedUser.id !== event.authorId &&
-            bookedUsers.length < event.places && (
-              <Button small name="Join" onClick={() => addToBooked(event.id)} />
-            )}
-          {bookedUsers.some((user) => user.id === loggedUser.id) && (
-            <Button small name="Leave" onClick={() => leaveEvent(event.id)} />
-          )}
+          {renderJoinButton()}
+          {renderLeaveButton()}
           {handleDelete && (
             <FooterCard
               event={event}
