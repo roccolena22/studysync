@@ -12,19 +12,19 @@ export default function ManageUsers({
 }) {
   const [popupIsOpen, setPopupIsOpen] = useState(false);
 
-  const userConnections = followers.flat();
-
-  const followingIds = userConnections
-    .filter((user) => user.idFrom === loggedUser.id)
-    .map((user) => user.idTo);
-
-  const followersIds = userConnections
-    .filter((user) => user.idTo === loggedUser.id)
-    .map((user) => user.idFrom);
+  const followingIds = followers
+    .filter((item) => item.idFrom.includes(loggedUser.id))
+    .map((item) => item.idTo);
 
   const loggedUserFollowing = users.filter((user) =>
     followingIds.includes(user.id)
   );
+
+  const followersIds = followers
+    .filter((user) => user.idTo === loggedUser.id)
+    .map((user) => user.idFrom)
+    .flat();
+
   const loggedUserFollowers = users.filter((user) =>
     followersIds.includes(user.id)
   );
@@ -47,12 +47,7 @@ export default function ManageUsers({
           </div>
         </div>
         <div className="absolute bottom-0">
-          <Button
-            name="Manage"
-            outline
-            large
-            onClick={handlePopup}
-          />
+          <Button name="Manage" outline large onClick={handlePopup} />
         </div>
       </div>
 
