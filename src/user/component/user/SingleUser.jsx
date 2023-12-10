@@ -4,15 +4,19 @@ import Badge from "../Badge";
 import { isArray } from "lodash";
 
 export default function SingleUser({
-  user,
+  user, //utenti che arrivano da una funzione di mapping
   addFollowers,
   removeFollow,
   loggedUser,
   followers,
 }) {
+  console.log(loggedUser.followingIds); //utenti che sta seguendo l'utente loggato
+  console.log(user.followersIds);
 
-
-  const isFollowed = false;
+  // const isFollowed = loggedUser.followingIds.includes(user.followersIds);
+  const isNotFollowed = loggedUser.followingIds.some(
+    (follower) => follower.id === user.followersIds
+  );
 
   return (
     <div className="flex justify-between items-center space-x-4 pb-2 py-2 border-b border-zinc-400">
@@ -26,15 +30,15 @@ export default function SingleUser({
           <p className="text-xs">{user.email}</p>
         </div>
       </div>
-      {isFollowed ? (
+      {isNotFollowed ? (
+        <Button small onClick={() => addFollowers(user.id)} name="Follow" />
+      ) : (
         <Button
           small
           outline
           onClick={() => removeFollow(user)}
           name="UnFollow"
         />
-      ) : (
-        <Button small onClick={() => addFollowers(user.id)} name="Follow" />
       )}
     </div>
   );
