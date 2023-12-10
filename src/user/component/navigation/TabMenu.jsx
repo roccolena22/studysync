@@ -16,10 +16,10 @@ export default function TabMenu({
     `w-1/2 cursor-pointer rounded-t-lg ${
       sectionIndex === 0
         ? index === sectionIndex
-          ? "p-2 bg-white rounded-r-lg"
+          ? "p-2 bg-white rounded-r-lg  border border-cyan-700"
           : "p-2"
         : index === sectionIndex
-        ? "p-2 bg-white rounded-l-lg"
+        ? "p-2 bg-white rounded-l-lg border border-cyan-700"
         : "p-2"
     }`;
 
