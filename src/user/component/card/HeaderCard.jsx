@@ -24,7 +24,7 @@ export default function HeaderCard({
           <p className="text-xs text-zinc-400">{event.email}</p>
         </div>
         <div className="flex items-center space-x-2">
-          {bookedUsers.length >= event.places && <Badge text="Soldout" />}
+          {bookedUsers.length >= event.places && <Badge text="soldout" />}
           <IconAndName
             iconName="group"
             onClick={() => handleReservationsPopup()}

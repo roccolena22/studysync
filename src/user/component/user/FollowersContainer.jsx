@@ -20,18 +20,7 @@ export default function FollowersContainer({ followers, users, loggedUser }) {
   const fetchFollowers = async () => {
     try {
       const followersFromDatabase = await getListFromDatabase("followers");
-      const transformArray = (followersFromDatabase) => {
-        return followersFromDatabase.map((originalObject) => {
-          const transformed = { ...originalObject };
-          transformed.idTo = originalObject.idTo;
-
-          return transformed;
-        });
-      };
-
-      const transformedEventsArray = transformArray(followersFromDatabase);
-
-      dispatch(setFollowers(transformedEventsArray));
+      dispatch(setFollowers(followersFromDatabase));
     } catch (error) {
       console.error("Errore nel recupero dei follower dal database", error);
     }
