@@ -8,9 +8,7 @@ export default function SingleUser({
   removeFollow,
   loggedUser,
 }) {
-  console.log(user)
   const isFollowed = user.followingIds ? !user.followingIds.includes(loggedUser.id) : false;
-  console.log(isFollowed)
   return (
     <div className="flex justify-between items-center space-x-4 pb-2 py-2 border-b border-zinc-400">
       <div className="flex space-x-2 items-center">
@@ -32,7 +30,7 @@ export default function SingleUser({
           name="UnFollow"
         />
       ) : (
-        <Button small onClick={() => addFollowers(user)} name="Follow" />
+        <Button small onClick={() => addFollowers(user.id)} name="Follow" />
       )}
     </div>
   );
