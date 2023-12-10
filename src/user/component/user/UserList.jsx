@@ -8,6 +8,7 @@ export default function UsersList({
   addFollowers,
   removeFollow,
   excludeLogged,
+  followers
 }) {
   const [searchedUsers, setSearchedUsers] = useState([]);
   
@@ -34,6 +35,7 @@ export default function UsersList({
           (user, index) => (
             <div key={index}>
               <SingleUser
+              followers={followers}
               loggedUser={loggedUser}
                 user={user}
                 addFollowers={addFollowers}

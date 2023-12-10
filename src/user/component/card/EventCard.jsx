@@ -50,7 +50,7 @@ export default function EventCard({
 
       const idsArray = bookings
         .filter((el) => event.bookingsRecordId.includes(el.id))
-        .map((item) => item.bookedId);
+        .map((el) => el.bookedId);
 
       if (!idsArray.length) {
         console.log("Empty idsArray. No action taken.");

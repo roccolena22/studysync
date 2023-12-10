@@ -1,14 +1,19 @@
 import React from "react";
 import Button from "../../../shared/component/Button";
 import Badge from "../Badge";
+import { isArray } from "lodash";
 
 export default function SingleUser({
   user,
   addFollowers,
   removeFollow,
   loggedUser,
+  followers,
 }) {
-  const isFollowed = user.followingIds ? !user.followingIds.includes(loggedUser.id) : false;
+
+
+  const isFollowed = false;
+
   return (
     <div className="flex justify-between items-center space-x-4 pb-2 py-2 border-b border-zinc-400">
       <div className="flex space-x-2 items-center">
@@ -21,7 +26,6 @@ export default function SingleUser({
           <p className="text-xs">{user.email}</p>
         </div>
       </div>
-
       {isFollowed ? (
         <Button
           small

@@ -33,7 +33,7 @@ export default function FollowersContainer({ followers, users, loggedUser }) {
   const addFollowers = async (userFollowedId) => {
     const newFollower = {
       idFrom: [loggedUser.id],
-      idTo: userFollowedId,
+      idTo: [userFollowedId],
     };
 
     try {
@@ -61,6 +61,7 @@ export default function FollowersContainer({ followers, users, loggedUser }) {
       <GadgetBox>
         <DiscoverUsers
           loggedUser={loggedUser}
+          followers={followers}
           users={users}
           addFollowers={addFollowers}
           removeFollow={removeFollow}

@@ -8,6 +8,7 @@ export default function DiscoverUsers({
   users,
   addFollowers,
   removeFollow,
+  followers
 }) {
   const [popupIsOpen, setPopupIsOpen] = useState(false);
 
@@ -37,6 +38,7 @@ export default function DiscoverUsers({
       {popupIsOpen && (
         <Popup handleClose={handlePopup} title="Search among StudySync users">
           <UsersList
+          followers={followers}
             users={users}
             loggedUser={loggedUser}
             addFollowers={addFollowers}
