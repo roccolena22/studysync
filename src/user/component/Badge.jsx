@@ -1,10 +1,8 @@
 export default function Badge({ text }) {
 
     const colorMapping = {
-      Finished: "bg-red-800",
-      Active: "bg-cyan-700",
-      teacher: "bg-purple-300",
-      student: "bg-yellow-400",
+      t: "bg-purple-500",
+      s: "bg-yellow-400",
       Soldout: "bg-red-800"
     };
   

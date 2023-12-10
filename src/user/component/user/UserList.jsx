@@ -34,6 +34,7 @@ export default function UsersList({
           (user, index) => (
             <div key={index}>
               <SingleUser
+              loggedUser={loggedUser}
                 user={user}
                 addFollowers={addFollowers}
                 removeFollow={removeFollow}
