@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import EventList from "./card/EventList";
-import {
-  deleteFromDatabase,
-  getListFromDatabase,
-} from "../../api/apiRequest";
+import { deleteFromDatabase, getListFromDatabase } from "../../api/apiRequest";
 import { setEvent } from "../../redux/eventsSlice";
 import { useDispatch } from "react-redux";
 
-export default function EventsContainer({ loggedUser, indexSection, events, users }) {
-  
+export default function EventsContainer({
+  loggedUser,
+  indexSection,
+  events,
+  users,
+}) {
   const [nextEvents, setNextEvents] = useState([]);
   const [pastEvents, setPastEvents] = useState([]);
 
@@ -55,7 +56,6 @@ export default function EventsContainer({ loggedUser, indexSection, events, user
     fetchEvents();
   };
 
- 
   return (
     <div className="w-full">
       {events && (
@@ -77,7 +77,6 @@ export default function EventsContainer({ loggedUser, indexSection, events, user
               handleDelete={handleDelete}
               indexSection={indexSection}
               fetchEvents={fetchEvents}
-
             />
           )}
         </div>

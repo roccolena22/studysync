@@ -50,8 +50,8 @@ export default function EventList({
             >
               <GadgetBox>
                 <EventCard
-                users={users}
-                fetchEvents={fetchEvents}
+                  users={users}
+                  fetchEvents={fetchEvents}
                   loggedUser={loggedUser}
                   event={event}
                   handleDelete={handleDelete}
@@ -63,7 +63,7 @@ export default function EventList({
             </div>
           )
         )}
-        {((searchedEvents.length === 0) === sortedEvents) === 0 && (
+        {(events.length <= 0) && (
           <div className="col-span-2">
             <NoEvents />
           </div>

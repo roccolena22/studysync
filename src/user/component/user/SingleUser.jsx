@@ -1,19 +1,14 @@
 import React from "react";
 import Button from "../../../shared/component/Button";
 import Badge from "../Badge";
-import { isArray } from "lodash";
 
 export default function SingleUser({
-  user, //utenti che arrivano da una funzione di mapping
+  user, 
   addFollowers,
   removeFollow,
   loggedUser,
-  followers,
 }) {
-  console.log(loggedUser.followingIds); //utenti che sta seguendo l'utente loggato
-  console.log(user.followersIds);
 
-  // const isFollowed = loggedUser.followingIds.includes(user.followersIds);
   const isNotFollowed = loggedUser.followingIds.some(
     (follower) => follower.id === user.followersIds
   );
