@@ -33,7 +33,7 @@ export default function SingleUser({
         <Button
           small
           outline
-          onClick={() => removeFollow(user)}
+          onClick={() => removeFollow(user.id)}
           name="Unfollow"
         />
       )}

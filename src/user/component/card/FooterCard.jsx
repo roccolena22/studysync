@@ -1,4 +1,3 @@
-import Icon from "../../../shared/component/Icon";
 import IconAndName from "../user/IconAndName";
 
 export default function FooterCard({
@@ -13,7 +12,7 @@ export default function FooterCard({
         <IconAndName
           iconName="delete"
           label="delete"
-          onClick={() => handleDelete(event)}
+          onClick={() => handleDelete(event.id)}
           color="text-red-800"
         />
       ) : (
@@ -26,7 +25,7 @@ export default function FooterCard({
           <IconAndName
             iconName="delete"
             label="delete"
-            onClick={() => handleDelete(event)}
+            onClick={() => handleDelete(event.id)}
             color="text-red-800"
           />
         </>

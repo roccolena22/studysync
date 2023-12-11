@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import SearchBar from "../shared/SearchBar";
-import SingleUser from "./SingleUser"; 
+import SingleUser from "./SingleUser";
 
 export default function UsersList({
   loggedUser,
@@ -10,15 +10,15 @@ export default function UsersList({
   excludeLogged,
 }) {
   const [searchedUsers, setSearchedUsers] = useState([]);
-  
+
   const usersToSearch = excludeLogged
     ? users.filter((user) => user.email !== loggedUser.email)
     : users;
-  
+
   const handleSearch = (dataFromSearch) => {
     setSearchedUsers(dataFromSearch);
   };
-  
+
   return (
     <div>
       {usersToSearch.length > 1 && (
@@ -28,13 +28,13 @@ export default function UsersList({
           dataFromSearch={handleSearch}
         />
       )}
-      
+
       <div className="pt-6">
         {(searchedUsers.length > 0 ? searchedUsers : usersToSearch).map(
           (user, index) => (
             <div key={index}>
               <SingleUser
-              loggedUser={loggedUser}
+                loggedUser={loggedUser}
                 user={user}
                 addFollowers={addFollowers}
                 removeFollow={removeFollow}
@@ -42,6 +42,7 @@ export default function UsersList({
             </div>
           )
         )}
+        {usersToSearch.length === 0 && <p className="text-lg zinc-400">No users to show</p>}
       </div>
     </div>
   );

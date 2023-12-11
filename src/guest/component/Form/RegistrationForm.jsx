@@ -69,7 +69,7 @@ export default function RegistrationForm() {
         const loggedUser = users.find((user) => user.email === data.email);
         dispatch(setUsers(updatedUsers));
         dispatch(setLoggedUser(loggedUser));
-        navigate("/");
+        navigate("/network");
         const updateObj = {
           firstName: data.firstName,
           lastName: data.lastName,
@@ -80,10 +80,7 @@ export default function RegistrationForm() {
         await addToDatabase("users", updateObj);
       }
     } catch (error) {
-      console.error(
-        "Error retrieving users from database:",
-        error
-      );
+      console.error("Error retrieving users from database:", error);
     }
   };
 

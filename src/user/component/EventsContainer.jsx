@@ -51,8 +51,8 @@ export default function EventsContainer({
     fetchEvents(loggedUser, dispatch);
   }, [dispatch, loggedUser]);
 
-  const handleDelete = (event) => {
-    deleteFromDatabase("events", event.id);
+  const handleDelete = (eventId) => {
+    deleteFromDatabase("events", eventId);
     fetchEvents();
   };
 

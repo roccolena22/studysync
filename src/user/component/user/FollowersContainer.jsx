@@ -9,6 +9,7 @@ import {
   removeFollower,
   setFollowers,
 } from "../../../redux/followersSlice";
+import { setUsers } from "../../../redux/usersSlice";
 import GadgetBox from "../shared/GadgetBox";
 import DiscoverUsers from "./DiscoverUsers";
 import ManageUsers from "./ManageUsers";
@@ -38,18 +39,23 @@ export default function FollowersContainer({ followers, users, loggedUser }) {
 
     try {
       await addToDatabase("followers", newFollower);
+      const users = await getListFromDatabase("users");
+      dispatch(setUsers(users));
       dispatch(addFollower(newFollower));
       fetchFollowers();
     } catch (error) {
       console.error("Error adding followers", error);
     }
   };
-  const removeFollow = async (userToRemove) => {
-    const result = followers.find((item) => item.idTo === userToRemove.id);
+  const removeFollow = async (userFollowedId) => {
+    const result = followers.find((item) => item.idTo[0] === userFollowedId);
     if (result.id) {
       try {
         await deleteFromDatabase("followers", result.id);
         dispatch(removeFollower(result));
+        const users = await getListFromDatabase("users");
+        dispatch(setUsers(users));
+        fetchFollowers();
       } catch (error) {
         console.error("Error removing follower", error);
       }
