@@ -72,7 +72,7 @@ export default function EditPasswordForm({ loggedUser, users }) {
       </div>
       <p className="text-red-500">{passwordError}</p>
       <div className="flex justify-end">
-        <Button type="submit" name="Update password" />
+        <Button type="submit" name="Edit" />
       </div>
     </form>
   );

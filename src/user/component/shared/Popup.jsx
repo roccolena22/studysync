@@ -12,7 +12,7 @@ export default function Popup({ children, handleClose, title }) {
             onClick={handleClose}
           />
         </div>
-        {title && <Title title={title} />}
+        {title && <Title title={title} fontSize="text-lg" />}
         {children}
       </div>
     </div>
