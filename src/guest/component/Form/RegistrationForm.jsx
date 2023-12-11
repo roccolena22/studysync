@@ -65,11 +65,11 @@ export default function RegistrationForm() {
 
         data.password = hash;
         data.confirmPassword = hash;
-        const updatedUsers = [...users, data];
         const loggedUser = users.find((user) => user.email === data.email);
-        dispatch(setUsers(updatedUsers));
         dispatch(setLoggedUser(loggedUser));
-        navigate("/network");
+        const updatedUsers = [...users, data];
+        dispatch(setUsers(updatedUsers));
+        navigate("/");
         const updateObj = {
           firstName: data.firstName,
           lastName: data.lastName,
