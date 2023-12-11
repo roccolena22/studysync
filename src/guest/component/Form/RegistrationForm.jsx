@@ -65,9 +65,11 @@ export default function RegistrationForm() {
 
         data.password = hash;
         data.confirmPassword = hash;
-
         const updatedUsers = [...users, data];
+        const loggedUser = users.find((user) => user.email === data.email);
         dispatch(setUsers(updatedUsers));
+        dispatch(setLoggedUser(loggedUser));
+        navigate("/");
         const updateObj = {
           firstName: data.firstName,
           lastName: data.lastName,
@@ -76,13 +78,10 @@ export default function RegistrationForm() {
           password: data.password,
         };
         await addToDatabase("users", updateObj);
-        const loggedUser = users.find((user) => user.email === data.email);
-        dispatch(setLoggedUser(loggedUser));
-        navigate("/");
       }
     } catch (error) {
       console.error(
-        "Errore durante il recupero degli utenti dal database:",
+        "Error retrieving users from database:",
         error
       );
     }

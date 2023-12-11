@@ -22,7 +22,7 @@ export default function FollowersContainer({ followers, users, loggedUser }) {
       const followersFromDatabase = await getListFromDatabase("followers");
       dispatch(setFollowers(followersFromDatabase));
     } catch (error) {
-      console.error("Errore nel recupero dei follower dal database", error);
+      console.error("Error retrieving followers from database", error);
     }
   };
 
@@ -41,7 +41,7 @@ export default function FollowersContainer({ followers, users, loggedUser }) {
       dispatch(addFollower(newFollower));
       fetchFollowers();
     } catch (error) {
-      console.error("Errore nell'aggiunta dei follower", error);
+      console.error("Error adding followers", error);
     }
   };
   const removeFollow = async (userToRemove) => {
@@ -51,7 +51,7 @@ export default function FollowersContainer({ followers, users, loggedUser }) {
         await deleteFromDatabase("followers", result.id);
         dispatch(removeFollower(result));
       } catch (error) {
-        console.error("Errore nella rimozione del follower", error);
+        console.error("Error removing follower", error);
       }
     }
   };

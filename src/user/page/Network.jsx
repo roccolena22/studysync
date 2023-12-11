@@ -43,7 +43,7 @@ export default function Network({ loggedUser, followers, events, users }) {
       try {
         await deleteFromDatabase("bookings", result.id);
       } catch (error) {
-        console.error("Errore nella rimozione del follower", error);
+        console.error("Error removing follower", error);
       }
     }
   };
