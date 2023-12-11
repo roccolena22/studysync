@@ -39,10 +39,8 @@ export async function getRecordFromDatabase(tableName, recordId) {
     );
 
     const responseData = await response.json();
-    const dataFromDatabase = responseData.records.map((element) => ({
-      ...element.fields,
-    }));
-    return dataFromDatabase;
+  
+    return responseData.fields;
   } catch (error) {
     console.error("Error during GET request:", error);
     throw error;

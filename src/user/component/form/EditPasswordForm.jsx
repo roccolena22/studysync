@@ -8,7 +8,7 @@ import { UpdatePasswordValidator } from "./validator/UpdatePasswordValidator";
 import bcrypt from "bcryptjs";
 import { updateDatabaseRecord } from "../../../api/apiRequest";
 
-export default function EditPasswordForm({ loggedUser, users }) {
+export default function EditPasswordForm({ loggedUser }) {
   const [showPassword, setShowPassword] = useState(false);
   const [passwordError, setPasswordError] = useState(null);
 

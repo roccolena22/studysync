@@ -4,15 +4,15 @@ import {
   Route,
   RouterProvider,
 } from "react-router-dom";
-import Dashboard from "./user/page/Dashboard";
-import Account from "./user/page/Account";
+import DashboardPage from "./user/page/DashboardPage";
+import AccountPage from "./user/page/AccountPage";
 import ErrorPage from "./user/page/error-page";
 import UserTemplate from "./shared/template/userTemplate/UserTemplate";
 import CalendarPage from "./user/page/CalendarPage";
 import Login from "./guest/page/Login";
 import GuestTemplate from "./shared/template/guestTemplate/guestTemplate";
 import Registration from "./guest/page/Registration";
-import Network from "./user/page/Network";
+import NetworkPage from "./user/page/NetworkPage";
 import RecoveryPassword from "./guest/page/RecoveryPassword";
 import Protected from "./Protected";
 import { useSelector } from "react-redux";
@@ -46,7 +46,7 @@ const Router = () => {
             path="/"
             element={
               <Protected isLogged={loggedUser}>
-                <Dashboard loggedUser={loggedUser} users={users} bookings={bookings} followers={followers} events={events}/>
+                <DashboardPage loggedUser={loggedUser} users={users} bookings={bookings} followers={followers} events={events}/>
               </Protected>
             }
           />
@@ -54,7 +54,7 @@ const Router = () => {
             path="/account"
             element={
               <Protected isLogged={loggedUser}>
-                <Account loggedUser={loggedUser} users={users}/>
+                <AccountPage loggedUser={loggedUser} users={users}/>
               </Protected>
             }
           />
@@ -70,7 +70,7 @@ const Router = () => {
             path="/network"
             element={
               <Protected isLogged={loggedUser}>
-                <Network loggedUser={loggedUser} followers={followers} events={events} users={users} bookings={bookings}/>
+                <NetworkPage loggedUser={loggedUser} followers={followers} events={events} users={users} bookings={bookings}/>
               </Protected>
             }
           />

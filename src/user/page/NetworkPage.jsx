@@ -9,7 +9,7 @@ import {
   getListFromDatabase,
 } from "../../api/apiRequest";
 
-export default function Network({ loggedUser, followers, events, users }) {
+export default function NetworkPage({ loggedUser, followers, events, users }) {
   const [reservationsPopupIsOpen, setReservationsPopupIsOpen] = useState(false);
 
   const following =

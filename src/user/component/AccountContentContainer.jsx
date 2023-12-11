@@ -5,7 +5,7 @@ import DeleteAccount from "./DeleteAccount";
 import EditPasswordForm from "./form/EditPasswordForm";
 import Title from "./shared/Title";
 
-export default function InfoAccount({ loggedUser, users }) {
+export default function AccountContentContainer({ loggedUser, users }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClose = () => {
@@ -18,7 +18,7 @@ export default function InfoAccount({ loggedUser, users }) {
       <div className="pt-6">
         <Title title="Edit password" />
         <div className="pt-6">
-          <EditPasswordForm loggedUser={loggedUser} users={users}/>
+          <EditPasswordForm loggedUser={loggedUser} users={users} />
         </div>
         <p
           className="text-red-800 font-semibold cursor-pointer pt-16 text-center"

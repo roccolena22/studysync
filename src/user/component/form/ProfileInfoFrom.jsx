@@ -3,7 +3,12 @@ import Input from "../../../shared/component/Input";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { UserInfoValidator } from "./validator/UserInfoValidator";
-import { updateDatabaseRecord } from "../../../api/apiRequest";
+import {
+  getRecordFromDatabase,
+  updateDatabaseRecord,
+} from "../../../api/apiRequest";
+import { setLoggedUser } from "../../../redux/authSlice";
+import { useDispatch } from "react-redux";
 
 export default function ProfileInfoForm({ loggedUser }) {
   const {
@@ -19,8 +24,15 @@ export default function ProfileInfoForm({ loggedUser }) {
     },
   });
 
+  const dispatch = useDispatch();
+
   const onSubmit = async (data) => {
     await updateDatabaseRecord("users", loggedUser.id, data);
+    const refreshLoggedUser = await getRecordFromDatabase(
+      "users",
+      loggedUser.id
+    );
+    dispatch(setLoggedUser(refreshLoggedUser));
   };
 
   return (
