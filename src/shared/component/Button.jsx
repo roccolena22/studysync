@@ -13,13 +13,13 @@ export default function Button({
 
   return (
     <button
-      className={`rounded-lg flex justify-center items-center  ${
+      className={`rounded-md flex justify-center items-center  ${
         buttonSize + " " + buttonStyle
       }`}
       onClick={onClick}
       type={type}
     >
-      <span>{name}</span>
+      <span className={`${small ? "text-xs" : "text-md"}`}>{name}</span>
       {children}
     </button>
   );

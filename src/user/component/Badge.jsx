@@ -1,7 +1,7 @@
 export default function Badge({ text }) {
   const colorMapping = {
-    t: "bg-purple-500 rounded-full",
-    s: "bg-yellow-400 rounded-full",
+    t: "bg-purple-500 rounded-2xl",
+    s: "bg-yellow-400 rounded-2xl",
     student: "bg-yellow-400",
     teacher: "bg-purple-500",
     soldout: "bg-red-800",
@@ -11,7 +11,7 @@ export default function Badge({ text }) {
 
   return (
     <div
-      className={`text-[12px] text-white rounded px-1 w-fit rounded-lg ${style}`}
+      className={`text-[12px] text-white rounded px-1 rounded-lg ${style} h-4 flex items-center`}
     >
       <p className="font-semibold">{text.toUpperCase()}</p>
     </div>

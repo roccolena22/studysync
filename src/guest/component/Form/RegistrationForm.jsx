@@ -134,7 +134,7 @@ export default function RegistrationForm() {
           )}
         </Input>
       </div>
-      <div className="flex items-center space-x-4 mb-4">
+      <div className="flex items-center space-x-4 pt-2 mb-4">
         <p className="font-semibold">I am a...</p>
         <div className="flex space-x-2 items-center">
           <p>Teacher</p>

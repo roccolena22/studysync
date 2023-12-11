@@ -25,7 +25,7 @@ export default function IconAndName({
         <Icon
           color="white"
           name={iconName}
-          style={`rounded-full w-8 h-8 p-2 hover:border border-full border-white ${
+          style={`rounded-2xl w-8 h-8 p-2 hover:border border-full border-white ${
             location.pathname === pathname ? "bg-zinc-400" : ""
           }`}
         />

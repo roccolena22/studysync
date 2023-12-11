@@ -46,7 +46,7 @@ export default function ProfileInfoForm({ loggedUser }) {
           register={register("email")}
           errorMessage={errors.email?.message}
         />
-        <div className="flex justify-end">
+        <div className="flex justify-end py-4">
           <Button type="submit" name="Update" />
         </div>
       </div>

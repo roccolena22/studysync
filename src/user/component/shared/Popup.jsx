@@ -8,7 +8,7 @@ export default function Popup({ children, handleClose, title }) {
         <div className="flex justify-end pt-2 sticky top-0">
           <Icon
             name="close"
-            style="rounded-full w-6 h-6 bg-white border hover:border-red-800"
+            style="rounded-2xl w-6 h-6 bg-white border hover:border-red-800"
             onClick={handleClose}
           />
         </div>

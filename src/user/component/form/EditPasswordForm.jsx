@@ -71,7 +71,7 @@ export default function EditPasswordForm({ loggedUser, users }) {
         </Input>
       </div>
       <p className="text-red-500">{passwordError}</p>
-      <div className="flex justify-end">
+      <div className="flex justify-end pt-4">
         <Button type="submit" name="Edit" />
       </div>
     </form>
