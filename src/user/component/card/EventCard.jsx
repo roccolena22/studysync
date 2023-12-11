@@ -108,9 +108,7 @@ export default function EventCard({
       bookedUsers.length < event.places &&
       isUserNotBooked
     ) {
-      return (
-        <Button small name="Join" onClick={() => addToBooked(event.id)} />
-      );
+      return <Button small name="Join" onClick={() => addToBooked(event.id)} />;
     }
     return null;
   };
@@ -134,7 +132,7 @@ export default function EventCard({
           <EventDetails event={event} />
         </div>
         <div className="absolute bottom-0 right-0">
-          {renderJoinButton()}
+          {event.places && renderJoinButton()}
           {renderLeaveButton()}
           {handleDelete && (
             <FooterCard

@@ -23,16 +23,18 @@ export default function HeaderCard({
           </div>
           <p className="text-xs text-zinc-400">{event.email}</p>
         </div>
-        <div className="flex items-center space-x-2">
-          {bookedUsers.length >= event.places && <Badge text="soldout" />}
-          <IconAndName
-            iconName="group"
-            onClick={() => handleReservationsPopup()}
-            label={`(${bookedUsers.length}${
-              event.places ? "/" + event.places : ""
-            })`}
-          />
-        </div>
+        {event.places && (
+          <div className="flex items-center space-x-2">
+            {bookedUsers.length >= event.places && <Badge text="soldout" />}
+            <IconAndName
+              iconName="group"
+              onClick={() => handleReservationsPopup()}
+              label={`(${bookedUsers.length}${
+                event.places ? "/" + event.places : ""
+              })`}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

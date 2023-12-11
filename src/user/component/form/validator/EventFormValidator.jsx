@@ -11,7 +11,11 @@ export const EventFormValidator = yup.object().shape({
     .max(100, "The additional info cannot exceed 100 characters"),
   startTime: yup.string().required("The starting time is mandatory"),
   endTime: yup.string().required("The end time is mandatory"),
-  places: yup.number(),
+  places: yup
+    .mixed()
+    .transform((value, originalValue) =>
+      originalValue === "" ? undefined : value
+    ),
   location: yup.string().max(100, "Max. 100 characters"),
   platform: yup.string().max(100, "Max. 100 characters"),
 });
