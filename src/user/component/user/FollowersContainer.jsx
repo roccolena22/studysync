@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import {
   addToDatabase,
-  deleteFromDatabase,
+  deleteRecordFromDatabase,
   getListFromDatabase,
 } from "../../../api/apiRequest";
 import {
@@ -54,7 +54,7 @@ export default function FollowersContainer({ followers, users, loggedUser }) {
     const result = followers.find((item) => item.idTo[0] === userFollowedId);
     if (result.id) {
       try {
-        await deleteFromDatabase("followers", result.id);
+        await deleteRecordFromDatabase("followers", result.id);
         dispatch(removeFollower(result));
         const users = await getListFromDatabase("users");
         const refreshLoggedUser = users.find((user) => user.email === loggedUser.email);

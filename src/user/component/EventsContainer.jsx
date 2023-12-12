@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import EventList from "./card/EventList";
-import { deleteFromDatabase, getListFromDatabase } from "../../api/apiRequest";
+import { deleteRecordFromDatabase, getListFromDatabase } from "../../api/apiRequest";
 import { setEvent } from "../../redux/eventsSlice";
 import { useDispatch } from "react-redux";
 
@@ -51,8 +51,8 @@ export default function EventsContainer({
     fetchEvents(loggedUser, dispatch);
   }, [dispatch, loggedUser]);
 
-  const handleDelete = (eventId) => {
-    deleteFromDatabase("events", eventId);
+  const handleDelete = async (eventId) => {
+    await deleteRecordFromDatabase("events", eventId);
     fetchEvents();
   };
 

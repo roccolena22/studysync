@@ -7,6 +7,7 @@ import AddEventForm from "./form/AddEventForm";
 import Popup from "./shared/Popup";
 import Title from "./shared/Title";
 import EventCard from "./card/EventCard";
+import Alert from "./shared/Alert";
 
 export default function PersonaleCalendar({ loggedUser, followers, events }) {
   const [newEventPopup, setNewEventPopup] = useState(false);
@@ -17,6 +18,8 @@ export default function PersonaleCalendar({ loggedUser, followers, events }) {
   const [endTime, setEndTime] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const localizer = momentLocalizer(moment);
+  const [showAlert, setShowAlert] = useState(false);
+
 
   const handleSelectSlot = (slotInfo) => {
     const startDateFormatted = moment(slotInfo.start).toDate();
@@ -36,6 +39,10 @@ export default function PersonaleCalendar({ loggedUser, followers, events }) {
       handleNewEventPopup();
     }
   };
+
+const handleAlert = ()=>{
+  setShowAlert(!showAlert)
+}
 
   const userInCalendar =
     followers && followers.filter((user) => user.idFrom === loggedUser.id);
@@ -121,7 +128,7 @@ export default function PersonaleCalendar({ loggedUser, followers, events }) {
               <p>Create a new event</p>
               <div className="flex space-x-2">
                 <div>
-                  <span className="text-green-500">Start:</span>
+                  <span className="text-green-600">Start:</span>
                   <span className="pl-1">{startDate}</span>
                 </div>
                 <div>
@@ -140,7 +147,7 @@ export default function PersonaleCalendar({ loggedUser, followers, events }) {
               endTime={endTime}
               setStartDate={setStartDate}
               setEndDate={setEndDate}
-            />
+              handleAlert={() => setShowAlert(true)}            />
           </div>
         </Popup>
       )}
@@ -150,6 +157,9 @@ export default function PersonaleCalendar({ loggedUser, followers, events }) {
           <EventCard event={selectedEvent} loggedUser={loggedUser} />
         </Popup>
       )}
+
+      {showAlert && <Alert text="Event created successfully." type="success" />}
+
     </div>
   );
 }

@@ -13,18 +13,22 @@ export default function ManageUsers({
   const [popupIsOpen, setPopupIsOpen] = useState(false);
 
   const followingIds = followers
-    .filter((item) => item.idFrom.includes(loggedUser.id))
-    .map((item) => item.idTo)
-    .flat();
+  ? followers
+      .filter((item) => item.idFrom?.includes(loggedUser.id))
+      .map((item) => item.idTo)
+      .flat()
+  : [];
 
   const loggedUserFollowing = users.filter((user) =>
     followingIds.includes(user.id)
   );
 
   const followersIds = followers
-    .filter((item) => item.idTo.includes(loggedUser.id))
-    .map((item) => item.idFrom)
-    .flat();
+  ? followers
+      .filter((item) => item.idTo?.includes(loggedUser.id))
+      .map((item) => item.idFrom)
+      .flat()
+  : [];
 
   const loggedUserFollowers = users.filter((user) =>
     followersIds.includes(user.id)

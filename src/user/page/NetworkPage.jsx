@@ -5,7 +5,7 @@ import Popup from "../component/shared/Popup";
 import UsersList from "../component/user/UserList";
 import {
   addToDatabase,
-  deleteFromDatabase,
+  deleteRecordFromDatabase,
   getListFromDatabase,
 } from "../../api/apiRequest";
 
@@ -41,7 +41,7 @@ export default function NetworkPage({ loggedUser, followers, events, users }) {
     );
     if (result.id && result.bookedId === loggedUser.id) {
       try {
-        await deleteFromDatabase("bookings", result.id);
+        await deleteRecordFromDatabase("bookings", result.id);
       } catch (error) {
         console.error("Error removing follower", error);
       }

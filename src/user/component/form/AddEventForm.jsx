@@ -17,6 +17,7 @@ export default function AddEventForm({
   setEndDate,
   startTime,
   endTime,
+  handleAlert
 }) {
   const [selectedMode, setSelectedMode] = useState("In person");
 
@@ -45,7 +46,7 @@ export default function AddEventForm({
 
     await addToDatabase("events", fullEvent);
     dispatch(setEvent([fullEvent]));
-
+    handleAlert()
     setStartDate(null);
     setEndDate(null);
     reset();
@@ -56,7 +57,7 @@ export default function AddEventForm({
   return (
     <div className="w-full">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex space-x-4">
+        <div className="flex space-x-2 sm:space-x-4">
           <Input
             label="Event name"
             errorMessage={errors.title?.message}
@@ -101,7 +102,7 @@ export default function AddEventForm({
         )}
 
         {selectedMode === "Mixed" && (
-          <div className="flex space-x-4">
+          <div className="flex space-x-2 sm:space-x-4">
             <Input
               label="Location"
               errorMessage={errors.location?.message}
@@ -123,7 +124,7 @@ export default function AddEventForm({
           register={register("info")}
           placeholder="Do you want to specify more information?"
         />
-        <div className="flex space-x-4">
+        <div className="flex space-x-2 sm:space-x-4">
           <Input
             label="Start time"
             errorMessage={errors.startTime?.message}

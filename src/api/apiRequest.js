@@ -105,7 +105,7 @@ export async function addToDatabase(tableName, data) {
 
 //DELETE
 
-export async function deleteFromDatabase(tableName, recordId) {
+export async function deleteRecordFromDatabase(tableName, recordId) {
   try {
     const response = await fetch(
       `https://api.airtable.com/v0/${baseId}/${tableName}/${recordId}`,

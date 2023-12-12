@@ -51,7 +51,7 @@ export default function EditEventForm({ event, updateEvent }) {
   return (
     <div className="w-full pt-4">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex space-x-4">
+        <div className="flex space-x-2 sm:space-x-4">
           <Input
             label="Event name"
             errorMessage={errors.title?.message}
@@ -68,7 +68,7 @@ export default function EditEventForm({ event, updateEvent }) {
             />
           </div>
         </div>
-        <div className="flex space-x-4">
+        <div className="flex space-x-2 sm:space-x-4">
           <Input
             label="Start date"
             errorMessage={errors.startDate?.message}
@@ -80,7 +80,7 @@ export default function EditEventForm({ event, updateEvent }) {
             register={register("startTime")}
           />
         </div>
-        <div className="flex space-x-4">
+        <div className="flex space-x-2 sm:space-x-4">
           <Input
             label="End date"
             errorMessage={errors.endDate?.message}
@@ -119,7 +119,7 @@ export default function EditEventForm({ event, updateEvent }) {
         )}
 
         {selectedMode === "Mixed" && (
-          <div className="flex space-x-4">
+          <div className="flex space-x-2 sm:space-x-4">
             <Input
               label="Location"
               errorMessage={errors.location?.message}
