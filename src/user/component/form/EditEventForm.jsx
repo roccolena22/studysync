@@ -8,6 +8,7 @@ import DropdownMenu from "../shared/DropdownMenu";
 
 export default function EditEventForm({ event, updateEvent }) {
   const [selectedMode, setSelectedMode] = useState(event.mode);
+
   const {
     handleSubmit,
     formState: { errors },

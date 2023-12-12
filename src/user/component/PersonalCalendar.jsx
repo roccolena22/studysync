@@ -20,7 +20,6 @@ export default function PersonaleCalendar({ loggedUser, followers, events }) {
   const localizer = momentLocalizer(moment);
   const [showAlert, setShowAlert] = useState(false);
 
-
   const handleSelectSlot = (slotInfo) => {
     const startDateFormatted = moment(slotInfo.start).toDate();
     const startTime = moment(slotInfo.start).format("HH:mm");
@@ -40,9 +39,6 @@ export default function PersonaleCalendar({ loggedUser, followers, events }) {
     }
   };
 
-const handleAlert = ()=>{
-  setShowAlert(!showAlert)
-}
 
   const userInCalendar =
     followers && followers.filter((user) => user.idFrom === loggedUser.id);
@@ -147,7 +143,8 @@ const handleAlert = ()=>{
               endTime={endTime}
               setStartDate={setStartDate}
               setEndDate={setEndDate}
-              handleAlert={() => setShowAlert(true)}            />
+              handleAlert={() => setShowAlert(true)}
+            />
           </div>
         </Popup>
       )}
@@ -159,7 +156,6 @@ const handleAlert = ()=>{
       )}
 
       {showAlert && <Alert text="Event created successfully." type="success" />}
-
     </div>
   );
 }

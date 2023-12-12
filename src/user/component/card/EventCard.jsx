@@ -10,6 +10,7 @@ import {
   getListFromDatabase,
   updateDatabaseRecord,
 } from "../../../api/apiRequest";
+import Alert from "../shared/Alert";
 
 export default function EventCard({
   loggedUser,
@@ -25,7 +26,11 @@ export default function EventCard({
   const [editPopupIsOpen, setEditPopupIsOpen] = useState(false);
   const [reservationsPopupIsOpen, setReservationsPopupIsOpen] = useState(false);
   const [bookedUsers, setBookedUsers] = useState([]);
+  const [showAlert, setShowAlert] = useState(false);
 
+  const handleAlert = () => {
+    setShowAlert(true);
+  }; 
   const handleUpdatePopup = (event) => {
     setSelectedEvent(event);
     setEditPopupIsOpen(!editPopupIsOpen);
@@ -97,6 +102,7 @@ export default function EventCard({
     await updateDatabaseRecord("events", editedEvent.id, fullEvent);
     fetchEvents();
     setEditPopupIsOpen(false);
+    handleAlert()
   };
 
   const isUserBooked = bookedUsers.some((user) => user.id === loggedUser.id);
@@ -160,9 +166,14 @@ export default function EventCard({
       )}
       {editPopupIsOpen && (
         <Popup handleClose={handleCloseEditPopup} title="Edit event">
-          <EditEventForm event={selectedEvent} updateEvent={updateEvent} />
+          <EditEventForm event={selectedEvent} updateEvent={updateEvent}          
+/>
         </Popup>
       )}
+      {
+        showAlert &&
+        <Alert type="success" text="modifica corretta"/>
+      }
     </>
   );
 }
