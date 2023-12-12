@@ -8,7 +8,9 @@ export default function SingleUser({
   removeFollow,
   loggedUser,
 }) {
-  const isNotFollowed = loggedUser.followingIds.some(
+  const isNotFollowed =
+  !loggedUser.followingIds ||
+  loggedUser.followingIds.some(
     (follower) => follower.id === user.followersIds
   );
 

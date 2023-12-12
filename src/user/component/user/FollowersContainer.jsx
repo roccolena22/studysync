@@ -14,6 +14,7 @@ import GadgetBox from "../shared/GadgetBox";
 import DiscoverUsers from "./DiscoverUsers";
 import ManageUsers from "./ManageUsers";
 import { useDispatch } from "react-redux";
+import { setLoggedUser } from "../../../redux/authSlice";
 
 export default function FollowersContainer({ followers, users, loggedUser }) {
   const dispatch = useDispatch();
@@ -41,6 +42,8 @@ export default function FollowersContainer({ followers, users, loggedUser }) {
       await addToDatabase("followers", newFollower);
       const users = await getListFromDatabase("users");
       dispatch(setUsers(users));
+      const refreshLoggedUser = users.find((user) => user.email === loggedUser.email);
+      dispatch(setLoggedUser(refreshLoggedUser));
       dispatch(addFollower(newFollower));
       fetchFollowers();
     } catch (error) {
@@ -54,6 +57,8 @@ export default function FollowersContainer({ followers, users, loggedUser }) {
         await deleteFromDatabase("followers", result.id);
         dispatch(removeFollower(result));
         const users = await getListFromDatabase("users");
+        const refreshLoggedUser = users.find((user) => user.email === loggedUser.email);
+        dispatch(setLoggedUser(refreshLoggedUser));
         dispatch(setUsers(users));
         fetchFollowers();
       } catch (error) {
