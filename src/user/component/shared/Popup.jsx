@@ -12,8 +12,10 @@ export default function Popup({ children, handleClose, title }) {
             onClick={handleClose}
           />
         </div>
-        {title && <Title title={title} fontSize="text-lg" />}
-        {children}
+        <div className="py-6">
+          {title && <Title title={title} fontSize="text-lg" />}
+          {children}
+        </div>
       </div>
     </div>
   );

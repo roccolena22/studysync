@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 
-export default function Alert({ text, type="general" }) {
+export default function Alert({ text, type="general", onClose}) {
   const [isVisible, setIsVisible] = useState(true);
-  const duration = 3000; // Durata in millisecondi
+  const duration = 3000; 
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       setIsVisible(false);
+      onClose();
     }, duration);
 
     return () => clearTimeout(timeoutId);
@@ -25,7 +26,7 @@ export default function Alert({ text, type="general" }) {
       <div
         className={`bg-white border-2 rounded-lg px-4 py-3 w-72 ${alertTypes[type]} overflow-y-auto`}
       >
-        <p className="text-sm text-center">{text}</p>
+        <p className="text-lg text-center">{text}</p>
       </div>
     </div>
   ) : null;

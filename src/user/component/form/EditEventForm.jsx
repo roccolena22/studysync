@@ -52,23 +52,13 @@ export default function EditEventForm({ event, updateEvent }) {
   return (
     <div className="w-full pt-4">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex space-x-2 sm:space-x-4">
-          <Input
-            label="Event name"
-            errorMessage={errors.title?.message}
-            register={register("title")}
-            placeholder="Enter the name of the event?"
-          />
-          <div className="w-full lg:w-48">
-            <Input
-              label="Places available"
-              errorMessage={errors.location?.message}
-              register={register("places")}
-              type="number"
-              placeholder="Limits of partecipants"
-            />
-          </div>
-        </div>
+        <Input
+          label="Event name"
+          errorMessage={errors.title?.message}
+          register={register("title")}
+          placeholder="Enter the name of the event?"
+        />
+
         <div className="flex space-x-2 sm:space-x-4">
           <Input
             label="Start date"
@@ -93,14 +83,26 @@ export default function EditEventForm({ event, updateEvent }) {
             register={register("endTime")}
           />
         </div>
+        <div className="flex space-x-2 sm:space-x-4">
 
-        <DropdownMenu
-          label="Mode:"
-          register={register("mode")}
-          options={modes}
-          errorMessage={errors.mode?.message}
-          onOptionSelected={(option) => setSelectedMode(option)}
-        />
+          <DropdownMenu
+            label="Mode:"
+            register={register("mode")}
+            options={modes}
+            errorMessage={errors.mode?.message}
+            onOptionSelected={(option) => setSelectedMode(option)}
+          />
+          <div className="w-full lg:w-48">
+            <Input
+              label="Places available"
+              errorMessage={errors.location?.message}
+              register={register("places")}
+              type="number"
+              placeholder="Limits of partecipants"
+            />
+          </div>
+        </div>
+
         {selectedMode === "In person" && (
           <Input
             label="Location"

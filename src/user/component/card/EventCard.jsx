@@ -29,8 +29,9 @@ export default function EventCard({
   const [showAlert, setShowAlert] = useState(false);
 
   const handleAlert = () => {
-    setShowAlert(true);
-  }; 
+    setShowAlert(!showAlert);
+  };
+  
   const handleUpdatePopup = (event) => {
     setSelectedEvent(event);
     setEditPopupIsOpen(!editPopupIsOpen);
@@ -73,7 +74,8 @@ export default function EventCard({
     if (event && Array.isArray(event.bookingsRecordId)) {
       handleBookings();
     }
-  }, [event]);
+  }, [event, handleBookings]);
+  
 
   const handleCloseReservationsPopup = () => {
     setReservationsPopupIsOpen(!reservationsPopupIsOpen);
@@ -172,8 +174,7 @@ export default function EventCard({
       )}
       {
         showAlert &&
-        <Alert type="success" text="modifica corretta"/>
-      }
+        <Alert type="success" text="Modification successful!" onClose={() => setShowAlert(false)} />      }
     </>
   );
 }

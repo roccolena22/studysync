@@ -57,12 +57,20 @@ export default function AddEventForm({
   return (
     <div className="w-full">
       <form onSubmit={handleSubmit(onSubmit)}>
+        <Input
+          label="Event name"
+          errorMessage={errors.title?.message}
+          register={register("title")}
+          placeholder="Enter the name of the event?"
+        />
+
         <div className="flex space-x-2 sm:space-x-4">
-          <Input
-            label="Event name"
-            errorMessage={errors.title?.message}
-            register={register("title")}
-            placeholder="Enter the name of the event?"
+          <DropdownMenu
+            label="Mode:"
+            register={register("mode")}
+            options={modes}
+            errorMessage={errors.mode?.message}
+            onOptionSelected={(option) => setSelectedMode(option)}
           />
           <div className="w-full lg:w-48">
             <Input
@@ -75,13 +83,6 @@ export default function AddEventForm({
           </div>
         </div>
 
-        <DropdownMenu
-          label="Mode:"
-          register={register("mode")}
-          options={modes}
-          errorMessage={errors.mode?.message}
-          onOptionSelected={(option) => setSelectedMode(option)}
-        />
 
         {selectedMode === "In person" && (
           <Input
@@ -138,7 +139,6 @@ export default function AddEventForm({
             type="text"
           />
         </div>
-
         <div className="flex justify-end py-4">
           <Button type="submit" name="Create" />
         </div>
