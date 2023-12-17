@@ -139,7 +139,7 @@ export default function AddEventForm({
             type="text"
           />
         </div>
-        <div className="flex justify-end py-4">
+        <div className="flex justify-end pt-10">
           <Button type="submit" name="Create" />
         </div>
       </form>
