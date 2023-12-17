@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Icon from "../../../shared/component/Icon";
 
@@ -11,6 +11,7 @@ export default function IconAndName({
   isLink = false,
 }) {
   const location = useLocation();
+  const [isHovered, setIsHovered] = useState(false);
 
   const commonContainerClasses = "flex flex-col cursor-pointer items-center";
   const commonTextClasses = "text-[10px]";
@@ -22,14 +23,16 @@ export default function IconAndName({
         to={pathname}
         className={`${commonContainerClasses} transition delay-150 duration-300 ease-in-out`}
       >
-        <Icon
-          color="white"
-          name={iconName}
-          style={`rounded-2xl w-8 h-8 p-2 hover:border border-full border-white ${
-            location.pathname === pathname ? "bg-zinc-400" : ""
-          }`}
-        />
-        <p className="text-[13px] text-white">{label.toUpperCase()}</p>
+        <div
+          className={`rounded-2xl w-8 h-8 p-2 ${isHovered ? "border border-full border-white" : ""} ${location.pathname === pathname ? "bg-zinc-400" : ""}`}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          <Icon color="white" name={iconName} />
+        </div>
+        <p className={`text-[13px] text-white`} onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+          {label.toUpperCase()}
+        </p>
       </Link>
     </div>
   ) : (

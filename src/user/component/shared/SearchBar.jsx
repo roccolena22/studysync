@@ -35,8 +35,8 @@ export default function SearchBar({ placeholder, data, dataFromSearch }) {
   };
 
   return (
-    <div className="py-3 sm:py-6 px-3 sm:px-4 flex items-center shadow-lg w-full bg-zinc-50 rounded-b-2xl">
-      <div className="flex items-center space-x-1 sm:space-x-4 w-full">
+    <div className="p-2 flex items-center shadow-lg w-full bg-zinc-50 rounded-b-2xl">
+      <div className="flex items-center space-x-1 w-full">
         <Input
           placeholder={placeholder}
           value={searchTerm}

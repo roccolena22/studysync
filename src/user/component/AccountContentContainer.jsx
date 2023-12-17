@@ -21,7 +21,7 @@ export default function AccountContentContainer({ loggedUser, users }) {
           <EditPasswordForm loggedUser={loggedUser} users={users} />
         </div>
         <p
-          className="text-red-800 font-semibold cursor-pointer pt-16 text-center"
+          className="text-red-800 font-semibold cursor-pointer pt-20 text-center"
           onClick={handleClose}
         >
           Delete Account

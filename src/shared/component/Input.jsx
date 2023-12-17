@@ -7,7 +7,7 @@ export default function Input({
   children,
 }) {
   return (
-    <div className="mb-4 w-full">
+    <div className="m-2 w-full">
       {label && <label className="font-semibold">{label}:</label>}
       <div className="flex items-center border border-zinc-400 rounded-lg px-3 py-2 w-full bg-white">
         <input

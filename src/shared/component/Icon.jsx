@@ -4,7 +4,7 @@ import { BsSearch } from "react-icons/bs";
 import { HiLogout } from "react-icons/hi";
 import { MdManageAccounts } from "react-icons/md";
 import { AiOutlineMore, AiOutlinePlus } from "react-icons/ai";
-import { CiCalendar } from "react-icons/ci";
+import { IoCalendarOutline } from "react-icons/io5";
 import { RiDeleteBinLine } from "react-icons/ri";
 import { IoIosArrowUp } from "react-icons/io";
 import { IoIosArrowDown } from "react-icons/io";
@@ -33,7 +33,7 @@ export default function Icon({ name, style, color, onClick }) {
     logout: <HiLogout className={classNames} onClick={onClick} />,
     account: <MdManageAccounts className={classNames} onClick={onClick} />,
     plus: <AiOutlinePlus className={classNames} onClick={onClick} />,
-    calendar: <CiCalendar className={classNames} onClick={onClick} />,
+    calendar: <IoCalendarOutline className={classNames} onClick={onClick} />,
     delete: <RiDeleteBinLine className={classNames} onClick={onClick} />,
     arrowUp: <IoIosArrowUp className={classNames} onClick={onClick} />,
     arrowDown: <IoIosArrowDown className={classNames} onClick={onClick} />,
