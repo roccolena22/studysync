@@ -79,7 +79,7 @@ export default function EventCard({
     if (event && Array.isArray(event.bookingsRecordId)) {
       handleBookings();
     }
-  }, [event, handleBookings]);
+  }, [event]);
   
 
   const handleCloseReservationsPopup = () => {
