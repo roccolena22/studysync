@@ -17,7 +17,7 @@ export default function AddEventForm({
   setEndDate,
   startTime,
   endTime,
-  handleAlert
+  handleCreatedEventAlert,
 }) {
   const [selectedMode, setSelectedMode] = useState("In person");
 
@@ -46,7 +46,7 @@ export default function AddEventForm({
 
     await addToDatabase("events", fullEvent);
     dispatch(setEvent([fullEvent]));
-    handleAlert()
+    handleCreatedEventAlert()
     setStartDate(null);
     setEndDate(null);
     reset();

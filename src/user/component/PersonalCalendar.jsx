@@ -18,7 +18,17 @@ export default function PersonaleCalendar({ loggedUser, followers, events }) {
   const [endTime, setEndTime] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const localizer = momentLocalizer(moment);
-  const [showAlert, setShowAlert] = useState(false);
+  const [showCreatedEventAlert, setShowCreatedEventAlert] = useState(false);
+  const [showNoValidDateAlert, setShowNoValidDateAlert] = useState(false);
+
+
+  const handleCreatedEventAlert = () => {
+    setShowCreatedEventAlert(!showCreatedEventAlert);
+  };
+
+  const handleNoValidDateAlert = () => {
+    setShowNoValidDateAlert(!showNoValidDateAlert);
+  };
 
   const handleSelectSlot = (slotInfo) => {
     const startDateFormatted = moment(slotInfo.start).toDate();
@@ -31,7 +41,7 @@ export default function PersonaleCalendar({ loggedUser, followers, events }) {
     currentDate.setDate(currentDate.getDate() - 1);
 
     if (startDateFormatted <= currentDate) {
-      alert("You cannot create events in the past tense");
+      handleNoValidDateAlert()
     } else {
       setStartDate(moment(slotInfo.start).format("L"));
       setEndDate(moment(slotInfo.end).format("L"));
@@ -81,12 +91,12 @@ export default function PersonaleCalendar({ loggedUser, followers, events }) {
     setNewEventPopup(!newEventPopup);
   };
 
-  const handleEventPopup = () => {
+  const handleClosePopuo = () => {
     setEventPopup(!eventPopup);
   };
   const handleEventClick = (event) => {
     setSelectedEvent(event);
-    handleEventPopup();
+    handleClosePopuo();
   };
 
   const EventInCalendar = ({ event }) => (
@@ -143,19 +153,21 @@ export default function PersonaleCalendar({ loggedUser, followers, events }) {
               endTime={endTime}
               setStartDate={setStartDate}
               setEndDate={setEndDate}
-              handleAlert={() => setShowAlert(true)}
+              handleCreatedEventAlert={handleCreatedEventAlert}
             />
           </div>
         </Popup>
       )}
 
       {eventPopup && (
-        <Popup handleClose={handleEventPopup}>
+        <Popup handleClose={handleClosePopuo}>
           <EventCard event={selectedEvent} loggedUser={loggedUser} />
         </Popup>
       )}
 
-      {showAlert && <Alert text="Event created successfully." type="success" />}
+      {showCreatedEventAlert && <Alert text="Event created successfully." type="success" onClose={() => setShowCreatedEventAlert(false)} />}
+      {showNoValidDateAlert && <Alert text="You cannot create events in the past tense." type="alert" onClose={() => setShowNoValidDateAlert(false)} />}
+
     </div>
   );
 }
