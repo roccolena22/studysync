@@ -6,11 +6,13 @@ import EditEventForm from "../form/EditEventForm";
 import UsersList from "../user/UserList";
 import { useEffect, useState } from "react";
 import Popup from "../shared/Popup";
+import { setBookings } from "../../../redux/bookingsSlice";
 import {
   getListFromDatabase,
   updateDatabaseRecord,
 } from "../../../api/apiRequest";
 import Alert from "../shared/Alert";
+import { useDispatch } from "react-redux";
 
 export default function EventCard({
   loggedUser,
@@ -27,6 +29,8 @@ export default function EventCard({
   const [reservationsPopupIsOpen, setReservationsPopupIsOpen] = useState(false);
   const [bookedUsers, setBookedUsers] = useState([]);
   const [showAlert, setShowAlert] = useState(false);
+
+  const dispatch = useDispatch()
 
   const handleAlert = () => {
     setShowAlert(!showAlert);
@@ -49,6 +53,7 @@ export default function EventCard({
   const handleBookings = async () => {
     try {
       const bookings = await getListFromDatabase("bookings");
+      dispatch(setBookings(bookings))
       if (!event.bookingsRecordId || !bookings.length) {
         console.log("Empty arrays. No action taken.");
         return;

@@ -6,10 +6,9 @@ import UsersList from "../component/user/UserList";
 import {
   addToDatabase,
   deleteRecordFromDatabase,
-  getListFromDatabase,
 } from "../../api/apiRequest";
 
-export default function NetworkPage({ loggedUser, followers, events, users }) {
+export default function NetworkPage({ loggedUser, followers, events, users, bookings }) {
   const [reservationsPopupIsOpen, setReservationsPopupIsOpen] = useState(false);
 
   const following =
@@ -35,7 +34,6 @@ export default function NetworkPage({ loggedUser, followers, events, users }) {
   };
 
   const leaveEvent = async (eventIdToRemove) => {
-    const bookings = await getListFromDatabase("bookings");
     const result = bookings.find((item) =>
       item.eventId.includes(eventIdToRemove)
     );

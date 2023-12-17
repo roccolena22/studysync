@@ -5,11 +5,10 @@ import Title from "../component/shared/Title";
 import Legend from "../component/user/Legend";
 import { getListFromDatabase } from "../../api/apiRequest";
 
-export default function CalendarPage({ loggedUser, followers, events }) {
+export default function CalendarPage({ loggedUser, followers, events, bookings }) {
   const [loggedUserEvents, setLoggedUserEvents] = useState([]);
 
   const handleBookedEvents = async () => {
-    const bookings = await getListFromDatabase("bookings");
     const eventsByBooked = events.filter((event) => {
       if (event.bookingsRecordId) {
         return event.bookingsRecordId.some((bookingId) =>
