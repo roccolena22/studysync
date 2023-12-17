@@ -15,7 +15,7 @@ export default function Popup({ children, handleClose, title }) {
         <div className="sticky top-8 bg-white">
           {title && <Title title={title} fontSize="text-lg" />}
         </div>
-        <div className="py-6">
+        <div>
         {children}
         </div>
       </div>

@@ -35,8 +35,7 @@ export default function SearchBar({ placeholder, data, dataFromSearch }) {
   };
 
   return (
-    <div className="p-2 flex items-center shadow-lg w-full bg-zinc-50 rounded-b-2xl">
-      <div className="flex items-center space-x-1 w-full">
+    <div className="shadow-lg flex space-x-2 sm:space-x-4 items-center w-full bg-zinc-50 rounded-b-2xl p-4">
         <Input
           placeholder={placeholder}
           value={searchTerm}
@@ -47,17 +46,16 @@ export default function SearchBar({ placeholder, data, dataFromSearch }) {
             <Icon
               name="close"
               onClick={clearSearch}
-              style="cursor-pointer h-3 sm:h-8"
+              style="cursor-pointer"
             />
           ) : (
             <Icon
               name="search"
               onClick={filterData}
-              style="cursor-pointer h-3 sm:h-8"
+              style="cursor-pointer"
             />
           )}
         </div>
-      </div>
     </div>
   );
 }

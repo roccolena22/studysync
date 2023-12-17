@@ -15,8 +15,8 @@ export default function SingleUser({
   );
 
   return (
-    <div className="flex flex-col sm:flex-row sm:justify-between items-center border-b border-zinc-400 w-full py-2">
-      <div className="flex flex-col items-center sm:items-start">
+    <div className="flex justify-between items-center border-b border-zinc-400 w-full py-2">
+      <div className="flex flex-col items-start">
         <div className="flex space-x-1 items-center">
           <div>
             <Badge text={user.role.slice(0, 1)} />
