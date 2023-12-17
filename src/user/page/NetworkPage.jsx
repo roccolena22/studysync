@@ -13,10 +13,10 @@ export default function NetworkPage({ loggedUser, followers, events, users }) {
   const [reservationsPopupIsOpen, setReservationsPopupIsOpen] = useState(false);
 
   const following =
-    followers && followers.filter((user) => user.idFrom === loggedUser.id);
+    followers && followers.filter((user) => user.idFrom[0] === loggedUser.id);
 
   const networkEvents = events.filter((event) =>
-    following.some((item) => item.idTo === event.authorId)
+    following.some((item) => item.idTo[0] === event.authorId)
   );
 
   const handleReservationsPopup = () => {
@@ -47,7 +47,7 @@ export default function NetworkPage({ loggedUser, followers, events, users }) {
       }
     }
   };
-
+  
   return (
     <div className="flex flex-col items-center">
       <Title title="Network" />
