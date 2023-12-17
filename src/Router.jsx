@@ -22,7 +22,6 @@ const Router = () => {
   const followers = useSelector((state) => state.followers);
   const users = useSelector((state)=> state.users);
   const events = useSelector((state)=> state.events);
-  const bookings = useSelector((state)=> state.bookings);
 
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -46,7 +45,7 @@ const Router = () => {
             path="/"
             element={
               <Protected isLogged={loggedUser}>
-                <DashboardPage loggedUser={loggedUser} users={users} bookings={bookings} followers={followers} events={events}/>
+                <DashboardPage loggedUser={loggedUser} users={users} followers={followers} events={events}/>
               </Protected>
             }
           />
@@ -70,7 +69,7 @@ const Router = () => {
             path="/network"
             element={
               <Protected isLogged={loggedUser}>
-                <NetworkPage loggedUser={loggedUser} followers={followers} events={events} users={users} bookings={bookings}/>
+                <NetworkPage loggedUser={loggedUser} followers={followers} events={events} users={users} />
               </Protected>
             }
           />
