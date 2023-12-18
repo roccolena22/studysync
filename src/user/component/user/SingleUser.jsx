@@ -8,11 +8,12 @@ export default function SingleUser({
   removeFollow,
   loggedUser,
 }) {
-  const isNotFollowed =
-  !loggedUser.followingIds ||
-  loggedUser.followingIds.some(
-    (follower) => follower.id === user.followersIds
-  );
+
+  const isLoggedUser = loggedUser.id === user.id
+
+  const isFollowed =
+    user.followersIds &&
+    loggedUser.followingIds.some(element => user.followersIds.includes(element));
 
   return (
     <div className="flex justify-between items-center border-b border-zinc-400 w-full py-2">
@@ -29,16 +30,22 @@ export default function SingleUser({
 
         <p className="text-xs pb-1">{user.email}</p>
       </div>
-      {isNotFollowed ? (
-        <Button small onClick={() => addFollowers(user.id)} name="Follow" />
-      ) : (
-        <Button
-          small
-          outline
-          onClick={() => removeFollow(user.id)}
-          name="Unfollow"
-        />
-      )}
+      {
+        !isLoggedUser &&
+        <>
+          {isFollowed ? (
+            <Button
+              small
+              outline
+              onClick={() => removeFollow(user.id)}
+              name="Unfollow"
+            />
+          ) : (
+            <Button small onClick={() => addFollowers(user.id)} name="Follow" />
+
+          )}
+        </>}
+
     </div>
   );
 }

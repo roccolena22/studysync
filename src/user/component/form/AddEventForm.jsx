@@ -78,7 +78,6 @@ export default function AddEventForm({
               errorMessage={errors.location?.message}
               register={register("places")}
               type="number"
-              placeholder="Limits of participants"
             />
           </div>
         </div>

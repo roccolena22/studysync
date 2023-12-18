@@ -130,9 +130,9 @@ export default function PersonaleCalendar({ loggedUser, followers, events }) {
       {startDate && newEventPopup && (
         <Popup handleClose={handleNewEventPopup}>
           <Title fontSize="text-lg">
-            <div className="flex justify-between w-full">
-              <p>Create a new event</p>
-              <div className="flex space-x-2">
+            <div className="flex flex-col sm:flex-row sm:justify-between w-full">
+              <p>New event</p>
+              <div className="flex flex-col items-start sm:flex-row  sm:space-x-2">
                 <div>
                   <span className="text-green-600">Start:</span>
                   <span className="pl-1">{startDate}</span>

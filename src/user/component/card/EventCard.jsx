@@ -128,7 +128,7 @@ export default function EventCard({
 
   const renderLeaveButton = () => {
     if (isUserBooked) {
-      return <Button small name="Leave" onClick={() => leaveEvent(event.id)} />;
+      return <Button small outline name="Leave" onClick={() => leaveEvent(event.id)} />;
     }
     return null;
   };
