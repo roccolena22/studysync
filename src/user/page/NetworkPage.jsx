@@ -39,9 +39,9 @@ export default function NetworkPage({ loggedUser, followers, events, users, book
     dispatch(setBookings(updateBookings))
   };
 
-  const removeToBookings = async (event) => {
+  const removeToBookings = async (eventId) => {
     const result = bookings.find((item) =>
-      item.eventId.includes(event.id)
+      item.eventId.includes(eventId)
     );
 
     console.log(result)
