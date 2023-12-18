@@ -4,20 +4,19 @@ export default function Input({
   errorMessage,
   type = "text",
   register,
-  children,
+  onChange,
+  value,
 }) {
   return (
     <div className="py-2 w-full">
       {label && <label className="font-semibold">{label}:</label>}
-      <div className="flex items-center border border-zinc-400 rounded-lg px-3 py-2 w-full bg-white">
-        <input
-          {...register}
-          type={type}
-          placeholder={placeholder}
-          className="w-full"
-        />
-        {children}
-      </div>
+      <input
+        {...register}
+        onChange={onChange}
+        value={value}
+        type={type}
+        placeholder={placeholder}
+        className="border border-zinc-400 rounded-lg px-3 py-2 w-full bg-white" />
       <p className="text-red-500 mt-1">{errorMessage}</p>
     </div>
   );
