@@ -26,6 +26,7 @@ export default function EditEventForm({ event, updateEvent }) {
       startTime: event.startTime,
       endTime: event.endTime,
       places: event.places,
+      link: event.link
     },
   });
 
@@ -36,6 +37,7 @@ export default function EditEventForm({ event, updateEvent }) {
       mode: data.mode,
       location: data.location,
       platform: data.platform,
+      link: data.link,
       info: data.info,
       startDate: data.startDate,
       endDate: data.endDate,
@@ -112,12 +114,20 @@ export default function EditEventForm({ event, updateEvent }) {
         )}
 
         {selectedMode === "Remotely" && (
-          <Input
-            label="Platform"
-            errorMessage={errors.platform?.message}
-            register={register("platform")}
-            placeholder="Where will the event take place, on a meeting platform?"
-          />
+          <div>
+            <Input
+              label="Platform"
+              errorMessage={errors.platform?.message}
+              register={register("platform")}
+              placeholder="Where will the event take place, on a meeting platform?"
+            />
+            <Input
+              label="Link"
+              errorMessage={errors.link?.message}
+              register={register("link")}
+              placeholder="Meeting link?"
+            />
+          </div>
         )}
 
         {selectedMode === "Mixed" && (

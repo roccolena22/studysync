@@ -11,15 +11,15 @@ export default function EventDetails({ event }) {
   const days = Math.floor(duration.asDays());
   const hours = duration.hours();
   const minutes = duration.minutes();
-  
+
   if (days > 0) {
     formattedDuration += `${days} ${days === 1 ? 'day' : 'days'}`;
   }
-  
+
   if (hours > 0) {
     formattedDuration += ` ${hours} ${hours === 1 ? 'hour' : 'hours'}`;
   }
-  
+
   if (minutes > 0) {
     formattedDuration += ` ${minutes} ${minutes === 1 ? 'minute' : 'minutes'}`;
   }
@@ -50,8 +50,14 @@ export default function EventDetails({ event }) {
       )}
       {event.platform && (
         <div>
-          <span className="font-semibold text-sm">Platform:</span>
-          <span className="text-xs sm:text-sm pl-1">{event.platform}</span>
+          <div>
+            <span className="font-semibold text-sm">Platform:</span>
+            <span className="text-xs sm:text-sm pl-1">{event.platform}</span>
+          </div>
+          <div>
+            <span className="font-semibold text-sm">Link:</span>
+            <span className="text-xs sm:text-sm pl-1">{event.link}</span>
+          </div>
         </div>
       )}
       {event.info && (

@@ -12,8 +12,10 @@ export default function SingleUser({
   const isLoggedUser = loggedUser.id === user.id
 
   const isFollowed =
-    user.followersIds &&
-    loggedUser.followingIds.some(element => user.followersIds.includes(element));
+  user.followersIds &&
+  loggedUser.followingIds &&
+  loggedUser.followingIds.some((element) => user.followersIds.includes(element));
+
 
   return (
     <div className="flex justify-between items-center border-b border-zinc-400 w-full py-2">

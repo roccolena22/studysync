@@ -93,12 +93,20 @@ export default function AddEventForm({
         )}
 
         {selectedMode === "Remotely" && (
-          <Input
-            label="Platform"
-            errorMessage={errors.platform?.message}
-            register={register("platform")}
-            placeholder="Where will the event take place, on a meeting platform?"
-          />
+          <div>
+            <Input
+              label="Platform"
+              errorMessage={errors.platform?.message}
+              register={register("platform")}
+              placeholder="Where will the event take place, on a meeting platform?"
+            />
+            <Input
+              label="Link"
+              errorMessage={errors.link?.message}
+              register={register("link")}
+              placeholder="Meeting link?"
+            />
+          </div>
         )}
 
         {selectedMode === "Mixed" && (

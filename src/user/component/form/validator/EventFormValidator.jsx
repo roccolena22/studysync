@@ -18,4 +18,6 @@ export const EventFormValidator = yup.object().shape({
     ),
   location: yup.string().max(100, "Max. 100 characters"),
   platform: yup.string().max(100, "Max. 100 characters"),
+  link: yup.string(),
+
 });

@@ -135,13 +135,13 @@ export default function EventCard({
 
   return (
     <>
-      <div className="w-full h-60 relative ">
+      <div className="w-full h-72 relative pb-6">
         <HeaderCard
           event={event}
           handleReservationsPopup={handleReservationsPopup}
           bookedUsers={bookedUsers}
         />
-        <div className="pb-2 flex justify-between">
+        <div className="flex justify-between">
           <EventDetails event={event} />
         </div>
         <div className="absolute bottom-0 right-0">
