@@ -101,8 +101,8 @@ export default function PersonaleCalendar({ loggedUser, followers, events }) {
 
   const EventInCalendar = ({ event }) => (
     <div onClick={() => handleEventClick(event)}>
-      <p className=" py-2 text-[14px]">{event.title}</p>
-      <div className="text-[10px] space-x-1">
+      <p className="text-[8px] font-semibold">{event.title}</p>
+      <div className="text-[8px] space-x-1">
         <span>Mode:</span>
         <span>{event.mode}</span>
       </div>

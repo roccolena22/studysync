@@ -44,7 +44,6 @@ export default function NetworkPage({ loggedUser, followers, events, users, book
       item.eventId.includes(eventId)
     );
 
-    console.log(result)
     if (result.id && result.bookedId === loggedUser.id) {
       try {
         await deleteRecordFromDatabase("bookings", result.id);

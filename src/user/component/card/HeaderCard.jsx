@@ -27,8 +27,8 @@ export default function HeaderCard({
             <IconAndName
               iconName="group"
               onClick={() => handleReservationsPopup()}
-              label={`(${event.bookingsRecordId ? event.bookingsRecordId.length : "0"}${event.places ? "/" + event.places : ""
-                })`}
+              label={`${event.bookingsRecordId ? event.bookingsRecordId.length : "0"}${event.places ? "/" + event.places : ""
+                }`}
             />
           </div>
         )}

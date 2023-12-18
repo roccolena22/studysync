@@ -50,7 +50,7 @@ export default function EventDetails({ event }) {
       )}
       {event.platform && (
         <div>
-          <span className="font-semibold text-sm">platform:</span>
+          <span className="font-semibold text-sm">Platform:</span>
           <span className="text-xs sm:text-sm pl-1">{event.platform}</span>
         </div>
       )}
