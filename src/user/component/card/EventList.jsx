@@ -10,8 +10,8 @@ export default function EventList({
   fetchEvents,
   users,
   handleDelete,
-  addToBooked,
-  leaveEvent,
+  addToBookings,
+  removeToBookings,
   indexSection,
 }) {
   const [searchedEvents, setSearchedEvents] = useState([]);
@@ -55,8 +55,8 @@ export default function EventList({
                   loggedUser={loggedUser}
                   event={event}
                   handleDelete={handleDelete}
-                  addToBooked={addToBooked}
-                  leaveEvent={leaveEvent}
+                  addToBookings={addToBookings}
+                  removeToBookings={removeToBookings}
                   indexSection={indexSection}
                 />
               </GadgetBox>

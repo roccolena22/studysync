@@ -6,10 +6,14 @@ import UsersList from "../component/user/UserList";
 import {
   addToDatabase,
   deleteRecordFromDatabase,
+  getListFromDatabase,
 } from "../../api/apiRequest";
+import { useDispatch } from "react-redux";
+import { setBookings } from "../../redux/bookingsSlice";
 
 export default function NetworkPage({ loggedUser, followers, events, users, bookings }) {
   const [reservationsPopupIsOpen, setReservationsPopupIsOpen] = useState(false);
+  const dispatch = useDispatch()
 
   const following =
     followers && followers.filter((user) => user.idFrom[0] === loggedUser.id);
@@ -26,17 +30,21 @@ export default function NetworkPage({ loggedUser, followers, events, users, book
     setReservationsPopupIsOpen(!reservationsPopupIsOpen);
   };
 
-  const addToBooked = async (id) => {
+  const addToBookings = async (id) => {
     await addToDatabase("bookings", {
       eventId: [id],
       bookedId: loggedUser.id,
     });
+    const updateBookings = await getListFromDatabase("bookings");
+    dispatch(setBookings(updateBookings))
   };
 
-  const leaveEvent = async (eventIdToRemove) => {
+  const removeToBookings = async (event) => {
     const result = bookings.find((item) =>
-      item.eventId.includes(eventIdToRemove)
+      item.eventId.includes(event.id)
     );
+
+    console.log(result)
     if (result.id && result.bookedId === loggedUser.id) {
       try {
         await deleteRecordFromDatabase("bookings", result.id);
@@ -45,7 +53,7 @@ export default function NetworkPage({ loggedUser, followers, events, users, book
       }
     }
   };
-  
+
   return (
     <div className="flex flex-col items-center">
       <Title title="Network" />
@@ -55,8 +63,8 @@ export default function NetworkPage({ loggedUser, followers, events, users, book
           events={networkEvents}
           users={users}
           handleReservationsPopup={handleReservationsPopup}
-          addToBooked={addToBooked}
-          leaveEvent={leaveEvent}
+          addToBookings={addToBookings}
+          removeToBookings={removeToBookings}
         />
       </div>
       {reservationsPopupIsOpen && (

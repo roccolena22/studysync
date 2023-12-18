@@ -13,6 +13,7 @@ export default function RecoveryPasswordForm() {
   });
 
   const onSubmit = (data) => {
+    console.log(data)
   };
 
   return (
@@ -24,7 +25,7 @@ export default function RecoveryPasswordForm() {
           errorMessage={errors.email?.message}
           register={register("email")}
         />
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center py-4">
           <Button type="submit">Get reset link</Button>
         </div>
       </form>

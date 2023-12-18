@@ -18,8 +18,8 @@ export default function EventCard({
   loggedUser,
   event,
   handleDelete,
-  addToBooked,
-  leaveEvent,
+  addToBookings,
+  removeToBookings,
   indexSection,
   users,
   fetchEvents,
@@ -35,8 +35,8 @@ export default function EventCard({
   const handleAlert = () => {
     setShowAlert(!showAlert);
   };
-  
-  const handleUpdatePopup = (event) => {
+
+  const toggleEditPopup = (event) => {
     setSelectedEvent(event);
     setEditPopupIsOpen(!editPopupIsOpen);
   };
@@ -80,7 +80,7 @@ export default function EventCard({
       handleBookings();
     }
   }, [event]);
-  
+
 
   const handleCloseReservationsPopup = () => {
     setReservationsPopupIsOpen(!reservationsPopupIsOpen);
@@ -121,14 +121,14 @@ export default function EventCard({
       bookedUsers.length < event.places &&
       isUserNotBooked
     ) {
-      return <Button small name="Join" onClick={() => addToBooked(event.id)} />;
+      return <Button small name="Join" onClick={() => addToBookings(event.id)} />;
     }
     return null;
   };
 
   const renderLeaveButton = () => {
     if (isUserBooked) {
-      return <Button small outline name="Leave" onClick={() => leaveEvent(event.id)} />;
+      return <Button small outline name="Leave" onClick={() => removeToBookings(event)} />;
     }
     return null;
   };
@@ -150,7 +150,7 @@ export default function EventCard({
           {handleDelete && (
             <FooterCard
               event={event}
-              handleOpenEditPopup={() => handleUpdatePopup(event)}
+              handleOpenEditPopup={() => toggleEditPopup(event)}
               handleDelete={handleDelete}
               indexSection={indexSection}
             />
@@ -173,13 +173,13 @@ export default function EventCard({
       )}
       {editPopupIsOpen && (
         <Popup handleClose={handleCloseEditPopup} title="Edit event">
-          <EditEventForm event={selectedEvent} updateEvent={updateEvent}          
-/>
+          <EditEventForm event={selectedEvent} updateEvent={updateEvent}
+          />
         </Popup>
       )}
       {
         showAlert &&
-        <Alert type="success" text="Modification successful!" onClose={() => setShowAlert(false)} />      }
+        <Alert type="success" text="Modification successful!" onClose={() => setShowAlert(false)} />}
     </>
   );
 }
