@@ -19,6 +19,11 @@ export default function UsersList({
     setSearchedUsers(dataFromSearch);
   };
 
+  const sortedUsers = [...(searchedUsers.length > 0 ? searchedUsers : usersToSearch)].sort((a, b) => {
+    const firstNameComparison = a.firstName.localeCompare(b.firstName);
+    return firstNameComparison !== 0 ? firstNameComparison : a.lastName.localeCompare(b.lastName);
+  });
+
   return (
     <div>
       {usersToSearch.length > 1 && (
@@ -30,7 +35,7 @@ export default function UsersList({
       )}
 
       <div className="pt-6">
-        {(searchedUsers.length > 0 ? searchedUsers : usersToSearch).map(
+        {(searchedUsers.length > 0 ? searchedUsers : sortedUsers).map(
           (user, index) => (
             <div key={index}>
               <SingleUser
