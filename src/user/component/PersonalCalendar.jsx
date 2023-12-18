@@ -21,7 +21,6 @@ export default function PersonaleCalendar({ loggedUser, followers, events }) {
   const [showCreatedEventAlert, setShowCreatedEventAlert] = useState(false);
   const [showNoValidDateAlert, setShowNoValidDateAlert] = useState(false);
 
-
   const handleCreatedEventAlert = () => {
     setShowCreatedEventAlert(!showCreatedEventAlert);
   };
@@ -49,11 +48,10 @@ export default function PersonaleCalendar({ loggedUser, followers, events }) {
     }
   };
 
-
   const userInCalendar =
-    followers && followers.filter((user) => user.idFrom === loggedUser.id);
+    followers && followers.filter((user) => user.idFrom[0] === loggedUser.id);
 
-  const authorIds = userInCalendar.map((item) => item.idTo);
+  const authorIds = userInCalendar.map((item) => item.idTo[0]);
   const newIds = [...authorIds, loggedUser.id];
 
   const filteredEvents = events
