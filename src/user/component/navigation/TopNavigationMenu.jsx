@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { logout } from "../../../redux/authSlice";
 import IconAndName from "../user/IconAndName";
 
-export default function TopNavigationMenu() {
+export default function TopNavigationMenu({ toggleNavigationMenu }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -11,6 +11,9 @@ export default function TopNavigationMenu() {
     dispatch(logout());
     navigate("/login");
   };
+
+
+
   return (
     <div className="flex space-x-5">
       <div className="hidden md:block md:flex space-x-5">
@@ -33,19 +36,31 @@ export default function TopNavigationMenu() {
           isLink="true"
         />
       </div>
-      <IconAndName
-        label="account"
-        iconName="account"
-        pathname="/account"
-        isLink="true"
-      />
-      <IconAndName
-        label="logout"
-        iconName="logout"
-        pathname="/login"
-        isLink="true"
-        onClick={handleLogout}
-      />
+      <div className="sm:hidden">
+        <IconAndName
+          label="menu"
+          iconName="menu"
+          isLink="true"
+          onClick={toggleNavigationMenu}
+        />
+      </div>
+
+      <div className=" hidden sm:block sm:flex space-x-5">
+        <IconAndName
+          label="account"
+          iconName="account"
+          pathname="/account"
+          isLink="true"
+        />
+        <IconAndName
+          label="logout"
+          iconName="logout"
+          pathname="/login"
+          isLink="true"
+          onClick={handleLogout}
+        />
+      </div>
+
     </div>
   );
 }
