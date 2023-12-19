@@ -8,7 +8,6 @@ export default function IconAndName({
   onClick,
   color = "text-cyan-700",
   pathname,
-  isLink = false,
 }) {
   const location = useLocation();
   const [isHovered, setIsHovered] = useState(false);
@@ -17,7 +16,7 @@ export default function IconAndName({
   const commonTextClasses = "text-[10px]";
   const textClasses = commonTextClasses + ` ${color}`;
 
-  return isLink ? (
+  return pathname ? (
     <div onClick={onClick}>
       <Link
         to={pathname}

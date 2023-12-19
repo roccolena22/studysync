@@ -28,7 +28,7 @@ export default function EventList({
 
   return (
     <div>
-      <div className="sticky top-20 w-full z-20">
+      <div className="sticky top-20 w-full z-10">
         {sortedEvents.length > 1 && (
           <SearchBar
             placeholder="Search by event date, title or author"

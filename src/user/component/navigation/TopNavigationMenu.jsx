@@ -12,8 +12,6 @@ export default function TopNavigationMenu({ toggleNavigationMenu }) {
     navigate("/login");
   };
 
-
-
   return (
     <div className="flex space-x-5">
       <div className="hidden md:block md:flex space-x-5">
@@ -21,26 +19,23 @@ export default function TopNavigationMenu({ toggleNavigationMenu }) {
           label="dashboard"
           iconName="dashboard"
           pathname="/"
-          isLink="true"
         />
         <IconAndName
           label="network"
           iconName="network"
           pathname="/network"
-          isLink="true"
         />
         <IconAndName
           label="calendar"
           iconName="calendar"
           pathname="/calendar"
-          isLink="true"
         />
       </div>
       <div className="sm:hidden">
         <IconAndName
           label="menu"
           iconName="menu"
-          isLink="true"
+          pathname
           onClick={toggleNavigationMenu}
         />
       </div>
@@ -50,13 +45,11 @@ export default function TopNavigationMenu({ toggleNavigationMenu }) {
           label="account"
           iconName="account"
           pathname="/account"
-          isLink="true"
         />
         <IconAndName
           label="logout"
           iconName="logout"
           pathname="/login"
-          isLink="true"
           onClick={handleLogout}
         />
       </div>
