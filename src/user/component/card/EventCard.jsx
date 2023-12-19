@@ -135,7 +135,7 @@ export default function EventCard({
 
   return (
     <>
-      <div className="w-full h-72 relative pb-6">
+      <div className="w-full h-64 relative">
         <HeaderCard
           event={event}
           handleReservationsPopup={handleReservationsPopup}
