@@ -10,10 +10,11 @@ import {
 } from "../../api/apiRequest";
 import { useDispatch } from "react-redux";
 import { setBookings } from "../../redux/bookingsSlice";
-
+import moment from "moment";
 export default function NetworkPage({ loggedUser, followers, events, users, bookings }) {
   const [reservationsPopupIsOpen, setReservationsPopupIsOpen] = useState(false);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const currentDate = moment();
 
   const following =
     followers && followers.filter((user) => user.idFrom[0] === loggedUser.id);
@@ -21,6 +22,11 @@ export default function NetworkPage({ loggedUser, followers, events, users, book
   const networkEvents = events.filter((event) =>
     following.some((item) => item.idTo[0] === event.authorId)
   );
+
+  const filteredEvents = networkEvents.filter((event) => {
+    const eventEndDate = moment(event.endDate + " " + event.endTime, "MM/DD/YYYY HH:mm");
+    return eventEndDate.isAfter(currentDate);
+  });
 
   const handleReservationsPopup = () => {
     setReservationsPopupIsOpen(!reservationsPopupIsOpen);
@@ -36,7 +42,7 @@ export default function NetworkPage({ loggedUser, followers, events, users, book
       bookedId: loggedUser.id,
     });
     const updateBookings = await getListFromDatabase("bookings");
-    dispatch(setBookings(updateBookings))
+    dispatch(setBookings(updateBookings));
   };
 
   const removeToBookings = async (eventId) => {
@@ -59,7 +65,7 @@ export default function NetworkPage({ loggedUser, followers, events, users, book
       <div className="w-full">
         <EventList
           loggedUser={loggedUser}
-          events={networkEvents}
+          events={filteredEvents}
           users={users}
           handleReservationsPopup={handleReservationsPopup}
           addToBookings={addToBookings}
