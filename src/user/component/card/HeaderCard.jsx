@@ -10,7 +10,7 @@ export default function HeaderCard({
   return (
     <div>
       <div
-        className={`flex justify-between items-center border-b ${event.role.includes("student")
+        className={`flex justify-between items-center border-b ${event.role && event.role.includes("student")
           ? "border-yellow-400"
           : "border-purple-500"
           } pb-1 rounded-t-lg`}
