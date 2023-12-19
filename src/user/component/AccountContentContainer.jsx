@@ -1,6 +1,6 @@
 import { useState } from "react";
 import ProfileInfoForm from "./form/ProfileInfoFrom";
-import Popup from "./shared/Popup";
+import PriorityPopup from "./shared/PriorityPriorityPopup";
 import DeleteAccount from "./DeleteAccount";
 import EditPasswordForm from "./form/EditPasswordForm";
 import Title from "./shared/Title";
@@ -27,9 +27,9 @@ export default function AccountContentContainer({ loggedUser, users }) {
           Delete Account
         </p>
         {isOpen && (
-          <Popup handleClose={handleClose}>
+          <PriorityPopup handleClose={handleClose}>
             <DeleteAccount loggedUser={loggedUser}/>
-          </Popup>
+          </PriorityPopup>
         )}
       </div>
     </div>

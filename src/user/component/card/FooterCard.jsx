@@ -2,7 +2,7 @@ import IconAndName from "../user/IconAndName";
 
 export default function FooterCard({
   event,
-  handleOpenEditPopup,
+  handleOpenEditPriorityPopup,
   handleDelete,
   indexSection,
 }) {
@@ -20,7 +20,7 @@ export default function FooterCard({
           <IconAndName
             iconName="edit"
             label="edit"
-            onClick={handleOpenEditPopup}
+            onClick={handleOpenEditPriorityPopup}
           />
           <IconAndName
             iconName="delete"

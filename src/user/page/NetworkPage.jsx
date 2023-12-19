@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Title from "../component/shared/Title";
 import EventList from "../component/card/EventList";
-import Popup from "../component/shared/Popup";
+import PriorityPopup from "../component/shared/PriorityPopup";
 import UsersList from "../component/user/UserList";
 import {
   addToDatabase,
@@ -12,7 +12,7 @@ import { useDispatch } from "react-redux";
 import { setBookings } from "../../redux/bookingsSlice";
 import moment from "moment";
 export default function NetworkPage({ loggedUser, followers, events, users, bookings }) {
-  const [reservationsPopupIsOpen, setReservationsPopupIsOpen] = useState(false);
+  const [reservationsPriorityPopupIsOpen, setReservationsPriorityPopupIsOpen] = useState(false);
   const dispatch = useDispatch();
   const currentDate = moment();
 
@@ -28,12 +28,12 @@ export default function NetworkPage({ loggedUser, followers, events, users, book
     return eventEndDate.isAfter(currentDate);
   });
 
-  const handleReservationsPopup = () => {
-    setReservationsPopupIsOpen(!reservationsPopupIsOpen);
+  const handleReservationsPriorityPopup = () => {
+    setReservationsPriorityPopupIsOpen(!reservationsPriorityPopupIsOpen);
   };
 
-  const handleCloseReservationsPopup = () => {
-    setReservationsPopupIsOpen(!reservationsPopupIsOpen);
+  const handleCloseReservationsPriorityPopup = () => {
+    setReservationsPriorityPopupIsOpen(!reservationsPriorityPopupIsOpen);
   };
 
   const addToBookings = async (id) => {
@@ -67,18 +67,18 @@ export default function NetworkPage({ loggedUser, followers, events, users, book
           loggedUser={loggedUser}
           events={filteredEvents}
           users={users}
-          handleReservationsPopup={handleReservationsPopup}
+          handleReservationsPriorityPopup={handleReservationsPriorityPopup}
           addToBookings={addToBookings}
           removeToBookings={removeToBookings}
         />
       </div>
-      {reservationsPopupIsOpen && (
-        <Popup
-          handleClose={handleCloseReservationsPopup}
+      {reservationsPriorityPopupIsOpen && (
+        <PriorityPopup
+          handleClose={handleCloseReservationsPriorityPopup}
           title="List of reservations"
         >
           <UsersList users={users} loggedUser={loggedUser} />
-        </Popup>
+        </PriorityPopup>
       )}
     </div>
   );

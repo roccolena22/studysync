@@ -4,14 +4,15 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import moment from "moment";
 import "moment/locale/it";
 import AddEventForm from "./form/AddEventForm";
-import Popup from "./shared/Popup";
+import PriorityPopup from "./shared/PriorityPopup";
 import Title from "./shared/Title";
-import EventCard from "./card/EventCard";
 import Alert from "./shared/Alert";
+import SecondaryPopup from "./shared/SecondaryPopup";
+import SyntheticEventCard from "./card/SyntheticEventCard";
 
 export default function PersonaleCalendar({ loggedUser, followers, events }) {
-  const [newEventPopup, setNewEventPopup] = useState(false);
-  const [eventPopup, setEventPopup] = useState(false);
+  const [newEventPriorityPopup, setNewEventPriorityPopup] = useState(false);
+  const [eventSecondaryPopup, setEventSecondaryPopup] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [startDate, setStartDate] = useState(null);
   const [startTime, setStartTime] = useState(null);
@@ -44,7 +45,7 @@ export default function PersonaleCalendar({ loggedUser, followers, events }) {
     } else {
       setStartDate(moment(slotInfo.start).format("L"));
       setEndDate(moment(slotInfo.end).format("L"));
-      handleNewEventPopup();
+      handleNewEventPriorityPopup();
     }
   };
 
@@ -62,13 +63,12 @@ export default function PersonaleCalendar({ loggedUser, followers, events }) {
     title: originalEvent.title,
     start: new Date(originalEvent.startDate + " " + originalEvent.startTime),
     end: new Date(originalEvent.endDate + " " + originalEvent.endTime),
-    authorId: originalEvent.authorId,
     mode: originalEvent.mode,
     firstName: originalEvent.firstName,
     lastName: originalEvent.lastName,
-    places: originalEvent.places,
-    location: originalEvent.location,
     email: originalEvent.email,
+    role: originalEvent.role,
+
   }));
 
   const eventStyleGetter = (event) => {
@@ -85,12 +85,12 @@ export default function PersonaleCalendar({ loggedUser, followers, events }) {
     };
   };
 
-  const handleNewEventPopup = () => {
-    setNewEventPopup(!newEventPopup);
+  const handleNewEventPriorityPopup = () => {
+    setNewEventPriorityPopup(!newEventPriorityPopup);
   };
 
   const handleClosePopuo = () => {
-    setEventPopup(!eventPopup);
+    setEventSecondaryPopup(!eventSecondaryPopup);
   };
   const handleEventClick = (event) => {
     setSelectedEvent(event);
@@ -125,8 +125,8 @@ export default function PersonaleCalendar({ loggedUser, followers, events }) {
           }}
         />
       </div>
-      {startDate && newEventPopup && (
-        <Popup handleClose={handleNewEventPopup}>
+      {startDate && newEventPriorityPopup && (
+        <PriorityPopup handleClose={handleNewEventPriorityPopup}>
           <Title fontSize="text-lg">
             <div className="flex flex-col sm:flex-row sm:justify-between w-full">
               <p>New event</p>
@@ -154,13 +154,13 @@ export default function PersonaleCalendar({ loggedUser, followers, events }) {
               handleCreatedEventAlert={handleCreatedEventAlert}
             />
           </div>
-        </Popup>
+        </PriorityPopup>
       )}
 
-      {eventPopup && (
-        <Popup handleClose={handleClosePopuo}>
-          <EventCard event={selectedEvent} loggedUser={loggedUser} />
-        </Popup>
+      {eventSecondaryPopup && (
+        <SecondaryPopup handleClose={handleClosePopuo}>
+          <SyntheticEventCard event={selectedEvent} />
+        </SecondaryPopup>
       )}
 
       {showCreatedEventAlert && <Alert text="Event created successfully." type="success" onClose={() => setShowCreatedEventAlert(false)} />}

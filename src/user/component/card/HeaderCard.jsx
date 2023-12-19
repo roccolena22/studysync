@@ -3,7 +3,7 @@ import IconAndName from "../user/IconAndName";
 
 export default function HeaderCard({
   event,
-  handleReservationsPopup,
+  handleReservationsPriorityPopup,
 }) {
   const fullName = `${event.firstName} ${event.lastName}`;
 
@@ -26,7 +26,7 @@ export default function HeaderCard({
             {event.bookingsRecordId && event.bookingsRecordId.length >= event.places && <Badge text="soldout" />}
             <IconAndName
               iconName="group"
-              onClick={() => handleReservationsPopup()}
+              onClick={() => handleReservationsPriorityPopup()}
               label={`${event.bookingsRecordId ? event.bookingsRecordId.length : "0"}${event.places ? "/" + event.places : ""
                 }`}
             />

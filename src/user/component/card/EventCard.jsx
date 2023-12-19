@@ -5,7 +5,7 @@ import FooterCard from "./FooterCard";
 import EditEventForm from "../form/EditEventForm";
 import UsersList from "../user/UserList";
 import { useEffect, useState } from "react";
-import Popup from "../shared/Popup";
+import PriorityPopup from "../shared/PriorityPriorityPopup";
 import { setBookings } from "../../../redux/bookingsSlice";
 import {
   getListFromDatabase,
@@ -25,8 +25,8 @@ export default function EventCard({
   fetchEvents,
 }) {
   const [selectedEvent, setSelectedEvent] = useState(null);
-  const [editPopupIsOpen, setEditPopupIsOpen] = useState(false);
-  const [reservationsPopupIsOpen, setReservationsPopupIsOpen] = useState(false);
+  const [editPriorityPopupIsOpen, setEditPriorityPopupIsOpen] = useState(false);
+  const [reservationsPriorityPopupIsOpen, setReservationsPriorityPopupIsOpen] = useState(false);
   const [bookedUsers, setBookedUsers] = useState([]);
   const [showAlert, setShowAlert] = useState(false);
 
@@ -36,18 +36,18 @@ export default function EventCard({
     setShowAlert(!showAlert);
   };
 
-  const toggleEditPopup = (event) => {
+  const toggleEditPriorityPopup = (event) => {
     setSelectedEvent(event);
-    setEditPopupIsOpen(!editPopupIsOpen);
+    setEditPriorityPopupIsOpen(!editPriorityPopupIsOpen);
   };
 
-  const handleCloseEditPopup = () => {
+  const handleCloseEditPriorityPopup = () => {
     setSelectedEvent(null);
-    setEditPopupIsOpen(false);
+    setEditPriorityPopupIsOpen(false);
   };
 
-  const handleReservationsPopup = () => {
-    setReservationsPopupIsOpen(!reservationsPopupIsOpen);
+  const handleReservationsPriorityPopup = () => {
+    setReservationsPriorityPopupIsOpen(!reservationsPriorityPopupIsOpen);
   };
 
   const handleBookings = async () => {
@@ -82,8 +82,8 @@ export default function EventCard({
   }, [event]);
 
 
-  const handleCloseReservationsPopup = () => {
-    setReservationsPopupIsOpen(!reservationsPopupIsOpen);
+  const handleCloseReservationsPriorityPopup = () => {
+    setReservationsPriorityPopupIsOpen(!reservationsPriorityPopupIsOpen);
   };
 
   const updateEvent = async (editedEvent) => {
@@ -108,7 +108,7 @@ export default function EventCard({
     };
     await updateDatabaseRecord("events", editedEvent.id, fullEvent);
     fetchEvents();
-    setEditPopupIsOpen(false);
+    setEditPriorityPopupIsOpen(false);
     handleAlert()
   };
 
@@ -138,7 +138,7 @@ export default function EventCard({
       <div className="w-full h-64 relative">
         <HeaderCard
           event={event}
-          handleReservationsPopup={handleReservationsPopup}
+          handleReservationsPriorityPopup={handleReservationsPriorityPopup}
           bookedUsers={bookedUsers}
         />
         <div className="flex justify-between">
@@ -150,16 +150,16 @@ export default function EventCard({
           {handleDelete && (
             <FooterCard
               event={event}
-              handleOpenEditPopup={() => toggleEditPopup(event)}
+              handleOpenEditPriorityPopup={() => toggleEditPriorityPopup(event)}
               handleDelete={handleDelete}
               indexSection={indexSection}
             />
           )}
         </div>
       </div>
-      {reservationsPopupIsOpen && (
-        <Popup
-          handleClose={handleCloseReservationsPopup}
+      {reservationsPriorityPopupIsOpen && (
+        <PriorityPopup
+          handleClose={handleCloseReservationsPriorityPopup}
           title="List of reservations"
         >
           {bookedUsers.length > 0 ? (
@@ -169,13 +169,13 @@ export default function EventCard({
               There are no reservations for this event
             </p>
           )}
-        </Popup>
+        </PriorityPopup>
       )}
-      {editPopupIsOpen && (
-        <Popup handleClose={handleCloseEditPopup} title="Edit event">
+      {editPriorityPopupIsOpen && (
+        <PriorityPopup handleClose={handleCloseEditPriorityPopup} title="Edit event">
           <EditEventForm event={selectedEvent} updateEvent={updateEvent}
           />
-        </Popup>
+        </PriorityPopup>
       )}
       {
         showAlert &&

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Popup from "../shared/Popup";
+import PriorityPopup from "../shared/PriorityPopup";
 import Button from "../../../shared/component/Button";
 import UsersList from "./UserList";
 
@@ -10,10 +10,10 @@ export default function DiscoverUsers({
   removeFollow,
   followers
 }) {
-  const [popupIsOpen, setPopupIsOpen] = useState(false);
+  const [PriorityPopupIsOpen, setPriorityPopupIsOpen] = useState(false);
 
-  const handlePopup = () => {
-    setPopupIsOpen(!popupIsOpen);
+  const handlePriorityPopup = () => {
+    setPriorityPopupIsOpen(!PriorityPopupIsOpen);
   };
 
   return (
@@ -28,15 +28,15 @@ export default function DiscoverUsers({
           name="Discover"
           outline
           large
-          onClick={handlePopup}
+          onClick={handlePriorityPopup}
         />
         </div>
       </div>
     </div>
      
 
-      {popupIsOpen && (
-        <Popup handleClose={handlePopup} title="Search among StudySync users">
+      {PriorityPopupIsOpen && (
+        <PriorityPopup handleClose={handlePriorityPopup} title="Search among StudySync users">
           <UsersList
           followers={followers}
             users={users}
@@ -45,7 +45,7 @@ export default function DiscoverUsers({
             removeFollow={removeFollow}
             excludeLogged
           />
-        </Popup>
+        </PriorityPopup>
       )}
     </>
   );

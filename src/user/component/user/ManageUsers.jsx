@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Button from "../../../shared/component/Button";
-import Popup from "../shared/Popup";
+import PriorityPopup from "../shared/PriorityPopup";
 import FollowerAndFollowed from "./FollowerAndFolowed";
 
 export default function ManageUsers({
@@ -10,7 +10,7 @@ export default function ManageUsers({
   addFollowers,
   removeFollow,
 }) {
-  const [popupIsOpen, setPopupIsOpen] = useState(false);
+  const [PriorityPopupIsOpen, setPriorityPopupIsOpen] = useState(false);
 
   const followingIds = followers
   ? followers
@@ -34,8 +34,8 @@ export default function ManageUsers({
     followersIds.includes(user.id)
   );
 
-  const handlePopup = () => {
-    setPopupIsOpen(!popupIsOpen);
+  const handlePriorityPopup = () => {
+    setPriorityPopupIsOpen(!PriorityPopupIsOpen);
   };
 
   return (
@@ -52,12 +52,12 @@ export default function ManageUsers({
           </div>
         </div>
         <div className="absolute bottom-0">
-          <Button name="Manage" outline large onClick={handlePopup} />
+          <Button name="Manage" outline large onClick={handlePriorityPopup} />
         </div>
       </div>
 
-      {popupIsOpen && (
-        <Popup handleClose={handlePopup}>
+      {PriorityPopupIsOpen && (
+        <PriorityPopup handleClose={handlePriorityPopup}>
           <FollowerAndFollowed
             following={loggedUserFollowing}
             followers={loggedUserFollowers}
@@ -65,7 +65,7 @@ export default function ManageUsers({
             removeFollow={removeFollow}
             loggedUser={loggedUser}
           />
-        </Popup>
+        </PriorityPopup>
       )}
     </div>
   );
