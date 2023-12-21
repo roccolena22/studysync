@@ -5,7 +5,7 @@ import FooterCard from "./FooterCard";
 import EditEventForm from "../form/EditEventForm";
 import UsersList from "../user/UserList";
 import { useEffect, useState } from "react";
-import PriorityPopup from "../shared/PriorityPriorityPopup";
+import PriorityPopup from "../shared/PriorityPopup";
 import { setBookings } from "../../../redux/bookingsSlice";
 import {
   getListFromDatabase,

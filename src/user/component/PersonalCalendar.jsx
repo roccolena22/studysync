@@ -10,7 +10,7 @@ import Alert from "./shared/Alert";
 import SecondaryPopup from "./shared/SecondaryPopup";
 import SyntheticEventCard from "./card/SyntheticEventCard";
 
-export default function PersonaleCalendar({ loggedUser, followers, events }) {
+export default function PersonaleCalendar({ loggedUser, events }) {
   const [newEventPriorityPopup, setNewEventPriorityPopup] = useState(false);
   const [eventSecondaryPopup, setEventSecondaryPopup] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
@@ -49,17 +49,7 @@ export default function PersonaleCalendar({ loggedUser, followers, events }) {
     }
   };
 
-  const userInCalendar =
-    followers && followers.filter((user) => user.idFrom[0] === loggedUser.id);
-
-  const authorIds = userInCalendar.map((item) => item.idTo[0]);
-  const newIds = [...authorIds, loggedUser.id];
-
-  const filteredEvents = events
-    ? events.filter((event) => newIds.includes(event.authorId))
-    : [];
-
-  const formattedEvents = filteredEvents.map((originalEvent) => ({
+  const formattedEvents = events.map((originalEvent) => ({
     title: originalEvent.title,
     start: new Date(originalEvent.startDate + " " + originalEvent.startTime),
     end: new Date(originalEvent.endDate + " " + originalEvent.endTime),
@@ -68,17 +58,23 @@ export default function PersonaleCalendar({ loggedUser, followers, events }) {
     lastName: originalEvent.lastName,
     email: originalEvent.email,
     role: originalEvent.role,
-
+    authorId: originalEvent.authorId,
+    location: originalEvent.location,
+    platform: originalEvent.platform,
+    link: originalEvent.link,
+    startDate: originalEvent.startDate,
+    startTime: originalEvent.startTime,
+    endDate: originalEvent.endDate,
+    endTime: originalEvent.endTime,
   }));
 
   const eventStyleGetter = (event) => {
     const style = {
-      backgroundColor: event.authorId === loggedUser.id ? "#16A34A" : "#0ea5e9",
-      borderRadius: "4px",
+      backgroundColor: event.authorId === loggedUser.id ? "#16A34A" : "#EA580C",
       color: "white",
-      borderColor: event.authorId === loggedUser.id ? "#16A34A" : "#0ea5e9",
+      borderColor: "transparent",
       display: "block",
-      margin: "2px",
+      fontSize: "0px",
     };
     return {
       style,
@@ -98,12 +94,8 @@ export default function PersonaleCalendar({ loggedUser, followers, events }) {
   };
 
   const EventInCalendar = ({ event }) => (
-    <div onClick={() => handleEventClick(event)}>
-      <p className="text-[8px] font-semibold">{event.title}</p>
-      <div className="text-[8px] space-x-1">
-        <span>Mode:</span>
-        <span>{event.mode}</span>
-      </div>
+    <div onClick={() => handleEventClick(event)} className="w-full h-full">
+      <p className="text-[10px]">{event.title.length > 18 ? event.title.slice(0, 18) + "..." : event.title}</p>
     </div>
   );
 
@@ -117,6 +109,7 @@ export default function PersonaleCalendar({ loggedUser, followers, events }) {
           endAccessor="end"
           selectable={true}
           onSelectSlot={handleSelectSlot}
+          views={["month", "week", "day"]}
           defaultView="week"
           style={{ height: 500 }}
           eventPropGetter={eventStyleGetter}

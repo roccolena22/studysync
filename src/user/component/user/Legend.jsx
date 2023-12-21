@@ -6,7 +6,7 @@ export default function Legend() {
           <span className="text-sm">Your events</span>
         </div>
         <div className="flex items-center">
-          <div className="w-4 h-4 rounded-2xl bg-sky-500 mr-2"></div>
+          <div className="w-4 h-4 rounded-2xl bg-orange-600 mr-2"></div>
           <span className="text-sm">Events you attend</span>
         </div>
       </div>

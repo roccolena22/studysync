@@ -3,10 +3,12 @@ import PersonaleCalendar from "../../user/component/PersonalCalendar";
 import Suggestion from "../component/shared/Suggestion";
 import Title from "../component/shared/Title";
 import Legend from "../component/user/Legend";
-import { getListFromDatabase } from "../../api/apiRequest";
+import { useDispatch } from "react-redux";
 
 export default function CalendarPage({ loggedUser, followers, events, bookings }) {
-  const [loggedUserEvents, setLoggedUserEvents] = useState([]);
+  const [calendarEvents, setCalendarEvents] = useState([]);
+
+  const dispatch = useDispatch()
 
   const handleBookedEvents = async () => {
     const eventsByBooked = events.filter((event) => {
@@ -24,7 +26,7 @@ export default function CalendarPage({ loggedUser, followers, events, bookings }
       (event) => event.authorId === loggedUser.id
     );
     const allEvents = [...eventsByAuthor, ...eventsByBooked];
-    setLoggedUserEvents(allEvents);
+    setCalendarEvents(allEvents);
   };
 
   useEffect(() => {
@@ -39,7 +41,7 @@ export default function CalendarPage({ loggedUser, followers, events, bookings }
         <PersonaleCalendar
           loggedUser={loggedUser}
           followers={followers}
-          events={loggedUserEvents}
+          events={calendarEvents}
         />
       </div>
       <Suggestion text="Use the calendar to choose when to create your event" />

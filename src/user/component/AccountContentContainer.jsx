@@ -1,6 +1,6 @@
 import { useState } from "react";
 import ProfileInfoForm from "./form/ProfileInfoFrom";
-import PriorityPopup from "./shared/PriorityPriorityPopup";
+import PriorityPopup from "./shared/PriorityPopup";
 import DeleteAccount from "./DeleteAccount";
 import EditPasswordForm from "./form/EditPasswordForm";
 import Title from "./shared/Title";

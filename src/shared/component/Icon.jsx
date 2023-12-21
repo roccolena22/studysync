@@ -16,6 +16,7 @@ import { FaArrowLeft } from "react-icons/fa";
 import { HiUserGroup } from "react-icons/hi";
 import { AiOutlineEye } from "react-icons/ai";
 import { AiOutlineEyeInvisible } from "react-icons/ai";
+import { IoMdOpen } from "react-icons/io";
 
 export default function Icon({ name, style, color, onClick }) {
   const colorClass = color ? `text-${color}` : "text-cyan-700";
@@ -39,6 +40,8 @@ export default function Icon({ name, style, color, onClick }) {
     group: <HiUserGroup className={classNames} onClick={onClick} />,
     eye: <AiOutlineEye className={classNames} onClick={onClick} />,
     eyeInvisible: <AiOutlineEyeInvisible className={classNames} onClick={onClick} />,
+    open: <IoMdOpen className={classNames} onClick={onClick} />,
+
   };
   return iconMapping[name];
 }

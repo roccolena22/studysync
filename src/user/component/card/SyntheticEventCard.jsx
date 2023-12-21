@@ -1,4 +1,5 @@
 import UserDetails from "../user/UserDetails"
+import EventDetails from "./EventDetailts"
 
 export default function SyntheticEventCard({ event }) {
     return (
@@ -6,10 +7,7 @@ export default function SyntheticEventCard({ event }) {
             <div className="border-b border-zinc-400">
                 <UserDetails user={event} />
             </div>
-            <div className="pt-4">
-                <div className="space-x-1"><span className="font-semibold">Title:</span><span>{event.title}</span></div>
-                <div className="space-x-1"><span className="font-semibold">Mode:</span><span>{event.mode}</span></div>
-            </div>
+               <EventDetails event={event}/>
         </div>
     )
 }

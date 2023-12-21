@@ -4,7 +4,8 @@ import EventsContainer from "../component/EventsContainer";
 import Title from "../component/shared/Title";
 import FollowersContainer from "../component/user/FollowersContainer";
 
-export default function DashboardPage({ loggedUser, users, followers, events }) {
+export default function DashboardPage({ loggedUser, users, followers, events, bookings }) {
+
   const [indexSection, setIndexSection] = useState(0);
 
   const handleSections = (index) => {
@@ -27,6 +28,8 @@ export default function DashboardPage({ loggedUser, users, followers, events }) 
         loggedUser={loggedUser}
         events={events}
         users={users}
+        followers={followers}
+        bookings={bookings}
       />
     </div>
   );
