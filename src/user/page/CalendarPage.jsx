@@ -3,14 +3,11 @@ import PersonaleCalendar from "../../user/component/PersonalCalendar";
 import Suggestion from "../component/shared/Suggestion";
 import Title from "../component/shared/Title";
 import Legend from "../component/user/Legend";
-import { useDispatch } from "react-redux";
 
 export default function CalendarPage({ loggedUser, followers, events, bookings }) {
   const [calendarEvents, setCalendarEvents] = useState([]);
 
-  const dispatch = useDispatch()
-
-  const handleBookedEvents = async () => {
+  const handleBookedEvents = async () => {  //questa logica è già presnte in eventsContainer
     const eventsByBooked = events.filter((event) => {
       if (event.bookingsRecordId) {
         return event.bookingsRecordId.some((bookingId) =>

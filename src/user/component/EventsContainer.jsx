@@ -9,11 +9,36 @@ export default function EventsContainer({
   indexSection,
   events,
   users,
+  bookings,
 }) {
   const [nextEvents, setNextEvents] = useState([]);
   const [pastEvents, setPastEvents] = useState([]);
+  const [calendarEvents, setCalendarEvents] = useState([]);
 
   const dispatch = useDispatch();
+
+  const handleBookedEvents = async () => {
+    const eventsByBooked = events.filter((event) => {
+      if (event.bookingsRecordId) {
+        return event.bookingsRecordId.some((bookingId) =>
+          bookings.some(
+            (booking) =>
+              bookingId === booking.id && booking.bookedId === loggedUser.id
+          )
+        );
+      }
+      return false;
+    });
+    const eventsByAuthor = events.filter(
+      (event) => event.authorId === loggedUser.id
+    );
+    const allEvents = [...eventsByAuthor, ...eventsByBooked];
+    setCalendarEvents(allEvents);
+  };
+
+  useEffect(() => {
+    handleBookedEvents();
+  }, [events]);
 
   const fetchEvents = async () => {
     const eventsFromDatabase = await getListFromDatabase("events");
@@ -29,15 +54,12 @@ export default function EventsContainer({
     };
 
     const transformedEventsArray = transformArray(eventsFromDatabase);
-    const filteredEvents = transformedEventsArray.filter(
-      (event) => event.authorId === loggedUser.id
-    );
     const currentDate = new Date();
 
-    const nextEvents = filteredEvents.filter(
+    const nextEvents = calendarEvents.filter(
       (event) => new Date(`${event.endDate} ${event.endTime}`) >= currentDate
     );
-    const pastEvents = filteredEvents.filter(
+    const pastEvents = calendarEvents.filter(
       (event) => new Date(`${event.endDate} ${event.endTime}`) < currentDate
     );
 
