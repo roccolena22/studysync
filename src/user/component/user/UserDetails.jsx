@@ -5,7 +5,7 @@ export default function UserDetails({ user }) {
         <div className="flex flex-col items-start">
             <div className="flex space-x-1 items-center">
                 <div>
-                    <Badge text={user.role[0].slice(0, 1)} />
+                    <Badge text={user.role.slice(0, 1)} />
                 </div>
                 <div className="flex space-x-1">
                     <p>{user.firstName}</p>
