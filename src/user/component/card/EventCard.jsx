@@ -113,13 +113,13 @@ export default function EventCard({
   };
 
   const isUserBooked = bookedUsers.some((user) => user.id === loggedUser.id);
-  const isUserNotBooked = !isUserBooked;
+  const proproetaryEvent = loggedUser.id === event.authorId;
 
   const renderJoinButton = () => {
     if (
-      loggedUser.id !== event.authorId &&
+      !proproetaryEvent &&
       bookedUsers.length < event.places &&
-      isUserNotBooked
+      !isUserBooked
     ) {
       return <Button small name="Join" onClick={() => addToBookings(event.id)} />;
     }
@@ -145,9 +145,9 @@ export default function EventCard({
           <EventDetails event={event} />
         </div>
         <div className="absolute bottom-0 right-0">
-          {event.places && renderJoinButton()}
-          {renderLeaveButton()}
-          {handleDelete && (
+          {event.places && !proproetaryEvent && renderJoinButton()}
+          {!proproetaryEvent && renderLeaveButton()}
+          {handleDelete && proproetaryEvent && (
             <FooterCard
               event={event}
               handleOpenEditPriorityPopup={() => toggleEditPriorityPopup(event)}
