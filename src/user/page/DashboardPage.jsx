@@ -9,11 +9,9 @@ export default function DashboardPage({ loggedUser, users, followers, events, bo
   const [indexSection, setIndexSection] = useState(0);
   const [calendarEvents, setCalendarEvents] = useState([]);
 
-
   const handleSections = (index) => {
     setIndexSection(index);
   };
-
 
   const handleBookedEvents = async () => {
     const eventsByBooked = events.filter((event) => {
