@@ -59,6 +59,7 @@ export default function EventsContainer({
               events={nextEvents}
               users={users}
               indexSection={indexSection}
+              bookings={bookings}
             />
           ) : (
             <EventList
