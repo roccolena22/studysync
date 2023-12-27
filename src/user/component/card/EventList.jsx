@@ -2,17 +2,17 @@ import React, { useEffect, useState } from "react";
 import EventCard from "./EventCard";
 import SearchBar from "../shared/SearchBar";
 import NoEvents from "../shared/NoEvents";
-import { deleteRecordFromDatabase, getListFromDatabase } from "../../../api/apiRequest";
+import { addToDatabase, deleteRecordFromDatabase, getListFromDatabase } from "../../../api/apiRequest";
 import { useDispatch } from "react-redux";
 import { setEvent } from "../../../redux/eventsSlice";
+import { setBookings } from "../../../redux/bookingsSlice";
 
 export default function EventList({
   loggedUser,
   events,
   users,
-  addToBookings,
-  removeToBookings,
   indexSection,
+  bookings,
 }) {
   const [searchedEvents, setSearchedEvents] = useState([]);
 
@@ -40,12 +40,10 @@ export default function EventList({
         role: role[0],
       }));
 
-
     const transformedEventsArray = transformArray(eventsFromDatabase);
 
     dispatch(setEvent(transformedEventsArray));
   };
-
 
   useEffect(() => {
     fetchEvents();
@@ -57,6 +55,32 @@ export default function EventList({
     fetchEvents();
   };
 
+  const addToBookings = async (id) => {
+    await addToDatabase("bookings", {
+      eventId: [id],
+      bookedId: loggedUser.id,
+    });
+    const updateBookings = await getListFromDatabase("bookings");
+    dispatch(setBookings(updateBookings));
+  };
+
+
+  const removeToBookings = async (eventId) => {
+    // Verifica che l'array bookings esista prima di chiamare find
+    if (bookings && bookings.length > 0) {
+      const result = bookings.find((item) =>
+        item.eventId.includes(eventId)
+      );
+
+      if (result && result.id && result.bookedId === loggedUser.id) {
+        try {
+          await deleteRecordFromDatabase("bookings", result.id);
+        } catch (error) {
+          console.error("Error removing follower", error);
+        }
+      }
+    }
+  };
 
   return (
     <div>
@@ -80,17 +104,17 @@ export default function EventList({
                   : "sm:col-span-1"
               }
             >
-                <EventCard
-                  users={users}
-                  fetchEvents={fetchEvents}
-                  loggedUser={loggedUser}
-                  event={event}
-                  handleDelete={handleDelete}
-                  addToBookings={addToBookings}
-                  removeToBookings={removeToBookings}
-                  indexSection={indexSection}
-                />
-              </div>
+              <EventCard
+                users={users}
+                fetchEvents={fetchEvents}
+                loggedUser={loggedUser}
+                event={event}
+                handleDelete={handleDelete}
+                addToBookings={addToBookings}
+                removeToBookings={removeToBookings}
+                indexSection={indexSection}
+              />
+            </div>
           )
         )}
         {(events.length <= 0) && (
