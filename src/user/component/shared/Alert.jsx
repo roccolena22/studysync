@@ -25,7 +25,7 @@ export default function Alert({ text, type="general", onClose}) {
       <div
         className={`bg-white border-2 rounded-lg px-4 py-3 w-72 ${alertTypes[type]} overflow-y-auto`}
       >
-        <p className="text-center text-zinc-600">{text}</p>
+        <p className="text-center text-slate-600">{text}</p>
       </div>
     </div>
   ) : null;

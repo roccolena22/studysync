@@ -135,16 +135,21 @@ export default function EventCard({
 
   return (
     <>
-      <div className="w-full h-64 relative">
-        <HeaderCard
-          event={event}
-          handleReservationsPriorityPopup={handleReservationsPriorityPopup}
-          bookedUsers={bookedUsers}
-        />
+      <div className={`w-full h-64 relative p-3 rounded-lg shadow-lg p-3 ${proproetaryEvent ? "bg-slate-50" : "bg-white"}`}>
+        <div className={`flex justify-between items-center border-b ${event.role && event.role.includes("student")
+          ? "border-yellow-400"
+          : "border-purple-500"
+          } pb-1 rounded-t-lg`}>
+          <HeaderCard
+            event={event}
+            handleReservationsPriorityPopup={handleReservationsPriorityPopup}
+            bookedUsers={bookedUsers}
+          />
+        </div>
         <div className="flex justify-between">
           <EventDetails event={event} />
         </div>
-        <div className="absolute bottom-0 right-0">
+        <div className="absolute bottom-2 right-3">
           {event.places && !proproetaryEvent && renderJoinButton()}
           {!proproetaryEvent && renderLeaveButton()}
           {handleDelete && proproetaryEvent && (
@@ -165,7 +170,7 @@ export default function EventCard({
           {bookedUsers.length > 0 ? (
             <UsersList users={bookedUsers} loggedUser={loggedUser} />
           ) : (
-            <p className="pt-6 text-xl text-zinc-400">
+            <p className="pt-6 text-xl text-slate-400">
               There are no reservations for this event
             </p>
           )}

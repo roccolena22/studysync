@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import EventCard from "./EventCard";
 import SearchBar from "../shared/SearchBar";
 import NoEvents from "../shared/NoEvents";
-import GadgetBox from "../shared/GadgetBox";
 import { deleteRecordFromDatabase, getListFromDatabase } from "../../../api/apiRequest";
 import { useDispatch } from "react-redux";
 import { setEvent } from "../../../redux/eventsSlice";
@@ -81,7 +80,6 @@ export default function EventList({
                   : "sm:col-span-1"
               }
             >
-              <GadgetBox>
                 <EventCard
                   users={users}
                   fetchEvents={fetchEvents}
@@ -92,8 +90,7 @@ export default function EventList({
                   removeToBookings={removeToBookings}
                   indexSection={indexSection}
                 />
-              </GadgetBox>
-            </div>
+              </div>
           )
         )}
         {(events.length <= 0) && (

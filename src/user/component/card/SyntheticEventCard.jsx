@@ -4,7 +4,7 @@ import EventDetails from "./EventDetailts"
 export default function SyntheticEventCard({ event }) {
     return (
         <div>
-            <div className="border-b border-zinc-400">
+            <div className="border-b border-slate-400">
                 <UserDetails user={event} />
             </div>
                <EventDetails event={event}/>

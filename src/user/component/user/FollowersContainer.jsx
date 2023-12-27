@@ -10,7 +10,6 @@ import {
   setFollowers,
 } from "../../../redux/followersSlice";
 import { setUsers } from "../../../redux/usersSlice";
-import GadgetBox from "../shared/GadgetBox";
 import DiscoverUsers from "./DiscoverUsers";
 import ManageUsers from "./ManageUsers";
 import { useDispatch } from "react-redux";
@@ -69,7 +68,7 @@ export default function FollowersContainer({ followers, users, loggedUser }) {
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 w-full gap-4 pt-6">
-      <GadgetBox>
+      <div className="bg-white w-full p-3 rounded-lg shadow-lg flex justify-center items-center">
         <DiscoverUsers
           loggedUser={loggedUser}
           followers={followers}
@@ -77,8 +76,8 @@ export default function FollowersContainer({ followers, users, loggedUser }) {
           addFollowers={addFollowers}
           removeFollow={removeFollow}
         />
-      </GadgetBox>
-      <GadgetBox>
+      </div>
+      <div className="bg-white w-full p-3 rounded-lg shadow-lg flex justify-center items-center">
         <ManageUsers
           users={users}
           followers={followers}
@@ -86,7 +85,6 @@ export default function FollowersContainer({ followers, users, loggedUser }) {
           addFollowers={addFollowers}
           removeFollow={removeFollow}
         />
-      </GadgetBox>
-    </div>
+      </div>    </div>
   );
 }

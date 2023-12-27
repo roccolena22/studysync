@@ -24,7 +24,7 @@ export default function TabMenu({
     }`;
 
   return (
-    <div className="w-full bg-zinc-100 rounded-t-lg shadow-lg">
+    <div className="w-full bg-slate-100 rounded-t-lg shadow-lg">
       <div className="flex">
         <div onClick={() => handleIndex(0)} className={sectionClass(0)}>
           <p className="text-xs md:text-sm lg:text-lg px-2 sm:px-0">

@@ -8,31 +8,24 @@ export default function HeaderCard({
   const fullName = `${event.firstName} ${event.lastName}`;
 
   return (
-    <div>
-      <div
-        className={`flex justify-between items-center border-b ${event.role && event.role.includes("student")
-          ? "border-yellow-400"
-          : "border-purple-500"
-          } pb-1 rounded-t-lg`}
-      >
-        <div>
-          <div className="space-x-1">
-            <span>{fullName}</span>
-          </div>
-          <p className="text-xs text-zinc-600">{event.email}</p>
+    <>
+      <div>
+        <div className="space-x-1">
+          <span>{fullName}</span>
         </div>
-        {event.places && (
-          <div className="flex items-center space-x-2">
-            {event.bookingsRecordId && event.bookingsRecordId.length >= event.places && <Badge text="soldout" />}
-            <IconAndName
-              iconName="group"
-              onClick={() => handleReservationsPriorityPopup()}
-              label={`${event.bookingsRecordId ? event.bookingsRecordId.length : "0"}${event.places ? "/" + event.places : ""
-                }`}
-            />
-          </div>
-        )}
+        <p className="text-xs text-slate-600">{event.email}</p>
       </div>
-    </div>
+      {event.places && (
+        <div className="flex items-center space-x-2">
+          {event.bookingsRecordId && event.bookingsRecordId.length >= event.places && <Badge text="soldout" />}
+          <IconAndName
+            iconName="group"
+            onClick={() => handleReservationsPriorityPopup()}
+            label={`${event.bookingsRecordId ? event.bookingsRecordId.length : "0"}${event.places ? "/" + event.places : ""
+              }`}
+          />
+        </div>
+      )}
+    </>
   );
 }

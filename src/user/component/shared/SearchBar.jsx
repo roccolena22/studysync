@@ -35,7 +35,7 @@ export default function SearchBar({ placeholder, data, dataFromSearch }) {
   };
 
   return (
-    <div className="shadow-lg flex space-x-2 sm:space-x-4 items-center w-full bg-zinc-50 rounded-b-2xl p-4">
+    <div className="shadow-lg flex space-x-2 sm:space-x-4 items-center w-full bg-slate-50 rounded-b-2xl p-4">
         <Input
           placeholder={placeholder}
           value={searchTerm}

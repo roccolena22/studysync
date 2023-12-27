@@ -18,7 +18,7 @@ export default function SingleUser({
 
 
   return (
-    <div className="flex justify-between items-center border-b border-zinc-400 w-full py-2">
+    <div className="flex justify-between items-center border-b border-slate-400 w-full py-2">
      <UserDetails user={user}/>
       {
         !isLoggedUser &&

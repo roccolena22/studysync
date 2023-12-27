@@ -8,7 +8,7 @@ const DropdownMenu = ({
   return (
     <div className="py-2 w-full">
       <p className="font-semibold">{label}</p>
-      <div className="border border-zinc-400 rounded-lg px-3 py-2 w-full bg-white">
+      <div className="border border-slate-400 rounded-lg px-3 py-2 w-full bg-white">
         <select
         className="w-full"
           {...register}

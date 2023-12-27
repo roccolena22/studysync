@@ -5,15 +5,12 @@ import Title from "../component/shared/Title";
 import FollowersContainer from "../component/user/FollowersContainer";
 
 export default function DashboardPage({ loggedUser, users, followers, events, bookings }) {
-
   const [indexSection, setIndexSection] = useState(0);
-
 
   const handleSections = (index) => {
     setIndexSection(index);
   };
 
- 
   return (
     <div className="flex flex-col items-center justify-center">
       <Title title="Dashboard" />
