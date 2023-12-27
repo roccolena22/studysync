@@ -1,20 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import EventCard from "./EventCard";
 import SearchBar from "../shared/SearchBar";
 import NoEvents from "../shared/NoEvents";
 import GadgetBox from "../shared/GadgetBox";
+import { deleteRecordFromDatabase, getListFromDatabase } from "../../../api/apiRequest";
+import { useDispatch } from "react-redux";
+import { setEvent } from "../../../redux/eventsSlice";
 
 export default function EventList({
   loggedUser,
   events,
-  fetchEvents,
   users,
-  handleDelete,
   addToBookings,
   removeToBookings,
   indexSection,
 }) {
   const [searchedEvents, setSearchedEvents] = useState([]);
+
+  const dispatch = useDispatch()
 
   const sortedEvents = events.sort((a, b) => {
     const dateA = new Date(`${a.endDate} ${a.endTime}`);
@@ -25,6 +28,36 @@ export default function EventList({
   const handleSearch = (dataFromSearch) => {
     setSearchedEvents(dataFromSearch);
   };
+
+  const fetchEvents = async () => {
+    const eventsFromDatabase = await getListFromDatabase("events");
+    const transformArray = (eventsFromDatabase) =>
+      eventsFromDatabase.map(({ authorId, lastName, firstName, email, role, ...rest }) => ({
+        ...rest,
+        authorId: authorId[0],
+        lastName: lastName[0],
+        firstName: firstName[0],
+        email: email[0],
+        role: role[0],
+      }));
+
+
+    const transformedEventsArray = transformArray(eventsFromDatabase);
+
+    dispatch(setEvent(transformedEventsArray));
+  };
+
+
+  useEffect(() => {
+    fetchEvents();
+  }, [dispatch, loggedUser]);
+
+
+  const handleDelete = async (eventId) => {
+    await deleteRecordFromDatabase("events", eventId);
+    fetchEvents();
+  };
+
 
   return (
     <div>
