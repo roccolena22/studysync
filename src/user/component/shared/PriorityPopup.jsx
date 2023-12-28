@@ -15,9 +15,7 @@ export default function PriorityPopup({ children, handleClose, title }) {
         <div className="sticky top-8 bg-white">
           {title && <Title title={title} fontSize="text-lg" />}
         </div>
-        <div>
-        {children}
-        </div>
+          {children}
       </div>
     </div>
   );

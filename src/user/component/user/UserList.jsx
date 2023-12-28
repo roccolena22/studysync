@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import SearchBar from "../shared/SearchBar";
-import SingleUser from "./SingleUser";
+import SingleUserInList from "./SingleUserInList";
 
 export default function UsersList({
   loggedUser,
@@ -37,7 +37,7 @@ export default function UsersList({
         {(searchedUsers.length > 0 ? searchedUsers : sortedUsers).map(
           (user, index) => (
             <div key={index}>
-              <SingleUser
+              <SingleUserInList
                 loggedUser={loggedUser}
                 user={user}
                 toggleFollow={toggleFollow}               

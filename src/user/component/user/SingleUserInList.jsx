@@ -2,10 +2,10 @@ import React from "react";
 import Button from "../../../shared/component/Button";
 import UserDetails from "./UserDetails";
 
-export default function SingleUser({
+export default function SingleUserInList({
   user,
-  toggleFollow,
   loggedUser,
+  toggleFollow
 }) {
 
   const isLoggedUser = loggedUser.id === user.id
@@ -14,7 +14,6 @@ export default function SingleUser({
     user.followersIds &&
     loggedUser.followingIds &&
     loggedUser.followingIds.some((element) => user.followersIds.includes(element));
-
 
   return (
     <div className="flex justify-between items-center border-b border-slate-400 w-full py-2">

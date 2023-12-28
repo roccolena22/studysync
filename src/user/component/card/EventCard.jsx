@@ -4,15 +4,12 @@ import EventDetails from "./EventDetailts";
 import FooterCard from "./FooterCard";
 import EditEventForm from "../form/EditEventForm";
 import UsersList from "../user/UserList";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import PriorityPopup from "../shared/PriorityPopup";
-import { setBookings } from "../../../redux/bookingsSlice";
 import {
-  getListFromDatabase,
   updateDatabaseRecord,
 } from "../../../api/apiRequest";
 import Alert from "../shared/Alert";
-import { useDispatch } from "react-redux";
 
 export default function EventCard({
   loggedUser,
@@ -21,67 +18,37 @@ export default function EventCard({
   addToBookings,
   removeToBookings,
   indexSection,
-  users,
   fetchEvents,
-  bookings,
+  fetchBookings,
+  bookedUsers,
 }) {
+  
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [editPriorityPopupIsOpen, setEditPriorityPopupIsOpen] = useState(false);
   const [reservationsPriorityPopupIsOpen, setReservationsPriorityPopupIsOpen] = useState(false);
-  const [bookedUsers, setBookedUsers] = useState([]);
   const [showAlert, setShowAlert] = useState(false);
 
-  const dispatch = useDispatch()
 
   const handleAlert = () => {
     setShowAlert(!showAlert);
   };
 
   const toggleEditPriorityPopup = (event) => {
-    setSelectedEvent(event);
-    setEditPriorityPopupIsOpen(!editPriorityPopupIsOpen);
+    if (event) {
+      setSelectedEvent(event);
+      setEditPriorityPopupIsOpen(!editPriorityPopupIsOpen);
+    }
   };
-
+  
   const handleCloseEditPriorityPopup = () => {
     setSelectedEvent(null);
     setEditPriorityPopupIsOpen(false);
   };
 
-  const handleReservationsPriorityPopup = () => {
+  const handleReservationsPopup = () => {
     setReservationsPriorityPopupIsOpen(!reservationsPriorityPopupIsOpen);
+      fetchBookings()
   };
-
-  const fetchBookings = async () => {
-    try {
-      const bookings = await getListFromDatabase("bookings");
-      dispatch(setBookings(bookings))
-      if (!event.bookingsRecordId || !bookings.length) {
-        console.log("Empty arrays. No action taken.");
-        return;
-      }
-
-      const idsArray = bookings
-        .filter((booking) => event.bookingsRecordId.includes(booking.id))
-        .map((booking) => booking.bookedId);
-
-      if (!idsArray.length) {
-        console.log("Empty idsArray. No action taken.");
-        return;
-      }
-
-      const bookedUsers = users.filter((user) => idsArray.includes(user.id));
-      setBookedUsers(bookedUsers);
-    } catch (error) {
-      console.error("Error handling reservations:", error);
-    }
-  };
-
-  useEffect(() => {
-    if (event && Array.isArray(event.bookingsRecordId)) {
-      fetchBookings();
-    }
-  }, [event]);
-
 
   const handleCloseReservationsPriorityPopup = () => {
     setReservationsPriorityPopupIsOpen(!reservationsPriorityPopupIsOpen);
@@ -136,14 +103,14 @@ export default function EventCard({
 
   return (
     <>
-      <div className={`w-full h-64 relative p-3 rounded-lg shadow-lg p-3 ${proproetaryEvent ? "bg-slate-50" : "bg-white"}`}>
-        <div className={`flex justify-between items-center border-b ${proproetaryEvent ? "border-cyan-700" : event.role && event.role.includes("student")
+      <div className={`w-full h-64 relative p-3 rounded-lg shadow-lg p-3 ${proproetaryEvent ? "bg-slate-50 border border-slate-300" : "bg-white"}`}>
+        <div className={`flex justify-between items-center border-b ${event.role && event.role.includes("student")
           ? "border-yellow-400"
           : "border-purple-500"
           } pb-1 rounded-t-lg`}>
           <HeaderCard
             event={event}
-            handleReservationsPriorityPopup={handleReservationsPriorityPopup}
+            handleReservationsPopup={handleReservationsPopup}
             bookedUsers={bookedUsers}
           />
         </div>

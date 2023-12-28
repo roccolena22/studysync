@@ -6,6 +6,7 @@ export default function FooterCard({
   handleDelete,
   indexSection,
 }) {
+  
   return (
     <div className="flex space-x-2">
       {indexSection === 1 ? (

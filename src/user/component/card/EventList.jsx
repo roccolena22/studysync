@@ -5,7 +5,7 @@ import NoEvents from "../shared/NoEvents";
 import { addRecordToDatabase, deleteRecordFromDatabase, getListFromDatabase } from "../../../api/apiRequest";
 import { useDispatch } from "react-redux";
 import { setEvent } from "../../../redux/eventsSlice";
-import { addBooking, removeBooking } from "../../../redux/bookingsSlice";
+import { addBooking, removeBooking, setBookings } from "../../../redux/bookingsSlice";
 
 export default function EventList({
   loggedUser,
@@ -15,6 +15,9 @@ export default function EventList({
   bookings,
 }) {
   const [searchedEvents, setSearchedEvents] = useState([]);
+  const [bookedUsers, setBookedUsers] = useState([]);
+
+
   const dispatch = useDispatch()
 
   const sortedEvents = events.sort((a, b) => {
@@ -55,6 +58,34 @@ export default function EventList({
     fetchEvents();
   };
 
+  const fetchBookings = async (event) => {
+    try {
+      const bookings = await getListFromDatabase("bookings");
+      dispatch(setBookings(bookings))
+
+      if (!event.bookingsRecordId || !bookings.length) {
+        console.log("Empty arrays. No action taken.");
+        setBookedUsers([]);
+        return;
+      }
+
+      const idsArray = bookings
+        .filter((booking) => event.bookingsRecordId.includes(booking.id))
+        .map((booking) => booking.bookedId);
+
+      if (!idsArray.length) {
+        console.log("Empty idsArray. No action taken.");
+        setBookedUsers([]);
+        return;
+      }
+
+      const bookedUsers = users.filter((user) => idsArray.includes(user.id));
+      setBookedUsers(bookedUsers);
+    } catch (error) {
+      console.error("Error handling reservations:", error);
+    }
+  };
+
 
 
   const addToBookings = async (eventId) => {
@@ -83,7 +114,6 @@ export default function EventList({
     }
   };
 
-
   return (
     <div>
       <div className="sticky top-20 w-full z-10">
@@ -99,12 +129,12 @@ export default function EventList({
         {(searchedEvents.length > 0 ? searchedEvents : sortedEvents).map(
           (event, index) => (
             <div
-              key={index}
               className={
                 sortedEvents.length % 2 === 1 && index === 0
                   ? "sm:col-span-2"
                   : "sm:col-span-1"
               }
+              key={index}
             >
               <EventCard
                 users={users}
@@ -115,7 +145,8 @@ export default function EventList({
                 addToBookings={addToBookings}
                 removeToBookings={removeToBookings}
                 indexSection={indexSection}
-                bookings={bookings}
+                bookedUsers={bookedUsers}
+                fetchBookings={() => fetchBookings(event)}
               />
             </div>
           )

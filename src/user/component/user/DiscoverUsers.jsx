@@ -36,7 +36,6 @@ export default function DiscoverUsers({
       {PriorityPopupIsOpen && (
         <PriorityPopup handleClose={handlePriorityPopup} title="Search among StudySync users">
           <UsersList
-            followers={followers}
             users={users}
             loggedUser={loggedUser}
             toggleFollow={toggleFollow}
