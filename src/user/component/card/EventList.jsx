@@ -5,7 +5,7 @@ import NoEvents from "../shared/NoEvents";
 import { addRecordToDatabase, deleteRecordFromDatabase, getListFromDatabase } from "../../../api/apiRequest";
 import { useDispatch } from "react-redux";
 import { setEvent } from "../../../redux/eventsSlice";
-import { setBookings } from "../../../redux/bookingsSlice";
+import { addBooking, removeBooking } from "../../../redux/bookingsSlice";
 
 export default function EventList({
   loggedUser,
@@ -15,7 +15,6 @@ export default function EventList({
   bookings,
 }) {
   const [searchedEvents, setSearchedEvents] = useState([]);
-
   const dispatch = useDispatch()
 
   const sortedEvents = events.sort((a, b) => {
@@ -55,25 +54,25 @@ export default function EventList({
     fetchEvents();
   };
 
-  const addToBookings = async (id) => {
-    await addRecordToDatabase("bookings", {
-      eventId: [id],
+  const addToBookings = async (eventId) => {
+    const newBooking = {
+      eventId: [eventId],
       bookedId: loggedUser.id,
-    });
-    const updateBookings = await getListFromDatabase("bookings");
-    dispatch(setBookings(updateBookings));
+    }
+    await addRecordToDatabase("bookings", newBooking);
+    dispatch(addBooking(newBooking));
   };
-
 
   const removeToBookings = async (eventId) => {
     if (bookings && bookings.length > 0) {
-      const result = bookings.find((item) =>
+      const booking = bookings.find((item) =>
         item.eventId.includes(eventId)
       );
 
-      if (result && result.id && result.bookedId === loggedUser.id) {
+      if (booking && booking.id && booking.bookedId === loggedUser.id) {
         try {
-          await deleteRecordFromDatabase("bookings", result.id);
+          await deleteRecordFromDatabase("bookings", booking.id);
+          dispatch(removeBooking(booking));
         } catch (error) {
           console.error("Error removing follower", error);
         }
