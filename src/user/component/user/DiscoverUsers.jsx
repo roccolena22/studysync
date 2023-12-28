@@ -6,8 +6,7 @@ import UsersList from "./UserList";
 export default function DiscoverUsers({
   loggedUser,
   users,
-  addFollowers,
-  removeFollow,
+  toggleFollow,
   followers
 }) {
   const [PriorityPopupIsOpen, setPriorityPopupIsOpen] = useState(false);
@@ -18,31 +17,29 @@ export default function DiscoverUsers({
 
   return (
     <>
-    <div className="relative h-24">
-    <div className="w-full flex flex-col justify-between items-center">
-        <p className="sm:text-lg font-semibold text-center">
-          Discover new users to follow
-        </p>
-        <div className="absolute bottom-0">
-        <Button
-          name="Discover"
-          outline
-          large
-          onClick={handlePriorityPopup}
-        />
+      <div className="relative h-24">
+        <div className="w-full flex flex-col justify-between items-center">
+          <p className="sm:text-lg font-semibold text-center">
+            Discover new users to follow
+          </p>
+          <div className="absolute bottom-0">
+            <Button
+              name="Discover"
+              outline
+              large
+              onClick={handlePriorityPopup}
+            />
+          </div>
         </div>
       </div>
-    </div>
-     
 
       {PriorityPopupIsOpen && (
         <PriorityPopup handleClose={handlePriorityPopup} title="Search among StudySync users">
           <UsersList
-          followers={followers}
+            followers={followers}
             users={users}
             loggedUser={loggedUser}
-            addFollowers={addFollowers}
-            removeFollow={removeFollow}
+            toggleFollow={toggleFollow}
             excludeLogged
           />
         </PriorityPopup>

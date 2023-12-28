@@ -4,22 +4,21 @@ import UserDetails from "./UserDetails";
 
 export default function SingleUser({
   user,
-  addFollowers,
-  removeFollow,
+  toggleFollow,
   loggedUser,
 }) {
 
   const isLoggedUser = loggedUser.id === user.id
 
   const isFollowed =
-  user.followersIds &&
-  loggedUser.followingIds &&
-  loggedUser.followingIds.some((element) => user.followersIds.includes(element));
+    user.followersIds &&
+    loggedUser.followingIds &&
+    loggedUser.followingIds.some((element) => user.followersIds.includes(element));
 
 
   return (
     <div className="flex justify-between items-center border-b border-slate-400 w-full py-2">
-     <UserDetails user={user}/>
+      <UserDetails user={user} />
       {
         !isLoggedUser &&
         <>
@@ -27,11 +26,11 @@ export default function SingleUser({
             <Button
               small
               outline
-              onClick={() => removeFollow(user.id)}
+              onClick={() => toggleFollow(user.id)}
               name="Unfollow"
             />
           ) : (
-            <Button small onClick={() => addFollowers(user.id)} name="Follow" />
+            <Button small onClick={() => toggleFollow(user.id, true)} name="Follow" />
 
           )}
         </>}

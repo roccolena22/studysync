@@ -24,7 +24,6 @@ export default function NetworkPage({ loggedUser, followers, events, users, book
     setReservationsPriorityPopupIsOpen(!reservationsPriorityPopupIsOpen);
   };
 
-
   return (
     <div className="flex flex-col items-center">
       <Title title="Network" />
@@ -34,7 +33,6 @@ export default function NetworkPage({ loggedUser, followers, events, users, book
           events={networkEvents}
           users={users}
           handleReservationsPriorityPopup={handleReservationsPriorityPopup}
-          addToBookings={addToBookings}
           bookings={bookings}
         />
       </div>

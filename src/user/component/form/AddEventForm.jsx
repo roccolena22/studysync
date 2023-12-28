@@ -5,7 +5,7 @@ import { EventFormValidator } from "./validator/EventFormValidator";
 import Input from "../../../shared/component/Input";
 import DropdownMenu from "../shared/DropdownMenu";
 import { useState } from "react";
-import { addToDatabase } from "../../../api/apiRequest";
+import { addRecordToDatabase } from "../../../api/apiRequest";
 import { useDispatch } from "react-redux";
 import { setEvent } from "../../../redux/eventsSlice";
 
@@ -44,7 +44,7 @@ export default function AddEventForm({
       ...data,
     };
 
-    await addToDatabase("events", fullEvent);
+    await addRecordToDatabase("events", fullEvent);
     dispatch(setEvent([fullEvent]));
     handleCreatedEventAlert()
     setStartDate(null);

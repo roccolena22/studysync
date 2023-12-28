@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import EventCard from "./EventCard";
 import SearchBar from "../shared/SearchBar";
 import NoEvents from "../shared/NoEvents";
-import { addToDatabase, deleteRecordFromDatabase, getListFromDatabase } from "../../../api/apiRequest";
+import { addRecordToDatabase, deleteRecordFromDatabase, getListFromDatabase } from "../../../api/apiRequest";
 import { useDispatch } from "react-redux";
 import { setEvent } from "../../../redux/eventsSlice";
 import { setBookings } from "../../../redux/bookingsSlice";
@@ -56,7 +56,7 @@ export default function EventList({
   };
 
   const addToBookings = async (id) => {
-    await addToDatabase("bookings", {
+    await addRecordToDatabase("bookings", {
       eventId: [id],
       bookedId: loggedUser.id,
     });
@@ -66,7 +66,6 @@ export default function EventList({
 
 
   const removeToBookings = async (eventId) => {
-    // Verifica che l'array bookings esista prima di chiamare find
     if (bookings && bookings.length > 0) {
       const result = bookings.find((item) =>
         item.eventId.includes(eventId)

@@ -10,7 +10,7 @@ import bcrypt from "bcryptjs";
 import { setLoggedUser } from "../../../redux/authSlice";
 import { setUsers } from "../../../redux/usersSlice";
 import { useDispatch } from "react-redux";
-import { addToDatabase, getListFromDatabase } from "../../../api/apiRequest";
+import { addRecordToDatabase, getListFromDatabase } from "../../../api/apiRequest";
 
 export default function RegistrationForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -77,7 +77,7 @@ export default function RegistrationForm() {
           role: data.role,
           password: data.password,
         };
-        await addToDatabase("users", updateObj);
+        await addRecordToDatabase("users", updateObj);
       }
     } catch (error) {
       console.error("Error retrieving users from database:", error);

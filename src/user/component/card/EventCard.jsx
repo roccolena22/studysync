@@ -136,7 +136,7 @@ export default function EventCard({
   return (
     <>
       <div className={`w-full h-64 relative p-3 rounded-lg shadow-lg p-3 ${proproetaryEvent ? "bg-slate-50" : "bg-white"}`}>
-        <div className={`flex justify-between items-center border-b ${event.role && event.role.includes("student")
+        <div className={`flex justify-between items-center border-b ${proproetaryEvent ? "border-cyan-700" : event.role && event.role.includes("student")
           ? "border-yellow-400"
           : "border-purple-500"
           } pb-1 rounded-t-lg`}>

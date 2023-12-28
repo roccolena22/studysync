@@ -74,7 +74,7 @@ export async function updateDatabaseRecord(tableName, recordId, data) {
 }
 
 // POST
-export async function addToDatabase(tableName, data) {
+export async function addRecordToDatabase(tableName, data) {
   try {
     const response = await fetch(
       `https://api.airtable.com/v0/${baseId}/${tableName}`,

@@ -6,8 +6,7 @@ export default function FollowerAndFollowed({
   following,
   followers,
   loggedUser,
-  addFollowers,
-  removeFollow,
+  toggleFollow,
 }) {
   const [indexSection, setIndexSection] = useState(0);
 
@@ -25,16 +24,14 @@ export default function FollowerAndFollowed({
         <UsersList
           users={following}
           loggedUser={loggedUser}
-          addFollowers={addFollowers}
-          removeFollow={removeFollow}
+          toggleFollow={toggleFollow}
           excludeLogged
         />
       ) : (
         <UsersList
           users={followers}
           loggedUser={loggedUser}
-          addFollowers={addFollowers}
-          removeFollow={removeFollow}
+          toggleFollow={toggleFollow}
           excludeLogged
         />
       )}

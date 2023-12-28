@@ -5,9 +5,8 @@ import SingleUser from "./SingleUser";
 export default function UsersList({
   loggedUser,
   users,
-  addFollowers,
-  removeFollow,
   excludeLogged,
+  toggleFollow
 }) {
   const [searchedUsers, setSearchedUsers] = useState([]);
 
@@ -41,8 +40,7 @@ export default function UsersList({
               <SingleUser
                 loggedUser={loggedUser}
                 user={user}
-                addFollowers={addFollowers}
-                removeFollow={removeFollow}
+                toggleFollow={toggleFollow}               
               />
             </div>
           )

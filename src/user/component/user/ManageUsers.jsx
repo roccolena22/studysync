@@ -7,8 +7,7 @@ export default function ManageUsers({
   users,
   loggedUser,
   followers,
-  addFollowers,
-  removeFollow,
+  toggleFollow,
 }) {
   const [PriorityPopupIsOpen, setPriorityPopupIsOpen] = useState(false);
 
@@ -61,8 +60,7 @@ export default function ManageUsers({
           <FollowerAndFollowed
             following={loggedUserFollowing}
             followers={loggedUserFollowers}
-            addFollowers={addFollowers}
-            removeFollow={removeFollow}
+            toggleFollow={toggleFollow}
             loggedUser={loggedUser}
           />
         </PriorityPopup>
