@@ -40,12 +40,13 @@ export default function EventList({
       }));
 
     const transformedEventsArray = transformArray(eventsFromDatabase);
-
     dispatch(setEvent(transformedEventsArray));
+
   };
 
   useEffect(() => {
     fetchEvents();
+
   }, [dispatch, loggedUser]);
 
 
@@ -53,6 +54,8 @@ export default function EventList({
     await deleteRecordFromDatabase("events", eventId);
     fetchEvents();
   };
+
+
 
   const addToBookings = async (eventId) => {
     const newBooking = {
@@ -79,6 +82,7 @@ export default function EventList({
       }
     }
   };
+
 
   return (
     <div>
@@ -111,6 +115,7 @@ export default function EventList({
                 addToBookings={addToBookings}
                 removeToBookings={removeToBookings}
                 indexSection={indexSection}
+                bookings={bookings}
               />
             </div>
           )

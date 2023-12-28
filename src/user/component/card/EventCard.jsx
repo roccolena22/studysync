@@ -23,6 +23,7 @@ export default function EventCard({
   indexSection,
   users,
   fetchEvents,
+  bookings,
 }) {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [editPriorityPopupIsOpen, setEditPriorityPopupIsOpen] = useState(false);
@@ -50,7 +51,7 @@ export default function EventCard({
     setReservationsPriorityPopupIsOpen(!reservationsPriorityPopupIsOpen);
   };
 
-  const handleBookings = async () => {
+  const fetchBookings = async () => {
     try {
       const bookings = await getListFromDatabase("bookings");
       dispatch(setBookings(bookings))
@@ -60,15 +61,15 @@ export default function EventCard({
       }
 
       const idsArray = bookings
-        .filter((el) => event.bookingsRecordId.includes(el.id))
-        .map((el) => el.bookedId);
+        .filter((booking) => event.bookingsRecordId.includes(booking.id))
+        .map((booking) => booking.bookedId);
 
       if (!idsArray.length) {
         console.log("Empty idsArray. No action taken.");
         return;
       }
 
-      const bookedUsers = users.filter((el) => idsArray.includes(el.id));
+      const bookedUsers = users.filter((user) => idsArray.includes(user.id));
       setBookedUsers(bookedUsers);
     } catch (error) {
       console.error("Error handling reservations:", error);
@@ -77,7 +78,7 @@ export default function EventCard({
 
   useEffect(() => {
     if (event && Array.isArray(event.bookingsRecordId)) {
-      handleBookings();
+      fetchBookings();
     }
   }, [event]);
 
