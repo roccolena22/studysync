@@ -111,7 +111,6 @@ export default function EventCard({
           <HeaderCard
             event={event}
             handleReservationsPopup={handleReservationsPopup}
-            bookedUsers={bookedUsers}
           />
         </div>
         <div className="flex justify-between">
