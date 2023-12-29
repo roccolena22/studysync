@@ -10,15 +10,15 @@ const bookingsSlice = createSlice({
     addBooking: (state, action) => {
       state.push(action.payload);
     },
-    removeBooking: (state, action) => {
-      const index = state.findIndex((follower) => follower.idTo === action.payload.idTo);
+    deleteBooking: (state, action) => {
+      const index = state.findIndex((booking) => booking.id === action.payload.id);
       if (index !== -1) {
         state.splice(index, 1);
       }
-    },
+    },    
   },
 });
 
-export const { setBookings, addBooking, removeBooking } = bookingsSlice.actions;
+export const { setBookings, addBooking, deleteBooking } = bookingsSlice.actions;
 
 export default bookingsSlice.reducer;

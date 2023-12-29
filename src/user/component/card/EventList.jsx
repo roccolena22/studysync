@@ -5,7 +5,7 @@ import NoEvents from "../shared/NoEvents";
 import { addRecordToDatabase, deleteRecordFromDatabase, getListFromDatabase } from "../../../api/apiRequest";
 import { useDispatch } from "react-redux";
 import { setEvent } from "../../../redux/eventsSlice";
-import { addBooking, removeBooking, setBookings } from "../../../redux/bookingsSlice";
+import { addBooking, deleteBooking, setBookings } from "../../../redux/bookingsSlice";
 
 export default function EventList({
   loggedUser,
@@ -47,7 +47,7 @@ export default function EventList({
 
   const handleDelete = async (eventId) => {
     await deleteRecordFromDatabase("events", eventId);
-    fetchEvents();
+    dispatch(deleteBooking(booking));
   };
 
   const fetchBookings = async () => {
@@ -70,7 +70,7 @@ export default function EventList({
     dispatch(addBooking(newBooking));
   };
 
-  const removeToBookings = async (eventId) => {
+  const deleteToBookings = async (eventId) => {
     fetchEvents();
     fetchBookings();
     if (bookings && bookings.length > 0) {
@@ -81,7 +81,7 @@ export default function EventList({
       if (booking && booking.id && booking.bookedId === loggedUser.id) {
         try {
           await deleteRecordFromDatabase("bookings", booking.id);
-          dispatch(removeBooking(booking));
+          dispatch(deleteBooking(booking));
         } catch (error) {
           console.error("Error removing follower", error);
         }
@@ -123,7 +123,7 @@ export default function EventList({
                 event={event}
                 handleDelete={handleDelete}
                 addToBookings={addToBookings}
-                removeToBookings={removeToBookings}
+                deleteToBookings={deleteToBookings}
                 indexSection={indexSection}
                 fetchBookings={() => fetchBookings(event)}
                 bookings={bookings}

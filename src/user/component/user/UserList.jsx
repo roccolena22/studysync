@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import SearchBar from "../shared/SearchBar";
 import SingleUserInList from "./SingleUserInList";
 import { addRecordToDatabase, deleteRecordFromDatabase, getListFromDatabase } from "../../../api/apiRequest";
-import { addFollower, removeFollower, setFollowers } from "../../../redux/followersSlice";
+import { addFollower, deleteFollower, setFollowers } from "../../../redux/followersSlice";
 import { setLoggedUser } from "../../../redux/authSlice";
 import { setUsers } from "../../../redux/usersSlice";
 import { useDispatch, useSelector } from "react-redux";
@@ -40,7 +40,7 @@ export default function UsersList({
   };
 
   const toggleFollow = async (userFollowedId, isAdding) => {
-    const followerAction = isAdding ? addFollower : removeFollower;
+    const followerAction = isAdding ? addFollower : deleteFollower;
 
     const followerData = isAdding
       ? { idFrom: [loggedUser.id], idTo: [userFollowedId] }

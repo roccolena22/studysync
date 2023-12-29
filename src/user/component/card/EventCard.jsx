@@ -16,7 +16,7 @@ export default function EventCard({
   event,
   handleDelete,
   addToBookings,
-  removeToBookings,
+  deleteToBookings,
   indexSection,
   fetchEvents,
   fetchBookings,
@@ -106,7 +106,7 @@ export default function EventCard({
   const renderLeaveButton = () => {
     if (isUserBooked) {
       
-      return <Button small outline name="Leave" onClick={() => removeToBookings(event.id)} />;
+      return <Button small outline name="Leave" onClick={() => deleteToBookings(event.id)} />;
     }
     return null;
   };

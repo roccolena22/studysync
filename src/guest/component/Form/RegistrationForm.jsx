@@ -8,7 +8,7 @@ import Input from "../../../shared/component/Input";
 import Icon from "../../../shared/component/Icon";
 import bcrypt from "bcryptjs";
 import { setLoggedUser } from "../../../redux/authSlice";
-import { setUsers } from "../../../redux/usersSlice";
+import { addUser } from "../../../redux/usersSlice";
 import { useDispatch } from "react-redux";
 import { addRecordToDatabase, getListFromDatabase } from "../../../api/apiRequest";
 
@@ -68,7 +68,7 @@ export default function RegistrationForm() {
         const loggedUser = users.find((user) => user.email === data.email);
         dispatch(setLoggedUser(loggedUser));
         const updatedUsers = [...users, data];
-        dispatch(setUsers(updatedUsers));
+        dispatch(addUser(updatedUsers));
         navigate("/");
         const updateObj = {
           firstName: data.firstName,
