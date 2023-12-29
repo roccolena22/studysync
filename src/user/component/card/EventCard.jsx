@@ -1,6 +1,6 @@
 import HeaderCard from "./HeaderCard";
 import Button from "../../../shared/component/Button";
-import EventDetails from "./EventDetailts";
+import EventDetails from "./EventDetails";
 import FooterCard from "./FooterCard";
 import EditEventForm from "../form/EditEventForm";
 import UsersList from "../user/UserList";
@@ -20,9 +20,10 @@ export default function EventCard({
   indexSection,
   fetchEvents,
   fetchBookings,
-  bookedUsers,
+  users,
+  bookings
 }) {
-  
+
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [editPriorityPopupIsOpen, setEditPriorityPopupIsOpen] = useState(false);
   const [reservationsPriorityPopupIsOpen, setReservationsPriorityPopupIsOpen] = useState(false);
@@ -39,7 +40,7 @@ export default function EventCard({
       setEditPriorityPopupIsOpen(!editPriorityPopupIsOpen);
     }
   };
-  
+
   const handleCloseEditPriorityPopup = () => {
     setSelectedEvent(null);
     setEditPriorityPopupIsOpen(false);
@@ -47,7 +48,7 @@ export default function EventCard({
 
   const handleReservationsPopup = () => {
     setReservationsPriorityPopupIsOpen(!reservationsPriorityPopupIsOpen);
-      fetchBookings()
+    fetchBookings(event)
   };
 
   const handleCloseReservationsPriorityPopup = () => {
@@ -80,6 +81,13 @@ export default function EventCard({
     handleAlert()
   };
 
+  const idsArray = event && event.bookingsRecordId
+    ? bookings
+      .filter((booking) => event.bookingsRecordId.includes(booking.id))
+      .map((booking) => booking.bookedId)
+    : [];
+
+  const bookedUsers = users.filter((user) => idsArray.includes(user.id));
   const isUserBooked = bookedUsers.some((user) => user.id === loggedUser.id);
   const proproetaryEvent = loggedUser.id === event.authorId;
 
@@ -89,6 +97,7 @@ export default function EventCard({
       bookedUsers.length < event.places &&
       !isUserBooked
     ) {
+    
       return <Button small name="Join" onClick={() => addToBookings(event.id)} />;
     }
     return null;
@@ -96,6 +105,7 @@ export default function EventCard({
 
   const renderLeaveButton = () => {
     if (isUserBooked) {
+      
       return <Button small outline name="Leave" onClick={() => removeToBookings(event.id)} />;
     }
     return null;
@@ -135,7 +145,7 @@ export default function EventCard({
           title="List of reservations"
         >
           {bookedUsers.length > 0 ? (
-            <UsersList users={bookedUsers} loggedUser={loggedUser}/>
+            <UsersList users={bookedUsers} loggedUser={loggedUser} />
           ) : (
             <p className="pt-6 text-xl text-slate-400">
               There are no reservations for this event

@@ -15,8 +15,6 @@ export default function EventList({
   bookings,
 }) {
   const [searchedEvents, setSearchedEvents] = useState([]);
-  const [bookedUsers, setBookedUsers] = useState([]);
-
 
   const dispatch = useDispatch()
 
@@ -47,48 +45,23 @@ export default function EventList({
 
   };
 
-  useEffect(() => {
-    fetchEvents();
-
-  }, [dispatch, loggedUser]);
-
-
   const handleDelete = async (eventId) => {
     await deleteRecordFromDatabase("events", eventId);
     fetchEvents();
   };
 
-  const fetchBookings = async (event) => {
+  const fetchBookings = async () => {
     try {
       const bookings = await getListFromDatabase("bookings");
       dispatch(setBookings(bookings))
-
-      if (!event.bookingsRecordId || !bookings.length) {
-        console.log("Empty arrays. No action taken.");
-        setBookedUsers([]);
-        return;
-      }
-
-      const idsArray = bookings
-        .filter((booking) => event.bookingsRecordId.includes(booking.id))
-        .map((booking) => booking.bookedId);
-
-      if (!idsArray.length) {
-        console.log("Empty idsArray. No action taken.");
-        setBookedUsers([]);
-        return;
-      }
-
-      const bookedUsers = users.filter((user) => idsArray.includes(user.id));
-      setBookedUsers(bookedUsers);
     } catch (error) {
       console.error("Error handling reservations:", error);
     }
   };
 
-
-
   const addToBookings = async (eventId) => {
+    fetchEvents();
+    fetchBookings();
     const newBooking = {
       eventId: [eventId],
       bookedId: loggedUser.id,
@@ -98,6 +71,8 @@ export default function EventList({
   };
 
   const removeToBookings = async (eventId) => {
+    fetchEvents();
+    fetchBookings();
     if (bookings && bookings.length > 0) {
       const booking = bookings.find((item) =>
         item.eventId.includes(eventId)
@@ -113,6 +88,11 @@ export default function EventList({
       }
     }
   };
+
+  useEffect(() => {
+    fetchEvents();
+    fetchBookings();
+  }, [dispatch, loggedUser]);
 
   return (
     <div>
@@ -145,8 +125,8 @@ export default function EventList({
                 addToBookings={addToBookings}
                 removeToBookings={removeToBookings}
                 indexSection={indexSection}
-                bookedUsers={bookedUsers}
                 fetchBookings={() => fetchBookings(event)}
+                bookings={bookings}
               />
             </div>
           )
