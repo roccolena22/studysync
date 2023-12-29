@@ -7,7 +7,6 @@ export default function SingleUserInList({
   loggedUser,
   toggleFollow
 }) {
-
   const isLoggedUser = loggedUser.id === user.id
 
   const isFollowed =
@@ -25,15 +24,15 @@ export default function SingleUserInList({
             <Button
               small
               outline
-              onClick={() => toggleFollow(user.id)}
+              onClick={() => toggleFollow(user.id, false)}
               name="Unfollow"
             />
           ) : (
             <Button small onClick={() => toggleFollow(user.id, true)} name="Follow" />
 
           )}
-        </>}
-
+        </>
+        }
     </div>
   );
 }

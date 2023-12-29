@@ -3,10 +3,9 @@ import TabMenu from "../navigation/TabMenu";
 import UsersList from "./UserList";
 
 export default function FollowerAndFollowed({
-  following,
-  followers,
+  loggedUserFollowing,
+  loggedUserFollowers,
   loggedUser,
-  toggleFollow,
 }) {
   const [indexSection, setIndexSection] = useState(0);
 
@@ -22,16 +21,14 @@ export default function FollowerAndFollowed({
       />
       {indexSection === 0 ? (
         <UsersList
-          users={following}
+          users={loggedUserFollowing}
           loggedUser={loggedUser}
-          toggleFollow={toggleFollow}
           excludeLogged
         />
       ) : (
         <UsersList
-          users={followers}
+          users={loggedUserFollowers}
           loggedUser={loggedUser}
-          toggleFollow={toggleFollow}
           excludeLogged
         />
       )}

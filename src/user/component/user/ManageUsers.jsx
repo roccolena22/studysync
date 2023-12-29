@@ -7,27 +7,26 @@ export default function ManageUsers({
   users,
   loggedUser,
   followers,
-  toggleFollow,
 }) {
   const [PriorityPopupIsOpen, setPriorityPopupIsOpen] = useState(false);
 
   const followingIds = followers
-  ? followers
+    ? followers
       .filter((item) => item.idFrom?.includes(loggedUser.id))
       .map((item) => item.idTo)
       .flat()
-  : [];
+    : [];
 
   const loggedUserFollowing = users.filter((user) =>
     followingIds.includes(user.id)
   );
 
   const followersIds = followers
-  ? followers
+    ? followers
       .filter((item) => item.idTo?.includes(loggedUser.id))
       .map((item) => item.idFrom)
       .flat()
-  : [];
+    : [];
 
   const loggedUserFollowers = users.filter((user) =>
     followersIds.includes(user.id)
@@ -58,9 +57,8 @@ export default function ManageUsers({
       {PriorityPopupIsOpen && (
         <PriorityPopup handleClose={handlePriorityPopup}>
           <FollowerAndFollowed
-            following={loggedUserFollowing}
-            followers={loggedUserFollowers}
-            toggleFollow={toggleFollow}
+            loggedUserFollowing={loggedUserFollowing}
+            loggedUserFollowers={loggedUserFollowers}
             loggedUser={loggedUser}
           />
         </PriorityPopup>

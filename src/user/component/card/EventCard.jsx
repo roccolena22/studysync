@@ -103,7 +103,7 @@ export default function EventCard({
 
   return (
     <>
-      <div className={`w-full h-64 relative p-3 rounded-lg shadow-lg p-3 ${proproetaryEvent ? "bg-slate-50 border border-slate-300" : "bg-white"}`}>
+      <div className={`w-full h-64 relative p-3 rounded-lg shadow-lg p-3 border border-slate-200 ${proproetaryEvent ? "bg-slate-50" : "bg-white"}`}>
         <div className={`flex justify-between items-center border-b ${event.role && event.role.includes("student")
           ? "border-yellow-400"
           : "border-purple-500"
@@ -136,7 +136,7 @@ export default function EventCard({
           title="List of reservations"
         >
           {bookedUsers.length > 0 ? (
-            <UsersList users={bookedUsers} loggedUser={loggedUser} />
+            <UsersList users={bookedUsers} loggedUser={loggedUser}/>
           ) : (
             <p className="pt-6 text-xl text-slate-400">
               There are no reservations for this event

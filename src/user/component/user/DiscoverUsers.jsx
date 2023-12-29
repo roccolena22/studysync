@@ -6,11 +6,8 @@ import UsersList from "./UserList";
 export default function DiscoverUsers({
   loggedUser,
   users,
-  toggleFollow,
-  followers
 }) {
   const [PriorityPopupIsOpen, setPriorityPopupIsOpen] = useState(false);
-
   const handlePriorityPopup = () => {
     setPriorityPopupIsOpen(!PriorityPopupIsOpen);
   };
@@ -38,7 +35,6 @@ export default function DiscoverUsers({
           <UsersList
             users={users}
             loggedUser={loggedUser}
-            toggleFollow={toggleFollow}
             excludeLogged
           />
         </PriorityPopup>
