@@ -1,5 +1,5 @@
 import UserDetails from "../user/UserDetails"
-import EventDetails from "./EventDetailts"
+import EventDetails from "./EventDetails"
 
 export default function SyntheticEventCard({ event }) {
     return (
