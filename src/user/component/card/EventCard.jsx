@@ -31,6 +31,8 @@ export default function EventCard({
   const [editPriorityPopupIsOpen, setEditPriorityPopupIsOpen] = useState(false);
   const [reservationsPriorityPopupIsOpen, setReservationsPriorityPopupIsOpen] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
+  const [bookedUsers, setbookedUsers] = useState([]);
+
 
 
   const handleAlert = () => {
@@ -84,30 +86,29 @@ export default function EventCard({
     handleAlert()
   };
 
-  const idsArray = event && event.bookingsRecordId
-    ? bookings
-      .filter((booking) => event.bookingsRecordId.includes(booking.id))
-      .map((booking) => booking.bookedId)
-    : [];
-
-  const bookedUsers = users.filter((user) => idsArray.includes(user.id));
+  useEffect(() => {
+    setbookedUsers(event.bookingsRecordId || []);
+  }, [event.bookingsRecordId]);
+  
   const isUserBooked = bookedUsers.some((user) => user.id === loggedUser.id);
   const proproetaryEvent = loggedUser.id === event.authorId;
 
+  console.log(event.bookingsRecordId)
+
   const renderJoinButton = () => {
     if (
+      event.places &&
       !proproetaryEvent &&
       bookedUsers.length < event.places &&
       !isUserBooked
     ) {
-
       return <Button small name="Join" onClick={() => addToBookings(event)} />;
     }
     return null;
   };
 
   const renderLeaveButton = () => {
-    if (isUserBooked) {
+    if (!proproetaryEvent && isUserBooked) {
       return <Button small outline name="Leave" onClick={() => deleteToBookings(event.id)} />;
     }
     return null;
@@ -123,15 +124,14 @@ export default function EventCard({
           <HeaderCard
             event={event}
             handleReservationsPopup={handleReservationsPopup}
-            bookedUsers={bookedUsers}
           />
         </div>
         <div className="flex justify-between">
           <EventDetails event={event} />
         </div>
         <div className="absolute bottom-2 right-3">
-          {event.places && !proproetaryEvent && renderJoinButton()}
-          {!proproetaryEvent && renderLeaveButton()}
+          {renderJoinButton()}
+          {renderLeaveButton()}
           {handleDelete && proproetaryEvent && (
             <FooterCard
               event={event}
@@ -147,8 +147,8 @@ export default function EventCard({
           handleClose={handleCloseReservationsPriorityPopup}
           title="List of reservations"
         >
-          {bookedUsers.length > 0 ? (
-            <UsersList users={bookedUsers} loggedUser={loggedUser} />
+          {event.bookingsRecordId.length > 0 ? (
+            <UsersList users={event.bookingsRecordId} loggedUser={loggedUser} />
           ) : (
             <p className="pt-6 text-xl text-slate-400">
               There are no reservations for this event

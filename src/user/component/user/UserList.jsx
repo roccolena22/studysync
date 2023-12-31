@@ -29,7 +29,6 @@ export default function UsersList({
     return firstNameComparison !== 0 ? firstNameComparison : a.lastName.localeCompare(b.lastName);
   });
 
-
   const fetchFollowers = async () => {
     try {
       const followersFromDatabase = await getListFromDatabase("followers");

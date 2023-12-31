@@ -16,7 +16,7 @@ export default function SingleUserInList({
 
   return (
     <div className="flex justify-between items-center border-b border-slate-400 w-full py-2">
-      <UserDetails user={user} />
+      <UserDetails firstName={user.firstName} lastName={user.lastName} email={user.email} role={user.role}/>
       {
         !isLoggedUser &&
         <>

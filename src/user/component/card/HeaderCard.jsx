@@ -9,7 +9,7 @@ export default function HeaderCard({
 
   return (
     <>
-      <UserDetails user={event} />
+      <UserDetails firstName={event.firstName} lastName={event.lastName} email={event.email} role={event.role} />
       {event.places && (
         <div className="flex items-center space-x-2">
           {event.bookingsRecordId && event.bookingsRecordId.length >= event.places && <Badge text="soldout" />}

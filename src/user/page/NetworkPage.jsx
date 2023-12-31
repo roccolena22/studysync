@@ -15,15 +15,6 @@ export default function NetworkPage({ loggedUser, followers, events, users, book
   )
   .filter((event) => moment(event.endDate + " " + event.endTime, "MM/DD/YYYY HH:mm").isAfter(currentDate));
 
-
-  const handleReservationsPriorityPopup = () => {
-    setReservationsPriorityPopupIsOpen(!reservationsPriorityPopupIsOpen);
-  };
-
-  const handleCloseReservationsPriorityPopup = () => {
-    setReservationsPriorityPopupIsOpen(!reservationsPriorityPopupIsOpen);
-  };
-
   return (
     <div className="flex flex-col items-center">
       <Title title="Network" />
@@ -32,18 +23,9 @@ export default function NetworkPage({ loggedUser, followers, events, users, book
           loggedUser={loggedUser}
           events={networkEvents}
           users={users}
-          handleReservationsPriorityPopup={handleReservationsPriorityPopup}
           bookings={bookings}
         />
       </div>
-      {reservationsPriorityPopupIsOpen && (
-        <PriorityPopup
-          handleClose={handleCloseReservationsPriorityPopup}
-          title="List of reservations"
-        >
-          <UsersList users={users} loggedUser={loggedUser}/>
-        </PriorityPopup>
-      )}
     </div>
   );
 }
