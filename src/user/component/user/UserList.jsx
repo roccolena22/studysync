@@ -15,8 +15,6 @@ export default function UsersList({
   const [searchedUsers, setSearchedUsers] = useState([]);
   const followers = useSelector((state) => state.followers);
 
-  console.log(loggedUser)
-
   const dispatch = useDispatch()
   const usersToSearch = excludeLogged
     ? users.filter((user) => user.email !== loggedUser.email)

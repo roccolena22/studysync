@@ -79,7 +79,6 @@ export default function EventCard({
       endDate: editedEvent.endDate,
     };
     await updateDatabaseRecord("events", editedEvent.id, fullEvent);
-    console.log(fullEvent)
     dispatch(editEvent(fullEvent));
     setEditPriorityPopupIsOpen(false);
     handleAlert()
