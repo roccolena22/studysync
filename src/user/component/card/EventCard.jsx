@@ -1,7 +1,7 @@
-import HeaderCard from "./HeaderCard";
 import Button from "../../../shared/component/Button";
 import EventDetails from "./EventDetails";
 import FooterCard from "./FooterCard";
+import HeaderCard from "./HeaderCard";
 import EditEventForm from "../form/EditEventForm";
 import UsersList from "../user/UserList";
 import { useEffect, useState } from "react";
@@ -22,7 +22,7 @@ export default function EventCard({
   indexSection,
   fetchBookings,
   users,
-  bookings,
+  bookings
 }) {
 
   const dispatch = useDispatch()
@@ -31,9 +31,8 @@ export default function EventCard({
   const [editPriorityPopupIsOpen, setEditPriorityPopupIsOpen] = useState(false);
   const [reservationsPriorityPopupIsOpen, setReservationsPriorityPopupIsOpen] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
-  const [bookedUsers, setbookedUsers] = useState([]);
-
-
+  const [bookedUsersId, setBookedUsersId] = useState([]);
+  const [bookedUsers, setBookedUsers] = useState([]);
 
   const handleAlert = () => {
     setShowAlert(!showAlert);
@@ -87,19 +86,25 @@ export default function EventCard({
   };
 
   useEffect(() => {
-    setbookedUsers(event.bookingsRecordId || []);
+    setBookedUsersId(event.bookingsRecordId || []);
+    setBookedUsers(users.filter((user) => idsArray.includes(user.id)) || [])
   }, [event.bookingsRecordId]);
-  
-  const isUserBooked = bookedUsers.some((user) => user.id === loggedUser.id);
+
+  const isUserBooked = bookedUsersId.some((user) => user.id === loggedUser.id);
   const proproetaryEvent = loggedUser.id === event.authorId;
 
-  console.log(event.bookingsRecordId)
+  const idsArray = event && event.bookingsRecordId
+    ? bookings
+      .filter((booking) => event.bookingsRecordId.includes(booking.id))
+      .map((booking) => booking.bookedId)
+    : [];
+
 
   const renderJoinButton = () => {
     if (
       event.places &&
       !proproetaryEvent &&
-      bookedUsers.length < event.places &&
+      bookedUsersId.length < event.places &&
       !isUserBooked
     ) {
       return <Button small name="Join" onClick={() => addToBookings(event)} />;
@@ -147,8 +152,8 @@ export default function EventCard({
           handleClose={handleCloseReservationsPriorityPopup}
           title="List of reservations"
         >
-          {event.bookingsRecordId.length > 0 ? (
-            <UsersList users={event.bookingsRecordId} loggedUser={loggedUser} />
+          {bookedUsers.length > 0 ? (
+            <UsersList users={bookedUsers} loggedUser={loggedUser} />
           ) : (
             <p className="pt-6 text-xl text-slate-400">
               There are no reservations for this event
@@ -168,3 +173,6 @@ export default function EventCard({
     </>
   );
 }
+
+
+
