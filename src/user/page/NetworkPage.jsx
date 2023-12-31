@@ -9,6 +9,8 @@ export default function NetworkPage({ loggedUser, followers, events, users, book
   const [reservationsPriorityPopupIsOpen, setReservationsPriorityPopupIsOpen] = useState(false);
   const currentDate = moment();
 
+  console.log(bookings)
+
   const networkEvents = events
   .filter((event) =>
     followers?.some((user) => user.idFrom[0] === loggedUser.id && user.idTo[0] === event.authorId)

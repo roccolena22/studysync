@@ -4,12 +4,14 @@ import EventDetails from "./EventDetails";
 import FooterCard from "./FooterCard";
 import EditEventForm from "../form/EditEventForm";
 import UsersList from "../user/UserList";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PriorityPopup from "../shared/PriorityPopup";
 import {
   updateDatabaseRecord,
 } from "../../../api/apiRequest";
 import Alert from "../shared/Alert";
+import { editEvent } from "../../../redux/eventsSlice";
+import { useDispatch } from "react-redux";
 
 export default function EventCard({
   loggedUser,
@@ -18,11 +20,12 @@ export default function EventCard({
   addToBookings,
   deleteToBookings,
   indexSection,
-  fetchEvents,
   fetchBookings,
   users,
-  bookings
+  bookings,
 }) {
+
+  const dispatch = useDispatch()
 
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [editPriorityPopupIsOpen, setEditPriorityPopupIsOpen] = useState(false);
@@ -76,7 +79,8 @@ export default function EventCard({
       endDate: editedEvent.endDate,
     };
     await updateDatabaseRecord("events", editedEvent.id, fullEvent);
-    fetchEvents();
+    console.log(fullEvent)
+    dispatch(editEvent(fullEvent));
     setEditPriorityPopupIsOpen(false);
     handleAlert()
   };
@@ -97,15 +101,14 @@ export default function EventCard({
       bookedUsers.length < event.places &&
       !isUserBooked
     ) {
-    
-      return <Button small name="Join" onClick={() => addToBookings(event.id)} />;
+
+      return <Button small name="Join" onClick={() => addToBookings(event)} />;
     }
     return null;
   };
 
   const renderLeaveButton = () => {
     if (isUserBooked) {
-      
       return <Button small outline name="Leave" onClick={() => deleteToBookings(event.id)} />;
     }
     return null;
@@ -121,6 +124,7 @@ export default function EventCard({
           <HeaderCard
             event={event}
             handleReservationsPopup={handleReservationsPopup}
+            bookedUsers={bookedUsers}
           />
         </div>
         <div className="flex justify-between">

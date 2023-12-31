@@ -4,7 +4,7 @@ import SearchBar from "../shared/SearchBar";
 import NoEvents from "../shared/NoEvents";
 import { addRecordToDatabase, deleteRecordFromDatabase, getListFromDatabase } from "../../../api/apiRequest";
 import { useDispatch } from "react-redux";
-import { setEvent } from "../../../redux/eventsSlice";
+import { deleteEvent, setEvent } from "../../../redux/eventsSlice";
 import { addBooking, deleteBooking, setBookings } from "../../../redux/bookingsSlice";
 
 export default function EventList({
@@ -45,9 +45,9 @@ export default function EventList({
 
   };
 
-  const handleDelete = async (eventId) => {
-    await deleteRecordFromDatabase("events", eventId);
-    dispatch(deleteBooking(booking));
+  const handleDelete = async (event) => {
+    await deleteRecordFromDatabase("events", event.id);
+    dispatch(deleteEvent(event));
   };
 
   const fetchBookings = async () => {
@@ -59,11 +59,9 @@ export default function EventList({
     }
   };
 
-  const addToBookings = async (eventId) => {
-    fetchEvents();
-    fetchBookings();
+  const addToBookings = async (event) => {
     const newBooking = {
-      eventId: [eventId],
+      eventId: [event.id],
       bookedId: loggedUser.id,
     }
     await addRecordToDatabase("bookings", newBooking);
@@ -71,8 +69,6 @@ export default function EventList({
   };
 
   const deleteToBookings = async (eventId) => {
-    fetchEvents();
-    fetchBookings();
     if (bookings && bookings.length > 0) {
       const booking = bookings.find((item) =>
         item.eventId.includes(eventId)
@@ -91,8 +87,11 @@ export default function EventList({
 
   useEffect(() => {
     fetchEvents();
+  }, [dispatch, loggedUser, users, bookings]);
+
+  useEffect(() => {
     fetchBookings();
-  }, [dispatch, loggedUser]);
+  }, [dispatch]);
 
   return (
     <div>
@@ -118,7 +117,6 @@ export default function EventList({
             >
               <EventCard
                 users={users}
-                fetchEvents={fetchEvents}
                 loggedUser={loggedUser}
                 event={event}
                 handleDelete={handleDelete}

@@ -15,6 +15,8 @@ export default function UsersList({
   const [searchedUsers, setSearchedUsers] = useState([]);
   const followers = useSelector((state) => state.followers);
 
+  console.log(loggedUser)
+
   const dispatch = useDispatch()
   const usersToSearch = excludeLogged
     ? users.filter((user) => user.email !== loggedUser.email)
@@ -39,12 +41,12 @@ export default function UsersList({
     }
   };
 
-  const toggleFollow = async (userFollowedId, isAdding) => {
+  const toggleFollow = async (user, isAdding) => {
     const followerAction = isAdding ? addFollower : deleteFollower;
 
     const followerData = isAdding
-      ? { idFrom: [loggedUser.id], idTo: [userFollowedId] }
-      : followers.find((item) => item.idTo[0] === userFollowedId);
+      ? { idFrom: [loggedUser.id], idTo: [user.id] }
+      : followers.find((item) => item.idTo[0] === user.id);
 
     try {
       if (isAdding) {
@@ -56,10 +58,10 @@ export default function UsersList({
       dispatch(followerAction(followerData));
 
       const updatedUsers = await getListFromDatabase("users");
-      const refreshLoggedUser = updatedUsers.find((user) => user.email === loggedUser.email);
-
+      const refreshLoggedUser = updatedUsers.find((user) => user.id === loggedUser.id);
       dispatch(setLoggedUser(refreshLoggedUser));
       dispatch(setUsers(updatedUsers));
+      
     } catch (error) {
       console.error(`Error ${isAdding ? 'adding' : 'removing'} follower`, error);
     } finally {

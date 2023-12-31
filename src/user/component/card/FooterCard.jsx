@@ -6,29 +6,23 @@ export default function FooterCard({
   handleDelete,
   indexSection,
 }) {
-  
+  const deleteIcon = (
+    <IconAndName
+      iconName="delete"
+      label="delete"
+      onClick={() => handleDelete(event)}
+      color="text-red-800"
+    />
+  );
+
   return (
     <div className="flex space-x-2">
       {indexSection === 1 ? (
-        <IconAndName
-          iconName="delete"
-          label="delete"
-          onClick={() => handleDelete(event.id)}
-          color="text-red-800"
-        />
+        deleteIcon
       ) : (
         <>
-          <IconAndName
-            iconName="edit"
-            label="edit"
-            onClick={handleOpenEditPriorityPopup}
-          />
-          <IconAndName
-            iconName="delete"
-            label="delete"
-            onClick={() => handleDelete(event.id)}
-            color="text-red-800"
-          />
+          <IconAndName iconName="edit" label="edit" onClick={handleOpenEditPriorityPopup} />
+          {deleteIcon}
         </>
       )}
     </div>

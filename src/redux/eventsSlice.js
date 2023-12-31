@@ -16,9 +16,15 @@ const eventsSlice = createSlice({
         state.splice(index, 1);
       }
     },
+    editEvent: (state, action) => {
+      const index = state.findIndex((event) => event.id === action.payload.id);
+      if (index !== -1) {
+        state[index] = action.payload;
+      }
+    },
   },
 });
 
-export const { setEvent, deleteEvent, addEvent } = eventsSlice.actions;
+export const { setEvent, deleteEvent, addEvent, editEvent } = eventsSlice.actions;
 
 export default eventsSlice.reducer;
