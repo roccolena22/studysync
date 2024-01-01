@@ -13,7 +13,6 @@ export default function UsersList({
   excludeLogged,
 }) {
 
-  console.log(users)
   const [searchedUsers, setSearchedUsers] = useState([]);
   const followers = useSelector((state) => state.followers);
 
