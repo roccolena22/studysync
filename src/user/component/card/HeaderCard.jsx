@@ -1,11 +1,25 @@
+import { useState } from "react";
 import Badge from "../Badge";
 import IconAndName from "../user/IconAndName";
 import UserDetails from "../user/UserDetails";
+import PriorityPopup from "../shared/PriorityPopup";
+import UsersList from "../user/UserList";
 
 export default function HeaderCard({
   event,
-  handleReservationsPopup,
+  fetchBookings,
+  bookedUsers,
+  loggedUser
 }) {
+  const [reservationsPriorityPopupIsOpen, setReservationsPriorityPopupIsOpen] = useState(false);
+
+  const handleCloseReservationsPriorityPopup = () => {
+    setReservationsPriorityPopupIsOpen(!reservationsPriorityPopupIsOpen);
+  };
+  const handleReservationsPopup = () => {
+    setReservationsPriorityPopupIsOpen(!reservationsPriorityPopupIsOpen);
+    fetchBookings(event)
+  };
 
   return (
     <>
@@ -20,6 +34,20 @@ export default function HeaderCard({
               }`}
           />
         </div>
+      )}
+      {reservationsPriorityPopupIsOpen && (
+        <PriorityPopup
+          handleClose={handleCloseReservationsPriorityPopup}
+          title="List of reservations"
+        >
+          {event.bookingsRecordId ? (
+            <UsersList users={bookedUsers} loggedUser={loggedUser} />
+          ) : (
+            <p className="pt-6 text-xl text-slate-400">
+              There are no reservations for this event
+            </p>
+          )}
+        </PriorityPopup>
       )}
     </>
   );
