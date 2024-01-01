@@ -11,7 +11,6 @@ export default function EventList({
   loggedUser,
   events,
   users,
-  indexSection,
   bookings,
 }) {
   const [searchedEvents, setSearchedEvents] = useState([]);
@@ -59,9 +58,9 @@ export default function EventList({
     }
   };
 
-  const addToBookings = async (event) => {
+  const addToBookings = async (eventId) => {
     const newBooking = {
-      eventId: [event.id],
+      eventId: [eventId],
       bookedId: loggedUser.id,
     }
     await addRecordToDatabase("bookings", newBooking);
@@ -122,7 +121,6 @@ export default function EventList({
                 handleDelete={handleDelete}
                 addToBookings={addToBookings}
                 deleteToBookings={deleteToBookings}
-                indexSection={indexSection}
                 fetchBookings={() => fetchBookings(event)}
                 bookings={bookings}
               />

@@ -55,7 +55,6 @@ export default function EventsContainer({
               loggedUser={loggedUser}
               events={nextEvents}
               users={users}
-              indexSection={indexSection}
               bookings={bookings}
             />
           ) : (
@@ -63,7 +62,6 @@ export default function EventsContainer({
               loggedUser={loggedUser}
               events={pastEvents}
               users={users}
-              indexSection={indexSection}
             />
           )}
         </div>

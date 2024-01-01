@@ -4,7 +4,7 @@ import FooterCard from "./FooterCard";
 import HeaderCard from "./HeaderCard";
 import EditEventForm from "../form/EditEventForm";
 import UsersList from "../user/UserList";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import PriorityPopup from "../shared/PriorityPopup";
 import {
   updateDatabaseRecord,
@@ -19,10 +19,10 @@ export default function EventCard({
   handleDelete,
   addToBookings,
   deleteToBookings,
-  indexSection,
   fetchBookings,
   users,
-  bookings
+  bookings,
+  loggedUser
 }) {
 
   const dispatch = useDispatch()
@@ -31,8 +31,6 @@ export default function EventCard({
   const [editPriorityPopupIsOpen, setEditPriorityPopupIsOpen] = useState(false);
   const [reservationsPriorityPopupIsOpen, setReservationsPriorityPopupIsOpen] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
-  const [bookedUsersId, setBookedUsersId] = useState([]);
-  const [bookedUsers, setBookedUsers] = useState([]);
 
   const handleAlert = () => {
     setShowAlert(!showAlert);
@@ -84,40 +82,7 @@ export default function EventCard({
     setEditPriorityPopupIsOpen(false);
     handleAlert()
   };
-
-  useEffect(() => {
-    setBookedUsersId(event.bookingsRecordId || []);
-    setBookedUsers(users.filter((user) => idsArray.includes(user.id)) || [])
-  }, [event.bookingsRecordId]);
-
-  const isUserBooked = bookedUsersId.some((user) => user.id === loggedUser.id);
   const proproetaryEvent = loggedUser.id === event.authorId;
-
-  const idsArray = event && event.bookingsRecordId
-    ? bookings
-      .filter((booking) => event.bookingsRecordId.includes(booking.id))
-      .map((booking) => booking.bookedId)
-    : [];
-
-
-  const renderJoinButton = () => {
-    if (
-      event.places &&
-      !proproetaryEvent &&
-      bookedUsersId.length < event.places &&
-      !isUserBooked
-    ) {
-      return <Button small name="Join" onClick={() => addToBookings(event)} />;
-    }
-    return null;
-  };
-
-  const renderLeaveButton = () => {
-    if (!proproetaryEvent && isUserBooked) {
-      return <Button small outline name="Leave" onClick={() => deleteToBookings(event.id)} />;
-    }
-    return null;
-  };
 
   return (
     <>
@@ -135,16 +100,17 @@ export default function EventCard({
           <EventDetails event={event} />
         </div>
         <div className="absolute bottom-2 right-3">
-          {renderJoinButton()}
-          {renderLeaveButton()}
-          {handleDelete && proproetaryEvent && (
-            <FooterCard
-              event={event}
-              handleOpenEditPriorityPopup={() => toggleEditPriorityPopup(event)}
-              handleDelete={handleDelete}
-              indexSection={indexSection}
-            />
-          )}
+          <FooterCard
+            event={event}
+            users={users}
+            bookings={bookings}
+            handleOpenEditPriorityPopup={() => toggleEditPriorityPopup(event)}
+            handleDelete={handleDelete}
+            loggedUser={loggedUser}
+            proproetaryEvent={proproetaryEvent}
+            addToBookings={addToBookings}
+            deleteToBookings={deleteToBookings}
+          />
         </div>
       </div>
       {reservationsPriorityPopupIsOpen && (
@@ -173,6 +139,3 @@ export default function EventCard({
     </>
   );
 }
-
-
-
