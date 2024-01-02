@@ -11,11 +11,10 @@ import { updateDatabaseRecord } from "../../../api/apiRequest";
 export default function FooterCard({
   event,
   handleDelete,
-  addToBookings,
-  deleteToBookings,
   proproetaryEvent,
   bookedRecordId,
   isUserBooked,
+  toggleBooking
 }) {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [editPriorityPopupIsOpen, setEditPriorityPopupIsOpen] = useState(false);
@@ -67,14 +66,6 @@ export default function FooterCard({
     setEditPriorityPopupIsOpen(!editPriorityPopupIsOpen);
   };
 
-  const handleJoin = () => {
-    addToBookings(event.id);
-  };
-
-  const handleLeave = () => {
-    deleteToBookings(event.id);
-  };
-
   return (
     <div className="flex space-x-2">
       {proproetaryEvent && !isUserBooked && (
@@ -92,9 +83,9 @@ export default function FooterCard({
       {!proproetaryEvent && (
         <>
           {event.places && bookedRecordId.length < event.places && !isUserBooked && (
-            <Button small name="Join" onClick={handleJoin} />
+            <Button small name="Join" onClick={()=>toggleBooking(event.id, true)} />
           )}
-          {isUserBooked && <Button small outline name="Leave" onClick={handleLeave} />}
+          {isUserBooked && <Button small outline name="Leave" onClick={()=>toggleBooking(event.id, false)} />}
         </>
       )}
 

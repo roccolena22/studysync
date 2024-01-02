@@ -7,11 +7,11 @@ export default function EventCard({
   loggedUser,
   event,
   handleDelete,
-  addToBookings,
-  deleteToBookings,
   fetchBookings,
   users,
   bookings,
+  toggleBooking,
+  followers,
 }) {
 
   const [bookedRecordId, setBookedRecordId] = useState([]);
@@ -46,6 +46,7 @@ export default function EventCard({
             fetchBookings={fetchBookings}
             bookedUsers={bookedUsers}
             loggedUser={loggedUser}
+            followers={followers}
           />
         </div>
         <div className="flex justify-between">
@@ -59,8 +60,7 @@ export default function EventCard({
             handleDelete={handleDelete}
             loggedUser={loggedUser}
             proproetaryEvent={proproetaryEvent}
-            addToBookings={addToBookings}
-            deleteToBookings={deleteToBookings}
+            toggleBooking={toggleBooking}
             bookedRecordId={bookedRecordId}
             isUserBooked={isUserBooked}
           />

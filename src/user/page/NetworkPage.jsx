@@ -20,6 +20,7 @@ export default function NetworkPage({ loggedUser, followers, events, users, book
           events={networkEvents}
           users={users}
           bookings={bookings}
+          followers={followers}
         />
       </div>
     </div>

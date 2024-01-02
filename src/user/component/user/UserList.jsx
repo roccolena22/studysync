@@ -5,16 +5,16 @@ import { addRecordToDatabase, deleteRecordFromDatabase, getListFromDatabase } fr
 import { addFollower, deleteFollower, setFollowers } from "../../../redux/followersSlice";
 import { setLoggedUser } from "../../../redux/authSlice";
 import { setUsers } from "../../../redux/usersSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 export default function UsersList({
   loggedUser,
   users,
   excludeLogged,
+  followers,
 }) {
 
   const [searchedUsers, setSearchedUsers] = useState([]);
-  const followers = useSelector((state) => state.followers);
 
   const dispatch = useDispatch()
   const usersToSearch = excludeLogged
@@ -41,20 +41,20 @@ export default function UsersList({
 
   const toggleFollow = async (user, isAdding) => {
     const followerAction = isAdding ? addFollower : deleteFollower;
-
+  
     const followerData = isAdding
       ? { idFrom: [loggedUser.id], idTo: [user.id] }
-      : followers.find((item) => item.idTo[0] === user.id);
+      : followers && followers.find((item) => item.idTo[0] === user.id);
 
     try {
       if (isAdding) {
         await addRecordToDatabase("followers", followerData);
-      } else {
+      } else if (followerData && followerData.id) {
         await deleteRecordFromDatabase("followers", followerData.id);
       }
-
+  
       dispatch(followerAction(followerData));
-
+  
       const updatedUsers = await getListFromDatabase("users");
       const refreshLoggedUser = updatedUsers.find((user) => user.id === loggedUser.id);
       dispatch(setLoggedUser(refreshLoggedUser));
@@ -66,6 +66,7 @@ export default function UsersList({
       fetchFollowers();
     }
   };
+  
 
   return (
     <div>
@@ -85,6 +86,8 @@ export default function UsersList({
                 loggedUser={loggedUser}
                 user={user}
                 toggleFollow={toggleFollow}
+                followers={followers}
+
               />
             </div>
           )

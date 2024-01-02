@@ -6,6 +6,7 @@ import UsersList from "./UserList";
 export default function DiscoverUsers({
   loggedUser,
   users,
+  followers,
 }) {
   const [PriorityPopupIsOpen, setPriorityPopupIsOpen] = useState(false);
   const handlePriorityPopup = () => {
@@ -34,6 +35,7 @@ export default function DiscoverUsers({
         <PriorityPopup handleClose={handlePriorityPopup} title="Search among StudySync users">
           <UsersList
             users={users}
+            followers={followers}
             loggedUser={loggedUser}
             excludeLogged
           />

@@ -9,7 +9,8 @@ export default function HeaderCard({
   event,
   fetchBookings,
   bookedUsers,
-  loggedUser
+  loggedUser,
+  followers,
 }) {
   const [reservationsPriorityPopupIsOpen, setReservationsPriorityPopupIsOpen] = useState(false);
 
@@ -41,7 +42,7 @@ export default function HeaderCard({
           title="List of reservations"
         >
           {event.bookingsRecordId ? (
-            <UsersList users={bookedUsers} loggedUser={loggedUser} />
+            <UsersList users={bookedUsers} loggedUser={loggedUser} followers={followers}/>
           ) : (
             <p className="pt-6 text-xl text-slate-400">
               There are no reservations for this event

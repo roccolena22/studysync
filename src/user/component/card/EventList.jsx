@@ -12,6 +12,7 @@ export default function EventList({
   events,
   users,
   bookings,
+  followers,
 }) {
   const [searchedEvents, setSearchedEvents] = useState([]);
 
@@ -58,32 +59,6 @@ export default function EventList({
     }
   };
 
-  const addToBookings = async (eventId) => {
-    const newBooking = {
-      eventId: [eventId],
-      bookedId: loggedUser.id,
-    }
-    await addRecordToDatabase("bookings", newBooking);
-    dispatch(addBooking(newBooking));
-  };
-
-  const deleteToBookings = async (eventId) => {
-    if (bookings && bookings.length > 0) {
-      const booking = bookings.find((item) =>
-        item.eventId.includes(eventId)
-      );
-
-      if (booking && booking.id && booking.bookedId === loggedUser.id) {
-        try {
-          await deleteRecordFromDatabase("bookings", booking.id);
-          dispatch(deleteBooking(booking));
-        } catch (error) {
-          console.error("Error removing follower", error);
-        }
-      }
-    }
-  };
-
   useEffect(() => {
     fetchEvents();
   }, [dispatch, loggedUser, users, bookings]);
@@ -91,6 +66,36 @@ export default function EventList({
   useEffect(() => {
     fetchBookings();
   }, [dispatch]);
+
+
+  const toggleBooking = async (eventId, isAdding) => {
+    const bookingAction = isAdding ? addBooking : deleteBooking;
+
+    const bookingData = isAdding
+      ? {
+        eventId: [eventId],
+        bookedId: loggedUser.id,
+      }
+      : bookings.find((item) => item.bookedId === loggedUser.id);
+
+    try {
+      if (isAdding) {
+        await addRecordToDatabase("bookings", bookingData);
+        dispatch(addBooking(bookingData));
+
+      } else {
+         await deleteRecordFromDatabase("bookings", bookingData.id);
+        dispatch(deleteBooking(bookingData.id));
+      }
+
+      bookingAction(isAdding ? bookingData : bookingData.id);
+
+    } catch (error) {
+      console.error(`Error ${isAdding ? 'adding' : 'removing'} booking`, error);
+    } finally {
+      fetchBookings();
+    }
+  };
 
   return (
     <div>
@@ -119,10 +124,10 @@ export default function EventList({
                 loggedUser={loggedUser}
                 event={event}
                 handleDelete={handleDelete}
-                addToBookings={addToBookings}
-                deleteToBookings={deleteToBookings}
+                toggleBooking={toggleBooking}
                 fetchBookings={() => fetchBookings(event)}
                 bookings={bookings}
+                followers={followers}
               />
             </div>
           )
