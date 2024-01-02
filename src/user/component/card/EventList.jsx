@@ -12,7 +12,6 @@ export default function EventList({
   events,
   users,
   bookings,
-  followers,
 }) {
   const [searchedEvents, setSearchedEvents] = useState([]);
 
@@ -127,7 +126,6 @@ export default function EventList({
                 toggleBooking={toggleBooking}
                 fetchBookings={() => fetchBookings(event)}
                 bookings={bookings}
-                followers={followers}
               />
             </div>
           )

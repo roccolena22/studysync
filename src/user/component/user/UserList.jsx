@@ -5,14 +5,16 @@ import { addRecordToDatabase, deleteRecordFromDatabase, getListFromDatabase } fr
 import { addFollower, deleteFollower, setFollowers } from "../../../redux/followersSlice";
 import { setLoggedUser } from "../../../redux/authSlice";
 import { setUsers } from "../../../redux/usersSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function UsersList({
   loggedUser,
   users,
   excludeLogged,
-  followers,
 }) {
+
+  const followers = useSelector((state) => state.followers);
+
 
   const [searchedUsers, setSearchedUsers] = useState([]);
 

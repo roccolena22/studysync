@@ -9,7 +9,6 @@ export default function FollowersContainer({ followers, users, loggedUser }) {
         <DiscoverUsers
           loggedUser={loggedUser}
           users={users}
-          followers={followers}
         />
       </div>
       <div className="bg-white w-full p-3 rounded-lg shadow-lg flex justify-center items-center">

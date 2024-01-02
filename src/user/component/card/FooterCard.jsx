@@ -44,7 +44,6 @@ export default function FooterCard({
           />
         </>
       )}
-
       {!proproetaryEvent && (
         <>
           {event.places && bookedRecordId.length < event.places && !isUserBooked && (
@@ -53,14 +52,12 @@ export default function FooterCard({
           {isUserBooked && <Button small outline name="Leave" onClick={() => toggleBooking(event.id, false)} />}
         </>
       )}
-
       {editPriorityPopupIsOpen && (
         <PriorityPopup handleClose={handleCloseEditPriorityPopup} title="Edit event">
           {<EditEventForm event={selectedEvent} loggedUser={loggedUser} handleCloseEditPriorityPopup={handleCloseEditPriorityPopup} handleAlert={handleAlert} />}
         </PriorityPopup>
       )}
       {showAlert && <Alert type="success" text="Modification successful!" onClose={handleAlert} />}
-
     </div>
   );
 }
