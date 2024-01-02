@@ -1,12 +1,9 @@
 import React, { useState } from "react";
 import Button from "../../../shared/component/Button";
 import IconAndName from "../user/IconAndName";
-import { editEvent } from "../../../redux/eventsSlice";
-import { useDispatch } from "react-redux";
 import EditEventForm from "../form/EditEventForm";
 import Alert from "../shared/Alert";
 import PriorityPopup from "../shared/PriorityPopup";
-import { updateDatabaseRecord } from "../../../api/apiRequest";
 
 export default function FooterCard({
   event,
@@ -14,51 +11,19 @@ export default function FooterCard({
   proproetaryEvent,
   bookedRecordId,
   isUserBooked,
-  toggleBooking
+  toggleBooking,
+  loggedUser
 }) {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [editPriorityPopupIsOpen, setEditPriorityPopupIsOpen] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
 
-  const dispatch = useDispatch();
-
-  const handleCloseEditPriorityPopup = () => {
-    setSelectedEvent(null);
-    setEditPriorityPopupIsOpen(false);
-  };
-
   const handleAlert = () => {
     setShowAlert(!showAlert);
   };
-
-  const updateEvent = async (editedEvent) => {
-    try {
-      const fullEvent = {
-        authorId: [editedEvent.authorId],
-        title: editedEvent.title,
-        mode: editedEvent.mode,
-        location:
-          editedEvent.mode === "In person" || editedEvent.mode === "Mixed"
-            ? editedEvent.location
-            : "",
-        platform:
-          editedEvent.mode === "Remotely" || editedEvent.mode === "Mixed"
-            ? editedEvent.platform
-            : "",
-        startTime: editedEvent.startTime,
-        endTime: editedEvent.endTime,
-        places: editedEvent.places,
-        info: editedEvent.info,
-        startDate: editedEvent.startDate,
-        endDate: editedEvent.endDate,
-      };
-      await updateDatabaseRecord("events", editedEvent.id, fullEvent);
-      dispatch(editEvent(fullEvent));
-      setEditPriorityPopupIsOpen(false);
-      handleAlert();
-    } catch (error) {
-      console.error("Error updating event:", error);
-    }
+  const handleCloseEditPriorityPopup = () => {
+    setSelectedEvent(null);
+    setEditPriorityPopupIsOpen(false);
   };
 
   const toggleEditPriorityPopup = () => {
@@ -83,19 +48,19 @@ export default function FooterCard({
       {!proproetaryEvent && (
         <>
           {event.places && bookedRecordId.length < event.places && !isUserBooked && (
-            <Button small name="Join" onClick={()=>toggleBooking(event.id, true)} />
+            <Button small name="Join" onClick={() => toggleBooking(event.id, true)} />
           )}
-          {isUserBooked && <Button small outline name="Leave" onClick={()=>toggleBooking(event.id, false)} />}
+          {isUserBooked && <Button small outline name="Leave" onClick={() => toggleBooking(event.id, false)} />}
         </>
       )}
 
       {editPriorityPopupIsOpen && (
         <PriorityPopup handleClose={handleCloseEditPriorityPopup} title="Edit event">
-          <EditEventForm event={selectedEvent} updateEvent={updateEvent} />
+          {<EditEventForm event={selectedEvent} loggedUser={loggedUser} handleCloseEditPriorityPopup={handleCloseEditPriorityPopup} handleAlert={handleAlert} />}
         </PriorityPopup>
       )}
-
       {showAlert && <Alert type="success" text="Modification successful!" onClose={handleAlert} />}
+
     </div>
   );
 }

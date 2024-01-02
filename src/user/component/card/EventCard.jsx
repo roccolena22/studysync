@@ -18,19 +18,19 @@ export default function EventCard({
   const [bookedUsers, setBookedUsers] = useState([]);
   const [isUserBooked, setIsUserBooked] = useState(false);
 
-  const idsArray = event && event.bookingsRecordId
-    ? bookings
-      .filter((booking) => event.bookingsRecordId.includes(booking.id))
-      .map((booking) => booking.bookedId)
-    : [];
-
   useEffect(() => {
+    const idsArray = event && event.bookingsRecordId
+      ? bookings
+        .filter((booking) => event.bookingsRecordId.includes(booking.id))
+        .map((booking) => booking.bookedId)
+      : [];
     setBookedRecordId(event.bookingsRecordId || []);
     setBookedUsers(users.filter((user) => idsArray.includes(user.id)) || [])
     const userIds = bookedUsers.map(user => user.id);
     setIsUserBooked(event && event.bookingsRecordId && userIds.includes(loggedUser.id) || false);
-  }, [event, bookings]);
 
+
+  }, [event, bookings]);
 
   const proproetaryEvent = loggedUser.id === event.authorId;
 

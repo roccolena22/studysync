@@ -3,11 +3,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import Button from "../../../shared/component/Button";
 import { EventFormValidator } from "./validator/EventFormValidator";
 import Input from "../../../shared/component/Input";
-import DropdownMenu from "../shared/DropdownMenu";
-import { useState } from "react";
 import { addRecordToDatabase } from "../../../api/apiRequest";
 import { useDispatch } from "react-redux";
 import { addEvent } from "../../../redux/eventsSlice";
+import TimeEventSection from "./component/TimeEventSection";
+import DetailsEventSection from "./component/DetailsEventSection";
 
 export default function AddEventForm({
   loggedUser,
@@ -19,7 +19,6 @@ export default function AddEventForm({
   endTime,
   handleCreatedEventAlert,
 }) {
-  const [selectedMode, setSelectedMode] = useState("In person");
 
   const dispatch = useDispatch();
 
@@ -43,7 +42,6 @@ export default function AddEventForm({
       endDate,
       ...data,
     };
-
     await addRecordToDatabase("events", fullEvent);
     dispatch(addEvent([fullEvent]));
     handleCreatedEventAlert()
@@ -51,8 +49,6 @@ export default function AddEventForm({
     setEndDate(null);
     reset();
   };
-
-  const modes = ["In person", "Remotely", "Mixed"];
 
   return (
     <div className="w-full">
@@ -63,89 +59,8 @@ export default function AddEventForm({
           register={register("title")}
           placeholder="Enter the name of the event?"
         />
-
-        <div className="flex space-x-2 sm:space-x-4">
-          <DropdownMenu
-            label="Mode:"
-            register={register("mode")}
-            options={modes}
-            errorMessage={errors.mode?.message}
-            onOptionSelected={(option) => setSelectedMode(option)}
-          />
-          <div className="w-full lg:w-48">
-            <Input
-              label="Places available"
-              errorMessage={errors.location?.message}
-              register={register("places")}
-              type="number"
-            />
-          </div>
-        </div>
-
-
-        {selectedMode === "In person" && (
-          <Input
-            label="Location"
-            errorMessage={errors.location?.message}
-            register={register("location")}
-            placeholder="Where will the event take place, in a physical location?"
-          />
-        )}
-
-        {selectedMode === "Remotely" && (
-          <div>
-            <Input
-              label="Platform"
-              errorMessage={errors.platform?.message}
-              register={register("platform")}
-              placeholder="Where will the event take place, on a meeting platform?"
-            />
-            <Input
-              label="Link"
-              errorMessage={errors.link?.message}
-              register={register("link")}
-              placeholder="Meeting link?"
-            />
-          </div>
-        )}
-
-        {selectedMode === "Mixed" && (
-          <div className="flex space-x-2 sm:space-x-4">
-            <Input
-              label="Location"
-              errorMessage={errors.location?.message}
-              register={register("location")}
-              placeholder="Physical location?"
-            />
-            <Input
-              label="Platform"
-              errorMessage={errors.platform?.message}
-              register={register("platform")}
-              placeholder="Meeting platform?"
-            />
-          </div>
-        )}
-
-        <Input
-          label="Additional info (optional)"
-          errorMessage={errors.info?.message}
-          register={register("info")}
-          placeholder="Do you want to specify more information?"
-        />
-        <div className="flex space-x-2 sm:space-x-4">
-          <Input
-            label="Start time"
-            errorMessage={errors.startTime?.message}
-            register={register("startTime")}
-            type="text"
-          />
-          <Input
-            label="End time"
-            errorMessage={errors.endTime?.message}
-            register={register("endTime")}
-            type="text"
-          />
-        </div>
+        <DetailsEventSection register={register} errors={errors} />
+        <TimeEventSection register={register} errors={errors} />
         <div className="flex justify-end pt-10">
           <Button type="submit" name="Create" />
         </div>

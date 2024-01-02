@@ -1,14 +1,16 @@
-import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Button from "../../../shared/component/Button";
 import { EventFormValidator } from "./validator/EventFormValidator";
 import Input from "../../../shared/component/Input";
-import DropdownMenu from "../shared/DropdownMenu";
+import { editEvent } from "../../../redux/eventsSlice";
+import { useDispatch } from "react-redux";
+import { updateDatabaseRecord } from "../../../api/apiRequest";
+import TimeEventSection from "./component/TimeEventSection";
+import DetailsEventSection from "./component/DetailsEventSection";
 
-export default function EditEventForm({ event, updateEvent }) {
-  const [selectedMode, setSelectedMode] = useState(event.mode);
-
+export default function EditEventForm({ event, loggedUser, handleCloseEditPriorityPopup, handleAlert }) {
+  const dispatch = useDispatch()
   const {
     handleSubmit,
     formState: { errors },
@@ -30,26 +32,33 @@ export default function EditEventForm({ event, updateEvent }) {
     },
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     const editedData = {
-      ...event,
+      authorId: [loggedUser.id],
       title: data.title,
       mode: data.mode,
-      location: data.location,
-      platform: data.platform,
-      link: data.link,
-      info: data.info,
-      startDate: data.startDate,
-      endDate: data.endDate,
+      location:
+        data.mode === "In person" || data.mode === "Mixed"
+          ? data.location
+          : "",
+      platform:
+        data.mode === "Remotely" || data.mode === "Mixed"
+          ? data.platform
+          : "",
       startTime: data.startTime,
       endTime: data.endTime,
       places: data.places,
-      id: event.id,
+      info: data.info,
+      startDate: data.startDate,
+      endDate: data.endDate,
     };
-    updateEvent(editedData);
+    console.log(editedData)
+    await updateDatabaseRecord("events", event.id, editedData);
+    dispatch(editEvent(editedData));
+    handleCloseEditPriorityPopup(false);
+    handleAlert();
   };
 
-  const modes = ["In person", "Remotely", "Mixed"];
 
   return (
     <div className="w-full pt-4">
@@ -60,7 +69,6 @@ export default function EditEventForm({ event, updateEvent }) {
           register={register("title")}
           placeholder="Enter the name of the event?"
         />
-
         <div className="flex space-x-2 sm:space-x-4">
           <Input
             label="Start date"
@@ -73,84 +81,8 @@ export default function EditEventForm({ event, updateEvent }) {
             register={register("startTime")}
           />
         </div>
-        <div className="flex space-x-2 sm:space-x-4">
-          <Input
-            label="End date"
-            errorMessage={errors.endDate?.message}
-            register={register("endDate")}
-          />
-          <Input
-            label="End time"
-            errorMessage={errors.endTime?.message}
-            register={register("endTime")}
-          />
-        </div>
-        <div className="flex space-x-2 sm:space-x-4">
-
-          <DropdownMenu
-            label="Mode:"
-            register={register("mode")}
-            options={modes}
-            errorMessage={errors.mode?.message}
-            onOptionSelected={(option) => setSelectedMode(option)}
-          />
-          <div className="w-full lg:w-48">
-            <Input
-              label="Places available"
-              errorMessage={errors.location?.message}
-              register={register("places")}
-              type="number"
-            />
-          </div>
-        </div>
-
-        {selectedMode === "In person" && (
-          <Input
-            label="Location"
-            errorMessage={errors.location?.message}
-            register={register("location")}
-            placeholder="Where will the event take place, in a physical location?"
-          />
-        )}
-
-        {selectedMode === "Remotely" && (
-          <div>
-            <Input
-              label="Platform"
-              errorMessage={errors.platform?.message}
-              register={register("platform")}
-              placeholder="Where will the event take place, on a meeting platform?"
-            />
-            <Input
-              label="Link"
-              errorMessage={errors.link?.message}
-              register={register("link")}
-              placeholder="Meeting link?"
-            />
-          </div>
-        )}
-
-        {selectedMode === "Mixed" && (
-          <div className="flex space-x-2 sm:space-x-4">
-            <Input
-              label="Location"
-              errorMessage={errors.location?.message}
-              register={register("location")}
-              placeholder="Physical location?"
-            />
-            <Input
-              label="Platform"
-              errorMessage={errors.platform?.message}
-              register={register("platform")}
-              placeholder="Meeting platform?"
-            />
-          </div>
-        )}
-        <Input
-          label="Info (optional)"
-          errorMessage={errors.info?.message}
-          register={register("info")}
-        />
+        <TimeEventSection register={register} errors={errors} />
+        <DetailsEventSection register={register} errors={errors}/>
         <div className="flex justify-end pb-4">
           <Button type="submit" name="Edit" />
         </div>
