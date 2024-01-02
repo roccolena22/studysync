@@ -7,10 +7,21 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { UpdatePasswordValidator } from "./validator/UpdatePasswordValidator";
 import bcrypt from "bcryptjs";
 import { updateDatabaseRecord } from "../../../api/apiRequest";
+import Alert from "../shared/Alert";
+import { useDispatch } from "react-redux";
+import { logout } from "../../../redux/authSlice";
 
 export default function EditPasswordForm({ loggedUser }) {
   const [showPassword, setShowPassword] = useState(false);
   const [passwordError, setPasswordError] = useState(null);
+  const [showAlert, setShowAlert] = useState(false);
+
+  const dispatch = useDispatch();
+
+
+  const handleAlert = () => {
+    setShowAlert(!showAlert);
+  };
 
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -35,7 +46,10 @@ export default function EditPasswordForm({ loggedUser }) {
       await updateDatabaseRecord("users", loggedUser.id, {
         password: newHashedPassword,
       });
-    } else {
+      handleAlert()
+      setTimeout(() => {
+        dispatch(logout());
+      }, 4000);    } else {
       setPasswordError("Current password is incorrect");
     }
   };
@@ -74,6 +88,8 @@ export default function EditPasswordForm({ loggedUser }) {
       <div className="flex justify-end pt-4">
         <Button type="submit" name="Edit" />
       </div>
+      {showAlert && <Alert type="success" text="Password changed successfully. You will be logged out shortly" onClose={handleAlert} />}
+
     </form>
   );
 }
