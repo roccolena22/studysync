@@ -9,7 +9,7 @@ import { updateDatabaseRecord } from "../../../api/apiRequest";
 import TimeEventSection from "./component/TimeEventSection";
 import DetailsEventSection from "./component/DetailsEventSection";
 
-export default function EditEventForm({ event, loggedUser, handleCloseEditPriorityPopup, handleAlert }) {
+export default function EditEventForm({ event, loggedUser, handleCloseEditPriorityPopup, handleAlert, fetchEvents }) {
   const dispatch = useDispatch()
   const {
     handleSubmit,
@@ -54,6 +54,7 @@ export default function EditEventForm({ event, loggedUser, handleCloseEditPriori
     };
     await updateDatabaseRecord("events", event.id, editedData);
     dispatch(editEvent(editedData));
+    fetchEvents()
     handleCloseEditPriorityPopup(false);
     handleAlert();
   };

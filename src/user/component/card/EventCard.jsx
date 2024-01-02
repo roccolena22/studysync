@@ -11,6 +11,7 @@ export default function EventCard({
   users,
   bookings,
   toggleBooking,
+  fetchEvents,
 }) {
 
   const [bookedRecordId, setBookedRecordId] = useState([]);
@@ -29,7 +30,6 @@ export default function EventCard({
     setBookedUsers(users.filter((user) => idsArray.includes(user.id)) || [])
     const userIds = bookedUsers.map(user => user.id);
     setIsUserBooked(event && event.bookingsRecordId && userIds.includes(loggedUser.id) || false);
-
 
   }, [event, bookings]);
 
@@ -63,6 +63,7 @@ export default function EventCard({
             toggleBooking={toggleBooking}
             bookedRecordId={bookedRecordId}
             isUserBooked={isUserBooked}
+            fetchEvents={fetchEvents}
           />
         </div>
       </div>

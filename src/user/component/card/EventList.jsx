@@ -60,11 +60,12 @@ export default function EventList({
 
   useEffect(() => {
     fetchEvents();
-  }, [dispatch, loggedUser, users, bookings]);
-
+  }, [dispatch]);
+  
   useEffect(() => {
     fetchBookings();
   }, [dispatch]);
+  
 
 
   const toggleBooking = async (eventId, isAdding) => {
@@ -83,7 +84,7 @@ export default function EventList({
         dispatch(addBooking(bookingData));
 
       } else {
-         await deleteRecordFromDatabase("bookings", bookingData.id);
+        await deleteRecordFromDatabase("bookings", bookingData.id);
         dispatch(deleteBooking(bookingData.id));
       }
 
@@ -126,6 +127,7 @@ export default function EventList({
                 toggleBooking={toggleBooking}
                 fetchBookings={() => fetchBookings(event)}
                 bookings={bookings}
+                fetchEvents={fetchEvents}
               />
             </div>
           )
