@@ -14,7 +14,7 @@ export default function EventsContainer({
   const currentDate = new Date();
 
   useEffect(() => {
-    const handleBookedEvents = async () => {
+    const handleBookedEvents = async () => { //questa logica è già presnte in Calendar
       const eventsByBooked = events && events.filter((event) => {
         if (event.bookingsRecordId) {
           return event.bookingsRecordId.some((bookingId) =>

@@ -33,7 +33,7 @@ export default function CalendarPage({ loggedUser, followers, events, bookings }
   return (
     <div className="flex flex-col items-center">
       <Title title="Calendar" />
-      <Legend />
+      <Legend colorOne="bg-green-500" colorTwo="bg-orange-600" textOne="Your events" textTwo="Events you attend"/>
       <div className="w-full pt-8">
         <PersonaleCalendar
           loggedUser={loggedUser}
