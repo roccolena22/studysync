@@ -42,8 +42,8 @@ export default function UsersList({
   };
 
   const toggleFollow = async (user, isAdding) => {
-    const followerAction = isAdding ? addFollower : deleteFollower;
-  
+    const followerReduxAction = isAdding ? addFollower : deleteFollower;
+
     const followerData = isAdding
       ? { idFrom: [loggedUser.id], idTo: [user.id] }
       : followers && followers.find((item) => item.idTo[0] === user.id);
@@ -54,21 +54,18 @@ export default function UsersList({
       } else if (followerData && followerData.id) {
         await deleteRecordFromDatabase("followers", followerData.id);
       }
-  
-      dispatch(followerAction(followerData));
-  
+      dispatch(followerReduxAction(followerData));
       const updatedUsers = await getListFromDatabase("users");
+      dispatch(setUsers(updatedUsers));
       const refreshLoggedUser = updatedUsers.find((user) => user.id === loggedUser.id);
       dispatch(setLoggedUser(refreshLoggedUser));
-      dispatch(setUsers(updatedUsers));
-      
     } catch (error) {
       console.error(`Error ${isAdding ? 'adding' : 'removing'} follower`, error);
     } finally {
       fetchFollowers();
     }
   };
-  
+
 
   return (
     <div>

@@ -17,14 +17,13 @@ export default function EventList({
 
   const dispatch = useDispatch()
 
-  const sortedEvents = events.sort((a, b) => {
-    const dateA = new Date(`${a.endDate} ${a.endTime}`);
-    const dateB = new Date(`${b.endDate} ${b.endTime}`);
-    return dateA - dateB;
-  });
-
   const handleSearch = (dataFromSearch) => {
     setSearchedEvents(dataFromSearch);
+  };
+
+  const handleDelete = async (event) => {
+    await deleteRecordFromDatabase("events", event.id);
+    dispatch(deleteEvent(event));
   };
 
   const fetchEvents = async () => {
@@ -44,11 +43,6 @@ export default function EventList({
 
   };
 
-  const handleDelete = async (event) => {
-    await deleteRecordFromDatabase("events", event.id);
-    dispatch(deleteEvent(event));
-  };
-
   const fetchBookings = async () => {
     try {
       const bookings = await getListFromDatabase("bookings");
@@ -58,18 +52,8 @@ export default function EventList({
     }
   };
 
-  useEffect(() => {
-    fetchEvents();
-  }, [dispatch]);
-  
-  useEffect(() => {
-    fetchBookings();
-  }, [dispatch]);
-  
-
-
   const toggleBooking = async (eventId, isAdding) => {
-    const bookingAction = isAdding ? addBooking : deleteBooking;
+    const bookingReduxAction = isAdding ? addBooking : deleteBooking;
 
     const bookingData = isAdding
       ? {
@@ -82,20 +66,33 @@ export default function EventList({
       if (isAdding) {
         await addRecordToDatabase("bookings", bookingData);
         dispatch(addBooking(bookingData));
-
       } else {
         await deleteRecordFromDatabase("bookings", bookingData.id);
         dispatch(deleteBooking(bookingData.id));
       }
-
-      bookingAction(isAdding ? bookingData : bookingData.id);
-
+      fetchBookings();
+      fetchEvents();
+      bookingReduxAction(isAdding ? bookingData : bookingData.id);
     } catch (error) {
       console.error(`Error ${isAdding ? 'adding' : 'removing'} booking`, error);
     } finally {
       fetchBookings();
     }
   };
+
+  useEffect(() => {
+    fetchEvents();
+  }, [dispatch]);
+
+  useEffect(() => {
+    fetchBookings();
+  }, [dispatch]);
+
+  const sortedEvents = events.sort((a, b) => {
+    const dateA = new Date(`${a.endDate} ${a.endTime}`);
+    const dateB = new Date(`${b.endDate} ${b.endTime}`);
+    return dateA - dateB;
+  });
 
   return (
     <div>
