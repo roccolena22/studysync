@@ -29,7 +29,7 @@ export default function FollowerAndFollowed({
 
   useEffect(() => {
     fetchFollowers()
-  }, [loggedUser]);
+  }, []);
 
   return (
     <div className="pt-2">
