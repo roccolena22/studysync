@@ -66,7 +66,6 @@ export default function UsersList({
     }
   };
 
-
   return (
     <div>
       {usersToSearch.length > 1 && (

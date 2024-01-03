@@ -5,9 +5,9 @@ export default function SyntheticEventCard({ event }) {
     return (
         <div>
             <div className="border-b border-slate-400">
-                <UserDetails user={event} />
+                <UserDetails firstName={event.firstName} lastName={event.lastName} role={event.role} email={event.email} />
             </div>
-               <EventDetails event={event}/>
+            <EventDetails event={event} />
         </div>
     )
 }

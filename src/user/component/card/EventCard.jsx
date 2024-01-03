@@ -18,8 +18,6 @@ export default function EventCard({
   const [bookedUsers, setBookedUsers] = useState([]);
   const [isUserBooked, setIsUserBooked] = useState(false);
 
-  console.log(event)
-
   useEffect(() => {
     const idsArray = event && event.bookingsRecordId
       ? bookings
