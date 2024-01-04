@@ -7,8 +7,8 @@ import { RegistrationFormValidator } from "./validator/RegistrationFormValidator
 import Input from "../../../shared/component/Input";
 import Icon from "../../../shared/component/Icon";
 import bcrypt from "bcryptjs";
-import { setLoggedUser } from "../../../redux/authSlice";
-import { addUser } from "../../../redux/usersSlice";
+import { setLoggedUser } from "../../../redux/slices/authSlice";
+import { addUser } from "../../../redux/slices/usersSlice";
 import { useDispatch } from "react-redux";
 import { addRecordToDatabase, getListFromDatabase } from "../../../api/apiRequest";
 

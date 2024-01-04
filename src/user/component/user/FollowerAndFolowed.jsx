@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import TabMenu from "../navigation/TabMenu";
 import UsersList from "./UserList";
-import { setFollowers } from "../../../redux/followersSlice";
+import { setFollowers } from "../../../redux/slices/followersSlice";
 import { getListFromDatabase } from "../../../api/apiRequest";
 import { useDispatch } from "react-redux";
 

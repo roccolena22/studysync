@@ -4,8 +4,8 @@ import SearchBar from "../shared/SearchBar";
 import NoEvents from "../shared/NoEvents";
 import { addRecordToDatabase, deleteRecordFromDatabase, getListFromDatabase } from "../../../api/apiRequest";
 import { useDispatch } from "react-redux";
-import { deleteEvent, setEvent } from "../../../redux/eventsSlice";
-import { addBooking, deleteBooking, setBookings } from "../../../redux/bookingsSlice";
+import { deleteEvent, setEvent } from "../../../redux/slices/eventsSlice";
+import { addBooking, deleteBooking, setBookings } from "../../../redux/slices/bookingsSlice";
 
 export default function EventList({
   loggedUser,

@@ -9,8 +9,8 @@ import Icon from "../../../shared/component/Icon";
 import bcrypt from "bcryptjs";
 import { useDispatch } from "react-redux";
 import { getListFromDatabase } from "../../../api/apiRequest";
-import { setUsers } from "../../../redux/usersSlice";
-import { setLoggedUser } from "../../../redux/authSlice";
+import { setUsers } from "../../../redux/slices/usersSlice";
+import { setLoggedUser } from "../../../redux/slices/authSlice";
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);

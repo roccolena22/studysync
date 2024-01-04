@@ -7,7 +7,7 @@ import {
   getRecordFromDatabase,
   updateDatabaseRecord,
 } from "../../../api/apiRequest";
-import { setLoggedUser } from "../../../redux/authSlice";
+import { setLoggedUser } from "../../../redux/slices/authSlice";
 import { useDispatch } from "react-redux";
 
 export default function ProfileInfoForm({ loggedUser }) {

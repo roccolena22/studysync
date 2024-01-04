@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { logout } from "../../../redux/authSlice";
+import { logout } from "../../../redux/slices/authSlice";
 import IconAndName from "../user/IconAndName";
 
 export default function TopNavigationMenu({ toggleNavigationMenu }) {

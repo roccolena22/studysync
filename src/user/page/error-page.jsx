@@ -6,7 +6,7 @@ export default function ErrorPage({ isLogged }) {
   return (
     <div>
       <div className="px-2">
-        <AppName />
+        <AppName name="StudySync" />
       </div>
       <div
         id="error-page"
@@ -22,7 +22,6 @@ export default function ErrorPage({ isLogged }) {
               <p>Do you want to return to the login page?</p>
             )}
           </div>
-
           <div className="flex justify-center pt-4">
             <Link to={isLogged ? "/" : "login"}>
               <Button name={isLogged ? "Dashboard" : "Login"} />

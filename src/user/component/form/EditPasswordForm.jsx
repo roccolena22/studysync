@@ -9,7 +9,7 @@ import bcrypt from "bcryptjs";
 import { updateDatabaseRecord } from "../../../api/apiRequest";
 import Alert from "../shared/Alert";
 import { useDispatch } from "react-redux";
-import { logout } from "../../../redux/authSlice";
+import { logout } from "../../../redux/slices/authSlice";
 
 export default function EditPasswordForm({ loggedUser }) {
   const [showPassword, setShowPassword] = useState(false);

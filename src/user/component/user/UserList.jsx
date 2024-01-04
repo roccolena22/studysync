@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import SearchBar from "../shared/SearchBar";
 import SingleUserInList from "./SingleUserInList";
 import { addRecordToDatabase, deleteRecordFromDatabase, getListFromDatabase } from "../../../api/apiRequest";
-import { addFollower, deleteFollower, setFollowers } from "../../../redux/followersSlice";
-import { setLoggedUser } from "../../../redux/authSlice";
-import { setUsers } from "../../../redux/usersSlice";
+import { addFollower, deleteFollower, setFollowers } from "../../../redux/slices/followersSlice";
+import { setLoggedUser } from "../../../redux/slices/authSlice";
+import { setUsers } from "../../../redux/slices/usersSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function UsersList({

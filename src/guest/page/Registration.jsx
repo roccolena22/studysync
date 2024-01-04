@@ -6,7 +6,7 @@ export default function Registration() {
   return (
     <GuestContainer>
       <div className="pb-4">
-        <AppName  />
+        <AppName name="StudySync" />
       </div>
       <RegistrationForm />
     </GuestContainer>

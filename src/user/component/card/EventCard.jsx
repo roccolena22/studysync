@@ -53,8 +53,6 @@ export default function EventCard({
         <div className="absolute bottom-2 right-3">
           <FooterCard
             event={event}
-            users={users}
-            bookings={bookings}
             handleDelete={handleDelete}
             loggedUser={loggedUser}
             proproetaryEvent={proproetaryEvent}

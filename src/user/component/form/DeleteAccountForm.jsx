@@ -6,7 +6,7 @@ import { useState } from "react";
 import { DeleteFormValidator } from "./validator/DeleteFormValidator";
 import Icon from "../../../shared/component/Icon";
 import bcrypt from "bcryptjs";
-import { logout } from "../../../redux/authSlice";
+import { logout } from "../../../redux/slices/authSlice";
 import { useDispatch } from "react-redux";
 import Alert from "../shared/Alert";
 

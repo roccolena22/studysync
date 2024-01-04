@@ -3,7 +3,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import Button from "../../../shared/component/Button";
 import { EventFormValidator } from "./validator/EventFormValidator";
 import Input from "../../../shared/component/Input";
-import { editEvent } from "../../../redux/eventsSlice";
+import { editEvent } from "../../../redux/slices/eventsSlice";
 import { useDispatch } from "react-redux";
 import { updateDatabaseRecord } from "../../../api/apiRequest";
 import TimeEventSection from "./component/TimeEventSection";
