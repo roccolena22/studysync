@@ -19,7 +19,7 @@ export default function Button({
       onClick={onClick}
       type={type}
     >
-      <span className={`${small ? "text-xs" : "text-md"}`}>{name}</span>
+      <p className={`${small ? "text-xs" : "text-md"}`}>{name}</p>
       {children}
     </button>
   );

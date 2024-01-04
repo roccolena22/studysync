@@ -62,6 +62,13 @@ export default function LoginForm() {
     setShowPassword(!showPassword);
   };
 
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      handleSubmit(onSubmit)(event);
+    }
+  };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="py-2">
       <Input
@@ -74,6 +81,7 @@ export default function LoginForm() {
         errorMessage={errors.password?.message}
         register={register("password")}
         type={showPassword ? "text" : "password"}
+        onKeyDown={handleKeyDown}
       >
         {showPassword ? (
           <Icon name="eyeInvisible" onClick={handleShowPassword} />
