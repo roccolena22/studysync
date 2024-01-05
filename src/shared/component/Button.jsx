@@ -7,19 +7,18 @@ export default function Button({
   small = false,
 }) {
   const buttonStyle = outline
-    ? "border-2 border-cyan-700 text-cyan-700 hover:bg-cyan-700 hover:text-white"
-    : "bg-cyan-700 text-white";
-  const buttonSize = small ? "w-22 px-1" : "w-32 py-1";
+    ? "border border-cyan-700 hover:border-cyan-800 text-cyan-700 hover:bg-cyan-800 hover:text-white transition duration-300 ease-in-out"
+    : "bg-cyan-700 text-white hover:bg-cyan-800 transition duration-300 ease-in-out";
+
+  const buttonSize = small ? "w-20 px-1" : "w-32 py-1";
 
   return (
     <button
-      className={`rounded-md flex justify-center items-center  ${
-        buttonSize + " " + buttonStyle
-      }`}
+      className={`rounded-md flex justify-center items-center ${buttonSize} ${buttonStyle}`}
       onClick={onClick}
       type={type}
     >
-      <p className={`${small ? "text-xs" : "text-md"}`}>{name}</p>
+      <p className={`${small ? "text-sm" : "text-md"}`}>{name}</p>
       {children}
     </button>
   );
