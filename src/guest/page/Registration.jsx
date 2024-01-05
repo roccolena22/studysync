@@ -1,14 +1,14 @@
 import RegistrationForm from "../component/Form/RegistrationForm";
 import AppName from "../../shared/component/AppName";
-import FullPageContainer from "../component/FullPageContainer";
+import GuestPageContainer from "../component/GuestPageContainer";
 
 export default function Registration() {
   return (
-    <FullPageContainer>
+    <GuestPageContainer>
       <div className="pb-4">
         <AppName name="StudySync" />
       </div>
       <RegistrationForm />
-    </FullPageContainer>
+    </GuestPageContainer>
   );
 }

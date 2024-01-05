@@ -1,6 +1,6 @@
 import Slogan from "./Slogan";
 
-export default function FullPageContainer({ children }) {
+export default function FullGuestPageContainer({ children }) {
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
       <div className="sm:w-3/5 lg:w-2/5">
