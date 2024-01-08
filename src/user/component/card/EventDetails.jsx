@@ -33,10 +33,10 @@ export default function EventDetails({ event }) {
         <div>
           <p className="text-slate-600 font-semibold text-md">Start</p>
           <div className="flex space-x-1">
-          <span className="text-xs md:text-md">{event.startDate}</span>
-          <span className="text-xs md:text-md">{event.startTime}</span>
+            <span className="text-xs md:text-md">{event.startDate}</span>
+            <span className="text-xs md:text-md">{event.startTime}</span>
           </div>
-         
+
         </div>
         <div>
           <p className="text-slate-600 font-semibold text-md">Duration</p>
@@ -69,7 +69,7 @@ export default function EventDetails({ event }) {
       {event.platform && (
         <div className="col-span-1">
           <p className="text-slate-600 font-semibold text-md">Link</p>
-          <span className="text-xs md:text-md text-cyan-700 cursor-pointer underline">{event.link}</span>
+          <a href={event.link} className="text-xs md:text-md text-cyan-700 cursor-pointer underline">{event.link}</a>
         </div>
       )}
 
