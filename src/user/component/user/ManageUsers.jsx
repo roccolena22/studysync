@@ -37,7 +37,7 @@ export default function ManageUsers({
   };
 
   return (
-    <div className="relative h-40 py-4 bg-white w-full p-3 rounded-lg shadow-xl">
+    <div className="relative h-42 py-4 bg-white w-full p-3 rounded-lg shadow-xl">
     <div className="w-full flex flex-col items-center">
       <div className="flex justify-around w-full space-x-8 text-lg font-semibold">
         <div className="flex flex-col items-center space-y-1">

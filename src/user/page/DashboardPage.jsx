@@ -71,19 +71,21 @@ export default function DashboardPage({ loggedUser, users, followers, events, bo
       <Title title="Dashboard" >
         <NewEvent loggedUser={loggedUser} name="New Event" />
       </Title>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-6 w-full">
-        <div className="w-full">
+      <div className="grid grid-cols-1 gap-2 pt-6 w-full">
+        <div className="grid gap-2 sm:grid-cols-2">
           <ManageUsers
             users={users}
             followers={followers}
             loggedUser={loggedUser}
           />
+          <div className="grid grid-cols-1 gap-2">
+            <Gadget title="Today's events:" value="62" />
+            <Gadget title="The next event is in:" value="6 hours" />
+          </div>
+
         </div>
-        <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2">
-          <Gadget title="The next event is in:" value="6 hours" />
+        <div className="grid gap-2 sm:grid-cols-3 w-full">
           <Gadget title="Next events:" value={events && futureEvents.length} />
-        </div>
-        <div className="grid gap-4 sm:grid-cols-2 w-full">
           <Gadget title="Events created by me:" value={loggedUser.eventIds && loggedUser.eventIds.length} />
           <Gadget title="Events I am booked for:" value={events && futureEvents.length} />
         </div>
