@@ -69,22 +69,10 @@ export default function EditEventForm({ event, loggedUser, handleCloseEditPriori
           register={register("title")}
           placeholder="Enter the name of the event?"
         />
-        <div className="flex space-x-2 sm:space-x-4">
-          <Input
-            label="Start date"
-            errorMessage={errors.startDate?.message}
-            register={register("startDate")}
-          />
-          <Input
-            label="Start time"
-            errorMessage={errors.startTime?.message}
-            register={register("startTime")}
-          />
-        </div>
         <TimeEventSection register={register} errors={errors} />
         <DetailsEventSection register={register} errors={errors}/>
         <div className="flex justify-end pb-4">
-          <Button type="submit" name="Edit" />
+          <Button type="submit" name="Save" />
         </div>
       </form>
     </div>

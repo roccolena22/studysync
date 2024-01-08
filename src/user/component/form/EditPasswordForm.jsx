@@ -86,7 +86,7 @@ export default function EditPasswordForm({ loggedUser }) {
       </div>
       <p className="text-red-500">{passwordError}</p>
       <div className="flex justify-end pt-4">
-        <Button type="submit" name="Edit" />
+        <Button type="submit" name="Save" />
       </div>
       {showAlert && <Alert type="success" text="Password changed successfully. You will be logged out shortly" onClose={handleAlert} />}
 

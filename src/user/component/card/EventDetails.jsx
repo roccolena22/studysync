@@ -25,47 +25,61 @@ export default function EventDetails({ event }) {
   }
 
   return (
-    <div>
-      <div className="flex items-center pt-6 sm:pt-4">
-        <p className="font-semibold">{event.title}</p>
+    <div className="grid grid-cols-2 w-full">
+      <div className="col-span-1 py-4">
+        <p className="font-bold">{event.title}</p>
       </div>
-      <div>
-        <span className="font-semibold text-sm">Start:</span>
-        <span className="text-xs sm:text-sm pl-1">{event.startDate}</span>
-        <span className="text-xs sm:text-sm pl-1">{event.startTime}</span>
-      </div>
-      <div>
-        <span className="font-semibold text-sm">Duration:</span>
-        <span className="text-xs sm:text-sm pl-1">{formattedDuration}</span>
-      </div>
-      <div>
-        <span className="font-semibold text-sm">Mode:</span>
-        <span className="text-xs sm:text-sm pl-1">{event.mode}</span>
-      </div>
-      {event.location && (
+      <div className="col-span-2 grid grid-cols-2">
         <div>
-          <span className="font-semibold text-sm">Location:</span>
-          <span className="text-xs sm:text-sm pl-1">{event.location}</span>
+          <p className="text-slate-600 font-semibold text-md">Start</p>
+          <div className="flex space-x-1">
+          <span className="text-xs md:text-md">{event.startDate}</span>
+          <span className="text-xs md:text-md">{event.startTime}</span>
+          </div>
+         
         </div>
-      )}
+        <div>
+          <p className="text-slate-600 font-semibold text-md">Duration</p>
+          <span className="text-xs md:text-md">{formattedDuration}</span>
+        </div>
+      </div>
+
+      <div className="col-span-2 grid grid-cols-2">
+        <div>
+          <p className="text-slate-600 font-semibold text-md">Mode</p>
+          <span className="text-xs md:text-md">{event.mode}</span>
+        </div>
+
+        <div>
+          {event.location && (
+            <div>
+              <p className="text-slate-600 font-semibold text-md">Location</p>
+              <span className="text-xs md:text-md">{event.location}</span>
+            </div>
+          )}
+          {event.platform && (
+            <div>
+              <p className="text-slate-600 font-semibold text-md">Platform</p>
+              <span className="text-xs md:text-md">{event.platform}</span>
+            </div>
+          )}
+        </div>
+      </div>
+
       {event.platform && (
-        <div>
-          <div>
-            <span className="font-semibold text-sm">Platform:</span>
-            <span className="text-xs sm:text-sm pl-1">{event.platform}</span>
-          </div>
-          <div>
-            <span className="font-semibold text-sm">Link:</span>
-            <span className="text-xs sm:text-sm pl-1">{event.link}</span>
-          </div>
+        <div className="col-span-1">
+          <p className="text-slate-600 font-semibold text-md">Link</p>
+          <span className="text-xs md:text-md text-cyan-700 cursor-pointer underline">{event.link}</span>
         </div>
       )}
+
       {event.info && (
-        <div>
-          <span className="font-semibold text-sm">Additional info:</span>
-          <span className="text-xs sm:text-sm pl-1">{event.info}</span>
+        <div className="col-span-1">
+          <p className="text-slate-600 font-semibold text-md">Additional info</p>
+          <span className="text-xs md:text-md">{event.info}</span>
         </div>
       )}
     </div>
+
   );
 }

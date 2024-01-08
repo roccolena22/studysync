@@ -14,12 +14,12 @@ export default function DiscoverUsers({
 
   return (
     <>
-      <div className="relative h-24">
+      <div className="relative h-24 bg-white w-full rounded-lg shadow-xl py-4">
         <div className="w-full flex flex-col justify-between items-center">
           <p className="sm:text-lg font-semibold text-center">
             Discover new users to follow
           </p>
-          <div className="absolute bottom-0">
+          <div className="absolute bottom-4">
             <Button
               name="Discover"
               outline

@@ -14,7 +14,7 @@ export default function Button({
 
   return (
     <button
-      className={`rounded-md flex justify-center items-center ${buttonSize} ${buttonStyle}`}
+      className={`rounded-lg flex justify-center items-center ${buttonSize} ${buttonStyle}`}
       onClick={onClick}
       type={type}
     >

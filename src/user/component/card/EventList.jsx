@@ -6,6 +6,7 @@ import { addRecordToDatabase, deleteRecordFromDatabase, getListFromDatabase } fr
 import { useDispatch } from "react-redux";
 import { deleteEvent, setEvent } from "../../../redux/slices/eventsSlice";
 import { addBooking, deleteBooking, setBookings } from "../../../redux/slices/bookingsSlice";
+import { Link, useLocation } from "react-router-dom";
 
 export default function EventList({
   loggedUser,
@@ -13,9 +14,12 @@ export default function EventList({
   users,
   bookings,
 }) {
+
   const [searchedEvents, setSearchedEvents] = useState([]);
 
   const dispatch = useDispatch()
+  const location = useLocation();
+
 
   const handleSearch = (dataFromSearch) => {
     setSearchedEvents(dataFromSearch);
@@ -40,7 +44,6 @@ export default function EventList({
 
     const transformedEventsArray = transformArray(eventsFromDatabase);
     dispatch(setEvent(transformedEventsArray));
-
   };
 
   const fetchBookings = async () => {
@@ -88,7 +91,7 @@ export default function EventList({
     fetchBookings();
   }, [dispatch]);
 
-  const sortedEvents = events.sort((a, b) => {
+  const sortedEvents = events && events.sort((a, b) => {
     const dateA = new Date(`${a.endDate} ${a.endTime}`);
     const dateB = new Date(`${b.endDate} ${b.endTime}`);
     return dateA - dateB;
@@ -97,7 +100,7 @@ export default function EventList({
   return (
     <div>
       <div className="sticky top-20 w-full z-10">
-        {sortedEvents.length > 1 && (
+        {sortedEvents.length > 0 && (
           <SearchBar
             placeholder="Search by event date, title or author"
             data={sortedEvents}
@@ -135,6 +138,12 @@ export default function EventList({
           </div>
         )}
       </div>
+      {sortedEvents.length > 2 && location.pathname === "/" &&
+        <Link
+          to="/events">
+          <p className="text-cyan-700 pt-8 w-full flex justify-center">View all events...</p>
+        </Link>
+      }
     </div>
   );
 }

@@ -1,5 +1,5 @@
-import Badge from "../component/Badge";
 import AccountContentContainer from "../component/AccountContentContainer";
+import Badge from "../component/shared/Badge";
 import Title from "../component/shared/Title"
 
 export default function AccountPage({ loggedUser, users }) {

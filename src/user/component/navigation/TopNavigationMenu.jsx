@@ -21,14 +21,14 @@ export default function TopNavigationMenu({ toggleNavigationMenu }) {
           pathname="/"
         />
         <IconAndName
+          label="events"
+          iconName="calendar"
+          pathname="/events"
+        />
+         <IconAndName
           label="network"
           iconName="network"
           pathname="/network"
-        />
-        <IconAndName
-          label="calendar"
-          iconName="calendar"
-          pathname="/calendar"
         />
       </div>
       <div className="sm:hidden">

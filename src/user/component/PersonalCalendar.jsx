@@ -118,23 +118,9 @@ export default function PersonaleCalendar({ loggedUser, events }) {
           }}
         />
       </div>
-      {startDate && newEventPriorityPopup && (
+      {startDate && endDate && newEventPriorityPopup && (
         <PriorityPopup handleClose={handleNewEventPriorityPopup}>
-          <Title fontSize="text-lg">
-            <div className="flex flex-col sm:flex-row sm:justify-between w-full">
-              <p>New event</p>
-              <div className="flex flex-col items-start sm:flex-row  sm:space-x-2">
-                <div>
-                  <span className="text-green-600">Start:</span>
-                  <span className="pl-1">{startDate}</span>
-                </div>
-                <div>
-                  <span className="text-red-800">End:</span>
-                  <span className="pl-1">{endDate}</span>
-                </div>
-              </div>
-            </div>
-          </Title>
+          <Title fontSize="text-lg" title="New event" />
           <div className="pt-4">
             <AddEventForm
               loggedUser={loggedUser}
@@ -142,8 +128,6 @@ export default function PersonaleCalendar({ loggedUser, events }) {
               endDate={endDate}
               startTime={startTime}
               endTime={endTime}
-              setStartDate={setStartDate}
-              setEndDate={setEndDate}
               handleCreatedEventAlert={handleCreatedEventAlert}
             />
           </div>

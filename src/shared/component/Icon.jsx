@@ -17,6 +17,8 @@ import { HiUserGroup } from "react-icons/hi";
 import { AiOutlineEye } from "react-icons/ai";
 import { AiOutlineEyeInvisible } from "react-icons/ai";
 import { IoMdOpen } from "react-icons/io";
+import { CiGrid41 } from "react-icons/ci";
+import { FaRegCalendarPlus } from "react-icons/fa";
 
 export default function Icon({ name, style, color, onClick }) {
   const colorClass = color ? `text-${color}` : "text-cyan-700";
@@ -41,6 +43,10 @@ export default function Icon({ name, style, color, onClick }) {
     eye: <AiOutlineEye className={classNames} onClick={onClick} />,
     eyeInvisible: <AiOutlineEyeInvisible className={classNames} onClick={onClick} />,
     open: <IoMdOpen className={classNames} onClick={onClick} />,
+    grid: <CiGrid41 className={classNames} onClick={onClick} />,
+    addEvent: <FaRegCalendarPlus className={classNames} onClick={onClick} />,
+
+
 
   };
   return iconMapping[name];

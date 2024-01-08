@@ -16,15 +16,15 @@ export default function TabMenu({
     `w-1/2 cursor-pointer rounded-t-lg ${
       sectionIndex === 0
         ? index === sectionIndex
-          ? "p-2 bg-white rounded-r-lg  border border-cyan-700"
+          ? "p-2 bg-white rounded-r-lg shadow-xl"
           : "p-2"
         : index === sectionIndex
-        ? "p-2 bg-white rounded-l-lg border border-cyan-700"
+        ? "p-2 bg-white rounded-l-lg shadow-xl"
         : "p-2"
     }`;
 
   return (
-    <div className="w-full bg-slate-100 rounded-t-lg shadow-lg">
+    <div className="w-full bg-slate-50 rounded-t-lg">
       <div className="flex">
         <div onClick={() => handleIndex(0)} className={sectionClass(0)}>
           <p className="text-xs md:text-sm lg:text-lg px-2 sm:px-0">

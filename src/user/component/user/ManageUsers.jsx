@@ -17,7 +17,7 @@ export default function ManageUsers({
       .flat()
     : [];
 
-  const loggedUserFollowing = users.filter((user) =>
+  const loggedUserFollowing = users && users.filter((user) =>
     followingIds.includes(user.id)
   );
 
@@ -28,7 +28,7 @@ export default function ManageUsers({
       .flat()
     : [];
 
-  const loggedUserFollowers = users.filter((user) =>
+  const loggedUserFollowers = users && users.filter((user) =>
     followersIds.includes(user.id)
   );
 
@@ -37,22 +37,22 @@ export default function ManageUsers({
   };
 
   return (
-    <div className="relative h-24">
-      <div className="w-full flex flex-col items-center">
-        <div className="flex justify-around w-full space-x-2 sm:text-lg font-semibold">
-          <div className="space-x-1">
-            <span>Following:</span>
-            <span>{followingIds.length}</span>
-          </div>
-          <div className="space-x-1">
-            <span>Followers:</span>
-            <span>{followersIds.length}</span>
-          </div>
+    <div className="relative h-40 py-4 bg-white w-full p-3 rounded-lg shadow-xl">
+    <div className="w-full flex flex-col items-center">
+      <div className="flex justify-around w-full space-x-8 text-lg font-semibold">
+        <div className="flex flex-col items-center space-y-1">
+          <span className="text-slate-600">Following</span>
+          <span className="text-black">{followingIds.length}</span>
         </div>
-        <div className="absolute bottom-0">
-          <Button name="Manage" outline large onClick={handlePriorityPopup} />
+        <div className="flex flex-col items-center space-y-1">
+          <span className="text-slate-600">Followers</span>
+          <span className="text-black">{followersIds.length}</span>
         </div>
       </div>
+      <div className="absolute bottom-2">
+        <Button name="Manage" outline large onClick={handlePriorityPopup} />
+      </div>
+    </div>
 
       {PriorityPopupIsOpen && (
         <PriorityPopup handleClose={handlePriorityPopup}>

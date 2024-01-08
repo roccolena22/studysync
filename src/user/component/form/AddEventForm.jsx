@@ -12,9 +12,7 @@ import DetailsEventSection from "./component/DetailsEventSection";
 export default function AddEventForm({
   loggedUser,
   startDate,
-  setStartDate,
   endDate,
-  setEndDate,
   startTime,
   endTime,
   handleCreatedEventAlert,
@@ -32,26 +30,24 @@ export default function AddEventForm({
     defaultValues: {
       startTime: startTime,
       endTime: endTime,
+      startDate: startDate,
+      endDate: endDate
     },
   });
 
   const onSubmit = async (data) => {
     const fullEvent = {
       authorId: [loggedUser.id],
-      startDate,
-      endDate,
       ...data,
     };
     await addRecordToDatabase("events", fullEvent);
     dispatch(addEvent([fullEvent]));
     handleCreatedEventAlert()
-    setStartDate(null);
-    setEndDate(null);
     reset();
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full text-sm">
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input
           label="Event name"
@@ -59,8 +55,8 @@ export default function AddEventForm({
           register={register("title")}
           placeholder="Enter the name of the event?"
         />
-        <DetailsEventSection register={register} errors={errors} />
         <TimeEventSection register={register} errors={errors} />
+        <DetailsEventSection register={register} errors={errors} />
         <div className="flex justify-end pt-10">
           <Button type="submit" name="Create" />
         </div>

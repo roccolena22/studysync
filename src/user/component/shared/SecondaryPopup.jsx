@@ -4,7 +4,7 @@ import Title from "./Title";
 
 export default function SecondaryPopup({ children, handleClose, title }) {
   return (
-    <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-fit h-fit flex flex-col justify-center items-center bg-slate-100 z-[100] border border-cyan-700 rounded-lg shadow-lg">
+    <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-fit h-fit flex flex-col justify-center items-center bg-slate-100 z-[100] border border-cyan-700 rounded-lg shadow-xl">
       <div className="w-full">
         <div className="flex justify-end p-2 sticky top-0">
           <Icon

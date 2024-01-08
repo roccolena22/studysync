@@ -32,11 +32,13 @@ export default function FooterCard({
     setEditPriorityPopupIsOpen(!editPriorityPopupIsOpen);
   };
 
+  const currentDate = new Date();
+  const eventIsFinished = new Date(`${event.endDate} ${event.endTime}`) < currentDate
   return (
     <div className="flex space-x-2">
       {proproetaryEvent && !isUserBooked && (
         <>
-          <IconAndName iconName="edit" label="edit" onClick={toggleEditPriorityPopup} />
+          {!eventIsFinished && <IconAndName iconName="edit" label="edit" onClick={toggleEditPriorityPopup} />}
           <IconAndName
             iconName="delete"
             label="delete"
@@ -55,7 +57,7 @@ export default function FooterCard({
       )}
       {editPriorityPopupIsOpen && (
         <PriorityPopup handleClose={handleCloseEditPriorityPopup} title="Edit event">
-          {<EditEventForm event={selectedEvent} loggedUser={loggedUser} handleCloseEditPriorityPopup={handleCloseEditPriorityPopup} handleAlert={handleAlert} fetchEvents={fetchEvents}/>}
+          {<EditEventForm event={selectedEvent} loggedUser={loggedUser} handleCloseEditPriorityPopup={handleCloseEditPriorityPopup} handleAlert={handleAlert} fetchEvents={fetchEvents} />}
         </PriorityPopup>
       )}
       {showAlert && <Alert type="success" text="Modification successful!" onClose={handleAlert} />}

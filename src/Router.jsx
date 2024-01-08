@@ -4,11 +4,10 @@ import {
   Route,
   RouterProvider,
 } from "react-router-dom";
-import DashboardPage from "./user/page/DashboardPage";
 import AccountPage from "./user/page/AccountPage";
 import ErrorPage from "./user/page/error-page";
 import UserTemplate from "./shared/template/userTemplate/UserTemplate";
-import CalendarPage from "./user/page/CalendarPage";
+import EventsPage from "./user/page/EventsPage";
 import Login from "./guest/page/Login";
 import GuestTemplate from "./shared/template/guestTemplate/guestTemplate";
 import Registration from "./guest/page/Registration";
@@ -16,6 +15,7 @@ import NetworkPage from "./user/page/NetworkPage";
 import RecoveryPassword from "./guest/page/RecoveryPassword";
 import Protected from "./Protected";
 import { useSelector } from "react-redux";
+import DashboardPage from "./user/page/DashboardPage";
 
 const Router = () => {
   const loggedUser = useSelector((state) => state.auth.user);
@@ -23,7 +23,6 @@ const Router = () => {
   const users = useSelector((state)=> state.users);
   const events = useSelector((state)=> state.events);
   const bookings = useSelector((state)=> state.bookings);
-
 
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -60,10 +59,10 @@ const Router = () => {
             }
           />
           <Route
-            path="/calendar"
+            path="/events"
             element={
               <Protected isLogged={loggedUser}>
-                <CalendarPage loggedUser={loggedUser} bookings={bookings} events={events}/>
+                <EventsPage loggedUser={loggedUser} bookings={bookings} events={events} users={users}/>
               </Protected>
             }
           />

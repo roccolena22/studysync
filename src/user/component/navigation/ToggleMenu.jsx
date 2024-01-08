@@ -11,7 +11,7 @@ export default function ToggleMenu() {
         navigate("/login");
     };
     return (
-        <div className="bg-cyan-700 border-b border-l border-cyan-800 w-full flex space-x-5 p-4 rounded-bl-lg shadow-lg">
+        <div className="bg-cyan-700 border-b border-l border-cyan-800 w-full flex space-x-5 p-4 rounded-bl-lg shadow-xl">
             <IconAndName
                 label="account"
                 iconName="account"

@@ -18,7 +18,7 @@ export default function Input({
           value={value}
           type={type}
           placeholder={placeholder}
-          className="w-full focus:outline-none" />
+          className="w-full focus:outline-none bg-white" />
         {children}
       </div>
       <p className="text-red-500 mt-1">{errorMessage}</p>

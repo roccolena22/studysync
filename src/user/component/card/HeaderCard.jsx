@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Badge from "../Badge";
+import Badge from "../shared/Badge";
 import IconAndName from "../user/IconAndName";
 import UserDetails from "../user/UserDetails";
 import PriorityPopup from "../shared/PriorityPopup";

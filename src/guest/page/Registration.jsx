@@ -5,9 +5,7 @@ import GuestPageContainer from "../component/GuestPageContainer";
 export default function Registration() {
   return (
     <GuestPageContainer>
-      <div className="pb-4">
         <AppName name="StudySync" />
-      </div>
       <RegistrationForm />
     </GuestPageContainer>
   );
