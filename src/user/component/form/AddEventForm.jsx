@@ -8,6 +8,8 @@ import { useDispatch } from "react-redux";
 import { addEvent } from "../../../redux/slices/eventsSlice";
 import TimeEventSection from "./component/TimeEventSection";
 import DetailsEventSection from "./component/DetailsEventSection";
+import moment from "moment";
+
 
 export default function AddEventForm({
   loggedUser,
@@ -16,6 +18,7 @@ export default function AddEventForm({
   startTime,
   endTime,
   handleCreatedEventAlert,
+  handleClose
 }) {
 
   const dispatch = useDispatch();
@@ -30,8 +33,8 @@ export default function AddEventForm({
     defaultValues: {
       startTime: startTime,
       endTime: endTime,
-      startDate: startDate,
-      endDate: endDate
+      startDate: moment(startDate, "DD/MM/YYYY").format("YYYY-MM-DD"),
+      endDate: moment(endDate, "DD/MM/YYYY").format("YYYY-MM-DD"),
     },
   });
 
@@ -43,6 +46,7 @@ export default function AddEventForm({
     await addRecordToDatabase("events", fullEvent);
     dispatch(addEvent([fullEvent]));
     handleCreatedEventAlert()
+    handleClose()
     reset();
   };
 

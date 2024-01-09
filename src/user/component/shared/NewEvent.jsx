@@ -8,6 +8,7 @@ import Alert from "./Alert";
 export default function NewEvent({ loggedUser, name }) {
     const [newEventPriorityPopup, setNewEventPriorityPopup] = useState(false);
     const [showCreatedEventAlert, setShowCreatedEventAlert] = useState(false);
+    
 
     const handleNewEventPriorityPopup = () => {
         setNewEventPriorityPopup(!newEventPriorityPopup);
@@ -30,6 +31,7 @@ export default function NewEvent({ loggedUser, name }) {
                         <AddEventForm
                             loggedUser={loggedUser}
                             handleCreatedEventAlert={handleCreatedEventAlert}
+                            handleClose={handleNewEventPriorityPopup}                            
                         />
                     </div>
                 </PriorityPopup>

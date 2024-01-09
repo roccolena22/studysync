@@ -49,25 +49,6 @@ export default function PersonaleCalendar({ loggedUser, events }) {
     }
   };
 
-  const formattedEvents = events.map((originalEvent) => ({
-    title: originalEvent.title,
-    start: new Date(originalEvent.startDate + " " + originalEvent.startTime),
-    end: new Date(originalEvent.endDate + " " + originalEvent.endTime),
-    mode: originalEvent.mode,
-    firstName: originalEvent.firstName,
-    lastName: originalEvent.lastName,
-    email: originalEvent.email,
-    role: originalEvent.role,
-    authorId: originalEvent.authorId,
-    location: originalEvent.location,
-    platform: originalEvent.platform,
-    link: originalEvent.link,
-    startDate: originalEvent.startDate,
-    startTime: originalEvent.startTime,
-    endDate: originalEvent.endDate,
-    endTime: originalEvent.endTime,
-  }));
-
   const eventStyleGetter = (event) => {
     const style = {
       backgroundColor: event.authorId === loggedUser.id ? "#16A34A" : "#EA580C",
@@ -85,13 +66,14 @@ export default function PersonaleCalendar({ loggedUser, events }) {
     setNewEventPriorityPopup(!newEventPriorityPopup);
   };
 
-  const handleClosePopuo = () => {
+  const handleClosePopuop = () => {
     setEventSecondaryPopup(!eventSecondaryPopup);
   };
   const handleEventClick = (event) => {
     setSelectedEvent(event);
-    handleClosePopuo();
+    handleClosePopuop();
   };
+
 
   const EventInCalendar = ({ event }) => (
     <div onClick={() => handleEventClick(event)} className="w-full h-full">
@@ -103,7 +85,7 @@ export default function PersonaleCalendar({ loggedUser, events }) {
     <div className="w-full flex flex-col items-center">
       <div className="w-full">
         <Calendar
-          events={formattedEvents}
+          events={events}
           localizer={localizer}
           startAccessor="start"
           endAccessor="end"
@@ -125,17 +107,18 @@ export default function PersonaleCalendar({ loggedUser, events }) {
             <AddEventForm
               loggedUser={loggedUser}
               startDate={startDate}
-              endDate={endDate}
               startTime={startTime}
+              endDate={endDate}
               endTime={endTime}
               handleCreatedEventAlert={handleCreatedEventAlert}
+              handleClose={handleNewEventPriorityPopup}
             />
           </div>
         </PriorityPopup>
       )}
 
       {eventSecondaryPopup && (
-        <SecondaryPopup handleClose={handleClosePopuo}>
+        <SecondaryPopup handleClose={handleClosePopuop}>
           <SyntheticEventCard event={selectedEvent} />
         </SecondaryPopup>
       )}

@@ -12,7 +12,9 @@ import Gadget from "../component/user/Gadget";
 export default function DashboardPage({ loggedUser, users, followers, events, bookings }) {
   const [indexSection, setIndexSection] = useState(0);
   const [pastEvents, setPastEvents] = useState([]);
-  const [futureEvents, setFutureEvents] = useState([]);
+  const [activeEvents, setActiveEvents] = useState([]);
+  const [bookedEvents, setBookedEvents] = useState([]);
+
 
   const currentDate = new Date();
   const dispatch = useDispatch()
@@ -30,12 +32,13 @@ export default function DashboardPage({ loggedUser, users, followers, events, bo
       console.error("Error retrieving followers from database", error);
     }
   };
+  
   useEffect(() => {
     fetchFollowers()
   }, []);
 
   useEffect(() => {
-    const handleBookedEvents = async () => { //questa logica è già presnte in eventPage
+    const handleBookedEvents = async () => { 
       const eventsByBooked = events && events.filter((event) => {
         if (event.bookingsRecordId) {
           return event.bookingsRecordId.some((bookingId) =>
@@ -47,18 +50,21 @@ export default function DashboardPage({ loggedUser, users, followers, events, bo
         }
         return false;
       });
+
+      setBookedEvents(eventsByBooked)
+
       const eventsByAuthor = events && events.filter(
         (event) => event.authorId === loggedUser.id
       );
 
-      const nextEventsFiltered = eventsByAuthor.filter(
+      const activeEventsFiltered = eventsByAuthor.filter(
         (event) => new Date(`${event.endDate} ${event.endTime}`) >= currentDate
       );
       const pastEventsFiltered = eventsByAuthor.filter(
         (event) => new Date(`${event.endDate} ${event.endTime}`) < currentDate
       );
 
-      setFutureEvents(nextEventsFiltered);
+      setActiveEvents(activeEventsFiltered);
       setPastEvents(pastEventsFiltered);
     };
 
@@ -79,15 +85,15 @@ export default function DashboardPage({ loggedUser, users, followers, events, bo
             loggedUser={loggedUser}
           />
           <div className="grid grid-cols-1 gap-2">
-            <Gadget title="Today's events:" value="62" />
-            <Gadget title="The next event is in:" value="6 hours" />
+            <Gadget title="Today's events:" value="0" />
+            <Gadget title="The next event is in:" value="you don't have any events" />
           </div>
 
         </div>
         <div className="grid gap-2 sm:grid-cols-3 w-full">
-          <Gadget title="Next events:" value={events && futureEvents.length} />
-          <Gadget title="Events created by me:" value={loggedUser.eventIds && loggedUser.eventIds.length} />
-          <Gadget title="Events I am booked for:" value={events && futureEvents.length} />
+          <Gadget title="My active events:" value={events ? activeEvents.length : "0"} />
+          <Gadget title="Events I am booked for:" value={bookedEvents ? bookedEvents.length : "0"} />
+          <Gadget title="All events created by me:" value={loggedUser.eventIds ? loggedUser.eventIds.length : "0"} />
         </div>
       </div>
       <div className="w-full pt-10">
@@ -101,7 +107,7 @@ export default function DashboardPage({ loggedUser, users, followers, events, bo
         {indexSection === 0 ? (
           <EventList
             loggedUser={loggedUser}
-            events={futureEvents}
+            events={activeEvents}
             users={users}
             bookings={bookings}
           />

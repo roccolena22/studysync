@@ -4,23 +4,22 @@ export default function TabMenu({
   firstSectionName,
   secondSectionName,
   handleSections,
+  indexClicked
 }) {
-  const [index, setIndex] = useState(0);
-
+  const [index, setIndex] = useState(indexClicked ? indexClicked : 0);
   const handleIndex = (index) => {
     setIndex(index);
     handleSections(index);
   };
-
   const sectionClass = (sectionIndex) =>
-    `w-1/2 cursor-pointer rounded-t-lg ${
-      sectionIndex === 0
-        ? index === sectionIndex
-          ? "p-2 bg-white rounded-r-lg shadow-xl"
-          : "p-2"
-        : index === sectionIndex
-        ? "p-2 bg-white rounded-l-lg shadow-xl"
-        : "p-2"
+    `w-1/2 cursor-pointer rounded-t-lg shadow-xl ${
+       index === sectionIndex
+        ?
+         "p-2 bg-white"
+          
+        : 
+        "p-2 bg-salte-50"
+       
     }`;
 
   return (

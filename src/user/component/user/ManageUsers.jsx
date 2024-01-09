@@ -1,7 +1,6 @@
 import { useState } from "react";
-import Button from "../../../shared/component/Button";
-import PriorityPopup from "../shared/PriorityPopup";
 import FollowerAndFollowed from "./FollowerAndFolowed";
+import PriorityPopup from "../shared/PriorityPopup";
 
 export default function ManageUsers({
   users,
@@ -9,6 +8,7 @@ export default function ManageUsers({
   followers,
 }) {
   const [PriorityPopupIsOpen, setPriorityPopupIsOpen] = useState(false);
+  const [indexClicked, setIndexClicked] = useState(0)
 
   const followingIds = followers
     ? followers
@@ -32,27 +32,23 @@ export default function ManageUsers({
     followersIds.includes(user.id)
   );
 
-  const handlePriorityPopup = () => {
+  const handlePriorityPopup = (index) => {
     setPriorityPopupIsOpen(!PriorityPopupIsOpen);
-  };
+    setIndexClicked(index)
 
+  };
   return (
-    <div className="relative h-42 py-4 bg-white w-full p-3 rounded-lg shadow-xl">
-    <div className="w-full flex flex-col items-center">
-      <div className="flex justify-around w-full space-x-8 text-lg font-semibold">
-        <div className="flex flex-col items-center space-y-1">
+    <div className="w-full flex items-center bg-white rounded-lg shadow-xl p-2 sm:p-0 space-x-4">
+      <div className="flex justify-around w-full text-lg font-semibold items-center">
+        <div className="flex flex-col items-center space-y-1 border border-slate-600 hover:border-cyan-700 hover:bg-slate-50 rounded-lg p-2 sm:p-4 cursor-pointer" onClick={() => handlePriorityPopup(0)}>
           <span className="text-slate-600">Following</span>
           <span className="text-black">{followingIds.length}</span>
         </div>
-        <div className="flex flex-col items-center space-y-1">
+        <div className="flex flex-col items-center space-y-1 border border-slate-600 hover:border-cyan-700 hover:bg-slate-50 rounded-lg p-2 sm:p-4 cursor-pointer" onClick={() => handlePriorityPopup(1)}>
           <span className="text-slate-600">Followers</span>
           <span className="text-black">{followersIds.length}</span>
         </div>
       </div>
-      <div className="absolute bottom-2">
-        <Button name="Manage" outline large onClick={handlePriorityPopup} />
-      </div>
-    </div>
 
       {PriorityPopupIsOpen && (
         <PriorityPopup handleClose={handlePriorityPopup}>
@@ -60,6 +56,7 @@ export default function ManageUsers({
             loggedUserFollowing={loggedUserFollowing}
             loggedUserFollowers={loggedUserFollowers}
             loggedUser={loggedUser}
+            indexClicked={indexClicked}
           />
         </PriorityPopup>
       )}

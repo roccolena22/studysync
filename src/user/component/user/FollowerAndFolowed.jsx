@@ -1,16 +1,14 @@
 import { useState } from "react";
 import TabMenu from "../navigation/TabMenu";
 import UsersList from "./UserList";
-import { useDispatch } from "react-redux";
 
 export default function FollowerAndFollowed({
   loggedUserFollowing,
   loggedUserFollowers,
   loggedUser,
+  indexClicked,
 }) {
-  const [indexSection, setIndexSection] = useState(0);
-
-  const dispatch = useDispatch()
+  const [indexSection, setIndexSection] = useState(indexClicked);
 
   const handleSections = (index) => {
     setIndexSection(index);
@@ -22,6 +20,7 @@ export default function FollowerAndFollowed({
         firstSectionName="Following"
         secondSectionName="Followers"
         handleSections={handleSections}
+        indexClicked={indexClicked}
       />
       {indexSection === 0 ? (
         <UsersList

@@ -25,11 +25,11 @@ export default function EventDetails({ event }) {
   }
 
   return (
-    <div className="grid grid-cols-2 w-full">
-      <div className="col-span-1 py-4">
+    <div className=" w-full">
+      <div className=" py-4">
         <p className="font-bold">{event.title}</p>
       </div>
-      <div className="col-span-2 grid grid-cols-2">
+      <div className="">
         <div>
           <p className="text-slate-600 font-semibold text-md">Start</p>
           <div className="flex space-x-1">
@@ -44,7 +44,7 @@ export default function EventDetails({ event }) {
         </div>
       </div>
 
-      <div className="col-span-2 grid grid-cols-2">
+      <div className="">
         <div>
           <p className="text-slate-600 font-semibold text-md">Mode</p>
           <span className="text-xs md:text-md">{event.mode}</span>
@@ -67,14 +67,14 @@ export default function EventDetails({ event }) {
       </div>
 
       {event.platform && (
-        <div className="col-span-1">
+        <div className="">
           <p className="text-slate-600 font-semibold text-md">Link</p>
           <a href={event.link} className="text-xs md:text-md text-cyan-700 cursor-pointer underline">{event.link}</a>
         </div>
       )}
 
       {event.info && (
-        <div className="col-span-1">
+        <div className="">
           <p className="text-slate-600 font-semibold text-md">Additional info</p>
           <span className="text-xs md:text-md">{event.info}</span>
         </div>

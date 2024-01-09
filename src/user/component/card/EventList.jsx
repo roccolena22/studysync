@@ -6,7 +6,6 @@ import { addRecordToDatabase, deleteRecordFromDatabase, getListFromDatabase } fr
 import { useDispatch } from "react-redux";
 import { deleteEvent, setEvent } from "../../../redux/slices/eventsSlice";
 import { addBooking, deleteBooking, setBookings } from "../../../redux/slices/bookingsSlice";
-import { Link, useLocation } from "react-router-dom";
 
 export default function EventList({
   loggedUser,
@@ -16,9 +15,7 @@ export default function EventList({
 }) {
 
   const [searchedEvents, setSearchedEvents] = useState([]);
-
   const dispatch = useDispatch()
-  const location = useLocation();
 
 
   const handleSearch = (dataFromSearch) => {
@@ -138,12 +135,6 @@ export default function EventList({
           </div>
         )}
       </div>
-      {sortedEvents.length > 2 && location.pathname === "/" &&
-        <Link
-          to="/events">
-          <p className="text-cyan-700 pt-8 w-full flex justify-center">View all events...</p>
-        </Link>
-      }
     </div>
   );
 }
