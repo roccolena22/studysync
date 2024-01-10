@@ -15,10 +15,8 @@ export default function DashboardPage({ loggedUser, users, followers, events, bo
   const [activeEvents, setActiveEvents] = useState([]);
   const [bookedEvents, setBookedEvents] = useState([]);
 
-
   const currentDate = new Date();
   const dispatch = useDispatch()
-
 
   const handleSections = (index) => {
     setIndexSection(index);
@@ -35,7 +33,7 @@ export default function DashboardPage({ loggedUser, users, followers, events, bo
   
   useEffect(() => {
     fetchFollowers()
-  }, []);
+  }, [events, users, bookings, loggedUser]);
 
   useEffect(() => {
     const handleBookedEvents = async () => { 
@@ -90,10 +88,9 @@ export default function DashboardPage({ loggedUser, users, followers, events, bo
           </div>
 
         </div>
-        <div className="grid gap-2 sm:grid-cols-3 w-full">
+        <div className="grid gap-2 sm:grid-cols-2 w-full">
           <Gadget title="My active events:" value={events ? activeEvents.length : "0"} />
           <Gadget title="Events I am booked for:" value={bookedEvents ? bookedEvents.length : "0"} />
-          <Gadget title="All events created by me:" value={loggedUser.eventIds ? loggedUser.eventIds.length : "0"} />
         </div>
       </div>
       <div className="w-full pt-10">

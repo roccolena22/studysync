@@ -36,26 +36,29 @@ export default function SearchBar({ placeholder, data, dataFromSearch }) {
 
   return (
     <div className="shadow-xl flex space-x-2 sm:space-x-4 items-center w-full bg-white rounded-b-2xl p-4">
-        <Input
+      <div className="flex items-center border border-slate-400 rounded-lg py-2 w-full bg-white">
+        <input
           placeholder={placeholder}
           value={searchTerm}
           onChange={handleInputChange}
+          className="w-full focus:outline-none bg-white px-1"
         />
-        <div>
-          {isSearching ? (
-            <Icon
-              name="close"
-              onClick={clearSearch}
-              style="cursor-pointer"
-            />
-          ) : (
-            <Icon
-              name="search"
-              onClick={filterData}
-              style="cursor-pointer"
-            />
-          )}
-        </div>
+      </div>
+      <div>
+        {isSearching ? (
+          <Icon
+            name="close"
+            onClick={clearSearch}
+            style="cursor-pointer"
+          />
+        ) : (
+          <Icon
+            name="search"
+            onClick={filterData}
+            style="cursor-pointer"
+          />
+        )}
+      </div>
     </div>
   );
 }

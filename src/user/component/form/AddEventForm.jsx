@@ -10,7 +10,6 @@ import TimeEventSection from "./component/TimeEventSection";
 import DetailsEventSection from "./component/DetailsEventSection";
 import moment from "moment";
 
-
 export default function AddEventForm({
   loggedUser,
   startDate,
@@ -18,10 +17,11 @@ export default function AddEventForm({
   startTime,
   endTime,
   handleCreatedEventAlert,
-  handleClose
+  handleClose,
+  handleNoValidDateAlert
 }) {
-
   const dispatch = useDispatch();
+  const currentDate = new Date();
 
   const {
     handleSubmit,
@@ -39,16 +39,26 @@ export default function AddEventForm({
   });
 
   const onSubmit = async (data) => {
+    const start = new Date(data.startDate + " " + data.startTime);
+    const end = new Date(data.endDate + " " + data.endTime);
+  
+    if (start < currentDate || end <= currentDate || start >= end) {
+      handleNoValidDateAlert();
+      return;
+    }
+  
     const fullEvent = {
       authorId: [loggedUser.id],
       ...data,
     };
+  
     await addRecordToDatabase("events", fullEvent);
     dispatch(addEvent([fullEvent]));
-    handleCreatedEventAlert()
-    handleClose()
+    handleCreatedEventAlert();
+    handleClose();
     reset();
   };
+  
 
   return (
     <div className="w-full text-sm">
@@ -59,7 +69,7 @@ export default function AddEventForm({
           register={register("title")}
           placeholder="Enter the name of the event?"
         />
-        <TimeEventSection register={register} errors={errors} />
+        <TimeEventSection register={register} errors={errors}/>
         <DetailsEventSection register={register} errors={errors} />
         <div className="flex justify-end pt-10">
           <Button type="submit" name="Create" />

@@ -1,6 +1,6 @@
 import Input from "../../../../shared/component/Input";
 
-export default function TimeEventSection({ register, errors }) {
+export default function TimeEventSection({ register, errors, defaultEndDate }) {
   return (
     <>
       <div className="flex space-x-2 sm:space-x-4">
@@ -15,10 +15,10 @@ export default function TimeEventSection({ register, errors }) {
           errorMessage={errors.startTime?.message}
           register={register("startTime")}
           type="time"
+          defaultValue={defaultEndDate}
         />
       </div>
       <div className="flex space-x-2 sm:space-x-4">
-
         <Input
           label="End date"
           errorMessage={errors.endDate?.message}

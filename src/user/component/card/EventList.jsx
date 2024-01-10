@@ -17,7 +17,6 @@ export default function EventList({
   const [searchedEvents, setSearchedEvents] = useState([]);
   const dispatch = useDispatch()
 
-
   const handleSearch = (dataFromSearch) => {
     setSearchedEvents(dataFromSearch);
   };

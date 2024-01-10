@@ -9,7 +9,7 @@ import { updateDatabaseRecord } from "../../../api/apiRequest";
 import TimeEventSection from "./component/TimeEventSection";
 import DetailsEventSection from "./component/DetailsEventSection";
 
-export default function EditEventForm({ event, loggedUser, handleCloseEditPriorityPopup, handleAlert, fetchEvents }) {
+export default function EditEventForm({ event, loggedUser, handleCloseEditPriorityPopup, handleAlert, fetchEvents, handleNoValidDateAlert }) {
   const dispatch = useDispatch()
   const {
     handleSubmit,
@@ -32,7 +32,17 @@ export default function EditEventForm({ event, loggedUser, handleCloseEditPriori
     },
   });
 
+  const currentDate = new Date();
+
+
   const onSubmit = async (data) => {
+    const start = new Date(data.startDate + " " + data.startTime);
+    const end = new Date(data.endDate + " " + data.endTime);
+
+    if (start < currentDate || end <= currentDate || start >= end) {
+      handleNoValidDateAlert();
+      return;
+    }
     const editedData = {
       authorId: [loggedUser.id],
       title: data.title,
@@ -70,7 +80,7 @@ export default function EditEventForm({ event, loggedUser, handleCloseEditPriori
           placeholder="Enter the name of the event?"
         />
         <TimeEventSection register={register} errors={errors} />
-        <DetailsEventSection register={register} errors={errors}/>
+        <DetailsEventSection register={register} errors={errors} />
         <div className="flex justify-end pb-4">
           <Button type="submit" name="Save" />
         </div>

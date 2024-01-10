@@ -4,9 +4,6 @@ export default function Input({
   errorMessage,
   type = "text",
   register,
-  children,
-  onChange,
-  value,
 }) {
   return (
     <div className="py-2 w-full">
@@ -14,12 +11,9 @@ export default function Input({
       <div className="flex items-center border border-slate-400 rounded-lg px-3 py-2 w-full bg-white">
         <input
           {...register}
-          onChange={onChange}
-          value={value}
           type={type}
           placeholder={placeholder}
           className="w-full focus:outline-none bg-white" />
-        {children}
       </div>
       <p className="text-red-500 mt-1">{errorMessage}</p>
     </div>

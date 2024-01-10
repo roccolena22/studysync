@@ -18,6 +18,13 @@ export default function FooterCard({
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [editPriorityPopupIsOpen, setEditPriorityPopupIsOpen] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
+  const [showNoValidDateAlert, setShowNoValidDateAlert] = useState(false);
+
+  const currentDate = new Date();
+
+  const handleNoValidDateAlert = () => {
+    setShowNoValidDateAlert(!showNoValidDateAlert);
+  };
 
   const handleAlert = () => {
     setShowAlert(!showAlert);
@@ -32,7 +39,6 @@ export default function FooterCard({
     setEditPriorityPopupIsOpen(!editPriorityPopupIsOpen);
   };
 
-  const currentDate = new Date();
   const eventIsFinished = new Date(`${event.endDate} ${event.endTime}`) < currentDate
   return (
     <div className="flex space-x-2">
@@ -57,10 +63,17 @@ export default function FooterCard({
       )}
       {editPriorityPopupIsOpen && (
         <PriorityPopup handleClose={handleCloseEditPriorityPopup} title="Edit event">
-          {<EditEventForm event={selectedEvent} loggedUser={loggedUser} handleCloseEditPriorityPopup={handleCloseEditPriorityPopup} handleAlert={handleAlert} fetchEvents={fetchEvents} />}
+          {<EditEventForm
+           event={selectedEvent} 
+           loggedUser={loggedUser} 
+           handleCloseEditPriorityPopup={handleCloseEditPriorityPopup}
+            handleAlert={handleAlert} 
+            handleNoValidDateAlert={handleNoValidDateAlert}
+            fetchEvents={fetchEvents} />}
         </PriorityPopup>
       )}
       {showAlert && <Alert type="success" text="Modification successful!" onClose={handleAlert} />}
+      {showNoValidDateAlert && <Alert text="Something is wrong with the dates you chose." type="alert" onClose={() => setShowNoValidDateAlert(false)} />}
     </div>
   );
 }

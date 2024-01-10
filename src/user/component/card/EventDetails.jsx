@@ -1,10 +1,12 @@
 import moment from "moment";
+import EventItem from "./EventItem";
 
 export default function EventDetails({ event }) {
-  const startDate = moment(`${event.startDate} ${event.startTime}`, "MM/DD/YYYY HH:mm");
-  const endDate = moment(`${event.endDate} ${event.endTime}`, "MM/DD/YYYY HH:mm");
-  const duration = moment.duration(endDate.diff(startDate));
+  const startDateToView = `${event.startDate} ${event.startTime}`;
 
+  const startDate = moment(`${startDateToView}`, "YYYY-MM-DD HH:mm");
+  const endDate = moment(`${event.endDate} ${event.endTime}`, "YYYY-MM-DD HH:mm");
+  const duration = moment.duration(endDate.diff(startDate));
 
   let formattedDuration = '';
 
@@ -25,61 +27,35 @@ export default function EventDetails({ event }) {
   }
 
   return (
-    <div className=" w-full">
-      <div className=" py-4">
-        <p className="font-bold">{event.title}</p>
-      </div>
-      <div className="">
-        <div>
-          <p className="text-slate-600 font-semibold text-md">Start</p>
-          <div className="flex space-x-1">
-            <span className="text-xs md:text-md">{event.startDate}</span>
-            <span className="text-xs md:text-md">{event.startTime}</span>
-          </div>
-
-        </div>
-        <div>
-          <p className="text-slate-600 font-semibold text-md">Duration</p>
-          <span className="text-xs md:text-md">{formattedDuration}</span>
-        </div>
-      </div>
-
-      <div className="">
-        <div>
-          <p className="text-slate-600 font-semibold text-md">Mode</p>
-          <span className="text-xs md:text-md">{event.mode}</span>
-        </div>
-
-        <div>
-          {event.location && (
-            <div>
-              <p className="text-slate-600 font-semibold text-md">Location</p>
-              <span className="text-xs md:text-md">{event.location}</span>
-            </div>
-          )}
-          {event.platform && (
-            <div>
-              <p className="text-slate-600 font-semibold text-md">Platform</p>
-              <span className="text-xs md:text-md">{event.platform}</span>
-            </div>
-          )}
-        </div>
-      </div>
-
+    <div className="w-full">
+    <p className="font-bold py-4">{event.title}</p>
+  
+    <div className="">
+      <EventItem label="Start" value={startDateToView} />
+      <EventItem label="Duration" value={formattedDuration} />
+      <EventItem label="Mode" value={event.mode} />
+  
+      {event.location && (
+        <EventItem label="Location" value={event.location} />
+      )}
+  
       {event.platform && (
-        <div className="">
+        <EventItem label="Platform" value={event.platform} />
+      )}
+  
+      {event.platform && (
+        <div>
           <p className="text-slate-600 font-semibold text-md">Link</p>
           <a href={event.link} className="text-xs md:text-md text-cyan-700 cursor-pointer underline">{event.link}</a>
         </div>
       )}
-
+  
       {event.info && (
-        <div className="">
-          <p className="text-slate-600 font-semibold text-md">Additional info</p>
-          <span className="text-xs md:text-md">{event.info}</span>
-        </div>
+        <EventItem label="Additional Info" value={event.info} />
       )}
     </div>
+  </div>
+  
 
   );
 }

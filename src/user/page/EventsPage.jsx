@@ -38,6 +38,7 @@ export default function EventsPage({ loggedUser, events, bookings, users }) {
     );
     const allEvents = [...activeEventsByUser, ...activeEventUserBooked];
     const formattedEvents = allEvents && allEvents.map((event) => ({
+      id: event.id,
       title: event.title,
       start: new Date(event.startDate + " " + event.startTime),
       end: new Date(event.endDate + " " + event.endTime),
@@ -75,12 +76,13 @@ export default function EventsPage({ loggedUser, events, bookings, users }) {
         </div>
       </Title>
       <div className="w-full">
-        {indexSection === 0 ? (<EventList
-          loggedUser={loggedUser}
-          events={calendarEvents}
-          users={users}
-          bookings={bookings}
-        />) : (
+        {indexSection === 0 ? (
+          <EventList
+            loggedUser={loggedUser}
+            events={calendarEvents}
+            users={users}
+            bookings={bookings}
+          />) : (
           (
             <div className="flex flex-col items-center pt-8">
               <div className="pb-6">

@@ -21,14 +21,15 @@ export default function PersonaleCalendar({ loggedUser, events }) {
   const localizer = momentLocalizer(moment);
   const [showCreatedEventAlert, setShowCreatedEventAlert] = useState(false);
   const [showNoValidDateAlert, setShowNoValidDateAlert] = useState(false);
-
+  
+  const handleNoValidDateAlert = () => {
+    setShowNoValidDateAlert(!showNoValidDateAlert);
+  };
   const handleCreatedEventAlert = () => {
     setShowCreatedEventAlert(!showCreatedEventAlert);
   };
 
-  const handleNoValidDateAlert = () => {
-    setShowNoValidDateAlert(!showNoValidDateAlert);
-  };
+  
 
   const handleSelectSlot = (slotInfo) => {
     const startDateFormatted = moment(slotInfo.start).toDate();
@@ -92,7 +93,7 @@ export default function PersonaleCalendar({ loggedUser, events }) {
           selectable={true}
           onSelectSlot={handleSelectSlot}
           views={["month", "week", "day"]}
-          defaultView="week"
+          defaultView="month"
           style={{ height: 500 }}
           eventPropGetter={eventStyleGetter}
           components={{
