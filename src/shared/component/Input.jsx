@@ -4,6 +4,7 @@ export default function Input({
   errorMessage,
   type = "text",
   register,
+  children,
 }) {
   return (
     <div className="py-2 w-full">
@@ -14,6 +15,7 @@ export default function Input({
           type={type}
           placeholder={placeholder}
           className="w-full focus:outline-none bg-white" />
+        {children}
       </div>
       <p className="text-red-500 mt-1">{errorMessage}</p>
     </div>
