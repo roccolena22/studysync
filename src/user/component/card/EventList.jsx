@@ -93,16 +93,18 @@ export default function EventList({
   });
 
   return (
-    <div className="bg-white shadow-xl px-6 rounded-b-lg">
+    <div className="bg-white shadow-xl px-6 rounded-b-lg flex items-center">
+            {sortedEvents.length > 0 && (
+
       <div className="sticky top-20 w-full z-10">
-        {sortedEvents.length > 0 && (
           <SearchBar
             placeholder="Search by event date, title or author"
             data={sortedEvents}
             dataFromSearch={handleSearch}
           />
-        )}
+      
       </div>
+      )}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 py-6">
         {(searchedEvents.length > 0 ? searchedEvents : sortedEvents).map(
           (event, index) => (
@@ -127,11 +129,11 @@ export default function EventList({
             </div>
           )
         )}
-        {(events.length <= 0) && (
-          <span className="text-lg text-gray-400">No events to show</span>
-
-        )}
+        
       </div>
+      {(events.length <= 0) && (
+          <span className="text-lg text-gray-500">No events to show</span>
+        )}
     </div>
   );
 }

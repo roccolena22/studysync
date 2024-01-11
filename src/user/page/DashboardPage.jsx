@@ -30,13 +30,13 @@ export default function DashboardPage({ loggedUser, users, followers, events, bo
       console.error("Error retrieving followers from database", error);
     }
   };
-  
+
   useEffect(() => {
     fetchFollowers()
   }, [events, users, bookings, loggedUser]);
 
   useEffect(() => {
-    const handleBookedEvents = async () => { 
+    const handleBookedEvents = async () => {
       const eventsByBooked = events && events.filter((event) => {
         if (event.bookingsRecordId) {
           return event.bookingsRecordId.some((bookingId) =>
@@ -93,13 +93,16 @@ export default function DashboardPage({ loggedUser, users, followers, events, bo
           <Gadget title="Events I am booked for:" value={bookedEvents ? bookedEvents.length : "0"} />
         </div>
       </div>
-      <div className="w-full pt-10">
-        <TabMenu
-          firstSectionName="Active events"
-          secondSectionName="Past events"
-          handleSections={handleSections}
-        />
-      </div>
+      
+        <div className="w-full pt-10">
+          <TabMenu
+            firstSectionName="Active events"
+            secondSectionName="Past events"
+            handleSections={handleSections}
+          />
+        </div>
+      
+
       <div className="w-full">
         {indexSection === 0 ? (
           <EventList

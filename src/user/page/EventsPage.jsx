@@ -9,7 +9,7 @@ import NewEvent from "../component/shared/NewEvent";
 
 export default function EventsPage({ loggedUser, events, bookings, users }) {
   const [calendarEvents, setCalendarEvents] = useState([]);
-  const [indexSection, setIndexSection] = useState(0);
+  const [indexSection, setIndexSection] = useState(calendarEvents.length > 0 ? 0 : 1);
 
   const currentDate = new Date();
 
@@ -72,7 +72,7 @@ export default function EventsPage({ loggedUser, events, bookings, users }) {
       <Title title="Events" >
         <div className="flex items-center space-x-4">
           <NewEvent loggedUser={loggedUser} name="New event" />
-          <SwitchTab firstItem="grid" secondItem="calendar" handleSections={handleSections} />
+          <SwitchTab firstItem="grid" secondItem="calendar" handleSections={handleSections} indexSection={indexSection} />
         </div>
       </Title>
       <div className="w-full">

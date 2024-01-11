@@ -18,7 +18,7 @@ export default function TabMenu({
          "p-2 bg-white text-cyan-700"
           
         : 
-        "p-2 bg-gray-100"
+        "p-2 bg-gray-50"
        
     }`;
 

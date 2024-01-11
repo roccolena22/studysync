@@ -90,7 +90,7 @@ export default function UsersList({
             </div>
           )
         )}
-        {usersToSearch.length === 0 && <p className="text-lg gray-400">No users to show</p>}
+        {usersToSearch.length === 0 && <p className="text-lg gray-500">No users to show</p>}
       </div>
     </div>
   );
