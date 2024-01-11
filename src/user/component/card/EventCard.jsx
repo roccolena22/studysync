@@ -32,7 +32,7 @@ export default function EventCard({
   }, [event, bookings]);
 
   const proproetaryEvent = loggedUser.id === event.authorId;
-
+console.log(event)
   return (
     <>
       <div className="w-full h-80 relative rounded-lg p-3 bg-gray-50 shadow-xl">

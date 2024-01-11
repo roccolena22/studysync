@@ -7,7 +7,7 @@ import { editEvent } from "../../../redux/slices/eventsSlice";
 import { useDispatch } from "react-redux";
 import { updateDatabaseRecord } from "../../../api/apiRequest";
 import TimeEventSection from "./component/TimeEventSection";
-import DetailsEventSection from "./component/DetailsEventSection";
+import DetailsEventInForm from "./component/DetailsEventInForm";
 
 export default function EditEventForm({ event, loggedUser, handleCloseEditPriorityPopup, handleAlert, fetchEvents, handleNoValidDateAlert }) {
   const dispatch = useDispatch()
@@ -80,7 +80,7 @@ export default function EditEventForm({ event, loggedUser, handleCloseEditPriori
           placeholder="Enter the name of the event?"
         />
         <TimeEventSection register={register} errors={errors} />
-        <DetailsEventSection register={register} errors={errors} />
+        <DetailsEventInForm register={register} errors={errors} />
         <div className="flex justify-end pb-4">
           <Button type="submit" name="Save" />
         </div>

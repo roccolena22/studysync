@@ -30,7 +30,7 @@ export default function UserTemplate() {
           <ToggleMenu />
         </div>
       )}
-      <div className="flex-grow w-full xl:w-3/5 px-6 md:px-8 lg:px-10 xl:px-0">
+      <div className="flex-grow w-full xl:w-3/5 px-6 pb-4 md:px-8 lg:px-10 xl:px-0">
         <Outlet />
       </div>
       <div className="md:hidden sticky bottom-0 z-20 w-full">

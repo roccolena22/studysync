@@ -94,7 +94,7 @@ export default function EventList({
   });
 
   return (
-    <div className="bg-white shadow-xl px-6 min-h-screen h-full">
+    <div className="bg-white shadow-xl px-6 rounded-b-lg">
       <div className="sticky top-20 w-full z-10">
         {sortedEvents.length > 0 && (
           <SearchBar
@@ -129,9 +129,8 @@ export default function EventList({
           )
         )}
         {(events.length <= 0) && (
-          <div className="col-span-2">
-            <NoEvents />
-          </div>
+          <span className="text-lg text-gray-400">No events to show</span>
+
         )}
       </div>
     </div>

@@ -7,7 +7,7 @@ import { addRecordToDatabase } from "../../../api/apiRequest";
 import { useDispatch } from "react-redux";
 import { addEvent } from "../../../redux/slices/eventsSlice";
 import TimeEventSection from "./component/TimeEventSection";
-import DetailsEventSection from "./component/DetailsEventSection";
+import DetailsEventInForm from "./component/DetailsEventInForm";
 import moment from "moment";
 
 export default function AddEventForm({
@@ -39,6 +39,7 @@ export default function AddEventForm({
   });
 
   const onSubmit = async (data) => {
+    console.log(data)
     const start = new Date(data.startDate + " " + data.startTime);
     const end = new Date(data.endDate + " " + data.endTime);
   
@@ -70,7 +71,7 @@ export default function AddEventForm({
           placeholder="Enter the name of the event?"
         />
         <TimeEventSection register={register} errors={errors}/>
-        <DetailsEventSection register={register} errors={errors} />
+        <DetailsEventInForm register={register} errors={errors} />
         <div className="flex justify-end pt-10">
           <Button type="submit" name="Create" />
         </div>

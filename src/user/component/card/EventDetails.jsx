@@ -28,9 +28,8 @@ export default function EventDetails({ event }) {
 
   return (
     <div className="w-full">
-    <p className="font-bold py-4">{event.title}</p>
-  
-    <div className="">
+    <p className="font-bold py-4 text-lg">{event.title}</p>
+    <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
       <EventItem label="Start" value={startDateToView} />
       <EventItem label="Duration" value={formattedDuration} />
       <EventItem label="Mode" value={event.mode} />
@@ -43,19 +42,19 @@ export default function EventDetails({ event }) {
         <EventItem label="Platform" value={event.platform} />
       )}
   
-      {event.platform && (
+      {event.platform && event.link && (
         <div>
-          <p className="text-gray-600 font-semibold text-md">Link</p>
+          <p className="text-gray-600 font-semibold sm:text-lg">Link</p>
           <a href={event.link} className="text-xs md:text-md text-cyan-700 cursor-pointer underline">{event.link}</a>
         </div>
       )}
   
-      {event.info && (
+    
+    </div>
+    {event.info && (
         <EventItem label="Additional Info" value={event.info} />
       )}
-    </div>
   </div>
   
-
-  );
+  )
 }
