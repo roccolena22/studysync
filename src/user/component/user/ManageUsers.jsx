@@ -40,12 +40,12 @@ export default function ManageUsers({
   return (
     <div className="w-full flex items-center bg-white rounded-lg shadow-xl p-2 sm:p-0 space-x-4">
       <div className="flex justify-around w-full text-lg font-semibold items-center">
-        <div className="flex flex-col items-center space-y-1 border border-slate-600 hover:border-cyan-700 hover:bg-slate-50 rounded-lg p-2 sm:p-4 cursor-pointer" onClick={() => handlePriorityPopup(0)}>
-          <span className="text-slate-600">Following</span>
+        <div className="flex flex-col items-center space-y-1 bg-gray-50 shadow-xl hover:border hover:border-cyan-700 rounded-lg p-2 sm:p-4 cursor-pointer" onClick={() => handlePriorityPopup(0)}>
+          <span className="text-gray-600">Following</span>
           <span className="text-black">{followingIds.length}</span>
         </div>
-        <div className="flex flex-col items-center space-y-1 border border-slate-600 hover:border-cyan-700 hover:bg-slate-50 rounded-lg p-2 sm:p-4 cursor-pointer" onClick={() => handlePriorityPopup(1)}>
-          <span className="text-slate-600">Followers</span>
+        <div className="flex flex-col items-center space-y-1 bg-gray-50 shadow-xl hover:border hover:border-cyan-700 rounded-lg p-2 sm:p-4 cursor-pointer" onClick={() => handlePriorityPopup(1)}>
+          <span className="text-gray-600">Followers</span>
           <span className="text-black">{followersIds.length}</span>
         </div>
       </div>

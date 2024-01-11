@@ -21,7 +21,7 @@ export default function UserTemplate() {
   }, []); 
 
   return (
-    <div className="flex flex-col min-h-screen items-center bg-slate-50 text-slate-700">
+    <div className="flex flex-col min-h-screen items-center bg-gray-50 text-gray-700">
       <div className="sticky top-0 z-20 w-full">
         <Navbar toggleNavigationMenu={toggleNavigationMenu} />
       </div>
@@ -30,7 +30,7 @@ export default function UserTemplate() {
           <ToggleMenu />
         </div>
       )}
-      <div className="flex-grow w-full xl:w-3/5 pb-8 px-6 md:px-8 lg:px-10 xl:px-0">
+      <div className="flex-grow w-full xl:w-3/5 px-6 md:px-8 lg:px-10 xl:px-0">
         <Outlet />
       </div>
       <div className="md:hidden sticky bottom-0 z-20 w-full">

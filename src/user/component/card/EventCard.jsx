@@ -35,7 +35,7 @@ export default function EventCard({
 
   return (
     <>
-      <div className="w-full h-80 relative p-3 rounded-lg shadow-xl p-3 bg-white">
+      <div className="w-full h-80 relative rounded-lg p-3 bg-gray-50 shadow-xl">
         <div className={`flex justify-between items-center border-b ${event.role && event.role.includes("student")
           ? "border-yellow-400"
           : "border-purple-500"

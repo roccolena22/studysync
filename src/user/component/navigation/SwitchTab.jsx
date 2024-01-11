@@ -15,7 +15,7 @@ export default function SwitchTab({
 
   const sectionClass = (sectionIndex) => {
     return `w-1/2 cursor-pointer ${
-      index === sectionIndex ? "bg-white shadow-xl" : "bg-slate-50"
+      index === sectionIndex ? "bg-white shadow-xl" : "bg-gray-50"
     } flex justify-center rounded-full py-1`;
   };
 

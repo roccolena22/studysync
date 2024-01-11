@@ -94,7 +94,7 @@ export default function EventList({
   });
 
   return (
-    <div>
+    <div className="bg-white shadow-xl px-6 min-h-screen h-full">
       <div className="sticky top-20 w-full z-10">
         {sortedEvents.length > 0 && (
           <SearchBar
@@ -104,7 +104,7 @@ export default function EventList({
           />
         )}
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 py-6">
         {(searchedEvents.length > 0 ? searchedEvents : sortedEvents).map(
           (event, index) => (
             <div

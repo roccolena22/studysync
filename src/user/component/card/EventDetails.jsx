@@ -45,7 +45,7 @@ export default function EventDetails({ event }) {
   
       {event.platform && (
         <div>
-          <p className="text-slate-600 font-semibold text-md">Link</p>
+          <p className="text-gray-600 font-semibold text-md">Link</p>
           <a href={event.link} className="text-xs md:text-md text-cyan-700 cursor-pointer underline">{event.link}</a>
         </div>
       )}

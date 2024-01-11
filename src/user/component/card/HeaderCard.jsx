@@ -43,7 +43,7 @@ export default function HeaderCard({
           {event.bookingsRecordId ? (
             <UsersList users={bookedUsers} loggedUser={loggedUser}/>
           ) : (
-            <p className="pt-6 text-xl text-slate-400">
+            <p className="pt-6 text-xl text-gray-400">
               There are no reservations for this event
             </p>
           )}

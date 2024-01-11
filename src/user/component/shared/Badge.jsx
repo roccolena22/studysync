@@ -7,7 +7,7 @@ export default function Badge({ text }) {
     soldout: "bg-red-800",
   };
 
-  const style = colorMapping[text] || "bg-slate-800";
+  const style = colorMapping[text] || "bg-gray-800";
 
   return (
     <div

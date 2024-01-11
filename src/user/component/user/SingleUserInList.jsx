@@ -15,7 +15,7 @@ export default function SingleUserInList({
     loggedUser.followingIds.some((element) => user.followersIds.includes(element));
 
   return (
-    <div className="flex justify-between items-center border-b border-slate-400 w-full py-2">
+    <div className="flex justify-between items-center border-b border-gray-400 w-full py-2">
       <UserDetails firstName={user.firstName} lastName={user.lastName} email={user.email} role={user.role}/>
       {
         !isLoggedUser &&
