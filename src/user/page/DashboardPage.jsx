@@ -35,6 +35,7 @@ export default function DashboardPage({ loggedUser, users, followers, events, bo
     fetchFollowers()
   }, [events, users, bookings, loggedUser]);
 
+
   useEffect(() => {
     const handleBookedEvents = async () => {
       const eventsByBooked = events && events.filter((event) => {
@@ -101,8 +102,7 @@ export default function DashboardPage({ loggedUser, users, followers, events, bo
             handleSections={handleSections}
           />
         </div>
-      
-
+    
       <div className="w-full">
         {indexSection === 0 ? (
           <EventList

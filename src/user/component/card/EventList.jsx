@@ -93,7 +93,7 @@ export default function EventList({
   });
 
   return (
-    <div className="bg-white shadow-xl px-6 rounded-b-lg flex items-center">
+    <div className="bg-white shadow-xl px-6 rounded-b-lg">
             {sortedEvents.length > 0 && (
 
       <div className="sticky top-20 w-full z-10">

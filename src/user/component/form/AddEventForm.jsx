@@ -9,6 +9,7 @@ import { addEvent } from "../../../redux/slices/eventsSlice";
 import TimeEventSection from "./component/TimeEventSection";
 import DetailsEventInForm from "./component/DetailsEventInForm";
 import moment from "moment";
+import { useEffect, useState } from "react";
 
 export default function AddEventForm({
   loggedUser,
@@ -20,9 +21,26 @@ export default function AddEventForm({
   handleClose,
   handleNoValidDateAlert
 }) {
+
+
+  const [formattedStartDate, setFormattedStartDate] = useState(
+    moment(startDate, "DD/MM/YYYY").format("YYYY-MM-DD")
+  );
+
+  const [formattedEndDate, setFormattedEndDate] = useState(
+    moment(endDate, "DD/MM/YYYY").format("YYYY-MM-DD")
+  );
+
+  useEffect(() => {
+    setFormattedStartDate(moment(startDate, "DD/MM/YYYY").format("YYYY-MM-DD"));
+  }, [startDate]);
+
+  useEffect(() => {
+    setFormattedEndDate(moment(endDate, "DD/MM/YYYY").format("YYYY-MM-DD"));
+  }, [endDate]);
   const dispatch = useDispatch();
   const currentDate = new Date();
-
+  
   const {
     handleSubmit,
     formState: { errors },
@@ -33,13 +51,12 @@ export default function AddEventForm({
     defaultValues: {
       startTime: startTime,
       endTime: endTime,
-      startDate: moment(startDate, "DD/MM/YYYY").format("YYYY-MM-DD"),
-      endDate: moment(endDate, "DD/MM/YYYY").format("YYYY-MM-DD"),
+      startDate: formattedStartDate,
+      endDate: formattedEndDate,
     },
   });
 
   const onSubmit = async (data) => {
-    console.log(data)
     const start = new Date(data.startDate + " " + data.startTime);
     const end = new Date(data.endDate + " " + data.endTime);
   
