@@ -8,7 +8,7 @@ export default function PriorityPopup({ children, handleClose, title }) {
         <div className="flex justify-end pt-2 sticky top-0">
           <Icon
             name="close"
-            style="rounded-2xl w-6 h-6 hover:border border-red-800 hover:text-red-800"
+            style="rounded-2xl w-6 h-6 hover:border border-red-800 hover:text-red-800 bg-white"
             onClick={handleClose}
           />
         </div>
