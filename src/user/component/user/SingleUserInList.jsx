@@ -25,7 +25,7 @@ export default function SingleUserInList({
               small
               outline
               onClick={() => toggleFollow(user, false)}
-              name="Following"
+              name="Unfollow"
             />
           ) : (
             <Button small onClick={() => toggleFollow(user, true)} name="Follow" />
