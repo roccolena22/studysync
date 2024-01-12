@@ -33,7 +33,7 @@ export default function DashboardPage({ loggedUser, users, followers, events, bo
 
   useEffect(() => {
     fetchFollowers()
-  }, [events, users, bookings, loggedUser]);
+  }, [users, loggedUser]);
 
 
   useEffect(() => {

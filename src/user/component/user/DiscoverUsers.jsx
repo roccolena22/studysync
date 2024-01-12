@@ -19,7 +19,7 @@ export default function DiscoverUsers({
           <p className="sm:text-lg font-semibold text-center">
             Discover new users to follow
           </p>
-          <div className="absolute bottom-4">
+          <div className="absolute bottom-2">
             <Button
               name="Discover"
               outline

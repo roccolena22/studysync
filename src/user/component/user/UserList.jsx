@@ -15,7 +15,6 @@ export default function UsersList({
 
   const followers = useSelector((state) => state.followers);
 
-
   const [searchedUsers, setSearchedUsers] = useState([]);
 
   const dispatch = useDispatch()
@@ -85,7 +84,6 @@ export default function UsersList({
                 user={user}
                 toggleFollow={toggleFollow}
                 followers={followers}
-
               />
             </div>
           )
