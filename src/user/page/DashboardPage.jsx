@@ -4,10 +4,8 @@ import Title from "../component/shared/Title";
 import { useDispatch } from "react-redux";
 import { getListFromDatabase } from "../../api/apiRequest";
 import { setFollowers } from "../../redux/slices/followersSlice";
-import ManageUsers from "../component/user/ManageUsers"
 import EventList from "../component/card/EventList";
 import NewEvent from "../component/shared/NewEvent";
-import Gadget from "../component/user/Gadget";
 import StatisticsSection from "../component/user/StatisticsSection";
 
 export default function DashboardPage({ loggedUser, users, followers, events, bookings }) {
