@@ -15,8 +15,9 @@ export default function DashboardPage({ loggedUser, users, followers, events, bo
   const [activeEvents, setActiveEvents] = useState([]);
   const [bookedEvents, setBookedEvents] = useState([]);
 
-  const currentDate = new Date();
   const dispatch = useDispatch()
+  console.log(events)
+  console.log(activeEvents)
 
   const handleSections = (index) => {
     setIndexSection(index);
@@ -35,7 +36,6 @@ export default function DashboardPage({ loggedUser, users, followers, events, bo
     fetchFollowers()
   }, [users, loggedUser]);
 
-
   useEffect(() => {
     const handleBookedEvents = async () => {
       const eventsByBooked = events && events.filter((event) => {
@@ -49,28 +49,30 @@ export default function DashboardPage({ loggedUser, users, followers, events, bo
         }
         return false;
       });
-
       setBookedEvents(eventsByBooked)
-
-      const eventsByAuthor = events && events.filter(
-        (event) => event.authorId === loggedUser.id
-      );
-
-      const activeEventsFiltered = eventsByAuthor.filter(
-        (event) => new Date(`${event.endDate} ${event.endTime}`) >= currentDate
-      );
-      const pastEventsFiltered = eventsByAuthor.filter(
-        (event) => new Date(`${event.endDate} ${event.endTime}`) < currentDate
-      );
-
-      setActiveEvents(activeEventsFiltered);
-      setPastEvents(pastEventsFiltered);
     };
 
     handleBookedEvents();
   }, [events, bookings, loggedUser]);
 
-console.log(activeEvents)
+
+  useEffect(() => {
+    const eventsByAuthor = events && events.filter(
+      (event) => event.authorId === loggedUser.id
+    );
+
+    const currentDate = new Date();
+
+    const activeEventsFiltered = eventsByAuthor.filter(
+      (event) => new Date(`${event.endDate} ${event.endTime}`) >= currentDate
+    );
+    setActiveEvents(activeEventsFiltered);
+
+    const pastEventsFiltered = eventsByAuthor.filter(
+      (event) => new Date(`${event.endDate} ${event.endTime}`) < currentDate
+    );
+    setPastEvents(pastEventsFiltered);
+  }, [events]);
 
   return (
     <div className="flex flex-col items-center justify-center">

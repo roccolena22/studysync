@@ -14,12 +14,14 @@ import Registration from "./guest/page/Registration";
 import NetworkPage from "./user/page/NetworkPage";
 import RecoveryPassword from "./guest/page/RecoveryPassword";
 import Protected from "./Protected";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import DashboardPage from "./user/page/DashboardPage";
 import { useEffect } from "react";
 import { getListFromDatabase } from "./api/apiRequest";
+import { setUsers } from "./redux/slices/usersSlice";
 
 const Router = () => {
+  const dispatch = useDispatch()
   const loggedUser = useSelector((state) => state.auth.user);
   const followers = useSelector((state) => state.followers);
   const events = useSelector((state) => state.events);
@@ -28,7 +30,8 @@ const Router = () => {
 
   useEffect(() => {
     const fetchUsers = async () => {
-      await getListFromDatabase("users");
+      const users = await getListFromDatabase("users");
+      dispatch(setUsers(users))
     };
 
     fetchUsers();
