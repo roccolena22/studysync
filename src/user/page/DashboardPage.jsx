@@ -8,6 +8,7 @@ import ManageUsers from "../component/user/ManageUsers"
 import EventList from "../component/card/EventList";
 import NewEvent from "../component/shared/NewEvent";
 import Gadget from "../component/user/Gadget";
+import StatisticsSection from "../component/user/StatisticsSection";
 
 export default function DashboardPage({ loggedUser, users, followers, events, bookings }) {
   const [indexSection, setIndexSection] = useState(0);
@@ -16,8 +17,8 @@ export default function DashboardPage({ loggedUser, users, followers, events, bo
   const [bookedEvents, setBookedEvents] = useState([]);
 
   const dispatch = useDispatch()
-  console.log(events)
-  console.log(activeEvents)
+  console.log(events) //si aggiorna all'istante non appena viene aggiunto un evento
+  console.log(activeEvents) //si aggiorna solo dopo aver ricaricato la pagina
 
   const handleSections = (index) => {
     setIndexSection(index);
@@ -53,7 +54,7 @@ export default function DashboardPage({ loggedUser, users, followers, events, bo
     };
 
     handleBookedEvents();
-  }, [events, bookings, loggedUser]);
+  }, [events.length, bookings, loggedUser]);
 
 
   useEffect(() => {
@@ -72,31 +73,20 @@ export default function DashboardPage({ loggedUser, users, followers, events, bo
       (event) => new Date(`${event.endDate} ${event.endTime}`) < currentDate
     );
     setPastEvents(pastEventsFiltered);
-  }, [events]);
+  }, [events.length, loggedUser]); //essendoci events come dipendenza mi aspetto si aggiornino subito
 
   return (
     <div className="flex flex-col items-center justify-center">
       <Title title="Dashboard" >
         <NewEvent loggedUser={loggedUser} name="New Event" />
       </Title>
-      <div className="grid grid-cols-1 gap-2 pt-6 w-full">
-        <div className="grid gap-2 sm:grid-cols-2">
-          <ManageUsers
-            users={users}
-            followers={followers}
-            loggedUser={loggedUser}
-          />
-          <div className="grid grid-cols-1 gap-2">
-            <Gadget title="Today's events:" value="0" />
-            <Gadget title="The next event is in:" value="you don't have any events" />
-          </div>
-
-        </div>
-        <div className="grid gap-2 sm:grid-cols-2 w-full">
-          <Gadget title="My active events:" value={events ? activeEvents.length : "0"} />
-          <Gadget title="Events I am booked for:" value={bookedEvents ? bookedEvents.length : "0"} />
-        </div>
-      </div>
+      <StatisticsSection
+        users={users}
+        followers={followers}
+        loggedUser={loggedUser}
+        activeEvents={activeEvents}
+        bookedEvents={bookedEvents}
+      />
       <div className="w-full pt-10">
         <Title title="My events" fontSize="text-lg" />
         <TabMenu
