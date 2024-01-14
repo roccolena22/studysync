@@ -34,7 +34,6 @@ export default function EditEventForm({ event, loggedUser, handleCloseEditPriori
 
   const currentDate = new Date();
 
-
   const onSubmit = async (data) => {
     const start = new Date(data.startDate + " " + data.startTime);
     const end = new Date(data.endDate + " " + data.endTime);
@@ -68,7 +67,6 @@ export default function EditEventForm({ event, loggedUser, handleCloseEditPriori
     handleCloseEditPriorityPopup(false);
     handleAlert();
   };
-
 
   return (
     <div className="w-full pt-4">
