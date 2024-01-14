@@ -16,13 +16,23 @@ import RecoveryPassword from "./guest/page/RecoveryPassword";
 import Protected from "./Protected";
 import { useSelector } from "react-redux";
 import DashboardPage from "./user/page/DashboardPage";
+import { useEffect } from "react";
+import { getListFromDatabase } from "./api/apiRequest";
 
 const Router = () => {
   const loggedUser = useSelector((state) => state.auth.user);
   const followers = useSelector((state) => state.followers);
-  const users = useSelector((state)=> state.users);
-  const events = useSelector((state)=> state.events);
-  const bookings = useSelector((state)=> state.bookings);
+  const events = useSelector((state) => state.events);
+  const bookings = useSelector((state) => state.bookings);
+  const users = useSelector((state) => state.users);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      await getListFromDatabase("users");
+    };
+
+    fetchUsers();
+  }, [events]);
 
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -54,7 +64,7 @@ const Router = () => {
             path="/account"
             element={
               <Protected isLogged={loggedUser}>
-                <AccountPage loggedUser={loggedUser} users={users}/>
+                <AccountPage loggedUser={loggedUser} users={users} />
               </Protected>
             }
           />
@@ -62,7 +72,7 @@ const Router = () => {
             path="/events"
             element={
               <Protected isLogged={loggedUser}>
-                <EventsPage loggedUser={loggedUser} bookings={bookings} events={events} users={users}/>
+                <EventsPage loggedUser={loggedUser} bookings={bookings} events={events} users={users} />
               </Protected>
             }
           />
@@ -70,7 +80,7 @@ const Router = () => {
             path="/network"
             element={
               <Protected isLogged={loggedUser}>
-                <NetworkPage loggedUser={loggedUser} followers={followers} events={events} users={users}  bookings={bookings}/>
+                <NetworkPage loggedUser={loggedUser} followers={followers} events={events} users={users} bookings={bookings} />
               </Protected>
             }
           />

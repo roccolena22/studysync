@@ -22,25 +22,13 @@ export default function AddEventForm({
   handleNoValidDateAlert
 }) {
 
-
   const [formattedStartDate, setFormattedStartDate] = useState(
     moment(startDate, "DD/MM/YYYY").format("YYYY-MM-DD")
   );
-
   const [formattedEndDate, setFormattedEndDate] = useState(
     moment(endDate, "DD/MM/YYYY").format("YYYY-MM-DD")
   );
 
-  useEffect(() => {
-    setFormattedStartDate(moment(startDate, "DD/MM/YYYY").format("YYYY-MM-DD"));
-  }, [startDate]);
-
-  useEffect(() => {
-    setFormattedEndDate(moment(endDate, "DD/MM/YYYY").format("YYYY-MM-DD"));
-  }, [endDate]);
-  const dispatch = useDispatch();
-  const currentDate = new Date();
-  
   const {
     handleSubmit,
     formState: { errors },
@@ -56,27 +44,36 @@ export default function AddEventForm({
     },
   });
 
+  useEffect(() => {
+    setFormattedStartDate(moment(startDate, "DD/MM/YYYY").format("YYYY-MM-DD"));
+  }, [startDate]);
+
+  useEffect(() => {
+    setFormattedEndDate(moment(endDate, "DD/MM/YYYY").format("YYYY-MM-DD"));
+  }, [endDate]);
+  const dispatch = useDispatch();
+  const currentDate = new Date();
+
   const onSubmit = async (data) => {
     const start = new Date(data.startDate + " " + data.startTime);
     const end = new Date(data.endDate + " " + data.endTime);
-  
+
     if (start < currentDate || end <= currentDate || start >= end) {
       handleNoValidDateAlert();
       return;
     }
-  
+
     const fullEvent = {
       authorId: [loggedUser.id],
       ...data,
     };
-  
+
     await addRecordToDatabase("events", fullEvent);
     dispatch(addEvent([fullEvent]));
     handleCreatedEventAlert();
     handleClose();
     reset();
   };
-  
 
   return (
     <div className="w-full text-sm">
@@ -87,7 +84,7 @@ export default function AddEventForm({
           register={register("title")}
           placeholder="Enter the name of the event?"
         />
-        <TimeEventSection register={register} errors={errors}/>
+        <TimeEventSection register={register} errors={errors} />
         <DetailsEventInForm register={register} errors={errors} />
         <div className="flex justify-end pt-10">
           <Button type="submit" name="Create" />

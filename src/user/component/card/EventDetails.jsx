@@ -28,33 +28,32 @@ export default function EventDetails({ event }) {
 
   return (
     <div className="w-full">
-    <p className="font-bold py-4 text-lg">{event.title}</p>
-    <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
-      <EventItem label="Start" value={startDateToView} />
-      <EventItem label="Duration" value={formattedDuration} />
-      <EventItem label="Mode" value={event.mode} />
-  
-      {event.location && (
-        <EventItem label="Location" value={event.location} />
-      )}
-  
-      {event.platform && (
-        <EventItem label="Platform" value={event.platform} />
-      )}
-  
-      {event.platform && event.link && (
-        <div>
-          <p className="text-gray-600 font-semibold sm:text-lg">Link</p>
-          <a href={event.link} className="text-xs md:text-md text-cyan-700 cursor-pointer underline">{event.link}</a>
-        </div>
-      )}
-  
-    
+      <p className="font-bold py-4 text-lg">{event.title}</p>
+      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
+        <EventItem label="Start" value={startDateToView} />
+        <EventItem label="Duration" value={formattedDuration} />
+        <EventItem label="Mode" value={event.mode} />
+
+        {event.location && (
+          <EventItem label="Location" value={event.location} />
+        )}
+
+        {event.platform && (
+          <EventItem label="Platform" value={event.platform} />
+        )}
+
+        {event.platform && event.link && (
+          <div>
+            <p className="text-gray-600 font-semibold sm:text-lg">Link</p>
+            <a href={event.link} className="text-xs md:text-md text-cyan-700 cursor-pointer underline">{event.link.slice(0, 15) + "..."}</a>
+          </div>
+        )}
+        {event.info && (
+          <EventItem label="Info" value={event.info} />
+        )}
+      </div>
+
     </div>
-    {event.info && (
-        <EventItem label="Additional Info" value={event.info} />
-      )}
-  </div>
-  
+
   )
 }

@@ -58,10 +58,9 @@ export default function UsersList({
       dispatch(setUsers(updatedUsers));
       const refreshLoggedUser = updatedUsers.find((user) => user.id === loggedUser.id);
       dispatch(setLoggedUser(refreshLoggedUser));
+      fetchFollowers();
     } catch (error) {
       console.error(`Error ${isAdding ? 'adding' : 'removing'} follower`, error);
-    } finally {
-      fetchFollowers();
     }
   };
 

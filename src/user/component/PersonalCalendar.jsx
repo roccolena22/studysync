@@ -11,14 +11,14 @@ import SecondaryPopup from "./shared/SecondaryPopup";
 import SyntheticEventCard from "./card/SyntheticEventCard";
 
 export default function PersonaleCalendar({ loggedUser, events }) {
+  const localizer = momentLocalizer(moment);
   const [newEventPriorityPopup, setNewEventPriorityPopup] = useState(false);
-  const [eventSecondaryPopup, setEventSecondaryPopup] = useState(false);
+  const [eventSecondaryPopup, setEventsSecondaryPopup] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
-  const [startDate, setStartDate] = useState(null);
   const [startTime, setStartTime] = useState(null);
   const [endTime, setEndTime] = useState(null);
+    const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-  const localizer = momentLocalizer(moment);
   const [showCreatedEventAlert, setShowCreatedEventAlert] = useState(false);
   const [showNoValidDateAlert, setShowNoValidDateAlert] = useState(false);
   
@@ -29,10 +29,11 @@ export default function PersonaleCalendar({ loggedUser, events }) {
     setShowCreatedEventAlert(!showCreatedEventAlert);
   };
 
-  
-
   const handleSelectSlot = (slotInfo) => {
     const startDateFormatted = moment(slotInfo.start).toDate();
+    const endDateFormatted = moment(slotInfo.end).toDate();
+    setStartDate(startDateFormatted)
+    setEndDate(endDateFormatted)
     const startTime = moment(slotInfo.start).format("HH:mm");
     const endTime = moment(slotInfo.end).format("HH:mm");
     setStartTime(startTime);
@@ -44,8 +45,6 @@ export default function PersonaleCalendar({ loggedUser, events }) {
     if (startDateFormatted <= currentDate) {
       handleNoValidDateAlert()
     } else {
-      setStartDate(moment(slotInfo.start).format("L"));
-      setEndDate(moment(slotInfo.end).format("L"));
       handleNewEventPriorityPopup();
     }
   };
@@ -68,13 +67,12 @@ export default function PersonaleCalendar({ loggedUser, events }) {
   };
 
   const handleClosePopuop = () => {
-    setEventSecondaryPopup(!eventSecondaryPopup);
+    setEventsSecondaryPopup(!eventSecondaryPopup);
   };
   const handleEventClick = (event) => {
     setSelectedEvent(event);
     handleClosePopuop();
   };
-
 
   const EventInCalendar = ({ event }) => (
     <div onClick={() => handleEventClick(event)} className="w-full h-full">
@@ -93,7 +91,7 @@ export default function PersonaleCalendar({ loggedUser, events }) {
           selectable={true}
           onSelectSlot={handleSelectSlot}
           views={["month", "week", "day"]}
-          defaultView="month"
+          defaultView="week"
           style={{ height: 500 }}
           eventPropGetter={eventStyleGetter}
           components={{
@@ -113,6 +111,7 @@ export default function PersonaleCalendar({ loggedUser, events }) {
               endTime={endTime}
               handleCreatedEventAlert={handleCreatedEventAlert}
               handleClose={handleNewEventPriorityPopup}
+              handleNoValidDateAlert={handleNoValidDateAlert}
             />
           </div>
         </PriorityPopup>

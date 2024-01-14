@@ -9,8 +9,7 @@ import NewEvent from "../component/shared/NewEvent";
 
 export default function EventsPage({ loggedUser, events, bookings, users }) {
   const [calendarEvents, setCalendarEvents] = useState([]);
-  const [indexSection, setIndexSection] = useState(calendarEvents.length > 0 ? 0 : 1);
-
+  const [indexSection, setIndexSection] = useState(0);
   const currentDate = new Date();
 
   const handleBookedEvents = async () => {
@@ -29,9 +28,7 @@ export default function EventsPage({ loggedUser, events, bookings, users }) {
       (event) => event.authorId === loggedUser.id
     );
 
-    const activeEventsByUser = eventsByAuthor.filter(
-      (event) => new Date(`${event.endDate} ${event.endTime}`) >= currentDate
-    );
+    const activeEventsByUser = eventsByAuthor.filter((event) => new Date(`${event.endDate} ${event.endTime}`) >= currentDate);
 
     const activeEventUserBooked = eventsByBooked.filter(
       (event) => new Date(`${event.endDate} ${event.endTime}`) >= currentDate
@@ -46,6 +43,9 @@ export default function EventsPage({ loggedUser, events, bookings, users }) {
       firstName: event.firstName,
       lastName: event.lastName,
       email: event.email,
+      places: event.places,
+      bookedRecordId: event.bookedRecordId,
+      bookingsRecordId: event.bookingsRecordId,
       role: event.role,
       authorId: event.authorId,
       location: event.location,
@@ -69,7 +69,7 @@ export default function EventsPage({ loggedUser, events, bookings, users }) {
 
   return (
     <div className="flex flex-col items-center relative">
-      <Title title="Events" >
+      <Title title="Next events" >
         <div className="flex items-center space-x-4">
           <NewEvent loggedUser={loggedUser} name="New event" />
           <SwitchTab firstItem="grid" secondItem="calendar" handleSections={handleSections} indexSection={indexSection} />

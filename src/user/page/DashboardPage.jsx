@@ -70,6 +70,7 @@ export default function DashboardPage({ loggedUser, users, followers, events, bo
     handleBookedEvents();
   }, [events, bookings, loggedUser]);
 
+console.log(activeEvents)
 
   return (
     <div className="flex flex-col items-center justify-center">
@@ -94,15 +95,15 @@ export default function DashboardPage({ loggedUser, users, followers, events, bo
           <Gadget title="Events I am booked for:" value={bookedEvents ? bookedEvents.length : "0"} />
         </div>
       </div>
-      
-        <div className="w-full pt-10">
-          <TabMenu
-            firstSectionName="Active events"
-            secondSectionName="Past events"
-            handleSections={handleSections}
-          />
-        </div>
-    
+      <div className="w-full pt-10">
+        <Title title="My events" fontSize="text-lg" />
+        <TabMenu
+          firstSectionName="Active events"
+          secondSectionName="Past events"
+          handleSections={handleSections}
+        />
+      </div>
+
       <div className="w-full">
         {indexSection === 0 ? (
           <EventList

@@ -13,10 +13,7 @@ export default function EventCard({
   toggleBooking,
   fetchEvents,
 }) {
-
-  const [bookedRecordId, setBookedRecordId] = useState([]);
   const [bookedUsers, setBookedUsers] = useState([]);
-  const [isUserBooked, setIsUserBooked] = useState(false);
 
   useEffect(() => {
     const idsArray = event && event.bookingsRecordId && bookings
@@ -24,17 +21,13 @@ export default function EventCard({
         .filter((booking) => event.bookingsRecordId.includes(booking.id))
         .map((booking) => booking.bookedId)
       : [];
-    setBookedRecordId(event.bookingsRecordId || []);
     setBookedUsers(users && users.filter((user) => idsArray.includes(user.id)) || [])
-    const userIds = bookedUsers.map(user => user.id);
-    setIsUserBooked(event && event.bookingsRecordId && userIds.includes(loggedUser.id) || false);
-
   }, [event, bookings]);
+  const userIsBooked = bookedUsers.find(user => user.id === loggedUser.id);
 
-  const proproetaryEvent = loggedUser.id === event.authorId;
   return (
     <>
-      <div className="w-full h-80 relative rounded-lg p-3 bg-gray-50 shadow-xl">
+      <div className="w-full h-96 sm:h-80 relative rounded-lg p-3 bg-gray-50 shadow-xl">
         <div className={`flex justify-between items-center border-b ${event.role && event.role.includes("student")
           ? "border-yellow-400"
           : "border-purple-500"
@@ -54,11 +47,9 @@ export default function EventCard({
             event={event}
             handleDelete={handleDelete}
             loggedUser={loggedUser}
-            proproetaryEvent={proproetaryEvent}
             toggleBooking={toggleBooking}
-            bookedRecordId={bookedRecordId}
-            isUserBooked={isUserBooked}
             fetchEvents={fetchEvents}
+            userIsBooked={userIsBooked}
           />
         </div>
       </div>

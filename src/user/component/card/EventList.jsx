@@ -3,7 +3,7 @@ import EventCard from "./EventCard";
 import SearchBar from "../shared/SearchBar";
 import { addRecordToDatabase, deleteRecordFromDatabase, getListFromDatabase } from "../../../api/apiRequest";
 import { useDispatch } from "react-redux";
-import { deleteEvent, setEvent } from "../../../redux/slices/eventsSlice";
+import { deleteEvent, setEvents } from "../../../redux/slices/eventsSlice";
 import { addBooking, deleteBooking, setBookings } from "../../../redux/slices/bookingsSlice";
 
 export default function EventList({
@@ -36,15 +36,15 @@ export default function EventList({
         email: email[0],
         role: role[0],
       }));
-
     const transformedEventsArray = transformArray(eventsFromDatabase);
-    dispatch(setEvent(transformedEventsArray));
+    dispatch(setEvents(transformedEventsArray));
   };
 
   const fetchBookings = async () => {
     try {
       const bookings = await getListFromDatabase("bookings");
       dispatch(setBookings(bookings))
+
     } catch (error) {
       console.error("Error handling reservations:", error);
     }
@@ -52,7 +52,6 @@ export default function EventList({
 
   const toggleBooking = async (eventId, isAdding) => {
     const bookingReduxAction = isAdding ? addBooking : deleteBooking;
-
     const bookingData = isAdding
       ? {
         eventId: [eventId],
@@ -63,19 +62,15 @@ export default function EventList({
     try {
       if (isAdding) {
         await addRecordToDatabase("bookings", bookingData);
-        dispatch(addBooking(bookingData));
       } else {
         await deleteRecordFromDatabase("bookings", bookingData.id);
-        dispatch(deleteBooking(bookingData.id));
       }
+      bookingReduxAction(isAdding ? bookingData : bookingData.id);
       fetchBookings();
       fetchEvents();
-      bookingReduxAction(isAdding ? bookingData : bookingData.id);
     } catch (error) {
       console.error(`Error ${isAdding ? 'adding' : 'removing'} booking`, error);
-    } finally {
-      fetchBookings();
-    }
+    } 
   };
 
   useEffect(() => {
@@ -102,7 +97,6 @@ export default function EventList({
             data={sortedEvents}
             dataFromSearch={handleSearch}
           />
-      
       </div>
       )}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 py-6">

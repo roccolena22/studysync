@@ -8,12 +8,10 @@ import PriorityPopup from "../shared/PriorityPopup";
 export default function FooterCard({
   event,
   handleDelete,
-  proproetaryEvent,
-  bookedRecordId,
-  isUserBooked,
   toggleBooking,
   loggedUser,
   fetchEvents,
+  userIsBooked
 }) {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [editPriorityPopupIsOpen, setEditPriorityPopupIsOpen] = useState(false);
@@ -21,6 +19,7 @@ export default function FooterCard({
   const [showNoValidDateAlert, setShowNoValidDateAlert] = useState(false);
 
   const currentDate = new Date();
+  const proproetaryEvent = loggedUser.id === event.authorId;
 
   const handleNoValidDateAlert = () => {
     setShowNoValidDateAlert(!showNoValidDateAlert);
@@ -42,7 +41,7 @@ export default function FooterCard({
   const eventIsFinished = new Date(`${event.endDate} ${event.endTime}`) < currentDate
   return (
     <div className="flex space-x-2">
-      {proproetaryEvent && !isUserBooked && (
+      {proproetaryEvent && (
         <>
           {!eventIsFinished && <IconAndName iconName="edit" label="edit" onClick={toggleEditPriorityPopup} />}
           <IconAndName
@@ -53,21 +52,22 @@ export default function FooterCard({
           />
         </>
       )}
+
       {!proproetaryEvent && (
-        <>
-          {event.places && bookedRecordId.length < event.places && !isUserBooked && (
-            <Button small name="Join" onClick={() => toggleBooking(event.id, true)} />
-          )}
-          {isUserBooked && <Button small outline name="Leave" onClick={() => toggleBooking(event.id, false)} />}
-        </>
-      )}
+  userIsBooked ? (
+    <Button small outline name="Leave" onClick={() => toggleBooking(event.id, false)} />
+  ) : (
+    <Button small name="Join" onClick={() => toggleBooking(event.id, true)} />
+  )
+)}
+
       {editPriorityPopupIsOpen && (
         <PriorityPopup handleClose={handleCloseEditPriorityPopup} title="Edit event">
           {<EditEventForm
-           event={selectedEvent} 
-           loggedUser={loggedUser} 
-           handleCloseEditPriorityPopup={handleCloseEditPriorityPopup}
-            handleAlert={handleAlert} 
+            event={selectedEvent}
+            loggedUser={loggedUser}
+            handleCloseEditPriorityPopup={handleCloseEditPriorityPopup}
+            handleAlert={handleAlert}
             handleNoValidDateAlert={handleNoValidDateAlert}
             fetchEvents={fetchEvents} />}
         </PriorityPopup>

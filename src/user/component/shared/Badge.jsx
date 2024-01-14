@@ -13,7 +13,7 @@ export default function Badge({ text }) {
     <div
       className={`text-[12px] text-white rounded px-1 rounded-lg ${style} h-4 flex items-center`}
     >
-      <p className="font-semibold">{text.toUpperCase()}</p>
+      <p className="font-semibold">{text && text.toUpperCase()}</p>
     </div>
   );
 }
