@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import PersonaleCalendar from "../component/PersonalCalendar";
+import PersonalCalendar from "../component/PersonalCalendar";
 import Suggestion from "../component/shared/Suggestion";
 import Title from "../component/shared/Title";
 import Legend from "../component/user/Legend";
@@ -8,7 +8,7 @@ import EventList from "../component/card/EventList";
 import NewEvent from "../component/shared/NewEvent";
 
 export default function EventsPage({ loggedUser, events, bookings, users }) {
-  const [calendarEvents, setCalendarEvents] = useState([]);
+  const [nextEvents, setNextEvents] = useState([]);
   const [indexSection, setIndexSection] = useState(0);
   const currentDate = new Date();
 
@@ -33,8 +33,8 @@ export default function EventsPage({ loggedUser, events, bookings, users }) {
     const activeEventUserBooked = eventsByBooked.filter(
       (event) => new Date(`${event.endDate} ${event.endTime}`) >= currentDate
     );
-    const allEvents = [...activeEventsByUser, ...activeEventUserBooked];
-    const formattedEvents = allEvents && allEvents.map((event) => ({
+    const activeEvents = [...activeEventsByUser, ...activeEventUserBooked];
+    const formattedEvents = activeEvents && activeEvents.map((event) => ({
       id: event.id,
       title: event.title,
       start: new Date(event.startDate + " " + event.startTime),
@@ -56,7 +56,7 @@ export default function EventsPage({ loggedUser, events, bookings, users }) {
       endDate: event.endDate,
       endTime: event.endTime,
     }));
-    setCalendarEvents(formattedEvents);
+    setNextEvents(formattedEvents);
   };
 
   useEffect(() => {
@@ -79,7 +79,7 @@ export default function EventsPage({ loggedUser, events, bookings, users }) {
         {indexSection === 0 ? (
           <EventList
             loggedUser={loggedUser}
-            events={calendarEvents}
+            events={nextEvents}
             users={users}
             bookings={bookings}
           />) : (
@@ -88,9 +88,9 @@ export default function EventsPage({ loggedUser, events, bookings, users }) {
               <div className="pb-6">
                 <Legend colorOne="bg-green-500" colorTwo="bg-orange-600" textOne="Your events" textTwo="Events you attend" />
               </div>
-              <PersonaleCalendar
+              <PersonalCalendar
                 loggedUser={loggedUser}
-                events={calendarEvents}
+                events={nextEvents}
               />
               <Suggestion text="Use the calendar to choose when to create your event" />
             </div>

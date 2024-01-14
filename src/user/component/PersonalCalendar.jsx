@@ -10,18 +10,18 @@ import Alert from "./shared/Alert";
 import SecondaryPopup from "./shared/SecondaryPopup";
 import SyntheticEventCard from "./card/SyntheticEventCard";
 
-export default function PersonaleCalendar({ loggedUser, events }) {
+export default function PersonalCalendar({ loggedUser, events }) {
   const localizer = momentLocalizer(moment);
   const [newEventPriorityPopup, setNewEventPriorityPopup] = useState(false);
   const [eventSecondaryPopup, setEventsSecondaryPopup] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [startTime, setStartTime] = useState(null);
   const [endTime, setEndTime] = useState(null);
-    const [startDate, setStartDate] = useState(null);
+  const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [showCreatedEventAlert, setShowCreatedEventAlert] = useState(false);
   const [showNoValidDateAlert, setShowNoValidDateAlert] = useState(false);
-  
+
   const handleNoValidDateAlert = () => {
     setShowNoValidDateAlert(!showNoValidDateAlert);
   };
