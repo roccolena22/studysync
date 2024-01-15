@@ -41,11 +41,14 @@ export default function HeaderCard({
           handleClose={handleCloseReservationsPriorityPopup}
           title="List of reservations"
         >
-          {event.bookingsRecordId ? (
-            <UsersList users={bookedUsers} loggedUser={loggedUser} fetchFollowers={fetchFollowers} />
+          {Array.isArray(bookedUsers) && bookedUsers.length > 0 ? (
+            <UsersList
+              users={bookedUsers}
+              loggedUser={loggedUser}
+              fetchFollowers={fetchFollowers} />
           ) : (
             <p className="pt-6 text-xl text-gray-400">
-              There are no reservations for this event
+              There are no reservations for this event.
             </p>
           )}
         </PriorityPopup>

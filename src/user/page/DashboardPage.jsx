@@ -91,6 +91,7 @@ export default function DashboardPage({ loggedUser, users, followers, fetchFollo
           <EventList
             loggedUser={loggedUser}
             events={pastEvents}
+            bookings={bookings}
             users={users}
             fetchFollowers={fetchFollowers}
           />

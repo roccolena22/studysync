@@ -30,8 +30,6 @@ export default function SingleUserInList({
             ) : (
               <Button small onClick={() => toggleFollow(user.id, true)} name="Follow" />
             )
-          ) || (
-            <Button small onClick={() => toggleFollow(user.id, true)} name="Leave" />
           )
         }
       </div>

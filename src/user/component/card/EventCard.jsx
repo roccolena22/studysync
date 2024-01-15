@@ -23,7 +23,7 @@ export default function EventCard({
         .map((booking) => booking.bookedId)
       : [];
     setBookedUsers(users && users.filter((user) => idsArray.includes(user.id)) || [])
-  }, [event, bookings]);
+  }, [event, users, bookings]);
   const userIsBooked = bookedUsers.find(user => user.id === loggedUser.id);
 
   return (
@@ -39,6 +39,7 @@ export default function EventCard({
             bookedUsers={bookedUsers}
             loggedUser={loggedUser}
             fetchFollowers={fetchFollowers}
+            users={users}
           />
         </div>
         <div className="flex justify-between">

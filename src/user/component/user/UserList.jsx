@@ -28,25 +28,29 @@ export default function UsersList({
 
   const toggleFollow = async (userId, isAdding) => {
     const followerReduxAction = isAdding ? addFollower : deleteFollower;
-    const followerData = isAdding
-      ? { idFrom: [loggedUser.id], idTo: [userId] }
-      : followers && followers.find((item) => item && item.idTo && item.idTo[0] === userId);
     try {
+      const followerData = isAdding
+        ? { idFrom: [loggedUser.id], idTo: [userId] }
+        : followers?.find((item) => item?.idTo?.[0] === userId);
       if (isAdding) {
         await addRecordToDatabase("followers", followerData);
-      } else if (followerData && followerData.id) {
+      } else if (followerData?.id) {
         await deleteRecordFromDatabase("followers", followerData.id);
-      };
+      }
       dispatch(followerReduxAction(followerData));
+  
       const updatedUsers = await getListFromDatabase("users");
       dispatch(setUsers(updatedUsers));
+  
       const refreshLoggedUser = updatedUsers.find((user) => user.id === loggedUser.id);
       dispatch(setLoggedUser(refreshLoggedUser));
-      fetchFollowers && typeof fetchFollowers === 'function' && fetchFollowers();
+  
+      fetchFollowers?.();
     } catch (error) {
       console.error(`Error ${isAdding ? 'adding' : 'removing'} follower`, error);
-    };
+    }
   };
+  
 
   return (
     <div>
