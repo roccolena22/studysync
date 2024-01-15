@@ -32,10 +32,8 @@ export default function DashboardPage({ loggedUser, users, followers, fetchFollo
       });
       setBookedEvents(eventsByBooked)
     };
-
     handleBookedEvents();
-  }, [events.length, bookings, loggedUser]);
-
+  }, [events, bookings, loggedUser]);
 
   useEffect(() => {
     const eventsByAuthor = events && events.filter(
@@ -77,7 +75,6 @@ export default function DashboardPage({ loggedUser, users, followers, fetchFollo
           handleSections={handleSections}
         />
       </div>
-
       <div className="w-full">
         {indexSection === 0 ? (
           <EventList
