@@ -11,8 +11,7 @@ export default function DashboardPage({ loggedUser, users, followers, fetchFollo
   const [activeEvents, setActiveEvents] = useState([]);
   const [bookedEvents, setBookedEvents] = useState([]);
 
-  console.log(events) //si aggiorna all'istante non appena viene aggiunto un evento
-  // console.log(activeEvents) //si aggiorna solo dopo aver ricaricato la pagina
+  console.log(events) //si aggiorna all'istante non appena viene aggiunto un evento, ma non quando un evento viene modificato, in quel caso il console.log non parte
 
   const handleSections = (index) => {
     setIndexSection(index);
