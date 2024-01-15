@@ -52,14 +52,14 @@ export default function FooterCard({
           />
         </>
       )}
+      {event.bookingsRecordId && event.bookingsRecordId.length >= event.places ? "" :
+        !proproetaryEvent && (
+          !userIsBooked &&
+          <Button small name="Join" onClick={() => toggleBooking(event.id, true)} />
+        )
+      }
 
-      {!proproetaryEvent && (
-  userIsBooked ? (
-    <Button small outline name="Leave" onClick={() => toggleBooking(event.id, false)} />
-  ) : (
-    <Button small name="Join" onClick={() => toggleBooking(event.id, true)} />
-  )
-)}
+      {userIsBooked && <Button small outline name="Leave" onClick={() => toggleBooking(event.id, false)} />}
 
       {editPriorityPopupIsOpen && (
         <PriorityPopup handleClose={handleCloseEditPriorityPopup} title="Edit event">

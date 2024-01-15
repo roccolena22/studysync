@@ -14,25 +14,27 @@ export default function SingleUserInList({
     loggedUser.followingIds &&
     loggedUser.followingIds.some((element) => user.followersIds.includes(element));
 
-  return (
-    <div className="flex justify-between items-center border-b border-gray-400 w-full py-2">
-      <UserDetails firstName={user.firstName} lastName={user.lastName} email={user.email} role={user.role}/>
-      {
-        !isLoggedUser &&
-        <>
-          {isFollowed ? (
-            <Button
-              small
-              outline
-              onClick={() => toggleFollow(user, false)}
-              name="Unfollow"
-            />
-          ) : (
-            <Button small onClick={() => toggleFollow(user, true)} name="Follow" />
-
-          )}
-        </>
+    return (
+      <div className="flex justify-between items-center border-b border-gray-400 w-full py-2">
+        <UserDetails firstName={user.firstName} lastName={user.lastName} email={user.email} role={user.role}/>
+        {
+          !isLoggedUser &&
+          (
+            isFollowed === true ? (
+              <Button
+                small
+                outline
+                onClick={() => toggleFollow(user.id, false)}
+                name="Unfollow"
+              />
+            ) : (
+              <Button small onClick={() => toggleFollow(user.id, true)} name="Follow" />
+            )
+          ) || (
+            <Button small onClick={() => toggleFollow(user.id, true)} name="Leave" />
+          )
         }
-    </div>
-  );
+      </div>
+    );
+    
 }

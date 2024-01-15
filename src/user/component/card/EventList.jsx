@@ -11,6 +11,7 @@ export default function EventList({
   events,
   users,
   bookings,
+  fetchFollowers,
 }) {
 
   const [searchedEvents, setSearchedEvents] = useState([]);
@@ -70,7 +71,7 @@ export default function EventList({
       fetchEvents();
     } catch (error) {
       console.error(`Error ${isAdding ? 'adding' : 'removing'} booking`, error);
-    } 
+    }
   };
 
   useEffect(() => {
@@ -89,15 +90,15 @@ export default function EventList({
 
   return (
     <div className="bg-white shadow-xl px-6 rounded-b-lg">
-            {sortedEvents.length > 0 && (
+      {sortedEvents.length > 0 && (
 
-      <div className="sticky top-20 w-full z-10">
+        <div className="sticky top-20 w-full z-10">
           <SearchBar
             placeholder="Search by event date, title or author"
             data={sortedEvents}
             dataFromSearch={handleSearch}
           />
-      </div>
+        </div>
       )}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 py-6">
         {(searchedEvents.length > 0 ? searchedEvents : sortedEvents).map(
@@ -119,15 +120,16 @@ export default function EventList({
                 fetchBookings={() => fetchBookings(event)}
                 bookings={bookings}
                 fetchEvents={fetchEvents}
+                fetchFollowers={fetchFollowers}
               />
             </div>
           )
         )}
-        
+
       </div>
       {(events.length <= 0) && (
-          <span className="text-lg text-gray-500">No events to show</span>
-        )}
+        <span className="text-lg text-gray-500">No events to show</span>
+      )}
     </div>
   );
 }

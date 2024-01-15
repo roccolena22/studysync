@@ -12,6 +12,7 @@ export default function EventCard({
   bookings,
   toggleBooking,
   fetchEvents,
+  fetchFollowers,
 }) {
   const [bookedUsers, setBookedUsers] = useState([]);
 
@@ -37,6 +38,7 @@ export default function EventCard({
             fetchBookings={fetchBookings}
             bookedUsers={bookedUsers}
             loggedUser={loggedUser}
+            fetchFollowers={fetchFollowers}
           />
         </div>
         <div className="flex justify-between">

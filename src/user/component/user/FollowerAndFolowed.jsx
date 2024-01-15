@@ -3,16 +3,26 @@ import TabMenu from "../navigation/TabMenu";
 import UsersList from "./UserList";
 
 export default function FollowerAndFollowed({
-  loggedUserFollowing,
-  loggedUserFollowers,
+  users,
+  followingIds,
+  followersIds,
   loggedUser,
   indexClicked,
+  fetchFollowers
 }) {
   const [indexSection, setIndexSection] = useState(indexClicked);
 
   const handleSections = (index) => {
     setIndexSection(index);
   };
+
+  const loggedUserFollowing = users && users.filter((user) =>
+    followingIds.includes(user.id)
+  );
+
+  const loggedUserFollowers = users && users.filter((user) =>
+    followersIds.includes(user.id)
+  );
 
   return (
     <div className="pt-2">
@@ -26,13 +36,13 @@ export default function FollowerAndFollowed({
         <UsersList
           users={loggedUserFollowing}
           loggedUser={loggedUser}
-          excludeLogged
+          fetchFollowers={fetchFollowers}
         />
       ) : (
         <UsersList
           users={loggedUserFollowers}
           loggedUser={loggedUser}
-          excludeLogged
+          fetchFollowers={fetchFollowers}
         />
       )}
     </div>

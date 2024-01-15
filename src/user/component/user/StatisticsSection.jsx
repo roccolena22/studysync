@@ -1,7 +1,7 @@
 import ManageUsers from "../user/ManageUsers";
 import Gadget from "../user/Gadget";
 
-export default function StatisticsSection({ users, followers, loggedUser, activeEvents, bookedEvents }) {
+export default function StatisticsSection({ users, followers, loggedUser, activeEvents, bookedEvents, fetchFollowers }) {
     return (
         <div className="grid grid-cols-1 gap-2 pt-6 w-full">
             <div className="grid gap-2 sm:grid-cols-2">
@@ -9,6 +9,7 @@ export default function StatisticsSection({ users, followers, loggedUser, active
                     users={users}
                     followers={followers}
                     loggedUser={loggedUser}
+                    fetchFollowers={fetchFollowers}
                 />
                 <div className="grid grid-cols-1 gap-2">
                     <Gadget title="Today's events:" value="0" />

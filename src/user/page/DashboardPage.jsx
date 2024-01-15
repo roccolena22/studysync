@@ -1,39 +1,22 @@
 import React, { useEffect, useState } from "react";
 import TabMenu from "../component/navigation/TabMenu";
 import Title from "../component/shared/Title";
-import { useDispatch } from "react-redux";
-import { getListFromDatabase } from "../../api/apiRequest";
-import { setFollowers } from "../../redux/slices/followersSlice";
 import EventList from "../component/card/EventList";
 import NewEvent from "../component/shared/NewEvent";
 import StatisticsSection from "../component/user/StatisticsSection";
 
-export default function DashboardPage({ loggedUser, users, followers, events, bookings }) {
+export default function DashboardPage({ loggedUser, users, followers, fetchFollowers, events, bookings, fetchUsers }) {
   const [indexSection, setIndexSection] = useState(0);
   const [pastEvents, setPastEvents] = useState([]);
   const [activeEvents, setActiveEvents] = useState([]);
   const [bookedEvents, setBookedEvents] = useState([]);
 
-  const dispatch = useDispatch()
-  console.log(events) //si aggiorna all'istante non appena viene aggiunto un evento
-  console.log(activeEvents) //si aggiorna solo dopo aver ricaricato la pagina
+  // console.log(events) //si aggiorna all'istante non appena viene aggiunto un evento
+  // console.log(activeEvents) //si aggiorna solo dopo aver ricaricato la pagina
 
   const handleSections = (index) => {
     setIndexSection(index);
   };
-
-  const fetchFollowers = async () => {
-    try {
-      const followersFromDatabase = await getListFromDatabase("followers");
-      dispatch(setFollowers(followersFromDatabase));
-    } catch (error) {
-      console.error("Error retrieving followers from database", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchFollowers()
-  }, [users, loggedUser]);
 
   useEffect(() => {
     const handleBookedEvents = async () => {
@@ -84,6 +67,7 @@ export default function DashboardPage({ loggedUser, users, followers, events, bo
         loggedUser={loggedUser}
         activeEvents={activeEvents}
         bookedEvents={bookedEvents}
+        fetchFollowers={fetchFollowers}
       />
       <div className="w-full pt-10">
         <Title title="My events" fontSize="text-lg" />
@@ -101,12 +85,14 @@ export default function DashboardPage({ loggedUser, users, followers, events, bo
             events={activeEvents}
             users={users}
             bookings={bookings}
+            fetchFollowers={fetchFollowers}
           />
         ) : (
           <EventList
             loggedUser={loggedUser}
             events={pastEvents}
             users={users}
+            fetchFollowers={fetchFollowers}
           />
         )}
       </div>

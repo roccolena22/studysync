@@ -1,14 +1,34 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FollowerAndFollowed from "./FollowerAndFolowed";
 import PriorityPopup from "../shared/PriorityPopup";
+import { setUsers } from "../../../redux/slices/usersSlice";
+import { getListFromDatabase } from "../../../api/apiRequest";
+import { useDispatch } from "react-redux";
 
 export default function ManageUsers({
   users,
   loggedUser,
   followers,
+  fetchFollowers,
 }) {
   const [PriorityPopupIsOpen, setPriorityPopupIsOpen] = useState(false);
   const [indexClicked, setIndexClicked] = useState(0)
+
+  const dispatch = useDispatch()
+
+  const fetchUsers = async () => {
+    try {
+      const usersFromDatabase = await getListFromDatabase("users");
+      dispatch(setUsers(usersFromDatabase));
+    } catch (error) {
+      console.error("Error retrieving users from database", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchFollowers()
+    fetchUsers()
+  }, [])
 
   const followingIds = followers
     ? followers
@@ -17,20 +37,12 @@ export default function ManageUsers({
       .flat()
     : [];
 
-  const loggedUserFollowing = users && users.filter((user) =>
-    followingIds.includes(user.id)
-  );
-
   const followersIds = followers
     ? followers
       .filter((item) => item.idTo?.includes(loggedUser.id))
       .map((item) => item.idFrom)
       .flat()
     : [];
-
-  const loggedUserFollowers = users && users.filter((user) =>
-    followersIds.includes(user.id)
-  );
 
   const handlePriorityPopup = (index) => {
     setPriorityPopupIsOpen(!PriorityPopupIsOpen);
@@ -53,10 +65,12 @@ export default function ManageUsers({
       {PriorityPopupIsOpen && (
         <PriorityPopup handleClose={handlePriorityPopup}>
           <FollowerAndFollowed
-            loggedUserFollowing={loggedUserFollowing}
-            loggedUserFollowers={loggedUserFollowers}
+            users={users}
             loggedUser={loggedUser}
             indexClicked={indexClicked}
+            followersIds={followersIds}
+            followingIds={followingIds}
+            fetchFollowers={fetchFollowers}
           />
         </PriorityPopup>
       )}

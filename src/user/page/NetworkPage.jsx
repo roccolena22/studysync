@@ -4,7 +4,7 @@ import moment from "moment";
 import DiscoverUsers from "../component/user/DiscoverUsers";
 import NewEvent from "../component/shared/NewEvent";
 
-export default function NetworkPage({ loggedUser, followers, events, users, bookings }) {
+export default function NetworkPage({ loggedUser, followers, events, users, bookings, fetchFollowers }) {
   const currentDate = moment();
 
   const networkEvents = events
@@ -22,6 +22,7 @@ export default function NetworkPage({ loggedUser, followers, events, users, book
         <DiscoverUsers
           loggedUser={loggedUser}
           users={users}
+          fetchFollowers={fetchFollowers}
         />
       </div>
       <Title fontSize="text-lg" title="Events of my following" />
@@ -31,6 +32,7 @@ export default function NetworkPage({ loggedUser, followers, events, users, book
           events={networkEvents}
           users={users}
           bookings={bookings}
+          fetchFollowers={fetchFollowers}
         />
       </div>
     </div>

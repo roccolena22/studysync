@@ -7,7 +7,7 @@ import SwitchTab from "../component/navigation/SwitchTab";
 import EventList from "../component/card/EventList";
 import NewEvent from "../component/shared/NewEvent";
 
-export default function EventsPage({ loggedUser, events, bookings, users }) {
+export default function EventsPage({ loggedUser, events, bookings, users, fetchFollowers }) {
   const [nextEvents, setNextEvents] = useState([]);
   const [indexSection, setIndexSection] = useState(0);
   const currentDate = new Date();
@@ -82,6 +82,7 @@ export default function EventsPage({ loggedUser, events, bookings, users }) {
             events={nextEvents}
             users={users}
             bookings={bookings}
+            fetchFollowers={fetchFollowers}
           />) : (
           (
             <div className="flex flex-col items-center pt-8">
