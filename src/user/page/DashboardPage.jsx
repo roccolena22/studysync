@@ -5,7 +5,7 @@ import EventList from "../component/card/EventList";
 import NewEvent from "../component/shared/NewEvent";
 import StatisticsSection from "../component/user/StatisticsSection";
 
-export default function DashboardPage({ loggedUser, users, followers, fetchFollowers, events, bookings, fetchUsers }) {
+export default function DashboardPage({ loggedUser, users, followers, fetchFollowers, events, bookings }) {
   const [indexSection, setIndexSection] = useState(0);
   const [pastEvents, setPastEvents] = useState([]);
   const [activeEvents, setActiveEvents] = useState([]);
