@@ -51,7 +51,6 @@ export default function UsersList({
     }
   };
   
-
   return (
     <div>
       {users.length > 0 && (
