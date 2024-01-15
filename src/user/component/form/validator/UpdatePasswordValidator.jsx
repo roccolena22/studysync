@@ -18,5 +18,6 @@ export const UpdatePasswordValidator = yup.object().shape({
     .matches(
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
       "Password must contain at least one uppercase letter, one lowercase letter, and one number"
-    ),
+    )
+    .trim(),
 });

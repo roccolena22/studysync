@@ -4,7 +4,8 @@ export const EventFormValidator = yup.object().shape({
   title: yup
     .string()
     .max(100, "The event name cannot exceed 100 characters")
-    .required("The event name is required"),
+    .required("The event name is required")
+    .trim(),
   mode: yup.string().required("The mode is required"),
   info: yup
     .string()
@@ -18,6 +19,6 @@ export const EventFormValidator = yup.object().shape({
     ),
   location: yup.string().max(100, "Max. 100 characters"),
   platform: yup.string().max(100, "Max. 100 characters"),
-  link: yup.string(),
+  link: yup.string().trim(),
 
 });

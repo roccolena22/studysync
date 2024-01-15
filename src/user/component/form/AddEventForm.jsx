@@ -33,7 +33,6 @@ export default function AddEventForm({
     handleSubmit,
     formState: { errors },
     register,
-    reset,
   } = useForm({
     resolver: yupResolver(EventFormValidator),
     defaultValues: {
@@ -62,17 +61,21 @@ export default function AddEventForm({
       handleNoValidDateAlert();
       return;
     }
-
     const fullEvent = {
       authorId: [loggedUser.id],
       ...data,
     };
-
     await addRecordToDatabase("events", fullEvent);
-    dispatch(addEvent([fullEvent]));
+    dispatch(addEvent({
+      ...data,
+      authorId: loggedUser.id,
+      lastName: loggedUser.lastName,
+      firstName: loggedUser.firstName,
+      email: loggedUser.email,
+      role: loggedUser.role,
+    }));
     handleCreatedEventAlert();
     handleClose();
-    reset();
   };
 
   return (

@@ -9,7 +9,7 @@ import { updateDatabaseRecord } from "../../../api/apiRequest";
 import TimeEventSection from "./component/TimeEventSection";
 import DetailsEventInForm from "./component/DetailsEventInForm";
 
-export default function EditEventForm({ event, loggedUser, handleCloseEditPriorityPopup, handleAlert, fetchEvents, handleNoValidDateAlert }) {
+export default function EditEventForm({ event, handleCloseEditPriorityPopup, handleAlert, handleNoValidDateAlert }) {
   const dispatch = useDispatch()
   const {
     handleSubmit,
@@ -43,7 +43,6 @@ export default function EditEventForm({ event, loggedUser, handleCloseEditPriori
       return;
     }
     const editedData = {
-      authorId: [loggedUser.id],
       title: data.title,
       mode: data.mode,
       location:
@@ -63,7 +62,6 @@ export default function EditEventForm({ event, loggedUser, handleCloseEditPriori
     };
     await updateDatabaseRecord("events", event.id, editedData);
     dispatch(editEvent(editedData));
-    fetchEvents()
     handleCloseEditPriorityPopup(false);
     handleAlert();
   };

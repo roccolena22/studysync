@@ -11,7 +11,6 @@ export default function EventCard({
   users,
   bookings,
   toggleBooking,
-  fetchEvents,
   fetchFollowers,
 }) {
   const [bookedUsers, setBookedUsers] = useState([]);
@@ -51,7 +50,6 @@ export default function EventCard({
             handleDelete={handleDelete}
             loggedUser={loggedUser}
             toggleBooking={toggleBooking}
-            fetchEvents={fetchEvents}
             userIsBooked={userIsBooked}
           />
         </div>

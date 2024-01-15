@@ -11,7 +11,7 @@ export default function DashboardPage({ loggedUser, users, followers, fetchFollo
   const [activeEvents, setActiveEvents] = useState([]);
   const [bookedEvents, setBookedEvents] = useState([]);
 
-  // console.log(events) //si aggiorna all'istante non appena viene aggiunto un evento
+  console.log(events) //si aggiorna all'istante non appena viene aggiunto un evento
   // console.log(activeEvents) //si aggiorna solo dopo aver ricaricato la pagina
 
   const handleSections = (index) => {
@@ -54,7 +54,8 @@ export default function DashboardPage({ loggedUser, users, followers, fetchFollo
       (event) => new Date(`${event.endDate} ${event.endTime}`) < currentDate
     );
     setPastEvents(pastEventsFiltered);
-  }, [events.length, loggedUser]); //essendoci events come dipendenza mi aspetto si aggiornino subito
+    console.log(events) 
+  }, [events, loggedUser]); //essendoci events come dipendenza mi aspetto si aggiornino subito
 
   return (
     <div className="flex flex-col items-center justify-center">

@@ -10,7 +10,6 @@ export default function FooterCard({
   handleDelete,
   toggleBooking,
   loggedUser,
-  fetchEvents,
   userIsBooked
 }) {
   const [selectedEvent, setSelectedEvent] = useState(null);
@@ -65,11 +64,10 @@ export default function FooterCard({
         <PriorityPopup handleClose={handleCloseEditPriorityPopup} title="Edit event">
           {<EditEventForm
             event={selectedEvent}
-            loggedUser={loggedUser}
             handleCloseEditPriorityPopup={handleCloseEditPriorityPopup}
             handleAlert={handleAlert}
             handleNoValidDateAlert={handleNoValidDateAlert}
-            fetchEvents={fetchEvents} />}
+             />}
         </PriorityPopup>
       )}
       {showAlert && <Alert type="success" text="Modification successful!" onClose={handleAlert} />}

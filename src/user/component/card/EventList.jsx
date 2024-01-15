@@ -119,7 +119,6 @@ export default function EventList({
                 toggleBooking={toggleBooking}
                 fetchBookings={() => fetchBookings(event)}
                 bookings={bookings}
-                fetchEvents={fetchEvents}
                 fetchFollowers={fetchFollowers}
               />
             </div>

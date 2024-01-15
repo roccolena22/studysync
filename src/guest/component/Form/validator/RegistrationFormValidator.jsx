@@ -4,11 +4,13 @@ export const RegistrationFormValidator = yup.object().shape({
   firstName: yup
     .string()
     .max(50, "Password is too long")
-    .required("First name is required"),
+    .required("First name is required")
+    .trim(),
   lastName: yup
     .string()
     .max(100, "Password is too long")
-    .required("Last name is required"),
+    .required("Last name is required")
+    .trim(),
   email: yup
     .string()
     .required("Email is required")
@@ -23,7 +25,8 @@ export const RegistrationFormValidator = yup.object().shape({
     .matches(
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
       "Password must contain at least one uppercase letter, one lowercase letter, and one number"
-    ),
+    )
+    .trim(),
   confirmPassword: yup
     .string()
     .oneOf([yup.ref("password"), null], "Passwords must match"),
