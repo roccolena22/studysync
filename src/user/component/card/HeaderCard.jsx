@@ -22,22 +22,27 @@ export default function HeaderCard({
     setReservationsPriorityPopupIsOpen(!reservationsPriorityPopupIsOpen);
     fetchBookings(event)
   };
- 
+
   return (
     <>
-      <UserDetails firstName={event.firstName} lastName={event.lastName} email={event.email} role={event.role} />
-      {event.places && (
-        <div className="flex items-center space-x-2">
+      <div className="w-full flex justify-between items-center">
+        <UserDetails firstName={event.firstName} lastName={event.lastName} email={event.email} role={event.role} />
+        <div className="flex space-x-1 items-center">
           {isUnderway && <Badge text="underway" />}
           {event.bookingsRecordId && event.bookingsRecordId.length >= event.places && <Badge text="soldout" />}
-          <IconAndName
-            iconName="group"
-            onClick={() => handleReservationsPopup()}
-            label={`${event.bookingsRecordId ? event.bookingsRecordId.length : "0"}${event.places ? "/" + event.places : ""
-              }`}
-          />
         </div>
-      )}
+        {event.places && (
+          <div className="flex items-center space-x-2">
+            <IconAndName
+              iconName="group"
+              onClick={() => handleReservationsPopup()}
+              label={`${event.bookingsRecordId ? event.bookingsRecordId.length : "0"}${event.places ? "/" + event.places : ""
+                }`}
+            />
+          </div>
+        )}
+      </div>
+
       {reservationsPriorityPopupIsOpen && (
         <PriorityPopup
           handleClose={handleCloseReservationsPriorityPopup}
