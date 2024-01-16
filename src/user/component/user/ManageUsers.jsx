@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
 import FollowerAndFollowed from "./FollowerAndFolowed";
 import PriorityPopup from "../shared/PriorityPopup";
-import { setUsers } from "../../../redux/slices/usersSlice";
-import { getListFromDatabase } from "../../../api/apiRequest";
-import { useDispatch } from "react-redux";
 
 export default function ManageUsers({
   users,
@@ -14,20 +11,8 @@ export default function ManageUsers({
   const [PriorityPopupIsOpen, setPriorityPopupIsOpen] = useState(false);
   const [indexClicked, setIndexClicked] = useState(0)
 
-  const dispatch = useDispatch()
-
-  const fetchUsers = async () => {
-    try {
-      const usersFromDatabase = await getListFromDatabase("users");
-      dispatch(setUsers(usersFromDatabase));
-    } catch (error) {
-      console.error("Error retrieving users from database", error);
-    }
-  };
-
   useEffect(() => {
     fetchFollowers()
-    fetchUsers()
   }, [])
 
   const followingIds = followers

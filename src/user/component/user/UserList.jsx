@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SearchBar from "../shared/SearchBar";
 import SingleUserInList from "./SingleUserInList";
 import { addRecordToDatabase, deleteRecordFromDatabase, getListFromDatabase } from "../../../api/apiRequest";
@@ -16,6 +16,19 @@ export default function UsersList({
   const [searchedUsers, setSearchedUsers] = useState([]);
 
   const dispatch = useDispatch()
+
+  const fetchUsers = async () => {
+    try {
+      const usersFromDatabase = await getListFromDatabase("users");
+      dispatch(setUsers(usersFromDatabase));
+    } catch (error) {
+      console.error("Error retrieving users from database", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUsers()
+  }, [])
 
   const handleSearch = (dataFromSearch) => {
     setSearchedUsers(dataFromSearch);
@@ -38,19 +51,19 @@ export default function UsersList({
         await deleteRecordFromDatabase("followers", followerData.id);
       }
       dispatch(followerReduxAction(followerData));
-  
+
       const updatedUsers = await getListFromDatabase("users");
       dispatch(setUsers(updatedUsers));
-  
+
       const refreshLoggedUser = updatedUsers.find((user) => user.id === loggedUser.id);
       dispatch(setLoggedUser(refreshLoggedUser));
-  
+
       fetchFollowers?.();
     } catch (error) {
       console.error(`Error ${isAdding ? 'adding' : 'removing'} follower`, error);
     }
   };
-  
+
   return (
     <div>
       {users.length > 0 && (

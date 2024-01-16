@@ -119,7 +119,6 @@ export default function EventList({
             </div>
           )
         )}
-
       </div>
       {(events.length <= 0) && (
         <span className="text-lg text-gray-500">No events to show</span>
