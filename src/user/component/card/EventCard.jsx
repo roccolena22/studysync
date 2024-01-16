@@ -48,12 +48,9 @@ export default function EventCard({
             loggedUser={loggedUser}
             fetchFollowers={fetchFollowers}
             users={users}
-            isUnderway={isUnderway}
           />
         </div>
-        <div className="flex justify-between">
-          <EventDetails event={event} />
-        </div>
+          <EventDetails event={event} isUnderway={isUnderway} />
         <div className="absolute bottom-2 right-3">
           <FooterCard
             event={event}

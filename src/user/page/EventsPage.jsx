@@ -70,7 +70,7 @@ export default function EventsPage({ loggedUser, events, bookings, users, fetchF
   return (
     <div className="flex flex-col items-center relative">
       <Title title="Next events" >
-        <div className="flex items-center space-x-4">
+        <div className="flex flex-col gap-2 sm:flex-row align-center justify-center items-center sm:space-x-4">
           <NewEvent loggedUser={loggedUser} name="New event" />
           <SwitchTab firstItem="grid" secondItem="calendar" handleSections={handleSections} indexSection={indexSection} />
         </div>

@@ -1,7 +1,8 @@
 import moment from "moment";
 import EventItem from "./EventItem";
+import Badge from "../shared/Badge";
 
-export default function EventDetails({ event }) {
+export default function EventDetails({ event, isUnderway }) {
   const startDateToView = `${event.startDate} ${event.startTime}`;
 
   const startDate = moment(`${startDateToView}`, "YYYY-MM-DD HH:mm");
@@ -28,7 +29,13 @@ export default function EventDetails({ event }) {
 
   return (
     <div className="w-full">
-      <p className="font-bold py-4 text-lg">{event.title}</p>
+      <div className="w-full flex flex-col gap-2 sm:flex-row-reverse justify-between sm:items-center  py-4">
+        <div className="space-x-1 items-center">
+          {isUnderway && <Badge text="underway" />}
+          {event.bookingsRecordId && event.bookingsRecordId.length >= event.places && <Badge text="soldout" />}
+        </div>
+        <p className="font-bold text-lg">{event.title}</p>
+      </div>
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
         <EventItem label="Start" value={startDateToView} />
         <EventItem label="Duration" value={formattedDuration} />
