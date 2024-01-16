@@ -12,6 +12,7 @@ export default function EventCard({
   bookings,
   toggleBooking,
   fetchFollowers,
+  fetchEvents,
 }) {
   const [bookedUsers, setBookedUsers] = useState([]);
   const [isUnderway, setIsUnderway] = useState(false);
@@ -36,7 +37,7 @@ export default function EventCard({
 
   return (
     <>
-      <div className="w-full h-96 sm:h-80 relative rounded-lg p-3 bg-gray-50 shadow-xl">
+      <div className="w-full h-96 relative rounded-lg p-3 bg-gray-50 shadow-xl">
         <div className={`flex justify-between items-center border-b ${event.role && event.role.includes("student")
           ? "border-yellow-400"
           : "border-purple-500"
@@ -59,6 +60,7 @@ export default function EventCard({
             toggleBooking={toggleBooking}
             userIsBooked={userIsBooked}
             isUnderway={isUnderway}
+            fetchEvents={fetchEvents}
           />
         </div>
       </div>

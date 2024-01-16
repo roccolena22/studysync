@@ -120,6 +120,7 @@ export default function EventList({
                 fetchBookings={() => fetchBookings(event)}
                 bookings={bookings}
                 fetchFollowers={fetchFollowers}
+                fetchEvents={fetchEvents}
               />
             </div>
           )

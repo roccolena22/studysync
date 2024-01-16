@@ -35,6 +35,7 @@ const Router = () => {
       console.error("Error retrieving followers from database", error);
     }
   };
+  
   const router = createBrowserRouter(
     createRoutesFromElements(
       <>

@@ -11,7 +11,8 @@ export default function FooterCard({
   toggleBooking,
   loggedUser,
   userIsBooked,
-  isUnderway
+  isUnderway,
+  fetchEvents
 }) {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [editPriorityPopupIsOpen, setEditPriorityPopupIsOpen] = useState(false);
@@ -68,6 +69,7 @@ export default function FooterCard({
             handleCloseEditPriorityPopup={handleCloseEditPriorityPopup}
             handleAlert={handleAlert}
             handleNoValidDateAlert={handleNoValidDateAlert}
+            fetchEvents={fetchEvents}
           />}
         </PriorityPopup>
       )}

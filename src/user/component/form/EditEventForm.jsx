@@ -5,11 +5,11 @@ import { EventFormValidator } from "./validator/EventFormValidator";
 import Input from "../../../shared/component/Input";
 import { editEvent } from "../../../redux/slices/eventsSlice";
 import { useDispatch } from "react-redux";
-import { updateDatabaseRecord } from "../../../api/apiRequest";
+import { getListFromDatabase, updateDatabaseRecord } from "../../../api/apiRequest";
 import TimeEventSection from "./component/TimeEventSection";
 import DetailsEventInForm from "./component/DetailsEventInForm";
 
-export default function EditEventForm({ event, handleCloseEditPriorityPopup, handleAlert, handleNoValidDateAlert }) {
+export default function EditEventForm({ event, handleCloseEditPriorityPopup, handleAlert, handleNoValidDateAlert, fetchEvents }) {
   const dispatch = useDispatch()
   const {
     handleSubmit,
@@ -60,9 +60,9 @@ export default function EditEventForm({ event, handleCloseEditPriorityPopup, han
       startDate: data.startDate,
       endDate: data.endDate,
     };
-    console.log(editedData)
     await updateDatabaseRecord("events", event.id, editedData);
     dispatch(editEvent(editedData));
+    fetchEvents()
     handleCloseEditPriorityPopup(false);
     handleAlert();
   };
