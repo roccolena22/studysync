@@ -71,7 +71,7 @@ export default function EventList({
 
   useEffect(() => {
     fetchEvents();
-  }, [dispatch]);
+  }, [dispatch, events.length]);
 
   useEffect(() => {
     fetchBookings();
