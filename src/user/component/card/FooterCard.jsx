@@ -10,7 +10,8 @@ export default function FooterCard({
   handleDelete,
   toggleBooking,
   loggedUser,
-  userIsBooked
+  userIsBooked,
+  isUnderway
 }) {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [editPriorityPopupIsOpen, setEditPriorityPopupIsOpen] = useState(false);
@@ -42,7 +43,7 @@ export default function FooterCard({
     <div className="flex space-x-2">
       {proproetaryEvent && (
         <>
-          {!eventIsFinished && <IconAndName iconName="edit" label="edit" onClick={toggleEditPriorityPopup} />}
+          {!eventIsFinished && !isUnderway && <IconAndName iconName="edit" label="edit" onClick={toggleEditPriorityPopup} />}
           <IconAndName
             iconName="delete"
             label="delete"
@@ -67,7 +68,7 @@ export default function FooterCard({
             handleCloseEditPriorityPopup={handleCloseEditPriorityPopup}
             handleAlert={handleAlert}
             handleNoValidDateAlert={handleNoValidDateAlert}
-             />}
+          />}
         </PriorityPopup>
       )}
       {showAlert && <Alert type="success" text="Modification successful!" onClose={handleAlert} />}

@@ -14,6 +14,15 @@ export default function EventCard({
   fetchFollowers,
 }) {
   const [bookedUsers, setBookedUsers] = useState([]);
+  const [isUnderway, setIsUnderway] = useState(false);
+
+  const currentDate = new Date();
+
+  useEffect(() => {
+    const end = new Date(`${event.endDate} ${event.endTime}`);
+    const start = new Date(`${event.startDate} ${event.startTime}`);
+    setIsUnderway(start <= currentDate && currentDate <= end);
+  }, [currentDate, event.endDate, event.endTime, event.startDate, event.startTime]);
 
   useEffect(() => {
     const idsArray = event && event.bookingsRecordId && bookings
@@ -39,6 +48,7 @@ export default function EventCard({
             loggedUser={loggedUser}
             fetchFollowers={fetchFollowers}
             users={users}
+            isUnderway={isUnderway}
           />
         </div>
         <div className="flex justify-between">
@@ -51,6 +61,7 @@ export default function EventCard({
             loggedUser={loggedUser}
             toggleBooking={toggleBooking}
             userIsBooked={userIsBooked}
+            isUnderway={isUnderway}
           />
         </div>
       </div>

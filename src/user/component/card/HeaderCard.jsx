@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Badge from "../shared/Badge";
 import IconAndName from "../user/IconAndName";
 import UserDetails from "../user/UserDetails";
@@ -11,6 +11,7 @@ export default function HeaderCard({
   bookedUsers,
   loggedUser,
   fetchFollowers,
+  isUnderway
 }) {
   const [reservationsPriorityPopupIsOpen, setReservationsPriorityPopupIsOpen] = useState(false);
 
@@ -21,12 +22,13 @@ export default function HeaderCard({
     setReservationsPriorityPopupIsOpen(!reservationsPriorityPopupIsOpen);
     fetchBookings(event)
   };
-
+ 
   return (
     <>
       <UserDetails firstName={event.firstName} lastName={event.lastName} email={event.email} role={event.role} />
       {event.places && (
         <div className="flex items-center space-x-2">
+          {isUnderway && <Badge text="underway" />}
           {event.bookingsRecordId && event.bookingsRecordId.length >= event.places && <Badge text="soldout" />}
           <IconAndName
             iconName="group"

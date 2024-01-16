@@ -5,6 +5,7 @@ export default function Badge({ text }) {
     student: "bg-yellow-400",
     teacher: "bg-purple-500",
     soldout: "bg-red-800",
+    underway: "bg-green-600"
   };
 
   const style = colorMapping[text] || "bg-gray-800";

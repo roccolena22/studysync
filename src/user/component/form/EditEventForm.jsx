@@ -60,6 +60,7 @@ export default function EditEventForm({ event, handleCloseEditPriorityPopup, han
       startDate: data.startDate,
       endDate: data.endDate,
     };
+    console.log(editedData)
     await updateDatabaseRecord("events", event.id, editedData);
     dispatch(editEvent(editedData));
     handleCloseEditPriorityPopup(false);
