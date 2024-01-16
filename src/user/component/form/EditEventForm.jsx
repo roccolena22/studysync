@@ -5,7 +5,7 @@ import { EventFormValidator } from "./validator/EventFormValidator";
 import Input from "../../../shared/component/Input";
 import { editEvent } from "../../../redux/slices/eventsSlice";
 import { useDispatch } from "react-redux";
-import { getListFromDatabase, updateDatabaseRecord } from "../../../api/apiRequest";
+import { updateDatabaseRecord } from "../../../api/apiRequest";
 import TimeEventSection from "./component/TimeEventSection";
 import DetailsEventInForm from "./component/DetailsEventInForm";
 
