@@ -10,6 +10,7 @@ import TimeEventSection from "./component/TimeEventSection";
 import DetailsEventInForm from "./component/DetailsEventInForm";
 
 export default function EditEventForm({ event, handleCloseEditPriorityPopup, handleAlert, handleNoValidDateAlert, fetchEvents }) {
+  console.log(event.id)
   const dispatch = useDispatch()
   const {
     handleSubmit,

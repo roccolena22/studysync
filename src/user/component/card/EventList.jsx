@@ -3,7 +3,7 @@ import EventCard from "./EventCard";
 import SearchBar from "../shared/SearchBar";
 import { addRecordToDatabase, deleteRecordFromDatabase, getListFromDatabase } from "../../../api/apiRequest";
 import { useDispatch } from "react-redux";
-import { deleteEvent, setEvents } from "../../../redux/slices/eventsSlice";
+import { setEvents } from "../../../redux/slices/eventsSlice";
 import { addBooking, deleteBooking, setBookings } from "../../../redux/slices/bookingsSlice";
 
 export default function EventList({
@@ -19,11 +19,6 @@ export default function EventList({
 
   const handleSearch = (dataFromSearch) => {
     setSearchedEvents(dataFromSearch);
-  };
-
-  const handleDelete = async (event) => {
-    await deleteRecordFromDatabase("events", event.id);
-    dispatch(deleteEvent(event));
   };
 
   const fetchEvents = async () => {
@@ -115,7 +110,6 @@ export default function EventList({
                 users={users}
                 loggedUser={loggedUser}
                 event={event}
-                handleDelete={handleDelete}
                 toggleBooking={toggleBooking}
                 fetchBookings={() => fetchBookings(event)}
                 bookings={bookings}

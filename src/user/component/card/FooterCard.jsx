@@ -4,10 +4,12 @@ import IconAndName from "../user/IconAndName";
 import EditEventForm from "../form/EditEventForm";
 import Alert from "../shared/Alert";
 import PriorityPopup from "../shared/PriorityPopup";
+import { deleteEvent } from "../../../redux/slices/eventsSlice";
+import { deleteRecordFromDatabase } from "../../../api/apiRequest";
+import { useDispatch } from "react-redux";
 
 export default function FooterCard({
   event,
-  handleDelete,
   toggleBooking,
   loggedUser,
   userIsBooked,
@@ -19,8 +21,15 @@ export default function FooterCard({
   const [showAlert, setShowAlert] = useState(false);
   const [showNoValidDateAlert, setShowNoValidDateAlert] = useState(false);
 
+  const dispatch = useDispatch()
   const currentDate = new Date();
   const proproetaryEvent = loggedUser.id === event.authorId;
+
+  const handleDelete = async (event) => {
+    console.log(event)
+    await deleteRecordFromDatabase("events", event.id);
+    dispatch(deleteEvent(event));
+  };
 
   const handleNoValidDateAlert = () => {
     setShowNoValidDateAlert(!showNoValidDateAlert);
@@ -70,6 +79,7 @@ export default function FooterCard({
             handleAlert={handleAlert}
             handleNoValidDateAlert={handleNoValidDateAlert}
             fetchEvents={fetchEvents}
+            loggedUser={loggedUser}
           />}
         </PriorityPopup>
       )}

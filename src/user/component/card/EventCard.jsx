@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 export default function EventCard({
   loggedUser,
   event,
-  handleDelete,
   fetchBookings,
   users,
   bookings,
@@ -55,7 +54,6 @@ export default function EventCard({
         <div className="absolute bottom-2 right-3">
           <FooterCard
             event={event}
-            handleDelete={handleDelete}
             loggedUser={loggedUser}
             toggleBooking={toggleBooking}
             userIsBooked={userIsBooked}
