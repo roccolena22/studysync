@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
-import Navbar from "../../../user/component/navigation/Navbar";
-import Footer from "../../../user/component/navigation/Footer";
-import ToggleMenu from "../../../user/component/navigation/ToggleMenu";
+import Navbar from "../../user/component/navigation/Navbar";
+import Footer from "../../user/component/navigation/Footer";
+import ToggleMenu from "../../user/component/navigation/ToggleMenu";
 import { useState, useEffect } from "react";
 
 export default function UserTemplate() {

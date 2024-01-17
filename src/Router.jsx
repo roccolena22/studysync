@@ -6,10 +6,10 @@ import {
 } from "react-router-dom";
 import AccountPage from "./user/page/AccountPage";
 import ErrorPage from "./user/page/error-page";
-import UserTemplate from "./shared/template/userTemplate/UserTemplate";
+import UserTemplate from "./shared/template/UserTemplate";
 import EventsPage from "./user/page/EventsPage";
 import Login from "./guest/page/Login";
-import GuestTemplate from "./shared/template/guestTemplate/guestTemplate";
+import GuestTemplate from "./shared/template/GuestTemplate";
 import Registration from "./guest/page/Registration";
 import NetworkPage from "./user/page/NetworkPage";
 import RecoveryPassword from "./guest/page/RecoveryPassword";
