@@ -1,7 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const bookingsSlice = createSlice({
-  name: 'bookings',
+  name: "bookings",
   initialState: [],
   reducers: {
     setBookings: (state, action) => {
@@ -11,11 +11,13 @@ const bookingsSlice = createSlice({
       state.push(action.payload);
     },
     deleteBooking: (state, action) => {
-      const index = state.findIndex((booking) => booking.id === action.payload.id);
+      const index = state.findIndex(
+        (booking) => booking.id === action.payload.id
+      );
       if (index !== -1) {
         state.splice(index, 1);
       }
-    },    
+    },
   },
 });
 

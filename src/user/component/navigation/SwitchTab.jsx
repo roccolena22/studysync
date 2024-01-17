@@ -5,7 +5,7 @@ export default function SwitchTab({
   firstItem,
   secondItem,
   handleSections,
-  indexSection
+  indexSection,
 }) {
   const [index, setIndex] = useState(indexSection);
 

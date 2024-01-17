@@ -5,11 +5,10 @@ import GuestPageContainer from "../component/GuestPageContainer";
 export default function RecoveryPassword() {
   return (
     <GuestPageContainer>
-      <AppName name="StudySync"/>
+      <AppName name="StudySync" />
       <RecoveryPasswordForm />
       <p className="text-xs py-3 text-gray-400 text-center">
-        If the email is correct, you will receive a link to reset your
-        password
+        If the email is correct, you will receive a link to reset your password
       </p>
     </GuestPageContainer>
   );

@@ -30,9 +30,7 @@ export default function LoginForm() {
   const onSubmit = async (data) => {
     try {
       const users = await getListFromDatabase("users");
-      const loggedUser = users.find(
-        (user) => user.email === data.email
-      );
+      const loggedUser = users.find((user) => user.email === data.email);
 
       if (loggedUser) {
         const userPassword = loggedUser && loggedUser.password;

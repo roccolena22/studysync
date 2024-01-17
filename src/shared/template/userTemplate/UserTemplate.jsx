@@ -18,7 +18,7 @@ export default function UserTemplate() {
       }
     };
     window.addEventListener("resize", handleResize);
-  }, []); 
+  }, []);
 
   return (
     <div className="flex flex-col min-h-screen items-center bg-gray-50 text-gray-700">

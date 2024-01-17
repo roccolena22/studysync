@@ -32,8 +32,8 @@ export default function PersonalCalendar({ loggedUser, events }) {
   const handleSelectSlot = (slotInfo) => {
     const startDateFormatted = moment(slotInfo.start).toDate();
     const endDateFormatted = moment(slotInfo.end).toDate();
-    setStartDate(startDateFormatted)
-    setEndDate(endDateFormatted)
+    setStartDate(startDateFormatted);
+    setEndDate(endDateFormatted);
     const startTime = moment(slotInfo.start).format("HH:mm");
     const endTime = moment(slotInfo.end).format("HH:mm");
     setStartTime(startTime);
@@ -43,7 +43,7 @@ export default function PersonalCalendar({ loggedUser, events }) {
     currentDate.setDate(currentDate.getDate() - 1);
 
     if (startDateFormatted <= currentDate) {
-      handleNoValidDateAlert()
+      handleNoValidDateAlert();
     } else {
       handleNewEventPriorityPopup();
     }
@@ -76,7 +76,11 @@ export default function PersonalCalendar({ loggedUser, events }) {
 
   const EventInCalendar = ({ event }) => (
     <div onClick={() => handleEventClick(event)} className="w-full h-full">
-      <p className="text-[10px]">{event.title.length > 18 ? event.title.slice(0, 18) + "..." : event.title}</p>
+      <p className="text-[10px]">
+        {event.title.length > 18
+          ? event.title.slice(0, 18) + "..."
+          : event.title}
+      </p>
     </div>
   );
 
@@ -123,9 +127,20 @@ export default function PersonalCalendar({ loggedUser, events }) {
         </SecondaryPopup>
       )}
 
-      {showCreatedEventAlert && <Alert text="Event created successfully." type="success" onClose={() => setShowCreatedEventAlert(false)} />}
-      {showNoValidDateAlert && <Alert text="You cannot create events in the past tense." type="alert" onClose={() => setShowNoValidDateAlert(false)} />}
-
+      {showCreatedEventAlert && (
+        <Alert
+          text="Event created successfully."
+          type="success"
+          onClose={() => setShowCreatedEventAlert(false)}
+        />
+      )}
+      {showNoValidDateAlert && (
+        <Alert
+          text="You cannot create events in the past tense."
+          type="alert"
+          onClose={() => setShowNoValidDateAlert(false)}
+        />
+      )}
     </div>
   );
 }

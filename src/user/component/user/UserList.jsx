@@ -1,21 +1,24 @@
 import React, { useEffect, useState } from "react";
 import SearchBar from "../shared/SearchBar";
 import SingleUserInList from "./SingleUserInList";
-import { addRecordToDatabase, deleteRecordFromDatabase, getListFromDatabase } from "../../../api/apiRequest";
-import { addFollower, deleteFollower } from "../../../redux/slices/followersSlice";
+import {
+  addRecordToDatabase,
+  deleteRecordFromDatabase,
+  getListFromDatabase,
+} from "../../../api/apiRequest";
+import {
+  addFollower,
+  deleteFollower,
+} from "../../../redux/slices/followersSlice";
 import { setLoggedUser } from "../../../redux/slices/authSlice";
 import { setUsers } from "../../../redux/slices/usersSlice";
 import { useDispatch, useSelector } from "react-redux";
 
-export default function UsersList({
-  loggedUser,
-  users,
-  fetchFollowers,
-}) {
+export default function UsersList({ loggedUser, users, fetchFollowers }) {
   const followers = useSelector((state) => state.followers);
   const [searchedUsers, setSearchedUsers] = useState([]);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const fetchUsers = async () => {
     try {
@@ -27,16 +30,20 @@ export default function UsersList({
   };
 
   useEffect(() => {
-    fetchUsers()
-  }, [])
+    fetchUsers();
+  }, []);
 
   const handleSearch = (dataFromSearch) => {
     setSearchedUsers(dataFromSearch);
   };
 
-  const sortedUsers = [...(searchedUsers.length > 0 ? searchedUsers : users)].sort((a, b) => {
+  const sortedUsers = [
+    ...(searchedUsers.length > 0 ? searchedUsers : users),
+  ].sort((a, b) => {
     const firstNameComparison = a.firstName.localeCompare(b.firstName);
-    return firstNameComparison !== 0 ? firstNameComparison : a.lastName.localeCompare(b.lastName);
+    return firstNameComparison !== 0
+      ? firstNameComparison
+      : a.lastName.localeCompare(b.lastName);
   });
 
   const toggleFollow = async (userId, isAdding) => {
@@ -55,12 +62,17 @@ export default function UsersList({
       const updatedUsers = await getListFromDatabase("users");
       dispatch(setUsers(updatedUsers));
 
-      const refreshLoggedUser = updatedUsers.find((user) => user.id === loggedUser.id);
+      const refreshLoggedUser = updatedUsers.find(
+        (user) => user.id === loggedUser.id
+      );
       dispatch(setLoggedUser(refreshLoggedUser));
 
       fetchFollowers?.();
     } catch (error) {
-      console.error(`Error ${isAdding ? 'adding' : 'removing'} follower`, error);
+      console.error(
+        `Error ${isAdding ? "adding" : "removing"} follower`,
+        error
+      );
     }
   };
 
@@ -87,7 +99,9 @@ export default function UsersList({
             </div>
           )
         )}
-        {users.length === 0 && <p className="text-lg gray-500">No users to show.</p>}
+        {users.length === 0 && (
+          <p className="text-lg gray-500">No users to show.</p>
+        )}
       </div>
     </div>
   );

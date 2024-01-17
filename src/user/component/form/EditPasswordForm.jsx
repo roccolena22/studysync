@@ -18,7 +18,6 @@ export default function EditPasswordForm({ loggedUser }) {
 
   const dispatch = useDispatch();
 
-
   const handleAlert = () => {
     setShowAlert(!showAlert);
   };
@@ -46,10 +45,11 @@ export default function EditPasswordForm({ loggedUser }) {
       await updateDatabaseRecord("users", loggedUser.id, {
         password: newHashedPassword,
       });
-      handleAlert()
+      handleAlert();
       setTimeout(() => {
         dispatch(logout());
-      }, 4000);    } else {
+      }, 4000);
+    } else {
       setPasswordError("Current password is incorrect");
     }
   };
@@ -88,8 +88,13 @@ export default function EditPasswordForm({ loggedUser }) {
       <div className="flex justify-end pt-4">
         <Button type="submit" name="Save" />
       </div>
-      {showAlert && <Alert type="success" text="Password changed successfully. You will be logged out shortly" onClose={handleAlert} />}
-
+      {showAlert && (
+        <Alert
+          type="success"
+          text="Password changed successfully. You will be logged out shortly"
+          onClose={handleAlert}
+        />
+      )}
     </form>
   );
 }

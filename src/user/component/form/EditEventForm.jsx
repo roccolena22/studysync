@@ -9,9 +9,15 @@ import { updateDatabaseRecord } from "../../../api/apiRequest";
 import TimeEventSection from "./component/TimeEventSection";
 import DetailsEventInForm from "./component/DetailsEventInForm";
 
-export default function EditEventForm({ event, handleCloseEditPriorityPopup, handleAlert, handleNoValidDateAlert, fetchEvents }) {
-  console.log(event.id)
-  const dispatch = useDispatch()
+export default function EditEventForm({
+  event,
+  handleCloseEditPriorityPopup,
+  handleAlert,
+  handleNoValidDateAlert,
+  fetchEvents,
+}) {
+  console.log(event.id);
+  const dispatch = useDispatch();
   const {
     handleSubmit,
     formState: { errors },
@@ -29,7 +35,7 @@ export default function EditEventForm({ event, handleCloseEditPriorityPopup, han
       startTime: event.startTime,
       endTime: event.endTime,
       places: event.places,
-      link: event.link
+      link: event.link,
     },
   });
 
@@ -47,13 +53,9 @@ export default function EditEventForm({ event, handleCloseEditPriorityPopup, han
       title: data.title,
       mode: data.mode,
       location:
-        data.mode === "In person" || data.mode === "Mixed"
-          ? data.location
-          : "",
+        data.mode === "In person" || data.mode === "Mixed" ? data.location : "",
       platform:
-        data.mode === "Remotely" || data.mode === "Mixed"
-          ? data.platform
-          : "",
+        data.mode === "Remotely" || data.mode === "Mixed" ? data.platform : "",
       startTime: data.startTime,
       endTime: data.endTime,
       places: data.places,
@@ -63,7 +65,7 @@ export default function EditEventForm({ event, handleCloseEditPriorityPopup, han
     };
     await updateDatabaseRecord("events", event.id, editedData);
     dispatch(editEvent(editedData));
-    fetchEvents()
+    fetchEvents();
     handleCloseEditPriorityPopup(false);
     handleAlert();
   };

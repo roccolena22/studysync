@@ -1,7 +1,7 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const followersSlice = createSlice({
-  name: 'followers',
+  name: "followers",
   initialState: [],
   reducers: {
     setFollowers: (state, action) => {
@@ -11,7 +11,9 @@ const followersSlice = createSlice({
       state.push(action.payload);
     },
     deleteFollower: (state, action) => {
-      const index = state.findIndex((follower) => follower.id === action.payload.id);
+      const index = state.findIndex(
+        (follower) => follower.id === action.payload.id
+      );
       if (index !== -1) {
         state.splice(index, 1);
       }
@@ -19,5 +21,6 @@ const followersSlice = createSlice({
   },
 });
 
-export const { setFollowers, addFollower, deleteFollower } = followersSlice.actions;
+export const { setFollowers, addFollower, deleteFollower } =
+  followersSlice.actions;
 export default followersSlice.reducer;

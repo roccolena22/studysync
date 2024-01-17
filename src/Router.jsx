@@ -1,4 +1,9 @@
-import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider,
+} from "react-router-dom";
 import AccountPage from "./user/page/AccountPage";
 import ErrorPage from "./user/page/error-page";
 import UserTemplate from "./shared/template/userTemplate/UserTemplate";
@@ -15,7 +20,7 @@ import { getListFromDatabase } from "./api/apiRequest";
 import { setFollowers } from "./redux/slices/followersSlice";
 
 const Router = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const loggedUser = useSelector((state) => state.auth.user);
   const followers = useSelector((state) => state.followers);
   const events = useSelector((state) => state.events);
@@ -53,7 +58,14 @@ const Router = () => {
             path="/"
             element={
               <Protected isLogged={loggedUser}>
-                <DashboardPage loggedUser={loggedUser} users={users} followers={followers} fetchFollowers={fetchFollowers} events={events} bookings={bookings} />
+                <DashboardPage
+                  loggedUser={loggedUser}
+                  users={users}
+                  followers={followers}
+                  fetchFollowers={fetchFollowers}
+                  events={events}
+                  bookings={bookings}
+                />
               </Protected>
             }
           />
@@ -69,7 +81,13 @@ const Router = () => {
             path="/events"
             element={
               <Protected isLogged={loggedUser}>
-                <EventsPage loggedUser={loggedUser} bookings={bookings} events={events} users={users} fetchFollowers={fetchFollowers} />
+                <EventsPage
+                  loggedUser={loggedUser}
+                  bookings={bookings}
+                  events={events}
+                  users={users}
+                  fetchFollowers={fetchFollowers}
+                />
               </Protected>
             }
           />
@@ -77,7 +95,14 @@ const Router = () => {
             path="/network"
             element={
               <Protected isLogged={loggedUser}>
-                <NetworkPage loggedUser={loggedUser} followers={followers} fetchFollowers={fetchFollowers} events={events} users={users} bookings={bookings} />
+                <NetworkPage
+                  loggedUser={loggedUser}
+                  followers={followers}
+                  fetchFollowers={fetchFollowers}
+                  events={events}
+                  users={users}
+                  bookings={bookings}
+                />
               </Protected>
             }
           />

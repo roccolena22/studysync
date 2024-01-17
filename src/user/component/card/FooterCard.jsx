@@ -14,19 +14,19 @@ export default function FooterCard({
   loggedUser,
   userIsBooked,
   isUnderway,
-  fetchEvents
+  fetchEvents,
 }) {
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [editPriorityPopupIsOpen, setEditPriorityPopupIsOpen] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [showNoValidDateAlert, setShowNoValidDateAlert] = useState(false);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const currentDate = new Date();
   const proproetaryEvent = loggedUser.id === event.authorId;
 
   const handleDelete = async (event) => {
-    console.log(event)
+    console.log(event);
     await deleteRecordFromDatabase("events", event.id);
     dispatch(deleteEvent(event));
   };
@@ -48,12 +48,19 @@ export default function FooterCard({
     setEditPriorityPopupIsOpen(!editPriorityPopupIsOpen);
   };
 
-  const eventIsFinished = new Date(`${event.endDate} ${event.endTime}`) < currentDate
+  const eventIsFinished =
+    new Date(`${event.endDate} ${event.endTime}`) < currentDate;
   return (
     <div className="flex space-x-2">
       {proproetaryEvent && (
         <>
-          {!eventIsFinished && !isUnderway && <IconAndName iconName="edit" label="edit" onClick={toggleEditPriorityPopup} />}
+          {!eventIsFinished && !isUnderway && (
+            <IconAndName
+              iconName="edit"
+              label="edit"
+              onClick={toggleEditPriorityPopup}
+            />
+          )}
           <IconAndName
             iconName="delete"
             label="delete"
@@ -62,29 +69,57 @@ export default function FooterCard({
           />
         </>
       )}
-      {event.bookingsRecordId && event.bookingsRecordId.length >= event.places ? "" :
-        !proproetaryEvent && (
-          !userIsBooked &&
-          <Button small name="Join" onClick={() => toggleBooking(event.id, true)} />
-        )
-      }
+      {event.bookingsRecordId && event.bookingsRecordId.length >= event.places
+        ? ""
+        : !proproetaryEvent &&
+          !userIsBooked && (
+            <Button
+              small
+              name="Join"
+              onClick={() => toggleBooking(event.id, true)}
+            />
+          )}
 
-      {userIsBooked && <Button small outline name="Leave" onClick={() => toggleBooking(event.id, false)} />}
+      {userIsBooked && (
+        <Button
+          small
+          outline
+          name="Leave"
+          onClick={() => toggleBooking(event.id, false)}
+        />
+      )}
 
       {editPriorityPopupIsOpen && (
-        <PriorityPopup handleClose={handleCloseEditPriorityPopup} title="Edit event">
-          {<EditEventForm
-            event={selectedEvent}
-            handleCloseEditPriorityPopup={handleCloseEditPriorityPopup}
-            handleAlert={handleAlert}
-            handleNoValidDateAlert={handleNoValidDateAlert}
-            fetchEvents={fetchEvents}
-            loggedUser={loggedUser}
-          />}
+        <PriorityPopup
+          handleClose={handleCloseEditPriorityPopup}
+          title="Edit event"
+        >
+          {
+            <EditEventForm
+              event={selectedEvent}
+              handleCloseEditPriorityPopup={handleCloseEditPriorityPopup}
+              handleAlert={handleAlert}
+              handleNoValidDateAlert={handleNoValidDateAlert}
+              fetchEvents={fetchEvents}
+              loggedUser={loggedUser}
+            />
+          }
         </PriorityPopup>
       )}
-      {showAlert && <Alert type="success" text="Modification successful!" onClose={handleAlert} />}
-      {showNoValidDateAlert && <Alert text="Something is wrong with the dates you chose." type="alert" onClose={() => setShowNoValidDateAlert(false)} />}
+      {showAlert && (
+        <Alert
+          type="success"
+          text="Modification successful!"
+          onClose={handleAlert}
+        />
+      )}
+      {showNoValidDateAlert && (
+        <Alert
+          text="Something is wrong with the dates you chose."
+          type="alert"
+          onClose={() => setShowNoValidDateAlert(false)}
+        />
+      )}
     </div>
   );
 }

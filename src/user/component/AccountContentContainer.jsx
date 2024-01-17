@@ -28,7 +28,7 @@ export default function AccountContentContainer({ loggedUser, users }) {
         </p>
         {isOpen && (
           <PriorityPopup handleClose={handleClose}>
-            <DeleteAccount loggedUser={loggedUser}/>
+            <DeleteAccount loggedUser={loggedUser} />
           </PriorityPopup>
         )}
       </div>

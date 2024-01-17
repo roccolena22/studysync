@@ -23,13 +23,19 @@ export default function IconAndName({
         className={`${commonContainerClasses} transition delay-150 duration-300 ease-in-out`}
       >
         <div
-          className={`rounded-2xl w-8 h-8 p-2 ${isHovered ? "border border-full border-white" : ""} ${location.pathname === pathname ? "bg-gray-400" : ""}`}
+          className={`rounded-2xl w-8 h-8 p-2 ${
+            isHovered ? "border border-full border-white" : ""
+          } ${location.pathname === pathname ? "bg-gray-400" : ""}`}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
           <Icon color="white" name={iconName} />
         </div>
-        <p className={`text-[13px] text-white`} onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+        <p
+          className={`text-[13px] text-white`}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
           {label.toUpperCase()}
         </p>
       </Link>

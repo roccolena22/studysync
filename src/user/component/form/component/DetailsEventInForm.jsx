@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Input from "../../../../shared/component/Input";
-import DropdownMenu from "../../shared/DropdownMenu"
+import DropdownMenu from "../../shared/DropdownMenu";
 
 export default function DetailsEventInForm({ register, errors }) {
   const [selectedMode, setSelectedMode] = useState("In person");
@@ -81,8 +81,7 @@ export default function DetailsEventInForm({ register, errors }) {
         errorMessage={errors.info?.message}
         register={register("info")}
         placeholder="Add a little additional info"
-
       />
     </>
-  )
+  );
 }

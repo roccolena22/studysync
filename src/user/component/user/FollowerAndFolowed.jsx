@@ -8,7 +8,7 @@ export default function FollowerAndFollowed({
   followersIds,
   loggedUser,
   indexClicked,
-  fetchFollowers
+  fetchFollowers,
 }) {
   const [indexSection, setIndexSection] = useState(indexClicked);
 
@@ -16,13 +16,11 @@ export default function FollowerAndFollowed({
     setIndexSection(index);
   };
 
-  const loggedUserFollowing = users && users.filter((user) =>
-    followingIds.includes(user.id)
-  );
+  const loggedUserFollowing =
+    users && users.filter((user) => followingIds.includes(user.id));
 
-  const loggedUserFollowers = users && users.filter((user) =>
-    followersIds.includes(user.id)
-  );
+  const loggedUserFollowers =
+    users && users.filter((user) => followersIds.includes(user.id));
 
   return (
     <div className="pt-2">

@@ -15,21 +15,9 @@ export default function TopNavigationMenu({ toggleNavigationMenu }) {
   return (
     <div className="flex space-x-5">
       <div className="hidden md:block md:flex space-x-5">
-        <IconAndName
-          label="dashboard"
-          iconName="dashboard"
-          pathname="/"
-        />
-        <IconAndName
-          label="events"
-          iconName="calendar"
-          pathname="/events"
-        />
-         <IconAndName
-          label="network"
-          iconName="network"
-          pathname="/network"
-        />
+        <IconAndName label="dashboard" iconName="dashboard" pathname="/" />
+        <IconAndName label="events" iconName="calendar" pathname="/events" />
+        <IconAndName label="network" iconName="network" pathname="/network" />
       </div>
       <div className="sm:hidden">
         <IconAndName
@@ -41,11 +29,7 @@ export default function TopNavigationMenu({ toggleNavigationMenu }) {
       </div>
 
       <div className=" hidden sm:block sm:flex space-x-5">
-        <IconAndName
-          label="account"
-          iconName="account"
-          pathname="/account"
-        />
+        <IconAndName label="account" iconName="account" pathname="/account" />
         <IconAndName
           label="logout"
           iconName="logout"
@@ -53,7 +37,6 @@ export default function TopNavigationMenu({ toggleNavigationMenu }) {
           onClick={handleLogout}
         />
       </div>
-
     </div>
   );
 }

@@ -32,8 +32,6 @@ export default function TimeEventSection({ register, errors, defaultEndDate }) {
           type="time"
         />
       </div>
-
     </>
-
-  )
+  );
 }

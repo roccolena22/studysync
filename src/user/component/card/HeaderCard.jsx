@@ -11,27 +11,34 @@ export default function HeaderCard({
   loggedUser,
   fetchFollowers,
 }) {
-  const [reservationsPriorityPopupIsOpen, setReservationsPriorityPopupIsOpen] = useState(false);
+  const [reservationsPriorityPopupIsOpen, setReservationsPriorityPopupIsOpen] =
+    useState(false);
 
   const handleCloseReservationsPriorityPopup = () => {
     setReservationsPriorityPopupIsOpen(!reservationsPriorityPopupIsOpen);
   };
   const handleReservationsPopup = () => {
     setReservationsPriorityPopupIsOpen(!reservationsPriorityPopupIsOpen);
-    fetchBookings(event)
+    fetchBookings(event);
   };
 
   return (
     <>
       <div className="w-full flex justify-between items-center">
-        <UserDetails firstName={event.firstName} lastName={event.lastName} email={event.email} role={event.role} />
+        <UserDetails
+          firstName={event.firstName}
+          lastName={event.lastName}
+          email={event.email}
+          role={event.role}
+        />
         {event.places && (
-            <IconAndName
-              iconName="group"
-              onClick={() => handleReservationsPopup()}
-              label={`${event.bookingsRecordId ? event.bookingsRecordId.length : "0"}${event.places ? "/" + event.places : ""
-                }`}
-            />
+          <IconAndName
+            iconName="group"
+            onClick={() => handleReservationsPopup()}
+            label={`${
+              event.bookingsRecordId ? event.bookingsRecordId.length : "0"
+            }${event.places ? "/" + event.places : ""}`}
+          />
         )}
       </div>
       {reservationsPriorityPopupIsOpen && (
@@ -43,7 +50,8 @@ export default function HeaderCard({
             <UsersList
               users={bookedUsers}
               loggedUser={loggedUser}
-              fetchFollowers={fetchFollowers} />
+              fetchFollowers={fetchFollowers}
+            />
           ) : (
             <p className="pt-6 text-xl text-gray-400">
               There are no reservations for this event.

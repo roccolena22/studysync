@@ -46,17 +46,9 @@ export default function SearchBar({ placeholder, data, dataFromSearch }) {
       </div>
       <div>
         {isSearching ? (
-          <Icon
-            name="close"
-            onClick={clearSearch}
-            style="cursor-pointer"
-          />
+          <Icon name="close" onClick={clearSearch} style="cursor-pointer" />
         ) : (
-          <Icon
-            name="search"
-            onClick={filterData}
-            style="cursor-pointer"
-          />
+          <Icon name="search" onClick={filterData} style="cursor-pointer" />
         )}
       </div>
     </div>

@@ -7,7 +7,13 @@ import SwitchTab from "../component/navigation/SwitchTab";
 import EventList from "../component/card/EventList";
 import NewEvent from "../component/shared/NewEvent";
 
-export default function EventsPage({ loggedUser, events, bookings, users, fetchFollowers }) {
+export default function EventsPage({
+  loggedUser,
+  events,
+  bookings,
+  users,
+  fetchFollowers,
+}) {
   const [nextEvents, setNextEvents] = useState([]);
   const [indexSection, setIndexSection] = useState(0);
   const currentDate = new Date();
@@ -28,34 +34,38 @@ export default function EventsPage({ loggedUser, events, bookings, users, fetchF
       (event) => event.authorId === loggedUser.id
     );
 
-    const activeEventsByUser = eventsByAuthor.filter((event) => new Date(`${event.endDate} ${event.endTime}`) >= currentDate);
+    const activeEventsByUser = eventsByAuthor.filter(
+      (event) => new Date(`${event.endDate} ${event.endTime}`) >= currentDate
+    );
 
     const activeEventUserBooked = eventsByBooked.filter(
       (event) => new Date(`${event.endDate} ${event.endTime}`) >= currentDate
     );
     const activeEvents = [...activeEventsByUser, ...activeEventUserBooked];
-    const formattedEvents = activeEvents && activeEvents.map((event) => ({
-      id: event.id,
-      title: event.title,
-      start: new Date(event.startDate + " " + event.startTime),
-      end: new Date(event.endDate + " " + event.endTime),
-      mode: event.mode,
-      firstName: event.firstName,
-      lastName: event.lastName,
-      email: event.email,
-      places: event.places,
-      bookedRecordId: event.bookedRecordId,
-      bookingsRecordId: event.bookingsRecordId,
-      role: event.role,
-      authorId: event.authorId,
-      location: event.location,
-      platform: event.platform,
-      link: event.link,
-      startDate: event.startDate,
-      startTime: event.startTime,
-      endDate: event.endDate,
-      endTime: event.endTime,
-    }));
+    const formattedEvents =
+      activeEvents &&
+      activeEvents.map((event) => ({
+        id: event.id,
+        title: event.title,
+        start: new Date(event.startDate + " " + event.startTime),
+        end: new Date(event.endDate + " " + event.endTime),
+        mode: event.mode,
+        firstName: event.firstName,
+        lastName: event.lastName,
+        email: event.email,
+        places: event.places,
+        bookedRecordId: event.bookedRecordId,
+        bookingsRecordId: event.bookingsRecordId,
+        role: event.role,
+        authorId: event.authorId,
+        location: event.location,
+        platform: event.platform,
+        link: event.link,
+        startDate: event.startDate,
+        startTime: event.startTime,
+        endDate: event.endDate,
+        endTime: event.endTime,
+      }));
     setNextEvents(formattedEvents);
   };
 
@@ -69,10 +79,15 @@ export default function EventsPage({ loggedUser, events, bookings, users, fetchF
 
   return (
     <div className="flex flex-col items-center relative">
-      <Title title="Next events" >
+      <Title title="Next events">
         <div className="flex flex-col gap-2 sm:flex-row align-center justify-center items-center sm:space-x-4">
           <NewEvent loggedUser={loggedUser} name="New event" />
-          <SwitchTab firstItem="grid" secondItem="calendar" handleSections={handleSections} indexSection={indexSection} />
+          <SwitchTab
+            firstItem="grid"
+            secondItem="calendar"
+            handleSections={handleSections}
+            indexSection={indexSection}
+          />
         </div>
       </Title>
       <div className="w-full">
@@ -83,19 +98,20 @@ export default function EventsPage({ loggedUser, events, bookings, users, fetchF
             users={users}
             bookings={bookings}
             fetchFollowers={fetchFollowers}
-          />) : (
-          (
-            <div className="flex flex-col items-center pt-8">
-              <div className="pb-6">
-                <Legend colorOne="bg-green-500" colorTwo="bg-orange-600" textOne="Your events" textTwo="Events you attend" />
-              </div>
-              <PersonalCalendar
-                loggedUser={loggedUser}
-                events={nextEvents}
+          />
+        ) : (
+          <div className="flex flex-col items-center pt-8">
+            <div className="pb-6">
+              <Legend
+                colorOne="bg-green-500"
+                colorTwo="bg-orange-600"
+                textOne="Your events"
+                textTwo="Events you attend"
               />
-              <Suggestion text="Use the calendar to choose when to create your event" />
             </div>
-          )
+            <PersonalCalendar loggedUser={loggedUser} events={nextEvents} />
+            <Suggestion text="Use the calendar to choose when to create your event" />
+          </div>
         )}
       </div>
     </div>

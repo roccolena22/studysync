@@ -22,25 +22,37 @@ export default function EventCard({
     const end = new Date(`${event.endDate} ${event.endTime}`);
     const start = new Date(`${event.startDate} ${event.startTime}`);
     setIsUnderway(start <= currentDate && currentDate <= end);
-  }, [currentDate, event.endDate, event.endTime, event.startDate, event.startTime]);
+  }, [
+    currentDate,
+    event.endDate,
+    event.endTime,
+    event.startDate,
+    event.startTime,
+  ]);
 
   useEffect(() => {
-    const idsArray = event && event.bookingsRecordId && bookings
-      ? bookings
-        .filter((booking) => event.bookingsRecordId.includes(booking.id))
-        .map((booking) => booking.bookedId)
-      : [];
-    setBookedUsers(users && users.filter((user) => idsArray.includes(user.id)) || [])
+    const idsArray =
+      event && event.bookingsRecordId && bookings
+        ? bookings
+            .filter((booking) => event.bookingsRecordId.includes(booking.id))
+            .map((booking) => booking.bookedId)
+        : [];
+    setBookedUsers(
+      (users && users.filter((user) => idsArray.includes(user.id))) || []
+    );
   }, [event, users, bookings]);
-  const userIsBooked = bookedUsers.find(user => user.id === loggedUser.id);
+  const userIsBooked = bookedUsers.find((user) => user.id === loggedUser.id);
 
   return (
     <>
       <div className="w-full h-96 relative rounded-lg p-3 bg-gray-50 shadow-xl">
-        <div className={`flex justify-between items-center border-b ${event.role && event.role.includes("student")
-          ? "border-yellow-400"
-          : "border-purple-500"
-          } pb-1 rounded-t-lg`}>
+        <div
+          className={`flex justify-between items-center border-b ${
+            event.role && event.role.includes("student")
+              ? "border-yellow-400"
+              : "border-purple-500"
+          } pb-1 rounded-t-lg`}
+        >
           <HeaderCard
             event={event}
             fetchBookings={fetchBookings}
@@ -50,7 +62,7 @@ export default function EventCard({
             users={users}
           />
         </div>
-          <EventDetails event={event} isUnderway={isUnderway} />
+        <EventDetails event={event} isUnderway={isUnderway} />
         <div className="absolute bottom-2 right-3">
           <FooterCard
             event={event}

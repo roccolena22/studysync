@@ -39,7 +39,7 @@ export async function getRecordFromDatabase(tableName, recordId) {
     );
 
     const responseData = await response.json();
-  
+
     return responseData.fields;
   } catch (error) {
     console.error("Error during GET request:", error);

@@ -4,7 +4,7 @@ export default function TabMenu({
   firstSectionName,
   secondSectionName,
   handleSections,
-  indexClicked
+  indexClicked,
 }) {
   const [index, setIndex] = useState(indexClicked ? indexClicked : 0);
   const handleIndex = (index) => {
@@ -13,13 +13,7 @@ export default function TabMenu({
   };
   const sectionClass = (sectionIndex) =>
     `w-1/2 cursor-pointer rounded-t-lg shadow-xl ${
-       index === sectionIndex
-        ?
-         "p-2 bg-white text-cyan-700"
-          
-        : 
-        "p-2 bg-gray-50"
-       
+      index === sectionIndex ? "p-2 bg-white text-cyan-700" : "p-2 bg-gray-50"
     }`;
 
   return (

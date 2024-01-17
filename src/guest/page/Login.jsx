@@ -8,7 +8,10 @@ export default function Login() {
     <GuestPageContainer>
       <AppName name="StudySync" />
       <LoginForm />
-      <Link to="/recovery-password" className="text-xs text-cyan-700 text-center">
+      <Link
+        to="/recovery-password"
+        className="text-xs text-cyan-700 text-center"
+      >
         <p className="pb-2">Did you forget your password?</p>
       </Link>
     </GuestPageContainer>

@@ -25,7 +25,9 @@ export default function Icon({ name, style, color, onClick }) {
   const classNames = `${style} ${colorClass}`;
   const iconMapping = {
     logo: <BsCcCircle className={classNames} onClick={onClick} />,
-    dashboard: <MdOutlineDashboardCustomize className={classNames} onClick={onClick} />,
+    dashboard: (
+      <MdOutlineDashboardCustomize className={classNames} onClick={onClick} />
+    ),
     menu: <FiMenu className={classNames} onClick={onClick} />,
     search: <BsSearch className={classNames} onClick={onClick} />,
     logout: <HiLogout className={classNames} onClick={onClick} />,
@@ -41,13 +43,12 @@ export default function Icon({ name, style, color, onClick }) {
     back: <FaArrowLeft className={classNames} onClick={onClick} />,
     group: <HiUserGroup className={classNames} onClick={onClick} />,
     eye: <AiOutlineEye className={classNames} onClick={onClick} />,
-    eyeInvisible: <AiOutlineEyeInvisible className={classNames} onClick={onClick} />,
+    eyeInvisible: (
+      <AiOutlineEyeInvisible className={classNames} onClick={onClick} />
+    ),
     open: <IoMdOpen className={classNames} onClick={onClick} />,
     grid: <CiGrid41 className={classNames} onClick={onClick} />,
     addEvent: <FaRegCalendarPlus className={classNames} onClick={onClick} />,
-
-
-
   };
   return iconMapping[name];
 }

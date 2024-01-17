@@ -4,14 +4,28 @@ import moment from "moment";
 import DiscoverUsers from "../component/user/DiscoverUsers";
 import NewEvent from "../component/shared/NewEvent";
 
-export default function NetworkPage({ loggedUser, followers, events, users, bookings, fetchFollowers }) {
+export default function NetworkPage({
+  loggedUser,
+  followers,
+  events,
+  users,
+  bookings,
+  fetchFollowers,
+}) {
   const currentDate = moment();
 
   const networkEvents = events
     .filter((event) =>
-      followers?.some((user) => user.idFrom[0] === loggedUser.id && user.idTo[0] === event.authorId)
+      followers?.some(
+        (user) =>
+          user.idFrom[0] === loggedUser.id && user.idTo[0] === event.authorId
+      )
     )
-    .filter((event) => moment(event.endDate + " " + event.endTime, "YYYY-MM-DD HH:mm").isAfter(currentDate));
+    .filter((event) =>
+      moment(event.endDate + " " + event.endTime, "YYYY-MM-DD HH:mm").isAfter(
+        currentDate
+      )
+    );
 
   return (
     <div className="flex flex-col items-center">

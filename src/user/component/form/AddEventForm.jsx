@@ -19,9 +19,8 @@ export default function AddEventForm({
   endTime,
   handleCreatedEventAlert,
   handleClose,
-  handleNoValidDateAlert
+  handleNoValidDateAlert,
 }) {
-
   const [formattedStartDate, setFormattedStartDate] = useState(
     moment(startDate, "DD/MM/YYYY").format("YYYY-MM-DD")
   );
@@ -66,14 +65,16 @@ export default function AddEventForm({
       ...data,
     };
     await addRecordToDatabase("events", fullEvent);
-    dispatch(addEvent({
-      ...data,
-      authorId: loggedUser.id,
-      lastName: loggedUser.lastName,
-      firstName: loggedUser.firstName,
-      email: loggedUser.email,
-      role: loggedUser.role,
-    }));
+    dispatch(
+      addEvent({
+        ...data,
+        authorId: loggedUser.id,
+        lastName: loggedUser.lastName,
+        firstName: loggedUser.firstName,
+        email: loggedUser.email,
+        role: loggedUser.role,
+      })
+    );
     handleCreatedEventAlert();
     handleClose();
   };

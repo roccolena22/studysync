@@ -14,7 +14,8 @@ export default function Input({
           {...register}
           type={type}
           placeholder={placeholder}
-          className="w-full focus:outline-none bg-white" />
+          className="w-full focus:outline-none bg-white"
+        />
         {children}
       </div>
       <p className="text-red-500 mt-1">{errorMessage}</p>

@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 
-export default function Alert({ text, type="general", onClose}) {
+export default function Alert({ text, type = "general", onClose }) {
   const [isVisible, setIsVisible] = useState(true);
-  const duration = 3000; 
+  const duration = 3000;
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
