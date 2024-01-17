@@ -1,9 +1,4 @@
-import {
-  createBrowserRouter,
-  createRoutesFromElements,
-  Route,
-  RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom";
 import AccountPage from "./user/page/AccountPage";
 import ErrorPage from "./user/page/error-page";
 import UserTemplate from "./shared/template/userTemplate/UserTemplate";
@@ -35,7 +30,7 @@ const Router = () => {
       console.error("Error retrieving followers from database", error);
     }
   };
-  
+
   const router = createBrowserRouter(
     createRoutesFromElements(
       <>

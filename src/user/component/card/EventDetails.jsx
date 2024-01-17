@@ -29,34 +29,31 @@ export default function EventDetails({ event, isUnderway }) {
 
   return (
     <div className="w-full">
-      <div className="w-full flex flex-col gap-2 sm:flex-row-reverse justify-between sm:items-center  py-4">
-        <div className="space-x-1 items-center">
+      <div className="w-full flex flex-col gap-2 sm:flex-row-reverse justify-between sm:items-center pt-2 sm:pt-4 pb-4">
+        <div className="space-x-1 items-center flex justify-center">
           {isUnderway && <Badge text="underway" />}
           {event.bookingsRecordId && event.bookingsRecordId.length >= event.places && <Badge text="soldout" />}
         </div>
-        <p className="font-bold text-lg">{event.title}</p>
+        <p className="font-bold text-md sm:text-lg">{event.title}</p>
       </div>
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
-        <EventItem label="Start" value={startDateToView} />
-        <EventItem label="Duration" value={formattedDuration} />
-        <EventItem label="Mode" value={event.mode} />
+      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 text-xs sm:text-sm md:text-md">
+        <EventItem label="Start" text={startDateToView} />
+        <EventItem label="Duration" text={formattedDuration} />
+        <EventItem label="Mode" text={event.mode} />
 
         {event.location && (
-          <EventItem label="Location" value={event.location} />
+          <EventItem label="Location" text={event.location} />
         )}
 
         {event.platform && (
-          <EventItem label="Platform" value={event.platform} />
+          <EventItem label="Platform" text={event.platform} />
         )}
 
         {event.platform && event.link && (
-          <div>
-            <p className="text-gray-600 font-semibold sm:text-lg">Link</p>
-            <a href={event.link} className="text-xs md:text-md text-cyan-700 cursor-pointer underline">{event.link.slice(0, 15) + "..."}</a>
-          </div>
+          <EventItem label="Link" link={event.link} />
         )}
         {event.info && (
-          <EventItem label="Info" value={event.info} />
+          <EventItem label="Info" text={event.info} />
         )}
       </div>
 

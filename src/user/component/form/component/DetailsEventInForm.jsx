@@ -31,7 +31,7 @@ export default function DetailsEventInForm({ register, errors }) {
           label="Location"
           errorMessage={errors.location?.message}
           register={register("location")}
-          placeholder="Where will the event take place, in a physical location?"
+          placeholder="where will it take place?"
         />
       )}
 
@@ -47,7 +47,7 @@ export default function DetailsEventInForm({ register, errors }) {
             label="Link"
             errorMessage={errors.link?.message}
             register={register("link")}
-            placeholder="Meeting link?"
+            placeholder="Meeting link"
           />
         </div>
       )}
@@ -65,7 +65,7 @@ export default function DetailsEventInForm({ register, errors }) {
               label="Platform"
               errorMessage={errors.platform?.message}
               register={register("platform")}
-              placeholder="Meeting platform?"
+              placeholder="where will it take place?"
             />
           </div>
           <Input
@@ -80,6 +80,8 @@ export default function DetailsEventInForm({ register, errors }) {
         label="Info (optional)"
         errorMessage={errors.info?.message}
         register={register("info")}
+        placeholder="Add a little additional info"
+
       />
     </>
   )

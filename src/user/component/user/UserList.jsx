@@ -87,7 +87,7 @@ export default function UsersList({
             </div>
           )
         )}
-        {users.length === 0 && <p className="text-lg gray-500">No users to show</p>}
+        {users.length === 0 && <p className="text-lg gray-500">No users to show.</p>}
       </div>
     </div>
   );
