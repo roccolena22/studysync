@@ -1,5 +1,6 @@
+import ExternalLink from "../../../shared/component/ExternalLink";
+
 export default function EventItem({ label, text, link }) {
-  const maxLengthLink = 12;
 
   return (
     <div>
@@ -8,14 +9,7 @@ export default function EventItem({ label, text, link }) {
       </p>
       {text && <span className="text-xs md:text-md">{text}</span>}
       {link && (
-        <a
-          href={link}
-          className="text-xs md:text-md text-cyan-700 cursor-pointer underline"
-        >
-          {link.length > maxLengthLink
-            ? link.slice(0, maxLengthLink) + "..."
-            : link}
-        </a>
+        <ExternalLink link={link} paste/>
       )}
     </div>
   );
