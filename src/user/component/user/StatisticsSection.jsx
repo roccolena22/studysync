@@ -111,9 +111,6 @@ export default function StatisticsSection({
         />
       </div>
       {isEventUnderway && <Gadget title="An event is underway now" value="" />}
-      {!nextEvents.length && !isEventUnderway && (
-        <Gadget title="No events scheduled" value="" />
-      )}
       {!isEventUnderway && nextEvents.length > 0 && (
         <Gadget title="Next event starts in:" value={remainingTimeString} />
       )}
