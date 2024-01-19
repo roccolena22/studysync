@@ -13,7 +13,7 @@ export default function StatisticsSection({
   fetchFollowers,
   nextEvents,
 }) {
-  const sortedEvents= sortEvents(nextEvents)
+  const sortedEvents = sortEvents(nextEvents)
 
   const startDate = moment(
     `${sortedEvents[0]?.startDate} ${sortedEvents[0]?.startTime}`,
