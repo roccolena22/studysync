@@ -1,7 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import EventItem from "../EventItem";
-import userEvent from '@testing-library/user-event';
 
   test('renders label correctly', () => {
     const label = 'Event Label';
