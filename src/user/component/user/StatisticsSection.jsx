@@ -15,26 +15,26 @@ export default function StatisticsSection({
 }) {
   const sortedEvents = sortEvents(nextEvents)
 
-  const startDate = moment(
+  const startEvent = moment(
     `${sortedEvents[0]?.startDate} ${sortedEvents[0]?.startTime}`,
     "YYYY-MM-DD HH:mm"
   );
 
   const [remainingTime, setRemainingTime] = useState(
-    getRemainingTime(startDate)
+    getRemainingTime(startEvent)
   );
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setRemainingTime(getRemainingTime(startDate));
+      setRemainingTime(getRemainingTime(startEvent));
     }, 1000);
 
     return () => clearInterval(intervalId);
-  }, [startDate]);
+  }, [startEvent]);
 
-  function getRemainingTime(start) {
+  function getRemainingTime(startEvent) {
     const currentDate = moment();
-    const timeDiff = moment.duration(start.diff(currentDate));
+    const timeDiff = moment.duration(startEvent.diff(currentDate));
 
     const remainingDays = timeDiff.days();
     const remainingHours = timeDiff.hours();
@@ -66,14 +66,14 @@ export default function StatisticsSection({
     const today = moment().format("YYYY-MM-DD");
 
     const eventsForToday = events.filter((event) => {
-      return event.startDate === today;
+      return event.startEvent === today;
     });
 
     return eventsForToday.length;
   }
 
   const isEventUnderway = moment().isBetween(
-    startDate,
+    startEvent,
     moment(sortedEvents[0]?.endDate + " " + sortedEvents[0]?.endTime)
   );
 

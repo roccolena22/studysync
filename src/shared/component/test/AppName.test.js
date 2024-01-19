@@ -1,9 +1,7 @@
-import React from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import AppName from "../AppName";
 
-describe("AppName Component", () => {
   // Definisci il primo test: 'renders AppName component with provided name'.
   test("renders AppName component with provided name", () => {
     // Definisci il testo del nome dell'app.
@@ -36,4 +34,3 @@ describe("AppName Component", () => {
     // Verifica che l'elemento del testo del nome dell'app abbia la classe 'text-white'.
     expect(whiteTextElement).toHaveClass("text-white");
   });
-});

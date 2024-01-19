@@ -52,17 +52,12 @@ export default function EventDetails({ event, isUnderway }) {
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 text-xs sm:text-sm md:text-md">
         <EventItem
           label="Start"
-          iconName="calendar"
           text={moment(startDateToView, "DD-MM-YYYY HH:mm").format(
             "DD-MM-YYYY HH:mm"
           )}
         />
-        <EventItem
-          label="Duration"
-          iconName="hourglass"
-          text={formattedDuration}
-        />
-        <EventItem label="Mode" iconName="info" text={event.mode} />
+        <EventItem label="Duration" text={formattedDuration} />
+        <EventItem label="Mode" text={event.mode} />
 
         {event.location && (
           <EventItem
@@ -72,16 +67,12 @@ export default function EventDetails({ event, isUnderway }) {
           />
         )}
 
-        {event.platform && (
-          <EventItem label="Platform" iconName="camera" text={event.platform} />
-        )}
+        {event.platform && <EventItem label="Platform" text={event.platform} />}
 
         {event.platform && event.link && (
-          <EventItem label="Link" iconName="link" link={event.link} />
+          <EventItem label="Link" link={event.link} />
         )}
-        {event.info && (
-          <EventItem iconName="info" label="Info" text={event.info} />
-        )}
+        {event.info && <EventItem label="Info" text={event.info} />}
       </div>
     </div>
   );
