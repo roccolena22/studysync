@@ -42,31 +42,8 @@ export default function EventsPage({
       (event) => new Date(`${event.endDate} ${event.endTime}`) >= currentDate
     );
     const activeEvents = [...activeEventsByUser, ...activeEventUserBooked];
-    const formattedEvents =
-      activeEvents &&
-      activeEvents.map((event) => ({
-        id: event.id,
-        title: event.title,
-        start: new Date(event.startDate + " " + event.startTime),
-        end: new Date(event.endDate + " " + event.endTime),
-        mode: event.mode,
-        firstName: event.firstName,
-        lastName: event.lastName,
-        email: event.email,
-        places: event.places,
-        bookedRecordId: event.bookedRecordId,
-        bookingsRecordId: event.bookingsRecordId,
-        role: event.role,
-        authorId: event.authorId,
-        location: event.location,
-        platform: event.platform,
-        link: event.link,
-        startDate: event.startDate,
-        startTime: event.startTime,
-        endDate: event.endDate,
-        endTime: event.endTime,
-      }));
-    setNextEvents(formattedEvents);
+
+    setNextEvents(activeEvents);
   };
 
   useEffect(() => {
