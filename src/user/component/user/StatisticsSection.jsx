@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import moment from "moment";
 import ManageUsers from "../user/ManageUsers";
 import Gadget from "../user/Gadget";
-import { useSelector } from "react-redux";
+import { sortEvents } from "../../Utilities/timeutils";
 
 export default function StatisticsSection({
   users,
@@ -13,13 +13,7 @@ export default function StatisticsSection({
   fetchFollowers,
   nextEvents,
 }) {
-  const sortedEvents =
-    nextEvents &&
-    nextEvents.sort((a, b) => {
-      const dateA = new Date(`${a.endDate} ${a.endTime}`);
-      const dateB = new Date(`${b.endDate} ${b.endTime}`);
-      return dateA - dateB;
-    });
+  const sortedEvents= sortEvents(nextEvents)
 
   const startDate = moment(
     `${sortedEvents[0]?.startDate} ${sortedEvents[0]?.startTime}`,
@@ -38,9 +32,9 @@ export default function StatisticsSection({
     return () => clearInterval(intervalId);
   }, [startDate]);
 
-  function getRemainingTime(targetDate) {
+  function getRemainingTime(start) {
     const currentDate = moment();
-    const timeDiff = moment.duration(targetDate.diff(currentDate));
+    const timeDiff = moment.duration(start.diff(currentDate));
 
     const remainingDays = timeDiff.days();
     const remainingHours = timeDiff.hours();

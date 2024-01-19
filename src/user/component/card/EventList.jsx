@@ -13,6 +13,7 @@ import {
   deleteBooking,
   setBookings,
 } from "../../../redux/slices/bookingsSlice";
+import { sortEvents } from "../../Utilities/timeutils";
 
 export default function EventList({
   loggedUser,
@@ -85,13 +86,7 @@ export default function EventList({
     fetchBookings();
   }, [dispatch]);
 
-  const sortedEvents =
-    events &&
-    events.sort((a, b) => {
-      const dateA = new Date(`${a.endDate} ${a.endTime}`);
-      const dateB = new Date(`${b.endDate} ${b.endTime}`);
-      return dateA - dateB;
-    });
+  const sortedEvents = sortEvents(events);
 
   return (
     <div className="bg-white shadow-xl px-6 rounded-b-lg">
