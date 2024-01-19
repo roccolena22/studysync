@@ -9,47 +9,13 @@ import NewEvent from "../component/shared/NewEvent";
 
 export default function EventsPage({
   loggedUser,
-  events,
+  nextEvents,
   bookings,
   users,
   fetchFollowers,
 }) {
-  const [nextEvents, setNextEvents] = useState([]);
   const [indexSection, setIndexSection] = useState(0);
-  const currentDate = new Date();
-
-  const handleBookedEvents = async () => {
-    const eventsByBooked = events.filter((event) => {
-      if (event.bookingsRecordId) {
-        return event.bookingsRecordId.some((bookingId) =>
-          bookings.some(
-            (booking) =>
-              bookingId === booking.id && booking.bookedId === loggedUser.id
-          )
-        );
-      }
-      return false;
-    });
-    const eventsByAuthor = events.filter(
-      (event) => event.authorId === loggedUser.id
-    );
-
-    const activeEventsByUser = eventsByAuthor.filter(
-      (event) => new Date(`${event.endDate} ${event.endTime}`) >= currentDate
-    );
-
-    const activeEventUserBooked = eventsByBooked.filter(
-      (event) => new Date(`${event.endDate} ${event.endTime}`) >= currentDate
-    );
-    const activeEvents = [...activeEventsByUser, ...activeEventUserBooked];
-
-    setNextEvents(activeEvents);
-  };
-
-  useEffect(() => {
-    handleBookedEvents();
-  }, [events]);
-
+  
   const handleSections = (index) => {
     setIndexSection(index);
   };

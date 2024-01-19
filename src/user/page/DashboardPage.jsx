@@ -12,6 +12,7 @@ export default function DashboardPage({
   fetchFollowers,
   events,
   bookings,
+  nextEvents,
 }) {
   const [indexSection, setIndexSection] = useState(0);
   const [pastEvents, setPastEvents] = useState([]);
@@ -70,6 +71,7 @@ export default function DashboardPage({
         activeEvents={activeEvents}
         bookedEvents={bookedEvents}
         fetchFollowers={fetchFollowers}
+        nextEvents={nextEvents}
       />
       <div className="w-full pt-10">
         <Title title="My events" fontSize="text-lg" />

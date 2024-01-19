@@ -18,6 +18,7 @@ import { useDispatch, useSelector } from "react-redux";
 import DashboardPage from "./user/page/DashboardPage";
 import { getListFromDatabase } from "./api/apiRequest";
 import { setFollowers } from "./redux/slices/followersSlice";
+import { useEffect, useState } from "react";
 
 const Router = () => {
   const dispatch = useDispatch();
@@ -26,6 +27,42 @@ const Router = () => {
   const events = useSelector((state) => state.events);
   const bookings = useSelector((state) => state.bookings);
   const users = useSelector((state) => state.users);
+
+  const [nextEvents, setNextEvents] = useState([]);
+  const currentDate = new Date();
+
+  const handleBookedEvents = async () => {
+    const eventsByBooked = events.filter((event) => {
+      if (event.bookingsRecordId) {
+        return event.bookingsRecordId.some((bookingId) =>
+          bookings.some(
+            (booking) =>
+              bookingId === booking.id && booking.bookedId === loggedUser.id
+          )
+        );
+      }
+      return false;
+    });
+    const eventsByAuthor = events.filter(
+      (event) => event.authorId === loggedUser.id
+    );
+
+    const activeEventsByUser = eventsByAuthor.filter(
+      (event) => new Date(`${event.endDate} ${event.endTime}`) >= currentDate
+    );
+
+    const activeEventUserBooked = eventsByBooked.filter(
+      (event) => new Date(`${event.endDate} ${event.endTime}`) >= currentDate
+    );
+    const activeEvents = [...activeEventsByUser, ...activeEventUserBooked];
+
+    setNextEvents(activeEvents);
+  };
+
+  useEffect(() => {
+    handleBookedEvents();
+  }, [events]);
+
 
   const fetchFollowers = async () => {
     try {
@@ -65,6 +102,7 @@ const Router = () => {
                   fetchFollowers={fetchFollowers}
                   events={events}
                   bookings={bookings}
+                  nextEvents={nextEvents}
                 />
               </Protected>
             }
@@ -84,7 +122,7 @@ const Router = () => {
                 <EventsPage
                   loggedUser={loggedUser}
                   bookings={bookings}
-                  events={events}
+                  nextEvents={nextEvents}
                   users={users}
                   fetchFollowers={fetchFollowers}
                 />
