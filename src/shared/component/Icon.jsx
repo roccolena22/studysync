@@ -19,7 +19,11 @@ import { AiOutlineEyeInvisible } from "react-icons/ai";
 import { IoMdOpen } from "react-icons/io";
 import { CiGrid41 } from "react-icons/ci";
 import { FaRegCalendarPlus } from "react-icons/fa";
-
+import { IoIosHourglass } from "react-icons/io";
+import { VscLocation } from "react-icons/vsc";
+import { HiOutlineVideoCamera } from "react-icons/hi";
+import { PiLinkThin } from "react-icons/pi";
+import { PiInfoLight } from "react-icons/pi";
 export default function Icon({ name, style, color, onClick }) {
   const colorClass = color ? `text-${color}` : "text-cyan-700";
   const classNames = `${style} ${colorClass}`;
@@ -49,6 +53,11 @@ export default function Icon({ name, style, color, onClick }) {
     open: <IoMdOpen className={classNames} onClick={onClick} />,
     grid: <CiGrid41 className={classNames} onClick={onClick} />,
     addEvent: <FaRegCalendarPlus className={classNames} onClick={onClick} />,
+    hourglass: <IoIosHourglass className={classNames} onClick={onClick} />,
+    location: <VscLocation className={classNames} onClick={onClick} />,
+    camera: <HiOutlineVideoCamera className={classNames} onClick={onClick} />,
+    link: <PiLinkThin className={classNames} onClick={onClick} />,
+    info: <PiInfoLight className={classNames} onClick={onClick} />,
   };
   return iconMapping[name];
 }

@@ -1,11 +1,18 @@
+import React from "react";
 import moment from "moment";
 import EventItem from "./EventItem";
 import Badge from "../shared/Badge";
 
 export default function EventDetails({ event, isUnderway }) {
-  const startDateToView = `${event.startDate} ${event.startTime}`;
+  const startDateToView = moment(
+    `${event.startDate} ${event.startTime}`,
+    "YYYY-MM-DD HH:mm"
+  ).format("DD-MM-YYYY HH:mm");
 
-  const startDate = moment(`${startDateToView}`, "YYYY-MM-DD HH:mm");
+  const startDate = moment(
+    `${event.startDate} ${event.startTime}`,
+    "YYYY-MM-DD HH:mm"
+  );
   const endDate = moment(
     `${event.endDate} ${event.endTime}`,
     "YYYY-MM-DD HH:mm"
@@ -23,11 +30,11 @@ export default function EventDetails({ event, isUnderway }) {
   }
 
   if (hours > 0) {
-    formattedDuration += ` ${hours} ${hours === 1 ? "hour" : "hours"}`;
+    formattedDuration += ` ${hours} h`;
   }
 
   if (minutes > 0) {
-    formattedDuration += ` ${minutes} ${minutes === 1 ? "minute" : "minutes"}`;
+    formattedDuration += ` ${minutes} min`;
   }
 
   return (
@@ -43,18 +50,38 @@ export default function EventDetails({ event, isUnderway }) {
         <p className="font-bold text-md sm:text-lg">{event.title}</p>
       </div>
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 text-xs sm:text-sm md:text-md">
-        <EventItem label="Start" text={startDateToView} />
-        <EventItem label="Duration" text={formattedDuration} />
-        <EventItem label="Mode" text={event.mode} />
+        <EventItem
+          label="Start"
+          iconName="calendar"
+          text={moment(startDateToView, "DD-MM-YYYY HH:mm").format(
+            "DD-MM-YYYY HH:mm"
+          )}
+        />
+        <EventItem
+          label="Duration"
+          iconName="hourglass"
+          text={formattedDuration}
+        />
+        <EventItem label="Mode" iconName="info" text={event.mode} />
 
-        {event.location && <EventItem label="Location" text={event.location} />}
+        {event.location && (
+          <EventItem
+            label="Location"
+            iconName="location"
+            text={event.location}
+          />
+        )}
 
-        {event.platform && <EventItem label="Platform" text={event.platform} />}
+        {event.platform && (
+          <EventItem label="Platform" iconName="camera" text={event.platform} />
+        )}
 
         {event.platform && event.link && (
-          <EventItem label="Link" link={event.link} />
+          <EventItem label="Link" iconName="link" link={event.link} />
         )}
-        {event.info && <EventItem label="Info" text={event.info} />}
+        {event.info && (
+          <EventItem iconName="info" label="Info" text={event.info} />
+        )}
       </div>
     </div>
   );

@@ -26,7 +26,6 @@ export default function FooterCard({
   const proproetaryEvent = loggedUser.id === event.authorId;
 
   const handleDelete = async (event) => {
-    console.log(event);
     await deleteRecordFromDatabase("events", event.id);
     dispatch(deleteEvent(event));
   };

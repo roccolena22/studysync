@@ -15,7 +15,7 @@ export const EventFormValidator = yup.object().shape({
     .transform((value, originalValue) =>
       originalValue === "" ? undefined : value
     ),
-  location: yup.string().max(25, "Max. 25 characters"),
+  location: yup.string(),
   platform: yup.string().max(25, "Max. 25 characters"),
   link: yup.string().trim(),
 });

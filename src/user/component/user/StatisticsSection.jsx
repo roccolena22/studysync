@@ -1,5 +1,8 @@
+import React from "react";
+import moment from "moment";
 import ManageUsers from "../user/ManageUsers";
 import Gadget from "../user/Gadget";
+import { useSelector } from "react-redux";
 
 export default function StatisticsSection({
   users,
@@ -8,7 +11,19 @@ export default function StatisticsSection({
   activeEvents,
   bookedEvents,
   fetchFollowers,
+  nextEvents
 }) {
+
+  function countEventsForToday(events) {
+    const today = moment().format("YYYY-MM-DD");
+  
+    const eventsForToday = events.filter((event) => {
+      return event.startDate === today;
+    });
+  
+    return eventsForToday.length;
+  }
+  
   return (
     <div className="grid grid-cols-1 gap-2 pt-6 w-full">
       <div className="grid gap-2 sm:grid-cols-2">
@@ -19,10 +34,10 @@ export default function StatisticsSection({
           fetchFollowers={fetchFollowers}
         />
         <div className="grid grid-cols-1 gap-2">
-          <Gadget title="Today's events:" value="0" />
+          <Gadget title="Today's events:" value={countEventsForToday(nextEvents)} />
           <Gadget
-            title="The next event is in:"
-            value="you don't have any events"
+            title="All next events:"
+            value={nextEvents.length}
           />
         </div>
       </div>

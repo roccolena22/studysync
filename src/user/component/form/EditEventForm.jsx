@@ -16,7 +16,6 @@ export default function EditEventForm({
   handleNoValidDateAlert,
   fetchEvents,
 }) {
-  console.log(event.id);
   const dispatch = useDispatch();
   const {
     handleSubmit,
