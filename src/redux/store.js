@@ -23,7 +23,6 @@ export const store = configureStore({
     events: eventsReducer,
     bookings: bookingsReducer,
   },
-  devTools: process.env.NODE_ENV !== "production",
   middleware: [thunk],
 });
 
