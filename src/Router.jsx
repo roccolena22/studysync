@@ -72,12 +72,12 @@ const Router = () => {
       console.error("Error retrieving followers from database", error);
     }
   };
-
+  const isLogged = loggedUser ? true : false
   const router = createBrowserRouter(
     createRoutesFromElements(
       <>
         <Route>
-          <Route path="*" element={<ErrorPage isLogged={loggedUser} />} />
+          <Route path="*" element={<ErrorPage isLogged={isLogged} />} />
         </Route>
         <Route element={<GuestTemplate />}>
           <Route path="/login" element={<Login />} />
@@ -86,7 +86,7 @@ const Router = () => {
         </Route>
         <Route
           element={
-            <Protected isLogged={loggedUser}>
+            <Protected isLogged={isLogged}>
               <UserTemplate />
             </Protected>
           }
@@ -94,7 +94,7 @@ const Router = () => {
           <Route
             path="/"
             element={
-              <Protected isLogged={loggedUser}>
+              <Protected isLogged={isLogged}>
                 <DashboardPage
                   loggedUser={loggedUser}
                   users={users}
@@ -110,7 +110,7 @@ const Router = () => {
           <Route
             path="/account"
             element={
-              <Protected isLogged={loggedUser}>
+              <Protected isLogged={isLogged}>
                 <AccountPage loggedUser={loggedUser} users={users} />
               </Protected>
             }
@@ -118,7 +118,7 @@ const Router = () => {
           <Route
             path="/events"
             element={
-              <Protected isLogged={loggedUser}>
+              <Protected isLogged={isLogged}>
                 <EventsPage
                   loggedUser={loggedUser}
                   bookings={bookings}
@@ -132,7 +132,7 @@ const Router = () => {
           <Route
             path="/network"
             element={
-              <Protected isLogged={loggedUser}>
+              <Protected isLogged={isLogged}>
                 <NetworkPage
                   loggedUser={loggedUser}
                   followers={followers}
