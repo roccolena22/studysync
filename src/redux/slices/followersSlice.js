@@ -1,26 +1,27 @@
 import { createSlice } from "@reduxjs/toolkit";
+import produce from "immer";
 
 const followersSlice = createSlice({
   name: "followers",
   initialState: [],
   reducers: {
-    setFollowers: (state, action) => {
-      return action.payload;
-    },
+    setFollowers: (state, action) => action.payload,
     addFollower: (state, action) => {
-      state.push(action.payload);
-    },
-    deleteFollower: (state, action) => {
-      const index = state.findIndex(
-        (follower) => follower.id === action.payload.id
-      );
-      if (index !== -1) {
-        state.splice(index, 1);
+      const existingFollower = state.find((follower) => follower.id === action.payload.id);
+      if (!existingFollower) {
+        return [...state, action.payload];
       }
+      return state;
     },
+    deleteFollower: (state, action) =>
+      produce(state, (draftState) => {
+        const index = draftState.findIndex((follower) => follower.id === action.payload.id);
+        if (index !== -1) {
+          draftState.splice(index, 1);
+        }
+      }),
   },
 });
 
-export const { setFollowers, addFollower, deleteFollower } =
-  followersSlice.actions;
+export const { setFollowers, addFollower, deleteFollower } = followersSlice.actions;
 export default followersSlice.reducer;

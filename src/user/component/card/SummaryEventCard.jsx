@@ -1,7 +1,7 @@
 import UserDetails from "../user/UserDetails";
 import EventDetails from "./EventDetails";
 
-export default function SyntheticEventCard({ event }) {
+export default function SummaryEventCard({ event }) {
   return (
     <div>
       <div className="border-b border-gray-400">

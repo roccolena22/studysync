@@ -8,7 +8,7 @@ import PriorityPopup from "./shared/PriorityPopup";
 import Title from "./shared/Title";
 import Alert from "./shared/Alert";
 import SecondaryPopup from "./shared/SecondaryPopup";
-import SyntheticEventCard from "./card/SyntheticEventCard";
+import SummaryEventCard from "./card/SummaryEventCard";
 
 export default function PersonalCalendar({ loggedUser, events }) {
   const localizer = momentLocalizer(moment);
@@ -21,6 +21,12 @@ export default function PersonalCalendar({ loggedUser, events }) {
   const [endDate, setEndDate] = useState(null);
   const [showCreatedEventAlert, setShowCreatedEventAlert] = useState(false);
   const [showNoValidDateAlert, setShowNoValidDateAlert] = useState(false);
+
+  const eventForCalendar = events.map((event) => ({
+    ...event,
+    start: new Date(`${event.startDate} ${event.startTime}`),
+    end: new Date(`${event.endDate} ${event.endTime}`),
+  }));
 
   const handleNoValidDateAlert = () => {
     setShowNoValidDateAlert(!showNoValidDateAlert);
@@ -66,12 +72,12 @@ export default function PersonalCalendar({ loggedUser, events }) {
     setNewEventPriorityPopup(!newEventPriorityPopup);
   };
 
-  const handleClosePopuop = () => {
+  const handleClosePopup = () => {
     setEventsSecondaryPopup(!eventSecondaryPopup);
   };
   const handleEventClick = (event) => {
     setSelectedEvent(event);
-    handleClosePopuop();
+    handleClosePopup();
   };
 
   const EventInCalendar = ({ event }) => (
@@ -84,11 +90,12 @@ export default function PersonalCalendar({ loggedUser, events }) {
     </div>
   );
 
+
   return (
     <div className="w-full flex flex-col items-center">
       <div className="w-full">
         <Calendar
-          events={events}
+          events={eventForCalendar}
           localizer={localizer}
           startAccessor="start"
           endAccessor="end"
@@ -122,8 +129,8 @@ export default function PersonalCalendar({ loggedUser, events }) {
       )}
 
       {eventSecondaryPopup && (
-        <SecondaryPopup handleClose={handleClosePopuop}>
-          <SyntheticEventCard event={selectedEvent} />
+        <SecondaryPopup handleClose={handleClosePopup}>
+          <SummaryEventCard event={selectedEvent} />
         </SecondaryPopup>
       )}
 

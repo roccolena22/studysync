@@ -1,31 +1,35 @@
 import { createSlice } from "@reduxjs/toolkit";
+import produce from "immer";
 
 const eventsSlice = createSlice({
   name: "events",
   initialState: [],
   reducers: {
-    setEvents: (state, action) => {
-      return action.payload;
-    },
+    setEvents: (state, action) => action.payload,
     addEvent: (state, action) => {
-      state.push(action.payload);
-    },
-    deleteEvent: (state, action) => {
-      const index = state.findIndex((event) => event.id === action.payload.id);
-      if (index !== -1) {
-        state.splice(index, 1);
+      const existingEvent = state.find((event) => event.id === action.payload.id);
+      if (!existingEvent) {
+        return [...state, action.payload];
       }
+      return state;
     },
-    editEvent: (state, action) => {
-      const index = state.findIndex((event) => event.id === action.payload.id);
-      if (index !== -1) {
-        state[index] = action.payload;
-      }
-    },
+    deleteEvent: (state, action) =>
+      produce(state, (draftState) => {
+        const index = draftState.findIndex((event) => event.id === action.payload.id);
+        if (index !== -1) {
+          draftState.splice(index, 1);
+        }
+      }),
+    editEvent: (state, action) =>
+      produce(state, (draftState) => {
+        const index = draftState.findIndex((event) => event.id === action.payload.id);
+        if (index !== -1) {
+          draftState[index] = action.payload;
+        }
+      }),
   },
 });
 
-export const { setEvents, deleteEvent, addEvent, editEvent } =
-  eventsSlice.actions;
+export const { setEvents, deleteEvent, addEvent, editEvent } = eventsSlice.actions;
 
 export default eventsSlice.reducer;

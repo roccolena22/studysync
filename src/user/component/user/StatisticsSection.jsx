@@ -3,6 +3,7 @@ import moment from "moment";
 import ManageUsers from "../user/ManageUsers";
 import Gadget from "../user/Gadget";
 import { sortEvents } from "../../Utilities/timeutils";
+import TitleAndAuthorName from "../card/TitleAndAuthorName";
 
 export default function StatisticsSection({
   users,
@@ -13,7 +14,7 @@ export default function StatisticsSection({
   fetchFollowers,
   nextEvents,
 }) {
-  const sortedEvents = sortEvents(nextEvents)
+  const sortedEvents = sortEvents(nextEvents);
 
   const startEvent = moment(
     `${sortedEvents[0]?.startDate} ${sortedEvents[0]?.startTime}`,
@@ -66,15 +67,17 @@ export default function StatisticsSection({
     const today = moment().format("YYYY-MM-DD");
 
     const eventsForToday = events.filter((event) => {
-      return event.startEvent === today;
+      return event.startDate === today;
     });
 
     return eventsForToday.length;
   }
 
-  const isEventUnderway = moment().isBetween(
-    startEvent,
-    moment(sortedEvents[0]?.endDate + " " + sortedEvents[0]?.endTime)
+  const underwayEvents = sortedEvents.filter((event) =>
+    moment().isBetween(
+      moment(`${event.startDate} ${event.startTime}`),
+      moment(`${event.endDate} ${event.endTime}`)
+    )
   );
 
   return (
@@ -104,8 +107,16 @@ export default function StatisticsSection({
           value={bookedEvents ? bookedEvents.length : "0"}
         />
       </div>
-      {isEventUnderway && <Gadget title="An event is underway now" value="" />}
-      {!isEventUnderway && nextEvents.length > 0 && (
+      {underwayEvents.length > 0 && (
+        <div>
+          <Gadget title={`Events underway now: ${underwayEvents.length}`}>
+            {underwayEvents.map((event) => (
+              <TitleAndAuthorName key={event.id} event={event} />
+            ))}
+          </Gadget>
+        </div>
+      )}
+      {!underwayEvents && nextEvents.length > 0 && (
         <Gadget title="Next event starts in:" value={remainingTimeString} />
       )}
     </div>
