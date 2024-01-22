@@ -7,7 +7,7 @@ import Alert from "../shared/Alert";
 import PriorityPopup from "../shared/PriorityPopup";
 import EditEventForm from "../form/EditEventForm"
 
-export default function OwnerOptions({event, fetchEvents}) {
+export default function OwnerEventOptions({event, fetchEvents}) {
   const [editPriorityPopupIsOpen, setEditPriorityPopupIsOpen] = useState(false);
   const [showNoValidDateAlert, setShowNoValidDateAlert] = useState(false);
   const [showAlert, setShowAlert] = useState(false);

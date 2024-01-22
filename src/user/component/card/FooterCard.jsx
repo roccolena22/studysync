@@ -1,5 +1,5 @@
-import Button from "../../../shared/component/Button";
-import OwnerOptions from "./OwnerOptions";
+import GuestEventOptions from "./GuestEventOptions";
+import OwnerEventOptions from "./OwnerEventOptions";
 
 export default function FooterCard({
   event,
@@ -13,30 +13,12 @@ export default function FooterCard({
   return (
     <div className="flex space-x-2">
       {ownerEvent && (
-        <OwnerOptions
+        <OwnerEventOptions
           event={event}
           fetchEvents={fetchEvents}
         />
       )}
-      {event.bookingsRecordId && event.bookingsRecordId.length >= event.places
-        ? ""
-        : !ownerEvent &&
-          !userIsBooked && (
-            <Button
-              small
-              name="Join"
-              onClick={() => toggleBooking(event.id, true)}
-            />
-          )}
-
-      {userIsBooked && (
-        <Button
-          small
-          outline
-          name="Leave"
-          onClick={() => toggleBooking(event.id, false)}
-        />
-      )}
+      <GuestEventOptions event={event} userIsBooked={userIsBooked} toggleBooking={toggleBooking} ownerEvent={ownerEvent}/>
     </div>
   );
 }
