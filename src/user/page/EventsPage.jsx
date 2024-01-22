@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import PersonalCalendar from "../component/PersonalCalendar";
 import Suggestion from "../component/shared/Suggestion";
 import Title from "../component/shared/Title";
@@ -6,16 +6,15 @@ import Legend from "../component/user/Legend";
 import SwitchTab from "../component/navigation/SwitchTab";
 import EventList from "../component/card/EventList";
 import NewEvent from "../component/shared/NewEvent";
+import { useSelector } from "react-redux";
 
 export default function EventsPage({
   loggedUser,
-  nextEvents,
-  bookings,
-  users,
   fetchFollowers,
 }) {
   const [indexSection, setIndexSection] = useState(0);
-  
+  const nextEvents = useSelector((state) => state.nextEvents);
+
   const handleSections = (index) => {
     setIndexSection(index);
   };
@@ -38,8 +37,6 @@ export default function EventsPage({
           <EventList
             loggedUser={loggedUser}
             events={nextEvents}
-            users={users}
-            bookings={bookings}
             fetchFollowers={fetchFollowers}
           />
         ) : (

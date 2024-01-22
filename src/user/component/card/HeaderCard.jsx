@@ -3,6 +3,7 @@ import IconAndName from "../user/IconAndName";
 import UserDetails from "../user/UserDetails";
 import PriorityPopup from "../shared/PriorityPopup";
 import UsersList from "../user/UserList";
+import Noitems from "../NoItems";
 
 export default function HeaderCard({
   event,
@@ -53,9 +54,7 @@ export default function HeaderCard({
               fetchFollowers={fetchFollowers}
             />
           ) : (
-            <p className="pt-6 text-xl text-gray-400">
-              There are no reservations for this event.
-            </p>
+            <Noitems text="There are no reservations for this event." />
           )}
         </PriorityPopup>
       )}

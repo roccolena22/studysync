@@ -4,18 +4,17 @@ import ManageUsers from "../user/ManageUsers";
 import Gadget from "../user/Gadget";
 import { sortEvents } from "../../Utilities/timeutils";
 import TitleAndAuthorName from "../card/TitleAndAuthorName";
+import { useSelector } from "react-redux";
 
 export default function StatisticsSection({
-  users,
-  followers,
   loggedUser,
   activeEvents,
   bookedEvents,
   fetchFollowers,
-  nextEvents,
 }) {
-  const sortedEvents = sortEvents(nextEvents);
-
+  const nextEvents = useSelector((state) => state.nextEvents);
+  const sortedEvents = nextEvents.length > 0 ? sortEvents(nextEvents) : [];
+  
   const startEvent = moment(
     `${sortedEvents[0]?.startDate} ${sortedEvents[0]?.startTime}`,
     "YYYY-MM-DD HH:mm"
@@ -84,8 +83,6 @@ export default function StatisticsSection({
     <div className="grid grid-cols-1 gap-2 pt-6 w-full">
       <div className="grid gap-2 sm:grid-cols-2">
         <ManageUsers
-          users={users}
-          followers={followers}
           loggedUser={loggedUser}
           fetchFollowers={fetchFollowers}
         />

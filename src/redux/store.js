@@ -5,6 +5,7 @@ import { thunk } from "redux-thunk";
 import authReducer from "./slices/authSlice";
 import followersReducer from "./slices/followersSlice";
 import eventsReducer from "./slices/eventsSlice";
+import nextEventsReducer from "./slices/nextEventsSlice";
 import bookingsReducer from "./slices/bookingsSlice";
 import usersReducer from "./slices/usersSlice";
 
@@ -21,6 +22,7 @@ export const store = configureStore({
     followers: followersReducer,
     users: usersReducer,
     events: eventsReducer,
+    nextEvents: nextEventsReducer,
     bookings: bookingsReducer,
   },
   middleware: [thunk],

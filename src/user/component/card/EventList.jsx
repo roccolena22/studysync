@@ -6,7 +6,7 @@ import {
   deleteRecordFromDatabase,
   getListFromDatabase,
 } from "../../../api/apiRequest";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setEvents } from "../../../redux/slices/eventsSlice";
 import {
   addBooking,
@@ -14,14 +14,15 @@ import {
   setBookings,
 } from "../../../redux/slices/bookingsSlice";
 import { sortEvents } from "../../Utilities/timeutils";
+import Noitems from "../NoItems";
 
 export default function EventList({
   loggedUser,
   events,
-  users,
-  bookings,
   fetchFollowers,
 }) {
+  const users = useSelector((state) => state.users);
+  const bookings = useSelector((state) => state.bookings);
   const [searchedEvents, setSearchedEvents] = useState([]);
   const dispatch = useDispatch();
 
@@ -125,7 +126,7 @@ export default function EventList({
         )}
       </div>
       {events.length <= 0 && (
-        <span className="text-lg text-gray-500">No events to show</span>
+        <Noitems text="No events to show."/>
       )}
     </div>
   );

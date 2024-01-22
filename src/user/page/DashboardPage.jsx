@@ -7,12 +7,9 @@ import StatisticsSection from "../component/user/StatisticsSection";
 
 export default function DashboardPage({
   loggedUser,
-  users,
-  followers,
   fetchFollowers,
   events,
   bookings,
-  nextEvents,
 }) {
   const [indexSection, setIndexSection] = useState(0);
   const [pastEvents, setPastEvents] = useState([]);
@@ -65,13 +62,10 @@ export default function DashboardPage({
         <NewEvent loggedUser={loggedUser} name="New Event" />
       </Title>
       <StatisticsSection
-        users={users}
-        followers={followers}
         loggedUser={loggedUser}
         activeEvents={activeEvents}
         bookedEvents={bookedEvents}
         fetchFollowers={fetchFollowers}
-        nextEvents={nextEvents}
       />
       <div className="w-full pt-10">
         <Title title="My events" fontSize="text-lg" />
@@ -86,16 +80,12 @@ export default function DashboardPage({
           <EventList
             loggedUser={loggedUser}
             events={activeEvents}
-            users={users}
-            bookings={bookings}
             fetchFollowers={fetchFollowers}
           />
         ) : (
           <EventList
             loggedUser={loggedUser}
             events={pastEvents}
-            bookings={bookings}
-            users={users}
             fetchFollowers={fetchFollowers}
           />
         )}

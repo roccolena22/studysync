@@ -18,20 +18,26 @@ import { useDispatch, useSelector } from "react-redux";
 import DashboardPage from "./user/page/DashboardPage";
 import { getListFromDatabase } from "./api/apiRequest";
 import { setFollowers } from "./redux/slices/followersSlice";
-import { useEffect, useState } from "react";
+import { setNextEvents } from "./redux/slices/nextEventsSlice";
+import { useEffect } from "react";
 
 const Router = () => {
   const dispatch = useDispatch();
   const loggedUser = useSelector((state) => state.auth.user);
-  const followers = useSelector((state) => state.followers);
   const events = useSelector((state) => state.events);
   const bookings = useSelector((state) => state.bookings);
-  const users = useSelector((state) => state.users);
 
-  const [nextEvents, setNextEvents] = useState([]);
-  const currentDate = new Date();
+  const fetchFollowers = async () => {
+    try {
+      const followersFromDatabase = await getListFromDatabase("followers");
+      dispatch(setFollowers(followersFromDatabase));
+    } catch (error) {
+      console.error("Error retrieving followers from database", error);
+    }
+  };
 
   const handleBookedEvents = async () => {
+    const currentDate = new Date();
     const eventsByBooked = events.filter((event) => {
       if (event.bookingsRecordId) {
         return event.bookingsRecordId.some((bookingId) =>
@@ -56,28 +62,18 @@ const Router = () => {
     );
     const activeEvents = [...activeEventsByUser, ...activeEventUserBooked];
 
-    setNextEvents(activeEvents);
+    dispatch(setNextEvents(activeEvents));
   };
 
   useEffect(() => {
     handleBookedEvents();
   }, [events]);
 
-
-  const fetchFollowers = async () => {
-    try {
-      const followersFromDatabase = await getListFromDatabase("followers");
-      dispatch(setFollowers(followersFromDatabase));
-    } catch (error) {
-      console.error("Error retrieving followers from database", error);
-    }
-  };
-  const isLogged = loggedUser ? true : false
   const router = createBrowserRouter(
     createRoutesFromElements(
       <>
         <Route>
-          <Route path="*" element={<ErrorPage isLogged={isLogged} />} />
+          <Route path="*" element={<ErrorPage loggedUser={loggedUser} />} />
         </Route>
         <Route element={<GuestTemplate />}>
           <Route path="/login" element={<Login />} />
@@ -86,7 +82,7 @@ const Router = () => {
         </Route>
         <Route
           element={
-            <Protected isLogged={isLogged}>
+            <Protected>
               <UserTemplate />
             </Protected>
           }
@@ -94,15 +90,12 @@ const Router = () => {
           <Route
             path="/"
             element={
-              <Protected isLogged={isLogged}>
+              <Protected>
                 <DashboardPage
                   loggedUser={loggedUser}
-                  users={users}
-                  followers={followers}
                   fetchFollowers={fetchFollowers}
                   events={events}
                   bookings={bookings}
-                  nextEvents={nextEvents}
                 />
               </Protected>
             }
@@ -110,20 +103,17 @@ const Router = () => {
           <Route
             path="/account"
             element={
-              <Protected isLogged={isLogged}>
-                <AccountPage loggedUser={loggedUser} users={users} />
+              <Protected>
+                <AccountPage loggedUser={loggedUser} />
               </Protected>
             }
           />
           <Route
             path="/events"
             element={
-              <Protected isLogged={isLogged}>
+              <Protected>
                 <EventsPage
                   loggedUser={loggedUser}
-                  bookings={bookings}
-                  nextEvents={nextEvents}
-                  users={users}
                   fetchFollowers={fetchFollowers}
                 />
               </Protected>
@@ -132,14 +122,11 @@ const Router = () => {
           <Route
             path="/network"
             element={
-              <Protected isLogged={isLogged}>
+              <Protected>
                 <NetworkPage
                   loggedUser={loggedUser}
-                  followers={followers}
                   fetchFollowers={fetchFollowers}
                   events={events}
-                  users={users}
-                  bookings={bookings}
                 />
               </Protected>
             }

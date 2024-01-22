@@ -3,15 +3,14 @@ import EventList from "../component/card/EventList";
 import moment from "moment";
 import DiscoverUsers from "../component/user/DiscoverUsers";
 import NewEvent from "../component/shared/NewEvent";
+import { useSelector } from "react-redux";
 
 export default function NetworkPage({
   loggedUser,
-  followers,
   events,
-  users,
-  bookings,
   fetchFollowers,
 }) {
+  const followers = useSelector((state) => state.followers);
   const currentDate = moment();
 
   const networkEvents = events
@@ -35,7 +34,6 @@ export default function NetworkPage({
       <div className="w-full pt-6 pb-10">
         <DiscoverUsers
           loggedUser={loggedUser}
-          users={users}
           fetchFollowers={fetchFollowers}
         />
       </div>
@@ -44,8 +42,6 @@ export default function NetworkPage({
         <EventList
           loggedUser={loggedUser}
           events={networkEvents}
-          users={users}
-          bookings={bookings}
           fetchFollowers={fetchFollowers}
         />
       </div>

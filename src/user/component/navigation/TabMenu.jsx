@@ -12,8 +12,8 @@ export default function TabMenu({
     handleSections(index);
   };
   const sectionClass = (sectionIndex) =>
-    `w-1/2 cursor-pointer rounded-t-lg shadow-xl ${
-      index === sectionIndex ? "p-2 bg-white text-cyan-700" : "p-2 bg-gray-50"
+    `w-1/2 cursor-pointer shadow-xl ${
+      index === sectionIndex ? "p-2 bg-white" : "p-2 bg-gray-50"
     }`;
 
   return (

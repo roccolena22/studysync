@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import FollowerAndFollowed from "./FollowerAndFolowed";
 import PriorityPopup from "../shared/PriorityPopup";
+import { useSelector } from "react-redux";
 
 export default function ManageUsers({
-  users,
   loggedUser,
-  followers,
   fetchFollowers,
 }) {
+  const users = useSelector((state) => state.users);
+  const followers = useSelector((state) => state.followers);
   const [PriorityPopupIsOpen, setPriorityPopupIsOpen] = useState(false);
   const [indexClicked, setIndexClicked] = useState(0);
 
