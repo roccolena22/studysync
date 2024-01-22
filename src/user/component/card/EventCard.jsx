@@ -1,8 +1,3 @@
-import {
-  addRecordToDatabase,
-  deleteRecordFromDatabase,
-} from "../../../api/apiRequest";
-import { addBooking, deleteBooking } from "../../../redux/slices/bookingsSlice";
 import EventDetails from "./EventDetails";
 import FooterCard from "./FooterCard";
 import HeaderCard from "./HeaderCard";
@@ -32,28 +27,6 @@ export default function EventCard({
   }, [event, users, bookings]);
   const userIsBooked = bookedUsers.find((user) => user.id === loggedUser.id);
 
-  const toggleBooking = async (eventId, isAdding) => {
-    const bookingReduxAction = isAdding ? addBooking : deleteBooking;
-    const bookingData = isAdding
-      ? {
-          eventId: [eventId],
-          bookedId: loggedUser.id,
-        }
-      : bookings.find((item) => item.bookedId === loggedUser.id);
-
-    try {
-      if (isAdding) {
-        await addRecordToDatabase("bookings", bookingData);
-      } else {
-        await deleteRecordFromDatabase("bookings", bookingData.id);
-      }
-      bookingReduxAction(isAdding ? bookingData : bookingData.id);
-      fetchBookings();
-      fetchEvents();
-    } catch (error) {
-      console.error(`Error ${isAdding ? "adding" : "removing"} booking`, error);
-    }
-  };
 
   return (
     <>
@@ -78,9 +51,9 @@ export default function EventCard({
         <div className="absolute bottom-2 right-3">
           <FooterCard
             event={event}
-            toggleBooking={toggleBooking}
             userIsBooked={userIsBooked}
             fetchEvents={fetchEvents}
+            fetchBookings={fetchBookings}
             loggedUser={loggedUser}
           />
         </div>

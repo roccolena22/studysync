@@ -3,10 +3,10 @@ import OwnerEventOptions from "./OwnerEventOptions";
 
 export default function FooterCard({
   event,
-  toggleBooking,
   loggedUser,
   userIsBooked,
   fetchEvents,
+  fetchBookings
 }) {
   const ownerEvent = loggedUser.id === event.authorId;
 
@@ -18,7 +18,7 @@ export default function FooterCard({
           fetchEvents={fetchEvents}
         />
       )}
-      <GuestEventOptions event={event} userIsBooked={userIsBooked} toggleBooking={toggleBooking} ownerEvent={ownerEvent}/>
+      <GuestEventOptions event={event} userIsBooked={userIsBooked} ownerEvent={ownerEvent} fetchEvents={fetchEvents} fetchBookings={fetchBookings} loggedUser={loggedUser}/>
     </div>
   );
 }
