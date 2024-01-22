@@ -1,26 +1,14 @@
 import React, { useEffect, useState } from "react";
 import EventCard from "./EventCard";
 import SearchBar from "../shared/SearchBar";
-import {
-  addRecordToDatabase,
-  deleteRecordFromDatabase,
-  getListFromDatabase,
-} from "../../../api/apiRequest";
+import { getListFromDatabase } from "../../../api/apiRequest";
 import { useDispatch, useSelector } from "react-redux";
 import { setEvents } from "../../../redux/slices/eventsSlice";
-import {
-  addBooking,
-  deleteBooking,
-  setBookings,
-} from "../../../redux/slices/bookingsSlice";
+import { setBookings } from "../../../redux/slices/bookingsSlice";
 import { sortEvents } from "../../Utilities/timeutils";
 import Noitems from "../NoItems";
 
-export default function EventList({
-  loggedUser,
-  events,
-  fetchFollowers,
-}) {
+export default function EventList({ loggedUser, events, fetchFollowers }) {
   const users = useSelector((state) => state.users);
   const bookings = useSelector((state) => state.bookings);
   const [searchedEvents, setSearchedEvents] = useState([]);
@@ -53,29 +41,6 @@ export default function EventList({
       dispatch(setBookings(bookings));
     } catch (error) {
       console.error("Error handling reservations:", error);
-    }
-  };
-
-  const toggleBooking = async (eventId, isAdding) => {
-    const bookingReduxAction = isAdding ? addBooking : deleteBooking;
-    const bookingData = isAdding
-      ? {
-          eventId: [eventId],
-          bookedId: loggedUser.id,
-        }
-      : bookings.find((item) => item.bookedId === loggedUser.id);
-
-    try {
-      if (isAdding) {
-        await addRecordToDatabase("bookings", bookingData);
-      } else {
-        await deleteRecordFromDatabase("bookings", bookingData.id);
-      }
-      bookingReduxAction(isAdding ? bookingData : bookingData.id);
-      fetchBookings();
-      fetchEvents();
-    } catch (error) {
-      console.error(`Error ${isAdding ? "adding" : "removing"} booking`, error);
     }
   };
 
@@ -115,7 +80,6 @@ export default function EventList({
                 users={users}
                 loggedUser={loggedUser}
                 event={event}
-                toggleBooking={toggleBooking}
                 fetchBookings={() => fetchBookings(event)}
                 bookings={bookings}
                 fetchFollowers={fetchFollowers}
@@ -125,9 +89,7 @@ export default function EventList({
           )
         )}
       </div>
-      {events.length <= 0 && (
-        <Noitems text="No events to show."/>
-      )}
+      {events.length <= 0 && <Noitems text="No events to show." />}
     </div>
   );
 }

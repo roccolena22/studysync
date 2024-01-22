@@ -1,3 +1,8 @@
+import {
+  addRecordToDatabase,
+  deleteRecordFromDatabase,
+} from "../../../api/apiRequest";
+import { addBooking, deleteBooking } from "../../../redux/slices/bookingsSlice";
 import EventDetails from "./EventDetails";
 import FooterCard from "./FooterCard";
 import HeaderCard from "./HeaderCard";
@@ -9,26 +14,10 @@ export default function EventCard({
   fetchBookings,
   users,
   bookings,
-  toggleBooking,
   fetchFollowers,
   fetchEvents,
 }) {
   const [bookedUsers, setBookedUsers] = useState([]);
-  const [isUnderway, setIsUnderway] = useState(false);
-
-  const currentDate = new Date();
-
-  useEffect(() => {
-    const end = new Date(`${event.endDate} ${event.endTime}`);
-    const start = new Date(`${event.startDate} ${event.startTime}`);
-    setIsUnderway(start <= currentDate && currentDate <= end);
-  }, [
-    currentDate,
-    event.endDate,
-    event.endTime,
-    event.startDate,
-    event.startTime,
-  ]);
 
   useEffect(() => {
     const idsArray =
@@ -42,6 +31,29 @@ export default function EventCard({
     );
   }, [event, users, bookings]);
   const userIsBooked = bookedUsers.find((user) => user.id === loggedUser.id);
+
+  const toggleBooking = async (eventId, isAdding) => {
+    const bookingReduxAction = isAdding ? addBooking : deleteBooking;
+    const bookingData = isAdding
+      ? {
+          eventId: [eventId],
+          bookedId: loggedUser.id,
+        }
+      : bookings.find((item) => item.bookedId === loggedUser.id);
+
+    try {
+      if (isAdding) {
+        await addRecordToDatabase("bookings", bookingData);
+      } else {
+        await deleteRecordFromDatabase("bookings", bookingData.id);
+      }
+      bookingReduxAction(isAdding ? bookingData : bookingData.id);
+      fetchBookings();
+      fetchEvents();
+    } catch (error) {
+      console.error(`Error ${isAdding ? "adding" : "removing"} booking`, error);
+    }
+  };
 
   return (
     <>
@@ -62,15 +74,14 @@ export default function EventCard({
             users={users}
           />
         </div>
-        <EventDetails event={event} isUnderway={isUnderway} />
+        <EventDetails event={event} />
         <div className="absolute bottom-2 right-3">
           <FooterCard
             event={event}
-            loggedUser={loggedUser}
             toggleBooking={toggleBooking}
             userIsBooked={userIsBooked}
-            isUnderway={isUnderway}
             fetchEvents={fetchEvents}
+            loggedUser={loggedUser}
           />
         </div>
       </div>

@@ -1,9 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import moment from "moment";
 import EventItem from "./EventItem";
 import Badge from "../shared/Badge";
 
-export default function EventDetails({ event, isUnderway }) {
+export default function EventDetails({ event }) {
+
+
+  const [isUnderway, setIsUnderway] = useState(false);
+
+  const currentDate = new Date();
+
+  useEffect(() => {
+    const end = new Date(`${event.endDate} ${event.endTime}`);
+    const start = new Date(`${event.startDate} ${event.startTime}`);
+    setIsUnderway(start <= currentDate && currentDate <= end);
+  }, [
+    currentDate,
+    event.endDate,
+    event.endTime,
+    event.startDate,
+    event.startTime,
+  ]);
+
+
   const startDateToView = moment(
     `${event.startDate} ${event.startTime}`,
     "YYYY-MM-DD HH:mm"

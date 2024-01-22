@@ -17,6 +17,7 @@ export default function EditEventForm({
   fetchEvents,
 }) {
   const dispatch = useDispatch();
+
   const {
     handleSubmit,
     formState: { errors },

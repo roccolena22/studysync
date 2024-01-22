@@ -1,76 +1,26 @@
-import React, { useState } from "react";
 import Button from "../../../shared/component/Button";
-import IconAndName from "../user/IconAndName";
-import EditEventForm from "../form/EditEventForm";
-import Alert from "../shared/Alert";
-import PriorityPopup from "../shared/PriorityPopup";
-import { deleteEvent } from "../../../redux/slices/eventsSlice";
-import { deleteRecordFromDatabase } from "../../../api/apiRequest";
-import { useDispatch } from "react-redux";
+import OwnerOptions from "./OwnerOptions";
 
 export default function FooterCard({
   event,
   toggleBooking,
   loggedUser,
   userIsBooked,
-  isUnderway,
   fetchEvents,
 }) {
-  const [selectedEvent, setSelectedEvent] = useState(null);
-  const [editPriorityPopupIsOpen, setEditPriorityPopupIsOpen] = useState(false);
-  const [showAlert, setShowAlert] = useState(false);
-  const [showNoValidDateAlert, setShowNoValidDateAlert] = useState(false);
+  const ownerEvent = loggedUser.id === event.authorId;
 
-  const dispatch = useDispatch();
-  const currentDate = new Date();
-  const proproetaryEvent = loggedUser.id === event.authorId;
-
-  const handleDelete = async (event) => {
-    await deleteRecordFromDatabase("events", event.id);
-    dispatch(deleteEvent(event));
-  };
-
-  const handleNoValidDateAlert = () => {
-    setShowNoValidDateAlert(!showNoValidDateAlert);
-  };
-
-  const handleAlert = () => {
-    setShowAlert(!showAlert);
-  };
-  const handleCloseEditPriorityPopup = () => {
-    setSelectedEvent(null);
-    setEditPriorityPopupIsOpen(false);
-  };
-
-  const toggleEditPriorityPopup = () => {
-    setSelectedEvent(event);
-    setEditPriorityPopupIsOpen(!editPriorityPopupIsOpen);
-  };
-
-  const eventIsFinished =
-    new Date(`${event.endDate} ${event.endTime}`) < currentDate;
   return (
     <div className="flex space-x-2">
-      {proproetaryEvent && (
-        <>
-          {!eventIsFinished && !isUnderway && (
-            <IconAndName
-              iconName="edit"
-              label="edit"
-              onClick={toggleEditPriorityPopup}
-            />
-          )}
-          <IconAndName
-            iconName="delete"
-            label="delete"
-            onClick={() => handleDelete(event)}
-            color="text-red-800"
-          />
-        </>
+      {ownerEvent && (
+        <OwnerOptions
+          event={event}
+          fetchEvents={fetchEvents}
+        />
       )}
       {event.bookingsRecordId && event.bookingsRecordId.length >= event.places
         ? ""
-        : !proproetaryEvent &&
+        : !ownerEvent &&
           !userIsBooked && (
             <Button
               small
@@ -85,38 +35,6 @@ export default function FooterCard({
           outline
           name="Leave"
           onClick={() => toggleBooking(event.id, false)}
-        />
-      )}
-
-      {editPriorityPopupIsOpen && (
-        <PriorityPopup
-          handleClose={handleCloseEditPriorityPopup}
-          title="Edit event"
-        >
-          {
-            <EditEventForm
-              event={selectedEvent}
-              handleCloseEditPriorityPopup={handleCloseEditPriorityPopup}
-              handleAlert={handleAlert}
-              handleNoValidDateAlert={handleNoValidDateAlert}
-              fetchEvents={fetchEvents}
-              loggedUser={loggedUser}
-            />
-          }
-        </PriorityPopup>
-      )}
-      {showAlert && (
-        <Alert
-          type="success"
-          text="Modification successful!"
-          onClose={handleAlert}
-        />
-      )}
-      {showNoValidDateAlert && (
-        <Alert
-          text="Something is wrong with the dates you chose."
-          type="alert"
-          onClose={() => setShowNoValidDateAlert(false)}
         />
       )}
     </div>
