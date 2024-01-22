@@ -62,11 +62,10 @@ export default function DeleteAccountForm({ loggedUser }) {
             errorMessage={errors.password?.message}
             placeholder="Enter your password"
           >
-            {showPassword ? (
-              <Icon name="eyeInvisible" onClick={handleShowPassword} />
-            ) : (
-              <Icon name="eye" onClick={handleShowPassword} />
-            )}
+             <Icon
+          name={showPassword ? "eyeInvisible" : "eye"}
+          onClick={handleShowPassword}
+        />
           </Input>
           {passwordIsWrong && (
             <p className="text-red-500">The password is wrong</p>

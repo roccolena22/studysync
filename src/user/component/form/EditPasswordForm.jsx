@@ -64,11 +64,10 @@ export default function EditPasswordForm({ loggedUser }) {
           errorMessage={errors.oldPassword?.message}
           placeholder="Enter your password"
         >
-          {showPassword ? (
-            <Icon name="eyeInvisible" onClick={handleShowPassword} />
-          ) : (
-            <Icon name="eye" onClick={handleShowPassword} />
-          )}
+          <Icon
+          name={showPassword ? "eyeInvisible" : "eye"}
+          onClick={handleShowPassword}
+        />
         </Input>
         <Input
           label="New Password"

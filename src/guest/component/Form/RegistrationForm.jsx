@@ -14,6 +14,8 @@ import {
   addRecordToDatabase,
   getListFromDatabase,
 } from "../../../api/apiRequest";
+import ChoiceOfRole from "../ChoiceOfRole";
+import ErrorMessage from "../ErrorMessage";
 
 export default function RegistrationForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -63,8 +65,7 @@ export default function RegistrationForm() {
 
         data.role = role;
 
-        const saltRounds = 10;
-        const hash = await bcrypt.hash(data.password, saltRounds);
+        const hash = await bcrypt.hash(data.password, 10);
 
         data.password = hash;
         data.confirmPassword = hash;
@@ -114,11 +115,10 @@ export default function RegistrationForm() {
           register={register("password")}
           type={showPassword ? "text" : "password"}
         >
-          {showPassword ? (
-            <Icon name="eyeInvisible" onClick={handleShowPassword} />
-          ) : (
-            <Icon name="eye" onClick={handleShowPassword} />
-          )}
+          <Icon
+            name={showPassword ? "eyeInvisible" : "eye"}
+            onClick={handleShowPassword}
+          />
         </Input>
         <Input
           label="Confirm password"
@@ -126,37 +126,19 @@ export default function RegistrationForm() {
           register={register("confirmPassword")}
           type={showPassword ? "text" : "password"}
         >
-          {showPassword ? (
-            <Icon name="eyeInvisible" onClick={handleShowPassword} />
-          ) : (
-            <Icon name="eye" onClick={handleShowPassword} />
-          )}
+          <Icon
+            name={showPassword ? "eyeInvisible" : "eye"}
+            onClick={handleShowPassword}
+          />
         </Input>
       </div>
-      <div className="flex items-center space-x-4 pt-2 mb-4">
-        <p className="font-semibold">I am a...</p>
-        <div className="flex space-x-2 items-center">
-          <p>Teacher</p>
-          <input
-            checked={checkedTeacher}
-            type="checkbox"
-            onChange={() => handleCheckBox(0)}
-          />
-        </div>
-        <p className="text-red-500 mt-1">{errors.isTeacher?.message}</p>
-        <div className="flex space-x-2 items-center">
-          <p>Student</p>
-          <input
-            checked={checkedStudent}
-            type="checkbox"
-            onChange={() => handleCheckBox(1)}
-          />
-        </div>
-      </div>
+      <ChoiceOfRole
+        handleCheckBox={handleCheckBox}
+        checkedTeacher={checkedTeacher}
+        checkedStudent={checkedStudent}
+      />
       {error && (
-        <p className="text-red-500 text-sm text-center">
-          Oops... this email is already associated with another account
-        </p>
+        <ErrorMessage text="Oops... this email is already associated with another account" />
       )}
       <div className="flex justify-between items-center py-4">
         <Link to="/login">

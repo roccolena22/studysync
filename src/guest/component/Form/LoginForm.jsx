@@ -81,11 +81,10 @@ export default function LoginForm() {
         type={showPassword ? "text" : "password"}
         onKeyDown={handleKeyDown}
       >
-        {showPassword ? (
-          <Icon name="eyeInvisible" onClick={handleShowPassword} />
-        ) : (
-          <Icon name="eye" onClick={handleShowPassword} />
-        )}
+        <Icon
+          name={showPassword ? "eyeInvisible" : "eye"}
+          onClick={handleShowPassword}
+        />
       </Input>
       {loginError && <p className="text-red-500">{loginError}</p>}
       <div className="flex justify-center space-x-4 py-6">
