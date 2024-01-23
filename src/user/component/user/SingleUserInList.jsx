@@ -1,17 +1,61 @@
 import React from "react";
-import Button from "../../../shared/component/Button";
 import UserDetails from "./UserDetails";
+import {
+  addRecordToDatabase,
+  deleteRecordFromDatabase,
+  getListFromDatabase,
+} from "../../../api/apiRequest";
+import {
+  addFollower,
+  deleteFollower,
+  setFollowers,
+} from "../../../redux/slices/followersSlice";
+import { setLoggedUser } from "../../../redux/slices/authSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { setUsers } from "../../../redux/slices/usersSlice";
+import FollowAndUnfollowButtons from "./FollowAndUnfollowButtons";
 
-export default function SingleUserInList({ user, loggedUser, toggleFollow }) {
-  const isLoggedUser = loggedUser.id === user.id;
+export default function SingleUserInList({ user, loggedUser }) {
+  const followers = useSelector((state) => state.followers);
 
-  const isFollowed =
-    user.followersIds &&
-    loggedUser.followingIds &&
-    loggedUser.followingIds.some((element) =>
-      user.followersIds.includes(element)
-    );
+  const dispatch = useDispatch();
+  const fetchFollowers = async () => {
+    try {
+      const followersFromDatabase = await getListFromDatabase("followers");
+      dispatch(setFollowers(followersFromDatabase));
+    } catch (error) {
+      console.error("Error retrieving followers from database", error);
+    }
+  };
 
+  const toggleFollow = async (userId, isAdding) => {
+    const followerReduxAction = isAdding ? addFollower : deleteFollower;
+    try {
+      const followerData = isAdding
+        ? { idFrom: [loggedUser.id], idTo: [userId] }
+        : followers?.find((item) => item?.idTo?.[0] === userId);
+      if (isAdding) {
+        await addRecordToDatabase("followers", followerData);
+      } else if (followerData?.id) {
+        await deleteRecordFromDatabase("followers", followerData.id);
+      }
+      dispatch(followerReduxAction(followerData));
+
+      const updatedUsers = await getListFromDatabase("users");
+      dispatch(setUsers(updatedUsers));
+
+      const refreshLoggedUser = updatedUsers.find(
+        (user) => user.id === loggedUser.id
+      );
+      dispatch(setLoggedUser(refreshLoggedUser));
+      fetchFollowers?.();
+    } catch (error) {
+      console.error(
+        `Error ${isAdding ? "adding" : "removing"} follower`,
+        error
+      );
+    }
+  };
   return (
     <div className="flex justify-between items-center border-b border-gray-400 w-full py-2">
       <UserDetails
@@ -20,21 +64,11 @@ export default function SingleUserInList({ user, loggedUser, toggleFollow }) {
         email={user.email}
         role={user.role}
       />
-      {!isLoggedUser &&
-        (isFollowed === true ? (
-          <Button
-            small
-            outline
-            onClick={() => toggleFollow(user.id, false)}
-            name="Unfollow"
-          />
-        ) : (
-          <Button
-            small
-            onClick={() => toggleFollow(user.id, true)}
-            name="Follow"
-          />
-        ))}
+      <FollowAndUnfollowButtons
+        loggedUser={loggedUser}
+        toggleFollow={toggleFollow}
+        user={user}
+      />
     </div>
   );
 }

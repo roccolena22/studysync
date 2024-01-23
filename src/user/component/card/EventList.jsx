@@ -2,14 +2,12 @@ import React, { useEffect, useState } from "react";
 import EventCard from "./EventCard";
 import SearchBar from "../shared/SearchBar";
 import { getListFromDatabase } from "../../../api/apiRequest";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setEvents } from "../../../redux/slices/eventsSlice";
-import { setBookings } from "../../../redux/slices/bookingsSlice";
 import { sortEvents } from "../../Utilities/timeutils";
 import Noitems from "../NoItems";
 
 export default function EventList({ events }) {
-  const bookings = useSelector((state) => state.bookings);
   const [searchedEvents, setSearchedEvents] = useState([]);
   const dispatch = useDispatch();
 
@@ -34,22 +32,9 @@ export default function EventList({ events }) {
     dispatch(setEvents(transformedEventsArray));
   };
 
-  const fetchBookings = async () => {
-    try {
-      const bookings = await getListFromDatabase("bookings");
-      dispatch(setBookings(bookings));
-    } catch (error) {
-      console.error("Error handling reservations:", error);
-    }
-  };
-
   useEffect(() => {
     fetchEvents();
   }, [events.length]);
-
-  useEffect(() => {
-    fetchBookings();
-  }, []);
 
   const sortedEvents = sortEvents(events);
 
@@ -77,8 +62,6 @@ export default function EventList({ events }) {
             >
               <EventCard
                 event={event}
-                fetchBookings={() => fetchBookings(event)}
-                bookings={bookings}
                 fetchEvents={fetchEvents}
               />
             </div>

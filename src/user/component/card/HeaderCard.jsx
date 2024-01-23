@@ -5,16 +5,13 @@ import PriorityPopup from "../shared/PriorityPopup";
 import UsersList from "../user/UserList";
 import Noitems from "../NoItems";
 
-export default function HeaderCard({ event, fetchBookings, bookedUsers }) {
+export default function HeaderCard({ event, bookedUsers, fetchBookings }) {
   const [reservationsPriorityPopupIsOpen, setReservationsPriorityPopupIsOpen] =
     useState(false);
 
-  const handleCloseReservationsPriorityPopup = () => {
-    setReservationsPriorityPopupIsOpen(!reservationsPriorityPopupIsOpen);
-  };
   const handleReservationsPopup = () => {
     setReservationsPriorityPopupIsOpen(!reservationsPriorityPopupIsOpen);
-    fetchBookings(event);
+    fetchBookings();
   };
 
   return (
@@ -38,7 +35,9 @@ export default function HeaderCard({ event, fetchBookings, bookedUsers }) {
       </div>
       {reservationsPriorityPopupIsOpen && (
         <PriorityPopup
-          handleClose={handleCloseReservationsPriorityPopup}
+          handleClose={() =>
+            setReservationsPriorityPopupIsOpen(!reservationsPriorityPopupIsOpen)
+          }
           title="List of reservations"
         >
           {Array.isArray(bookedUsers) && bookedUsers.length > 0 ? (

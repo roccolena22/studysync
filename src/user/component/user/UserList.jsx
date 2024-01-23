@@ -2,34 +2,17 @@ import React, { useEffect, useState } from "react";
 import SearchBar from "../shared/SearchBar";
 import SingleUserInList from "./SingleUserInList";
 import {
-  addRecordToDatabase,
-  deleteRecordFromDatabase,
+
   getListFromDatabase,
 } from "../../../api/apiRequest";
-import {
-  addFollower,
-  deleteFollower,
-  setFollowers,
-} from "../../../redux/slices/followersSlice";
-import { setLoggedUser } from "../../../redux/slices/authSlice";
 import { setUsers } from "../../../redux/slices/usersSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 export default function UsersList({ users }) {
   const loggedUser = useSelector((state) => state.auth.user);
-  const followers = useSelector((state) => state.followers);
   const [searchedUsers, setSearchedUsers] = useState([]);
 
   const dispatch = useDispatch();
-
-  const fetchFollowers = async () => {
-    try {
-      const followersFromDatabase = await getListFromDatabase("followers");
-      dispatch(setFollowers(followersFromDatabase));
-    } catch (error) {
-      console.error("Error retrieving followers from database", error);
-    }
-  };
 
   const fetchUsers = async () => {
     try {
@@ -57,34 +40,34 @@ export default function UsersList({ users }) {
       : a.lastName.localeCompare(b.lastName);
   });
 
-  const toggleFollow = async (userId, isAdding) => {
-    const followerReduxAction = isAdding ? addFollower : deleteFollower;
-    try {
-      const followerData = isAdding
-        ? { idFrom: [loggedUser.id], idTo: [userId] }
-        : followers?.find((item) => item?.idTo?.[0] === userId);
-      if (isAdding) {
-        await addRecordToDatabase("followers", followerData);
-      } else if (followerData?.id) {
-        await deleteRecordFromDatabase("followers", followerData.id);
-      }
-      dispatch(followerReduxAction(followerData));
+  // const toggleFollow = async (userId, isAdding) => {
+  //   const followerReduxAction = isAdding ? addFollower : deleteFollower;
+  //   try {
+  //     const followerData = isAdding
+  //       ? { idFrom: [loggedUser.id], idTo: [userId] }
+  //       : followers?.find((item) => item?.idTo?.[0] === userId);
+  //     if (isAdding) {
+  //       await addRecordToDatabase("followers", followerData);
+  //     } else if (followerData?.id) {
+  //       await deleteRecordFromDatabase("followers", followerData.id);
+  //     }
+  //     dispatch(followerReduxAction(followerData));
 
-      const updatedUsers = await getListFromDatabase("users");
-      dispatch(setUsers(updatedUsers));
+  //     const updatedUsers = await getListFromDatabase("users");
+  //     dispatch(setUsers(updatedUsers));
 
-      const refreshLoggedUser = updatedUsers.find(
-        (user) => user.id === loggedUser.id
-      );
-      dispatch(setLoggedUser(refreshLoggedUser));
-      fetchFollowers?.();
-    } catch (error) {
-      console.error(
-        `Error ${isAdding ? "adding" : "removing"} follower`,
-        error
-      );
-    }
-  };
+  //     const refreshLoggedUser = updatedUsers.find(
+  //       (user) => user.id === loggedUser.id
+  //     );
+  //     dispatch(setLoggedUser(refreshLoggedUser));
+  //     fetchFollowers?.();
+  //   } catch (error) {
+  //     console.error(
+  //       `Error ${isAdding ? "adding" : "removing"} follower`,
+  //       error
+  //     );
+  //   }
+  // };
 
   return (
     <div>
@@ -103,8 +86,6 @@ export default function UsersList({ users }) {
               <SingleUserInList
                 loggedUser={loggedUser}
                 user={user}
-                toggleFollow={toggleFollow}
-                followers={followers}
               />
             </div>
           )

@@ -2,17 +2,20 @@ import { useEffect, useState } from "react";
 import EventDetails from "./EventDetails";
 import FooterCard from "./FooterCard";
 import HeaderCard from "./HeaderCard";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setBookings } from "../../../redux/slices/bookingsSlice";
+import { getListFromDatabase } from "../../../api/apiRequest";
 
 export default function EventCard({
   event,
-  fetchBookings,
   fetchEvents,
-  bookings,
 }) {
   const loggedUser = useSelector((state) => state.auth.user);
   const users = useSelector((state) => state.users);
+  const bookings = useSelector((state) => state.bookings);
   const [bookedUsers, setBookedUsers] = useState([]);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const idsArray =
@@ -27,6 +30,15 @@ export default function EventCard({
   }, [event, users, bookings]);
   const userIsBooked = bookedUsers.find((user) => user.id === loggedUser.id);
 
+  const fetchBookings = async () => {
+    try {
+      const bookings = await getListFromDatabase("bookings");
+      dispatch(setBookings(bookings));
+    } catch (error) {
+      console.error("Error handling reservations:", error);
+    }
+  };
+
   return (
     <>
       <div className="w-full h-96 relative rounded-lg p-3 bg-gray-50 shadow-xl">
@@ -39,8 +51,8 @@ export default function EventCard({
         >
           <HeaderCard
             event={event}
-            fetchBookings={fetchBookings}
             bookedUsers={bookedUsers}
+            fetchBookings={fetchBookings}
           />
         </div>
         <EventDetails event={event} />

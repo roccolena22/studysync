@@ -6,15 +6,15 @@ import {
 } from "../../../api/apiRequest";
 import { useSelector } from "react-redux";
 
-export default function GuestEventOptions({
+export default function JoinAndLeaveButtons({
   event,
   userIsBooked,
   ownerEvent,
   fetchBookings,
   fetchEvents,
-  loggedUser
+  loggedUser,
 }) {
-    const bookings = useSelector((state) => state.bookings);
+  const bookings = useSelector((state) => state.bookings);
 
   const toggleBooking = async (eventId, isAdding) => {
     const bookingReduxAction = isAdding ? addBooking : deleteBooking;
@@ -23,7 +23,7 @@ export default function GuestEventOptions({
           eventId: [eventId],
           bookedId: loggedUser.id,
         }
-      : bookings.find((item) => item.bookedId === loggedUser.id);
+      : bookings.find((item) => item.bookedId === loggedUser.id && eventId === item.eventId[0] );
 
     try {
       if (isAdding) {

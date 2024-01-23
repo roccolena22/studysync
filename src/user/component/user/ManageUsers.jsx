@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import FollowerAndFollowed from "./FollowerAndFolowed";
+import FollowerAndFollowedLists from "./FollowerAndFollowedLists";
 import PriorityPopup from "../shared/PriorityPopup";
 import { useDispatch, useSelector } from "react-redux";
 import { getListFromDatabase } from "../../../api/apiRequest";
@@ -64,7 +64,7 @@ export default function ManageUsers({ loggedUser }) {
 
       {PriorityPopupIsOpen && (
         <PriorityPopup handleClose={handlePriorityPopup}>
-          <FollowerAndFollowed
+          <FollowerAndFollowedLists
             users={users}
             loggedUser={loggedUser}
             indexClicked={indexClicked}

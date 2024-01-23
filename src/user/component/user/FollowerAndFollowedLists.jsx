@@ -2,7 +2,7 @@ import { useState } from "react";
 import TabMenu from "../navigation/TabMenu";
 import UsersList from "./UserList";
 
-export default function FollowerAndFollowed({
+export default function FollowerAndFollowedLists({
   users,
   followingIds,
   followersIds,

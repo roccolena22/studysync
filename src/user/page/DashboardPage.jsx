@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import TabMenu from "../component/navigation/TabMenu";
 import Title from "../component/shared/Title";
 import EventList from "../component/card/EventList";
