@@ -2,9 +2,7 @@ import { useEffect, useState } from "react";
 import EventDetails from "./EventDetails";
 import FooterCard from "./FooterCard";
 import HeaderCard from "./HeaderCard";
-import { useDispatch, useSelector } from "react-redux";
-import { setBookings } from "../../../redux/slices/bookingsSlice";
-import { getListFromDatabase } from "../../../api/apiRequest";
+import { useSelector } from "react-redux";
 
 export default function EventCard({
   event,
@@ -13,8 +11,6 @@ export default function EventCard({
   const users = useSelector((state) => state.users);
   const bookings = useSelector((state) => state.bookings);
   const [bookedUsers, setBookedUsers] = useState([]);
-
-  const dispatch = useDispatch();
 
   useEffect(() => {
     const idsArray =
