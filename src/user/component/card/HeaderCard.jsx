@@ -43,11 +43,7 @@ export default function HeaderCard({ event, bookedUsers }) {
           }
           title="List of reservations"
         >
-          {Array.isArray(bookedUsers) && bookedUsers.length > 0 ? (
             <UsersList users={bookedUsers} />
-          ) : (
-            <Noitems text="There are no reservations for this event." />
-          )}
         </PriorityPopup>
       )}
     </>
