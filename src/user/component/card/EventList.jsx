@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import EventCard from "./EventCard";
 import SearchBar from "../shared/SearchBar";
-import { getListFromDatabase } from "../../../api/apiRequest";
 import { useDispatch } from "react-redux";
-import { setEvents } from "../../../redux/slices/eventsSlice";
-import { sortEvents } from "../../Utilities/timeutils";
+import { sortEventsForTime } from "../../Utilities/timeutils";
 import Noitems from "../NoItems";
 import { fetchEvents } from "../../Utilities/fetchFunctions";
 
@@ -20,7 +18,7 @@ export default function EventList({ events }) {
     fetchEvents(dispatch);
   }, [events.length]);
 
-  const sortedEvents = sortEvents(events);
+  const sortedEvents = sortEventsForTime(events);
 
   return (
     <div className="bg-white shadow-xl px-6 rounded-b-lg">

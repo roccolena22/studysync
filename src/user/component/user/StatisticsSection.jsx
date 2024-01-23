@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import moment from "moment";
 import ManageUsers from "../user/ManageUsers";
 import Gadget from "../user/Gadget";
-import { sortEvents } from "../../Utilities/timeutils";
+import { sortEventsForTime } from "../../Utilities/timeutils";
 import TitleAndAuthorName from "../card/TitleAndAuthorName";
 import { useSelector } from "react-redux";
 
@@ -12,7 +12,7 @@ export default function StatisticsSection({ activeEvents }) {
   const events = useSelector((state) => state.events);
   const nextEvents = useSelector((state) => state.nextEvents);
   const bookings = useSelector((state) => state.bookings);
-  const sortedEvents = nextEvents.length > 0 ? sortEvents(nextEvents) : [];
+  const sortedEvents = nextEvents.length > 0 ? sortEventsForTime(nextEvents) : [];
 
   useEffect(() => {
     const handleBookedEvents = async () => {
