@@ -8,25 +8,17 @@ import {
 import {
   addFollower,
   deleteFollower,
-  setFollowers,
 } from "../../../redux/slices/followersSlice";
 import { setLoggedUser } from "../../../redux/slices/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { setUsers } from "../../../redux/slices/usersSlice";
 import FollowAndUnfollowButtons from "./FollowAndUnfollowButtons";
+import { fetchFollowers } from "../../Utilities/fetchFunctions";
 
 export default function SingleUserInList({ user, loggedUser }) {
   const followers = useSelector((state) => state.followers);
 
   const dispatch = useDispatch();
-  const fetchFollowers = async () => {
-    try {
-      const followersFromDatabase = await getListFromDatabase("followers");
-      dispatch(setFollowers(followersFromDatabase));
-    } catch (error) {
-      console.error("Error retrieving followers from database", error);
-    }
-  };
 
   const toggleFollow = async (userId, isAdding) => {
     const followerReduxAction = isAdding ? addFollower : deleteFollower;
@@ -48,7 +40,7 @@ export default function SingleUserInList({ user, loggedUser }) {
         (user) => user.id === loggedUser.id
       );
       dispatch(setLoggedUser(refreshLoggedUser));
-      fetchFollowers?.();
+      fetchFollowers?.(dispatch);
     } catch (error) {
       console.error(
         `Error ${isAdding ? "adding" : "removing"} follower`,

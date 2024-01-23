@@ -27,35 +27,6 @@ export default function UsersList({ users }) {
       : a.lastName.localeCompare(b.lastName);
   });
 
-  // const toggleFollow = async (userId, isAdding) => {
-  //   const followerReduxAction = isAdding ? addFollower : deleteFollower;
-  //   try {
-  //     const followerData = isAdding
-  //       ? { idFrom: [loggedUser.id], idTo: [userId] }
-  //       : followers?.find((item) => item?.idTo?.[0] === userId);
-  //     if (isAdding) {
-  //       await addRecordToDatabase("followers", followerData);
-  //     } else if (followerData?.id) {
-  //       await deleteRecordFromDatabase("followers", followerData.id);
-  //     }
-  //     dispatch(followerReduxAction(followerData));
-
-  //     const updatedUsers = await getListFromDatabase("users");
-  //     dispatch(setUsers(updatedUsers));
-
-  //     const refreshLoggedUser = updatedUsers.find(
-  //       (user) => user.id === loggedUser.id
-  //     );
-  //     dispatch(setLoggedUser(refreshLoggedUser));
-  //     fetchFollowers?.();
-  //   } catch (error) {
-  //     console.error(
-  //       `Error ${isAdding ? "adding" : "removing"} follower`,
-  //       error
-  //     );
-  //   }
-  // };
-
   return (
     <div>
       {users.length > 0 && (
