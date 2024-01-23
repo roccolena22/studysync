@@ -5,18 +5,17 @@ import {
   deleteRecordFromDatabase,
 } from "../../../api/apiRequest";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchEvents } from "../../Utilities/fetchFunctions";
+import { fetchBookings, fetchEvents } from "../../Utilities/fetchFunctions";
 
 export default function JoinAndLeaveButtons({
   event,
   userIsBooked,
   ownerEvent,
-  fetchBookings,
   loggedUser,
 }) {
   const bookings = useSelector((state) => state.bookings);
   const dispatch = useDispatch();
-  
+
   const toggleBooking = async (eventId, isAdding) => {
     const bookingReduxAction = isAdding ? addBooking : deleteBooking;
     const bookingData = isAdding
@@ -36,7 +35,7 @@ export default function JoinAndLeaveButtons({
         await deleteRecordFromDatabase("bookings", bookingData.id);
       }
       bookingReduxAction(isAdding ? bookingData : bookingData.id);
-      fetchBookings();
+      fetchBookings(dispatch);
       fetchEvents(dispatch);
     } catch (error) {
       console.error(`Error ${isAdding ? "adding" : "removing"} booking`, error);

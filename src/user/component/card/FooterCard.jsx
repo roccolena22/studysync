@@ -5,7 +5,6 @@ export default function FooterCard({
   event,
   loggedUser,
   userIsBooked,
-  fetchBookings,
 }) {
   const ownerEvent = loggedUser.id === event.authorId;
 
@@ -18,7 +17,6 @@ export default function FooterCard({
         event={event}
         userIsBooked={userIsBooked}
         ownerEvent={ownerEvent}
-        fetchBookings={fetchBookings}
         loggedUser={loggedUser}
       />
     </div>

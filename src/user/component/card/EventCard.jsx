@@ -29,15 +29,6 @@ export default function EventCard({
   }, [event, users, bookings]);
   const userIsBooked = bookedUsers.find((user) => user.id === loggedUser.id);
 
-  const fetchBookings = async () => {
-    try {
-      const bookings = await getListFromDatabase("bookings");
-      dispatch(setBookings(bookings));
-    } catch (error) {
-      console.error("Error handling reservations:", error);
-    }
-  };
-
   return (
     <>
       <div className="w-full h-96 relative rounded-lg p-3 bg-gray-50 shadow-xl">
@@ -51,7 +42,6 @@ export default function EventCard({
           <HeaderCard
             event={event}
             bookedUsers={bookedUsers}
-            fetchBookings={fetchBookings}
           />
         </div>
         <EventDetails event={event} />
@@ -59,7 +49,6 @@ export default function EventCard({
           <FooterCard
             event={event}
             userIsBooked={userIsBooked}
-            fetchBookings={fetchBookings}
             loggedUser={loggedUser}
           />
         </div>
