@@ -8,7 +8,7 @@ import { setBookings } from "../../../redux/slices/bookingsSlice";
 import { sortEvents } from "../../Utilities/timeutils";
 import Noitems from "../NoItems";
 
-export default function EventList({ events, fetchFollowers }) {
+export default function EventList({ events }) {
   const users = useSelector((state) => state.users);
   const loggedUser = useSelector((state) => state.auth.user);
   const bookings = useSelector((state) => state.bookings);
@@ -83,7 +83,6 @@ export default function EventList({ events, fetchFollowers }) {
                 event={event}
                 fetchBookings={() => fetchBookings(event)}
                 bookings={bookings}
-                fetchFollowers={fetchFollowers}
                 fetchEvents={fetchEvents}
               />
             </div>

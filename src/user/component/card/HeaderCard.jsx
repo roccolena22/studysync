@@ -10,7 +10,6 @@ export default function HeaderCard({
   fetchBookings,
   bookedUsers,
   loggedUser,
-  fetchFollowers,
 }) {
   const [reservationsPriorityPopupIsOpen, setReservationsPriorityPopupIsOpen] =
     useState(false);
@@ -48,11 +47,7 @@ export default function HeaderCard({
           title="List of reservations"
         >
           {Array.isArray(bookedUsers) && bookedUsers.length > 0 ? (
-            <UsersList
-              users={bookedUsers}
-              loggedUser={loggedUser}
-              fetchFollowers={fetchFollowers}
-            />
+            <UsersList users={bookedUsers} />
           ) : (
             <Noitems text="There are no reservations for this event." />
           )}

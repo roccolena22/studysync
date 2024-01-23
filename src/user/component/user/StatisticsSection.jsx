@@ -6,10 +6,7 @@ import { sortEvents } from "../../Utilities/timeutils";
 import TitleAndAuthorName from "../card/TitleAndAuthorName";
 import { useSelector } from "react-redux";
 
-export default function StatisticsSection({
-  activeEvents,
-  fetchFollowers,
-}) {
+export default function StatisticsSection({ activeEvents }) {
   const [bookedEvents, setBookedEvents] = useState([]);
   const loggedUser = useSelector((state) => state.auth.user);
   const events = useSelector((state) => state.events);
@@ -37,7 +34,6 @@ export default function StatisticsSection({
     handleBookedEvents();
   }, [events, bookings, loggedUser]);
 
-  
   const startEvent = moment(
     `${sortedEvents[0]?.startDate} ${sortedEvents[0]?.startTime}`,
     "YYYY-MM-DD HH:mm"
@@ -105,10 +101,7 @@ export default function StatisticsSection({
   return (
     <div className="grid grid-cols-1 gap-2 pt-6 w-full">
       <div className="grid gap-2 sm:grid-cols-2">
-        <ManageUsers
-          loggedUser={loggedUser}
-          fetchFollowers={fetchFollowers}
-        />
+        <ManageUsers loggedUser={loggedUser} />
         <div className="grid grid-cols-1 gap-2">
           <Gadget
             title="Today's events:"

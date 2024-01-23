@@ -9,7 +9,6 @@ export default function EventCard({
   fetchBookings,
   users,
   bookings,
-  fetchFollowers,
   fetchEvents,
 }) {
   const [bookedUsers, setBookedUsers] = useState([]);
@@ -43,7 +42,6 @@ export default function EventCard({
             fetchBookings={fetchBookings}
             bookedUsers={bookedUsers}
             loggedUser={loggedUser}
-            fetchFollowers={fetchFollowers}
             users={users}
           />
         </div>

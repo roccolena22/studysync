@@ -4,8 +4,8 @@ import Button from "../../../shared/component/Button";
 import UsersList from "./UserList";
 import { useSelector } from "react-redux";
 
-export default function DiscoverUsers({ fetchFollowers }) {
-  const loggedUser = useSelector((state) => state.auth.user);
+export default function DiscoverUsers() {
+  const users = useSelector((state) => state.users);
   const [PriorityPopupIsOpen, setPriorityPopupIsOpen] = useState(false);
   const handlePriorityPopup = () => {
     setPriorityPopupIsOpen(!PriorityPopupIsOpen);
@@ -34,9 +34,7 @@ export default function DiscoverUsers({ fetchFollowers }) {
           handleClose={handlePriorityPopup}
           title="Search among StudySync users"
         >
-          <UsersList
-            fetchFollowers={fetchFollowers}
-          />
+          <UsersList users={users} />
         </PriorityPopup>
       )}
     </>

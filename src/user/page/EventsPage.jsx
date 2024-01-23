@@ -8,9 +8,7 @@ import EventList from "../component/card/EventList";
 import NewEvent from "../component/shared/NewEvent";
 import { useSelector } from "react-redux";
 
-export default function EventsPage({
-  fetchFollowers,
-}) {
+export default function EventsPage() {
   const [indexSection, setIndexSection] = useState(0);
   const nextEvents = useSelector((state) => state.nextEvents);
 
@@ -35,7 +33,6 @@ export default function EventsPage({
         {indexSection === 0 ? (
           <EventList
             events={nextEvents}
-            fetchFollowers={fetchFollowers}
           />
         ) : (
           <div className="flex flex-col items-center pt-8">

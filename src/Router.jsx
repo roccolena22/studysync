@@ -16,27 +16,17 @@ import RecoveryPassword from "./guest/page/RecoveryPassword";
 import Protected from "./Protected";
 import { useDispatch, useSelector } from "react-redux";
 import DashboardPage from "./user/page/DashboardPage";
-import { getListFromDatabase } from "./api/apiRequest";
-import { setFollowers } from "./redux/slices/followersSlice";
 import { setNextEvents } from "./redux/slices/nextEventsSlice";
 import { useEffect, useState } from "react";
 
 const Router = () => {
-  const [userPastEvents, setUserPastEvents] = useState([]);
-  const [userActiveEvents, setUserActiveEvents] = useState([]);
-  const dispatch = useDispatch();
   const loggedUser = useSelector((state) => state.auth.user);
   const events = useSelector((state) => state.events);
   const bookings = useSelector((state) => state.bookings);
+  const [userPastEvents, setUserPastEvents] = useState([]);
+  const [userActiveEvents, setUserActiveEvents] = useState([]);
 
-  const fetchFollowers = async () => {
-    try {
-      const followersFromDatabase = await getListFromDatabase("followers");
-      dispatch(setFollowers(followersFromDatabase));
-    } catch (error) {
-      console.error("Error retrieving followers from database", error);
-    }
-  };
+  const dispatch = useDispatch();
 
   const handleBookedEvents = async () => {
     const currentDate = new Date();
@@ -101,7 +91,6 @@ const Router = () => {
             element={
               <Protected>
                 <DashboardPage
-                  fetchFollowers={fetchFollowers}
                   userActiveEvents={userActiveEvents}
                   userPastEvents={userPastEvents}
                 />
@@ -120,9 +109,7 @@ const Router = () => {
             path="/events"
             element={
               <Protected>
-                <EventsPage
-                  fetchFollowers={fetchFollowers}
-                />
+                <EventsPage />
               </Protected>
             }
           />
@@ -130,9 +117,7 @@ const Router = () => {
             path="/network"
             element={
               <Protected>
-                <NetworkPage
-                  fetchFollowers={fetchFollowers}
-                />
+                <NetworkPage />
               </Protected>
             }
           />

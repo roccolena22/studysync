@@ -9,17 +9,27 @@ import {
 import {
   addFollower,
   deleteFollower,
+  setFollowers,
 } from "../../../redux/slices/followersSlice";
 import { setLoggedUser } from "../../../redux/slices/authSlice";
 import { setUsers } from "../../../redux/slices/usersSlice";
 import { useDispatch, useSelector } from "react-redux";
 
-export default function UsersList({ users, fetchFollowers }) {
+export default function UsersList({ users }) {
   const loggedUser = useSelector((state) => state.auth.user);
   const followers = useSelector((state) => state.followers);
   const [searchedUsers, setSearchedUsers] = useState([]);
 
   const dispatch = useDispatch();
+
+  const fetchFollowers = async () => {
+    try {
+      const followersFromDatabase = await getListFromDatabase("followers");
+      dispatch(setFollowers(followersFromDatabase));
+    } catch (error) {
+      console.error("Error retrieving followers from database", error);
+    }
+  };
 
   const fetchUsers = async () => {
     try {
@@ -67,7 +77,6 @@ export default function UsersList({ users, fetchFollowers }) {
         (user) => user.id === loggedUser.id
       );
       dispatch(setLoggedUser(refreshLoggedUser));
-
       fetchFollowers?.();
     } catch (error) {
       console.error(

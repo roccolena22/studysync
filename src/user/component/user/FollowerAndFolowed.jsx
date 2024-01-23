@@ -8,7 +8,6 @@ export default function FollowerAndFollowed({
   followersIds,
   loggedUser,
   indexClicked,
-  fetchFollowers,
 }) {
   const [indexSection, setIndexSection] = useState(indexClicked);
 
@@ -34,13 +33,11 @@ export default function FollowerAndFollowed({
         <UsersList
           users={loggedUserFollowing}
           loggedUser={loggedUser}
-          fetchFollowers={fetchFollowers}
         />
       ) : (
         <UsersList
           users={loggedUserFollowers}
           loggedUser={loggedUser}
-          fetchFollowers={fetchFollowers}
         />
       )}
     </div>

@@ -5,7 +5,7 @@ import EventList from "../component/card/EventList";
 import NewEvent from "../component/shared/NewEvent";
 import StatisticsSection from "../component/user/StatisticsSection";
 
-export default function DashboardPage({ userPastEvents, userActiveEvents, fetchFollowers }) {
+export default function DashboardPage({ userPastEvents, userActiveEvents }) {
   const [indexSection, setIndexSection] = useState(0);
 
   const handleSections = (index) => {
@@ -19,7 +19,6 @@ export default function DashboardPage({ userPastEvents, userActiveEvents, fetchF
       </Title>
       <StatisticsSection
         activeEvents={userActiveEvents}
-        fetchFollowers={fetchFollowers}
       />
       <div className="w-full pt-10">
         <Title title="My events" fontSize="text-lg" />
@@ -33,12 +32,12 @@ export default function DashboardPage({ userPastEvents, userActiveEvents, fetchF
         {indexSection === 0 ? (
           <EventList
             events={userActiveEvents}
-            fetchFollowers={fetchFollowers}
+  
           />
         ) : (
           <EventList
             events={userPastEvents}
-            fetchFollowers={fetchFollowers}
+  
           />
         )}
       </div>
