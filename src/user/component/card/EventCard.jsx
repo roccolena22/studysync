@@ -22,7 +22,7 @@ export default function EventCard({
     setBookedUsers(
       (users && users.filter((user) => idsArray.includes(user.id))) || []
     );
-  }, [event]);
+  }, [event, bookings, loggedUser]);
   const userIsBooked = bookedUsers.find((user) => user.id === loggedUser.id);
 
   return (
