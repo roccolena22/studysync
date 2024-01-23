@@ -39,8 +39,8 @@ export default function UsersList({ users }) {
       )}
 
       <div className="pt-6">
-        {sortedUsers.map((user, index) => (
-          <div key={index}>
+        {sortedUsers.map((user) => (
+          <div key={user.id}>
             <SingleUserInList user={user} />
           </div>
         ))}
