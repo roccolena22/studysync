@@ -1,12 +1,8 @@
 import React, { useEffect, useState } from "react";
 import SearchBar from "../shared/SearchBar";
 import SingleUserInList from "./SingleUserInList";
-import {
-
-  getListFromDatabase,
-} from "../../../api/apiRequest";
-import { setUsers } from "../../../redux/slices/usersSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { fetchUsers } from "../../Utilities/fetchFunctions";
 
 export default function UsersList({ users }) {
   const loggedUser = useSelector((state) => state.auth.user);
@@ -14,17 +10,8 @@ export default function UsersList({ users }) {
 
   const dispatch = useDispatch();
 
-  const fetchUsers = async () => {
-    try {
-      const usersFromDatabase = await getListFromDatabase("users");
-      dispatch(setUsers(usersFromDatabase));
-    } catch (error) {
-      console.error("Error retrieving users from database", error);
-    }
-  };
-
   useEffect(() => {
-    fetchUsers();
+    fetchUsers(dispatch);
   }, []);
 
   const handleSearch = (dataFromSearch) => {
@@ -83,10 +70,7 @@ export default function UsersList({ users }) {
         {(searchedUsers.length > 0 ? searchedUsers : sortedUsers).map(
           (user, index) => (
             <div key={index}>
-              <SingleUserInList
-                loggedUser={loggedUser}
-                user={user}
-              />
+              <SingleUserInList loggedUser={loggedUser} user={user} />
             </div>
           )
         )}

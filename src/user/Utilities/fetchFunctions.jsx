@@ -21,7 +21,7 @@ export const fetchEvents = async (dispatch) => {
     dispatch(setEvents(transformedEventsArray));
   };
 
-  export const fetchBookings = async () => {
+  export const fetchBookings = async (dispatch) => {
     try {
       const bookings = await getListFromDatabase("bookings");
       dispatch(setBookings(bookings));
@@ -30,7 +30,7 @@ export const fetchEvents = async (dispatch) => {
     }
   };
 
-  export  const fetchFollowers = async () => {
+  export  const fetchFollowers = async (dispatch) => {
     try {
       const followersFromDatabase = await getListFromDatabase("followers");
       dispatch(setFollowers(followersFromDatabase));
@@ -39,7 +39,7 @@ export const fetchEvents = async (dispatch) => {
     }
   };
 
-  export const fetchUsers = async () => {
+  export const fetchUsers = async (dispatch) => {
     try {
       const usersFromDatabase = await getListFromDatabase("users");
       dispatch(setUsers(usersFromDatabase));
