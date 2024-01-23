@@ -6,6 +6,7 @@ import { fetchUsers } from "../../Utilities/fetchFunctions";
 
 export default function UsersList({ users }) {
   const [searchedUsers, setSearchedUsers] = useState([]);
+  const [isSearching, setIsSearching] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -15,11 +16,12 @@ export default function UsersList({ users }) {
 
   const handleSearch = (dataFromSearch) => {
     setSearchedUsers(dataFromSearch);
+    setIsSearching(true);
   };
 
-  const sortedUsers = [
-    ...(searchedUsers.length > 0 ? searchedUsers : users),
-  ].sort((a, b) => {
+  let usersToDisplay = isSearching ? searchedUsers : users;
+
+  const sortedUsers = [...usersToDisplay].sort((a, b) => {
     const firstNameComparison = a.firstName.localeCompare(b.firstName);
     return firstNameComparison !== 0
       ? firstNameComparison
@@ -37,13 +39,11 @@ export default function UsersList({ users }) {
       )}
 
       <div className="pt-6">
-        {(searchedUsers.length > 0 ? searchedUsers : sortedUsers).map(
-          (user, index) => (
-            <div key={index}>
-              <SingleUserInList user={user} />
-            </div>
-          )
-        )}
+        {sortedUsers.map((user, index) => (
+          <div key={index}>
+            <SingleUserInList user={user} />
+          </div>
+        ))}
         {users.length === 0 && (
           <p className="text-lg gray-500">No users to show.</p>
         )}
