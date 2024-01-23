@@ -7,12 +7,12 @@ import TitleAndAuthorName from "../card/TitleAndAuthorName";
 import { useSelector } from "react-redux";
 
 export default function StatisticsSection({
-  loggedUser,
   activeEvents,
   fetchFollowers,
-  events
 }) {
   const [bookedEvents, setBookedEvents] = useState([]);
+  const loggedUser = useSelector((state) => state.auth.user);
+  const events = useSelector((state) => state.events);
   const nextEvents = useSelector((state) => state.nextEvents);
   const bookings = useSelector((state) => state.bookings);
   const sortedEvents = nextEvents.length > 0 ? sortEvents(nextEvents) : [];

@@ -5,42 +5,21 @@ import EventList from "../component/card/EventList";
 import NewEvent from "../component/shared/NewEvent";
 import StatisticsSection from "../component/user/StatisticsSection";
 
-export default function DashboardPage({ loggedUser, fetchFollowers, events }) {
+export default function DashboardPage({ userPastEvents, userActiveEvents, fetchFollowers }) {
   const [indexSection, setIndexSection] = useState(0);
-  const [pastEvents, setPastEvents] = useState([]);
-  const [activeEvents, setActiveEvents] = useState([]);
 
   const handleSections = (index) => {
     setIndexSection(index);
   };
 
-  useEffect(() => {
-    const eventsByAuthor =
-      events && events.filter((event) => event.authorId === loggedUser.id);
-
-    const currentDate = new Date();
-
-    const activeEventsFiltered = eventsByAuthor.filter(
-      (event) => new Date(`${event.endDate} ${event.endTime}`) >= currentDate
-    );
-    setActiveEvents(activeEventsFiltered);
-
-    const pastEventsFiltered = eventsByAuthor.filter(
-      (event) => new Date(`${event.endDate} ${event.endTime}`) < currentDate
-    );
-    setPastEvents(pastEventsFiltered);
-  }, [events, loggedUser]);
-
   return (
     <div className="flex flex-col items-center justify-center">
       <Title title="Dashboard">
-        <NewEvent loggedUser={loggedUser} name="New Event" />
+        <NewEvent name="New Event" />
       </Title>
       <StatisticsSection
-        loggedUser={loggedUser}
-        activeEvents={activeEvents}
+        activeEvents={userActiveEvents}
         fetchFollowers={fetchFollowers}
-        events={events}
       />
       <div className="w-full pt-10">
         <Title title="My events" fontSize="text-lg" />
@@ -53,14 +32,12 @@ export default function DashboardPage({ loggedUser, fetchFollowers, events }) {
       <div className="w-full">
         {indexSection === 0 ? (
           <EventList
-            loggedUser={loggedUser}
-            events={activeEvents}
+            events={userActiveEvents}
             fetchFollowers={fetchFollowers}
           />
         ) : (
           <EventList
-            loggedUser={loggedUser}
-            events={pastEvents}
+            events={userPastEvents}
             fetchFollowers={fetchFollowers}
           />
         )}

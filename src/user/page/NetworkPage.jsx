@@ -6,10 +6,10 @@ import NewEvent from "../component/shared/NewEvent";
 import { useSelector } from "react-redux";
 
 export default function NetworkPage({
-  loggedUser,
-  events,
   fetchFollowers,
 }) {
+  const loggedUser = useSelector((state) => state.auth.user);
+  const events = useSelector((state) => state.events);
   const followers = useSelector((state) => state.followers);
   const currentDate = moment();
 
@@ -29,18 +29,16 @@ export default function NetworkPage({
   return (
     <div className="flex flex-col items-center">
       <Title title="Network">
-        <NewEvent loggedUser={loggedUser} name="New Event" />
+        <NewEvent name="New Event" />
       </Title>
       <div className="w-full pt-6 pb-10">
         <DiscoverUsers
-          loggedUser={loggedUser}
           fetchFollowers={fetchFollowers}
         />
       </div>
       <Title fontSize="text-lg" title="Events of my following" />
       <div className="w-full">
         <EventList
-          loggedUser={loggedUser}
           events={networkEvents}
           fetchFollowers={fetchFollowers}
         />

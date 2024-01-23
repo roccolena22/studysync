@@ -9,7 +9,6 @@ import NewEvent from "../component/shared/NewEvent";
 import { useSelector } from "react-redux";
 
 export default function EventsPage({
-  loggedUser,
   fetchFollowers,
 }) {
   const [indexSection, setIndexSection] = useState(0);
@@ -23,7 +22,7 @@ export default function EventsPage({
     <div className="flex flex-col items-center relative">
       <Title title="Next events">
         <div className="flex flex-col gap-2 sm:flex-row align-center justify-center items-center sm:space-x-4">
-          <NewEvent loggedUser={loggedUser} name="New event" />
+          <NewEvent name="New event" />
           <SwitchTab
             firstItem="grid"
             secondItem="calendar"
@@ -35,7 +34,6 @@ export default function EventsPage({
       <div className="w-full">
         {indexSection === 0 ? (
           <EventList
-            loggedUser={loggedUser}
             events={nextEvents}
             fetchFollowers={fetchFollowers}
           />
@@ -49,7 +47,7 @@ export default function EventsPage({
                 textTwo="Events you attend"
               />
             </div>
-            <PersonalCalendar loggedUser={loggedUser} events={nextEvents} />
+            <PersonalCalendar events={nextEvents} />
             <Suggestion text="Use the calendar to choose when to create your event" />
           </div>
         )}

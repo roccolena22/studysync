@@ -4,8 +4,10 @@ import PriorityPopup from "./shared/PriorityPopup";
 import DeleteAccount from "./DeleteAccount";
 import EditPasswordForm from "./form/EditPasswordForm";
 import Title from "./shared/Title";
+import { useSelector } from "react-redux";
 
-export default function AccountContentContainer({ loggedUser }) {
+export default function AccountContentContainer() {
+  const loggedUser = useSelector((state) => state.auth.user);
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClose = () => {

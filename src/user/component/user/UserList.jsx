@@ -14,7 +14,8 @@ import { setLoggedUser } from "../../../redux/slices/authSlice";
 import { setUsers } from "../../../redux/slices/usersSlice";
 import { useDispatch, useSelector } from "react-redux";
 
-export default function UsersList({ loggedUser, users, fetchFollowers }) {
+export default function UsersList({ users, fetchFollowers }) {
+  const loggedUser = useSelector((state) => state.auth.user);
   const followers = useSelector((state) => state.followers);
   const [searchedUsers, setSearchedUsers] = useState([]);
 

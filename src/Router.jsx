@@ -19,9 +19,11 @@ import DashboardPage from "./user/page/DashboardPage";
 import { getListFromDatabase } from "./api/apiRequest";
 import { setFollowers } from "./redux/slices/followersSlice";
 import { setNextEvents } from "./redux/slices/nextEventsSlice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const Router = () => {
+  const [userPastEvents, setUserPastEvents] = useState([]);
+  const [userActiveEvents, setUserActiveEvents] = useState([]);
   const dispatch = useDispatch();
   const loggedUser = useSelector((state) => state.auth.user);
   const events = useSelector((state) => state.events);
@@ -56,6 +58,13 @@ const Router = () => {
     const activeEventsByUser = eventsByAuthor.filter(
       (event) => new Date(`${event.endDate} ${event.endTime}`) >= currentDate
     );
+    setUserActiveEvents(activeEventsByUser);
+
+    const pastEventsFiltered = eventsByAuthor.filter(
+      (event) => new Date(`${event.endDate} ${event.endTime}`) < currentDate
+    );
+
+    setUserPastEvents(pastEventsFiltered);
 
     const activeEventUserBooked = eventsByBooked.filter(
       (event) => new Date(`${event.endDate} ${event.endTime}`) >= currentDate
@@ -73,7 +82,7 @@ const Router = () => {
     createRoutesFromElements(
       <>
         <Route>
-          <Route path="*" element={<ErrorPage loggedUser={loggedUser} />} />
+          <Route path="*" element={<ErrorPage />} />
         </Route>
         <Route element={<GuestTemplate />}>
           <Route path="/login" element={<Login />} />
@@ -92,9 +101,9 @@ const Router = () => {
             element={
               <Protected>
                 <DashboardPage
-                  loggedUser={loggedUser}
                   fetchFollowers={fetchFollowers}
-                  events={events}
+                  userActiveEvents={userActiveEvents}
+                  userPastEvents={userPastEvents}
                 />
               </Protected>
             }
@@ -103,7 +112,7 @@ const Router = () => {
             path="/account"
             element={
               <Protected>
-                <AccountPage loggedUser={loggedUser} />
+                <AccountPage />
               </Protected>
             }
           />
@@ -112,7 +121,6 @@ const Router = () => {
             element={
               <Protected>
                 <EventsPage
-                  loggedUser={loggedUser}
                   fetchFollowers={fetchFollowers}
                 />
               </Protected>
@@ -123,9 +131,7 @@ const Router = () => {
             element={
               <Protected>
                 <NetworkPage
-                  loggedUser={loggedUser}
                   fetchFollowers={fetchFollowers}
-                  events={events}
                 />
               </Protected>
             }

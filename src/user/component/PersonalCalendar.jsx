@@ -9,9 +9,11 @@ import Title from "./shared/Title";
 import Alert from "./shared/Alert";
 import SecondaryPopup from "./shared/SecondaryPopup";
 import SummaryEventCard from "./card/SummaryEventCard";
+import { useSelector } from "react-redux";
 
-export default function PersonalCalendar({ loggedUser, events }) {
+export default function PersonalCalendar({ events }) {
   const localizer = momentLocalizer(moment);
+  const loggedUser = useSelector((state) => state.auth.user);
   const [newEventPriorityPopup, setNewEventPriorityPopup] = useState(false);
   const [eventSecondaryPopup, setEventsSecondaryPopup] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);

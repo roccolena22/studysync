@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 import Button from "../../shared/component/Button";
 import AppName from "../../shared/component/AppName";
+import { useSelector } from "react-redux";
 
-export default function ErrorPage({ loggedUser }) {
+export default function ErrorPage() {
+  const loggedUser = useSelector((state) => state.auth.user);
+
   return (
     <div>
       <div className="px-2">

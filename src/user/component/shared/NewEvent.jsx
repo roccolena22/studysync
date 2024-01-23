@@ -4,8 +4,10 @@ import PriorityPopup from "./PriorityPopup";
 import Title from "./Title";
 import AddEventForm from "../form/AddEventForm";
 import Alert from "./Alert";
+import { useSelector } from "react-redux";
 
-export default function NewEvent({ loggedUser, name }) {
+export default function NewEvent({ name }) {
+  const loggedUser = useSelector((state) => state.auth.user);
   const [newEventPriorityPopup, setNewEventPriorityPopup] = useState(false);
   const [showCreatedEventAlert, setShowCreatedEventAlert] = useState(false);
   const [showNoValidDateAlert, setShowNoValidDateAlert] = useState(false);
