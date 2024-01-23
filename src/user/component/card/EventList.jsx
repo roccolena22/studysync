@@ -45,11 +45,11 @@ export default function EventList({ events }) {
 
   useEffect(() => {
     fetchEvents();
-  }, [dispatch, events.length]);
+  }, [events.length]);
 
   useEffect(() => {
     fetchBookings();
-  }, [dispatch]);
+  }, []);
 
   const sortedEvents = sortEvents(events);
 
