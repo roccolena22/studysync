@@ -32,12 +32,10 @@ export default function DashboardPage({ userPastEvents, userActiveEvents }) {
         {indexSection === 0 ? (
           <EventList
             events={userActiveEvents}
-  
           />
         ) : (
           <EventList
             events={userPastEvents}
-  
           />
         )}
       </div>
