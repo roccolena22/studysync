@@ -15,7 +15,8 @@ import { setUsers } from "../../../redux/slices/usersSlice";
 import FollowAndUnfollowButtons from "./FollowAndUnfollowButtons";
 import { fetchFollowers } from "../../Utilities/fetchFunctions";
 
-export default function SingleUserInList({ user, loggedUser }) {
+export default function SingleUserInList({ user }) {
+  const loggedUser = useSelector((state) => state.auth.user);
   const followers = useSelector((state) => state.followers);
 
   const dispatch = useDispatch();

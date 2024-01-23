@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import SearchBar from "../shared/SearchBar";
 import SingleUserInList from "./SingleUserInList";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { fetchUsers } from "../../Utilities/fetchFunctions";
 
 export default function UsersList({ users }) {
-  const loggedUser = useSelector((state) => state.auth.user);
   const [searchedUsers, setSearchedUsers] = useState([]);
 
   const dispatch = useDispatch();
@@ -41,7 +40,7 @@ export default function UsersList({ users }) {
         {(searchedUsers.length > 0 ? searchedUsers : sortedUsers).map(
           (user, index) => (
             <div key={index}>
-              <SingleUserInList loggedUser={loggedUser} user={user} />
+              <SingleUserInList user={user} />
             </div>
           )
         )}
