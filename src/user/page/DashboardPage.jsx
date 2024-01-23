@@ -5,40 +5,14 @@ import EventList from "../component/card/EventList";
 import NewEvent from "../component/shared/NewEvent";
 import StatisticsSection from "../component/user/StatisticsSection";
 
-export default function DashboardPage({
-  loggedUser,
-  fetchFollowers,
-  events,
-  bookings,
-}) {
+export default function DashboardPage({ loggedUser, fetchFollowers, events }) {
   const [indexSection, setIndexSection] = useState(0);
   const [pastEvents, setPastEvents] = useState([]);
   const [activeEvents, setActiveEvents] = useState([]);
-  const [bookedEvents, setBookedEvents] = useState([]);
 
   const handleSections = (index) => {
     setIndexSection(index);
   };
-
-  useEffect(() => {
-    const handleBookedEvents = async () => {
-      const eventsByBooked =
-        events &&
-        events.filter((event) => {
-          if (event.bookingsRecordId) {
-            return event.bookingsRecordId.some((bookingId) =>
-              bookings.some(
-                (booking) =>
-                  bookingId === booking.id && booking.bookedId === loggedUser.id
-              )
-            );
-          }
-          return false;
-        });
-      setBookedEvents(eventsByBooked);
-    };
-    handleBookedEvents();
-  }, [events, bookings, loggedUser]);
 
   useEffect(() => {
     const eventsByAuthor =
@@ -56,6 +30,7 @@ export default function DashboardPage({
     );
     setPastEvents(pastEventsFiltered);
   }, [events, loggedUser]);
+
   return (
     <div className="flex flex-col items-center justify-center">
       <Title title="Dashboard">
@@ -64,8 +39,8 @@ export default function DashboardPage({
       <StatisticsSection
         loggedUser={loggedUser}
         activeEvents={activeEvents}
-        bookedEvents={bookedEvents}
         fetchFollowers={fetchFollowers}
+        events={events}
       />
       <div className="w-full pt-10">
         <Title title="My events" fontSize="text-lg" />

@@ -95,7 +95,6 @@ const Router = () => {
                   loggedUser={loggedUser}
                   fetchFollowers={fetchFollowers}
                   events={events}
-                  bookings={bookings}
                 />
               </Protected>
             }

@@ -9,11 +9,34 @@ import { useSelector } from "react-redux";
 export default function StatisticsSection({
   loggedUser,
   activeEvents,
-  bookedEvents,
   fetchFollowers,
+  events
 }) {
+  const [bookedEvents, setBookedEvents] = useState([]);
   const nextEvents = useSelector((state) => state.nextEvents);
+  const bookings = useSelector((state) => state.bookings);
   const sortedEvents = nextEvents.length > 0 ? sortEvents(nextEvents) : [];
+
+  useEffect(() => {
+    const handleBookedEvents = async () => {
+      const eventsByBooked =
+        events &&
+        events.filter((event) => {
+          if (event.bookingsRecordId) {
+            return event.bookingsRecordId.some((bookingId) =>
+              bookings.some(
+                (booking) =>
+                  bookingId === booking.id && booking.bookedId === loggedUser.id
+              )
+            );
+          }
+          return false;
+        });
+      setBookedEvents(eventsByBooked);
+    };
+    handleBookedEvents();
+  }, [events, bookings, loggedUser]);
+
   
   const startEvent = moment(
     `${sortedEvents[0]?.startDate} ${sortedEvents[0]?.startTime}`,
