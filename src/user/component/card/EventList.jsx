@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { setEvents } from "../../../redux/slices/eventsSlice";
 import { sortEvents } from "../../Utilities/timeutils";
 import Noitems from "../NoItems";
+import { fetchEvents } from "../../Utilities/fetchFunctions";
 
 export default function EventList({ events }) {
   const [searchedEvents, setSearchedEvents] = useState([]);
@@ -15,25 +16,8 @@ export default function EventList({ events }) {
     setSearchedEvents(dataFromSearch);
   };
 
-  const fetchEvents = async () => {
-    const eventsFromDatabase = await getListFromDatabase("events");
-    const transformArray = (eventsFromDatabase) =>
-      eventsFromDatabase.map(
-        ({ authorId, lastName, firstName, email, role, ...rest }) => ({
-          ...rest,
-          authorId: authorId[0],
-          lastName: lastName[0],
-          firstName: firstName[0],
-          email: email[0],
-          role: role[0],
-        })
-      );
-    const transformedEventsArray = transformArray(eventsFromDatabase);
-    dispatch(setEvents(transformedEventsArray));
-  };
-
   useEffect(() => {
-    fetchEvents();
+    fetchEvents(dispatch);
   }, [events.length]);
 
   const sortedEvents = sortEvents(events);
@@ -62,7 +46,6 @@ export default function EventList({ events }) {
             >
               <EventCard
                 event={event}
-                fetchEvents={fetchEvents}
               />
             </div>
           )

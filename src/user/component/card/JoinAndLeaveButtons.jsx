@@ -4,18 +4,19 @@ import {
   addRecordToDatabase,
   deleteRecordFromDatabase,
 } from "../../../api/apiRequest";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchEvents } from "../../Utilities/fetchFunctions";
 
 export default function JoinAndLeaveButtons({
   event,
   userIsBooked,
   ownerEvent,
   fetchBookings,
-  fetchEvents,
   loggedUser,
 }) {
   const bookings = useSelector((state) => state.bookings);
-
+  const dispatch = useDispatch();
+  
   const toggleBooking = async (eventId, isAdding) => {
     const bookingReduxAction = isAdding ? addBooking : deleteBooking;
     const bookingData = isAdding
@@ -23,7 +24,10 @@ export default function JoinAndLeaveButtons({
           eventId: [eventId],
           bookedId: loggedUser.id,
         }
-      : bookings.find((item) => item.bookedId === loggedUser.id && eventId === item.eventId[0] );
+      : bookings.find(
+          (item) =>
+            item.bookedId === loggedUser.id && eventId === item.eventId[0]
+        );
 
     try {
       if (isAdding) {
@@ -33,7 +37,7 @@ export default function JoinAndLeaveButtons({
       }
       bookingReduxAction(isAdding ? bookingData : bookingData.id);
       fetchBookings();
-      fetchEvents();
+      fetchEvents(dispatch);
     } catch (error) {
       console.error(`Error ${isAdding ? "adding" : "removing"} booking`, error);
     }

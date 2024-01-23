@@ -8,13 +8,13 @@ import { useDispatch } from "react-redux";
 import { updateDatabaseRecord } from "../../../api/apiRequest";
 import TimeEventSection from "./component/TimeEventSection";
 import DetailsEventInForm from "./component/DetailsEventInForm";
+import { fetchEvents } from "../../Utilities/fetchFunctions";
 
 export default function EditEventForm({
   event,
   handleCloseEditPriorityPopup,
   handleAlert,
   handleNoValidDateAlert,
-  fetchEvents,
 }) {
   const dispatch = useDispatch();
 
@@ -65,7 +65,7 @@ export default function EditEventForm({
     };
     await updateDatabaseRecord("events", event.id, editedData);
     dispatch(editEvent(editedData));
-    fetchEvents();
+    fetchEvents(dispatch);
     handleCloseEditPriorityPopup(false);
     handleAlert();
   };

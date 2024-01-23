@@ -5,7 +5,6 @@ export default function FooterCard({
   event,
   loggedUser,
   userIsBooked,
-  fetchEvents,
   fetchBookings,
 }) {
   const ownerEvent = loggedUser.id === event.authorId;
@@ -13,13 +12,12 @@ export default function FooterCard({
   return (
     <div className="flex space-x-2">
       {ownerEvent && (
-        <EditAndDeleteButtons event={event} fetchEvents={fetchEvents} />
+        <EditAndDeleteButtons event={event} />
       )}
       <JoinAndLeaveButtons
         event={event}
         userIsBooked={userIsBooked}
         ownerEvent={ownerEvent}
-        fetchEvents={fetchEvents}
         fetchBookings={fetchBookings}
         loggedUser={loggedUser}
       />

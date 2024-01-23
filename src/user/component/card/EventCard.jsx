@@ -8,7 +8,6 @@ import { getListFromDatabase } from "../../../api/apiRequest";
 
 export default function EventCard({
   event,
-  fetchEvents,
 }) {
   const loggedUser = useSelector((state) => state.auth.user);
   const users = useSelector((state) => state.users);
@@ -60,7 +59,6 @@ export default function EventCard({
           <FooterCard
             event={event}
             userIsBooked={userIsBooked}
-            fetchEvents={fetchEvents}
             fetchBookings={fetchBookings}
             loggedUser={loggedUser}
           />

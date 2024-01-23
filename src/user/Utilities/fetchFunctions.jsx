@@ -1,13 +1,10 @@
-import { useDispatch } from "react-redux";
 import { getListFromDatabase } from "../../api/apiRequest";
 import { setEvents } from "../../redux/slices/eventsSlice";
 import { setBookings } from "../../redux/slices/bookingsSlice";
 import { setFollowers } from "../../redux/slices/followersSlice";
 import { setUsers } from "../../redux/slices/usersSlice";
 
-const dispatch = useDispatch();
-
-export const fetchEvents = async () => {
+export const fetchEvents = async (dispatch) => {
     const eventsFromDatabase = await getListFromDatabase("events");
     const transformArray = (eventsFromDatabase) =>
       eventsFromDatabase.map(
