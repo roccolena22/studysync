@@ -1,6 +1,5 @@
 import { useState } from "react";
 import Icon from "../../../shared/component/Icon";
-import Input from "../../../shared/component/Input";
 
 export default function SearchBar({ placeholder, data, dataFromSearch }) {
   const [searchTerm, setSearchTerm] = useState("");
