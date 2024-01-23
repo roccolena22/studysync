@@ -28,7 +28,7 @@ const Router = () => {
 
   const dispatch = useDispatch();
 
-  const handleBookedEvents = async () => {
+  const SortEvents = async () => {
     const currentDate = new Date();
     const eventsByBooked = events.filter((event) => {
       if (event.bookingsRecordId) {
@@ -65,7 +65,7 @@ const Router = () => {
   };
 
   useEffect(() => {
-    handleBookedEvents();
+    SortEvents();
   }, [events]);
 
   const router = createBrowserRouter(
