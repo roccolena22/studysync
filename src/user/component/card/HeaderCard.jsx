@@ -5,12 +5,7 @@ import PriorityPopup from "../shared/PriorityPopup";
 import UsersList from "../user/UserList";
 import Noitems from "../NoItems";
 
-export default function HeaderCard({
-  event,
-  fetchBookings,
-  bookedUsers,
-  loggedUser,
-}) {
+export default function HeaderCard({ event, fetchBookings, bookedUsers }) {
   const [reservationsPriorityPopupIsOpen, setReservationsPriorityPopupIsOpen] =
     useState(false);
 

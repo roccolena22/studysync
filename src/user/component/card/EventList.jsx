@@ -9,8 +9,6 @@ import { sortEvents } from "../../Utilities/timeutils";
 import Noitems from "../NoItems";
 
 export default function EventList({ events }) {
-  const users = useSelector((state) => state.users);
-  const loggedUser = useSelector((state) => state.auth.user);
   const bookings = useSelector((state) => state.bookings);
   const [searchedEvents, setSearchedEvents] = useState([]);
   const dispatch = useDispatch();
@@ -78,8 +76,6 @@ export default function EventList({ events }) {
               key={index}
             >
               <EventCard
-                users={users}
-                loggedUser={loggedUser}
                 event={event}
                 fetchBookings={() => fetchBookings(event)}
                 bookings={bookings}

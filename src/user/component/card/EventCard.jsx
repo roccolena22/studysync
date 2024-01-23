@@ -1,16 +1,17 @@
+import { useEffect, useState } from "react";
 import EventDetails from "./EventDetails";
 import FooterCard from "./FooterCard";
 import HeaderCard from "./HeaderCard";
-import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 export default function EventCard({
-  loggedUser,
   event,
   fetchBookings,
-  users,
-  bookings,
   fetchEvents,
+  bookings,
 }) {
+  const loggedUser = useSelector((state) => state.auth.user);
+  const users = useSelector((state) => state.users);
   const [bookedUsers, setBookedUsers] = useState([]);
 
   useEffect(() => {
@@ -26,7 +27,6 @@ export default function EventCard({
   }, [event, users, bookings]);
   const userIsBooked = bookedUsers.find((user) => user.id === loggedUser.id);
 
-
   return (
     <>
       <div className="w-full h-96 relative rounded-lg p-3 bg-gray-50 shadow-xl">
@@ -41,8 +41,6 @@ export default function EventCard({
             event={event}
             fetchBookings={fetchBookings}
             bookedUsers={bookedUsers}
-            loggedUser={loggedUser}
-            users={users}
           />
         </div>
         <EventDetails event={event} />
