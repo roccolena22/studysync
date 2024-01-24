@@ -12,7 +12,9 @@ export default function StatisticsContainer({ activeEvents }) {
   const events = useSelector((state) => state.events);
   const nextEvents = useSelector((state) => state.nextEvents);
   const bookings = useSelector((state) => state.bookings);
-  const sortedEvents = nextEvents.length > 0 ? sortEventsForTime(nextEvents) : [];
+  const [remainingTime, setRemainingTime] = useState(
+    getRemainingTime(startEvent)
+  );
 
   useEffect(() => {
     const handleBookedEvents = async () => {
@@ -34,13 +36,11 @@ export default function StatisticsContainer({ activeEvents }) {
     handleBookedEvents();
   }, [events, bookings, loggedUser]);
 
+  const sortedEvents = nextEvents.length > 0 ? sortEventsForTime(nextEvents) : [];
+
   const startEvent = moment(
     `${sortedEvents[0]?.startDate} ${sortedEvents[0]?.startTime}`,
     "YYYY-MM-DD HH:mm"
-  );
-
-  const [remainingTime, setRemainingTime] = useState(
-    getRemainingTime(startEvent)
   );
 
   useEffect(() => {
