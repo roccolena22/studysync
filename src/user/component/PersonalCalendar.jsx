@@ -104,7 +104,7 @@ export default function PersonalCalendar({ events }) {
           selectable={true}
           onSelectSlot={handleSelectSlot}
           views={["month", "week", "day"]}
-          defaultView="week"
+          defaultView="month"
           style={{ height: 500 }}
           eventPropGetter={eventStyleGetter}
           components={{
