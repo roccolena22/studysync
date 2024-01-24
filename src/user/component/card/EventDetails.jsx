@@ -72,7 +72,7 @@ export default function EventDetails({ event }) {
         <EventItem
           label="Start"
           text={moment(startDateToView, "DD-MM-YYYY HH:mm").format(
-            "DD-MM-YYYY HH:mm"
+            "DD/MM/YY HH:mm"
           )}
         />
         <EventItem label="Duration" text={formattedDuration} />
