@@ -56,10 +56,14 @@ export default function AddEventForm({
     const start = new Date(data.startDate + " " + data.startTime);
     const end = new Date(data.endDate + " " + data.endTime);
 
-    if (start < currentDate || end <= currentDate || start >= end) {
-      handleNoValidDateAlert();
+    if (start <= currentDate || end <= currentDate) {
+      handleNoValidDateAlert("You cannot create an event in the past");
       return;
-    }
+    } else if (start >= end) {
+      handleNoValidDateAlert("The start and end dates are not consistent");
+      return;
+    }    
+
     const fullEvent = {
       authorId: [loggedUser.id],
       ...data,

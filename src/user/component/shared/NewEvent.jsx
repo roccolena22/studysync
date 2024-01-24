@@ -11,9 +11,12 @@ export default function NewEvent({ name }) {
   const [newEventPriorityPopup, setNewEventPriorityPopup] = useState(false);
   const [showCreatedEventAlert, setShowCreatedEventAlert] = useState(false);
   const [showNoValidDateAlert, setShowNoValidDateAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState(null)
 
-  const handleNoValidDateAlert = () => {
+  const handleNoValidDateAlert = (message) => {
     setShowNoValidDateAlert(!showNoValidDateAlert);
+    setAlertMessage(message)
+    
   };
 
   const handleNewEventPriorityPopup = () => {
@@ -50,7 +53,7 @@ export default function NewEvent({ name }) {
       )}
       {showNoValidDateAlert && (
         <AlertBanner
-          text="Something is wrong with the dates you chose."
+          text={alertMessage}
           type="alert"
           onClose={() => setShowNoValidDateAlert(false)}
         />
