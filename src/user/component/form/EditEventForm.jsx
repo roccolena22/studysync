@@ -15,7 +15,7 @@ import AlertBanner from "../shared/AlertBanner";
 export default function EditEventForm({
   event,
   handleCloseEditPriorityPopup,
-  handleAlert,
+  handleisEditedAlert,
 }) {
   const [showNoValidDateAlert, setShowNoValidDateAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState(null);
@@ -76,11 +76,11 @@ export default function EditEventForm({
       startDate: data.startDate,
       endDate: data.endDate,
     };
-    await updateDatabaseRecord("events", event.id, editedData);
+    const result = await updateDatabaseRecord("events", event.id, editedData);
     dispatch(editEvent(editedData));
     fetchEvents(dispatch);
     handleCloseEditPriorityPopup(false);
-    handleAlert();
+    result && handleisEditedAlert();
   };
 
   return (

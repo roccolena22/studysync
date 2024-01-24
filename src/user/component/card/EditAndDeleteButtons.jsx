@@ -26,14 +26,13 @@ export default function EditAndDeleteButtons({event}) {
     const isDeleted = await deleteRecordFromDatabase("events", event.id);
     isDeleted.deleted === true && setShowDeleteAlert(!showDeleteAlert)
     dispatch(deleteEvent(event));
-
   };
 
   const handleCloseEditPriorityPopup = () => {
     setEditPriorityPopupIsOpen(false);
   };
   
-  const handleAlert = () => {
+  const handleisEditedAlert = () => {
     setShowEditAlert(!showEditAlert);
   };
 
@@ -62,7 +61,7 @@ export default function EditAndDeleteButtons({event}) {
             <EditEventForm
               event={event}
               handleCloseEditPriorityPopup={handleCloseEditPriorityPopup}
-              handleAlert={handleAlert}
+              handleisEditedAlert={handleisEditedAlert}
             />
           }
         </PriorityPopup>

@@ -80,7 +80,7 @@ export default function AddEventForm({
       authorId: [loggedUser.id],
       ...data,
     };
-    await addRecordToDatabase("events", fullEvent);
+    const result = await addRecordToDatabase("events", fullEvent);
     dispatch(
       addEvent({
         ...data,
@@ -91,7 +91,7 @@ export default function AddEventForm({
         role: loggedUser.role,
       })
     );
-    handleCreatedEventAlert();
+    result && handleCreatedEventAlert();
     handleClose();
   };
 
