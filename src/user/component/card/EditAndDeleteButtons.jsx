@@ -3,7 +3,7 @@ import IconAndName from "../user/IconAndName";
 import { deleteRecordFromDatabase } from "../../../api/apiRequest";
 import { useState } from "react";
 import { deleteEvent } from "../../../redux/slices/eventsSlice";
-import Alert from "../shared/Alert";
+import AlertBanner from "../shared/AlertBanner";
 import PriorityPopup from "../shared/PriorityPopup";
 import EditEventForm from "../form/EditEventForm"
 
@@ -69,14 +69,14 @@ export default function EditAndDeleteButtons({event}) {
         </PriorityPopup>
       )}
       {showAlert && (
-        <Alert
+        <AlertBanner
           type="success"
           text="Modification successful!"
           onClose={handleAlert}
         />
       )}
       {showNoValidDateAlert && (
-        <Alert
+        <AlertBanner
           text="Something is wrong with the dates you chose."
           type="alert"
           onClose={() => setShowNoValidDateAlert(false)}

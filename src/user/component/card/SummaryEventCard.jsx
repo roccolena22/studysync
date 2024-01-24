@@ -1,5 +1,5 @@
 import UserDetails from "../user/UserDetails";
-import EventDetails from "./EventDetails";
+import EventDetails from "./BodyCard";
 
 export default function SummaryEventCard({ event }) {
   return (

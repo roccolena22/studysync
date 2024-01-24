@@ -3,7 +3,7 @@ import AppName from "../../shared/component/AppName";
 import GuestPageContainer from "../component/GuestPageContainer";
 import InternalLink from "../../shared/component/InternalLink";
 
-export default function Login() {
+export default function LoginPage() {
   return (
     <GuestPageContainer>
       <AppName name="StudySync" />

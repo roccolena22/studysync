@@ -7,7 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { UpdatePasswordValidator } from "./validator/UpdatePasswordValidator";
 import bcrypt from "bcryptjs";
 import { updateDatabaseRecord } from "../../../api/apiRequest";
-import Alert from "../shared/Alert";
+import AlertBanner from "../shared/AlertBanner";
 import { useDispatch } from "react-redux";
 import { logout } from "../../../redux/slices/authSlice";
 
@@ -88,7 +88,7 @@ export default function EditPasswordForm({ loggedUser }) {
         <Button type="submit" name="Save" />
       </div>
       {showAlert && (
-        <Alert
+        <AlertBanner
           type="success"
           text="Password changed successfully. You will be logged out shortly"
           onClose={handleAlert}

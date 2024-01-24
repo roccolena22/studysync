@@ -3,8 +3,8 @@ import EventCard from "./EventCard";
 import SearchBar from "../shared/SearchBar";
 import { useDispatch } from "react-redux";
 import { sortEventsForTime } from "../../Utilities/timeutils";
-import Noitems from "../NoItems";
 import { fetchEvents } from "../../Utilities/fetchFunctions";
+import Message from "../Message";
 
 export default function EventList({ events }) {
   const [searchedEvents, setSearchedEvents] = useState([]);
@@ -42,14 +42,16 @@ export default function EventList({ events }) {
               }
               key={index}
             >
-              <EventCard
-                event={event}
-              />
+              <EventCard event={event} />
             </div>
           )
         )}
       </div>
-      {events.length <= 0 && <Noitems text="No events to show." />}
+      {events.length <= 0 && (
+        <div className="py-6">
+          <Message text="No events to show." />
+        </div>
+      )}
     </div>
   );
 }

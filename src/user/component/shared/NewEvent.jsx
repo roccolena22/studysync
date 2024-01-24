@@ -3,7 +3,7 @@ import Button from "../../../shared/component/Button";
 import PriorityPopup from "./PriorityPopup";
 import Title from "./Title";
 import AddEventForm from "../form/AddEventForm";
-import Alert from "./Alert";
+import AlertBanner from "./AlertBanner";
 import { useSelector } from "react-redux";
 
 export default function NewEvent({ name }) {
@@ -42,14 +42,14 @@ export default function NewEvent({ name }) {
       )}
 
       {showCreatedEventAlert && (
-        <Alert
+        <AlertBanner
           text="Event created successfully."
           type="success"
           onClose={() => setShowCreatedEventAlert(false)}
         />
       )}
       {showNoValidDateAlert && (
-        <Alert
+        <AlertBanner
           text="Something is wrong with the dates you chose."
           type="alert"
           onClose={() => setShowNoValidDateAlert(false)}

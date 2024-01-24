@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import EventDetails from "./EventDetails";
+import BodyCard from "./BodyCard";
 import FooterCard from "./FooterCard";
 import HeaderCard from "./HeaderCard";
 import { useSelector } from "react-redux";
@@ -40,7 +40,7 @@ export default function EventCard({
             bookedUsers={bookedUsers}
           />
         </div>
-        <EventDetails event={event} />
+        <BodyCard event={event} />
         <div className="absolute bottom-2 right-3">
           <FooterCard
             event={event}

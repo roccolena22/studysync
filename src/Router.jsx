@@ -8,16 +8,16 @@ import AccountPage from "./user/page/AccountPage";
 import ErrorPage from "./user/page/error-page";
 import UserTemplate from "./shared/template/UserTemplate";
 import EventsPage from "./user/page/EventsPage";
-import Login from "./guest/page/Login";
 import GuestTemplate from "./shared/template/GuestTemplate";
-import Registration from "./guest/page/Registration";
 import NetworkPage from "./user/page/NetworkPage";
-import RecoveryPassword from "./guest/page/RecoveryPassword";
 import Protected from "./Protected";
 import { useDispatch, useSelector } from "react-redux";
 import DashboardPage from "./user/page/DashboardPage";
 import { setNextEvents } from "./redux/slices/nextEventsSlice";
 import { useEffect, useState } from "react";
+import LoginPage from "./guest/page/LoginPage";
+import RegistrationPage from "./guest/page/RegistrationPage";
+import RecoveryPasswordPage from "./guest/page/RecoveryPasswordPage";
 
 const Router = () => {
   const loggedUser = useSelector((state) => state.auth.user);
@@ -75,9 +75,9 @@ const Router = () => {
           <Route path="*" element={<ErrorPage />} />
         </Route>
         <Route element={<GuestTemplate />}>
-          <Route path="/login" element={<Login />} />
-          <Route path="/registration" element={<Registration />} />
-          <Route path="/recovery-password" element={<RecoveryPassword />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/registration" element={<RegistrationPage />} />
+          <Route path="/recovery-password" element={<RecoveryPasswordPage />} />
         </Route>
         <Route
           element={

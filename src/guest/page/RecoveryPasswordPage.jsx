@@ -2,7 +2,7 @@ import AppName from "../../shared/component/AppName";
 import RecoveryPasswordForm from "../component/Form/RecoveryPasswordForm";
 import GuestPageContainer from "../component/GuestPageContainer";
 
-export default function RecoveryPassword() {
+export default function RecoveryPasswordPage() {
   return (
     <GuestPageContainer>
       <AppName name="StudySync" />

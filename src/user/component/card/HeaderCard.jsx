@@ -3,7 +3,6 @@ import IconAndName from "../user/IconAndName";
 import UserDetails from "../user/UserDetails";
 import PriorityPopup from "../shared/PriorityPopup";
 import UsersList from "../user/UserList";
-import Noitems from "../NoItems";
 import { fetchBookings } from "../../Utilities/fetchFunctions";
 import { useDispatch } from "react-redux";
 

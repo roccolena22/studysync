@@ -1,11 +1,14 @@
 import AppName from "../../shared/component/AppName";
+import Message from "./Message";
 import DeleteAccountForm from "./form/DeleteAccountForm";
 export default function DeleteAccount({ loggedUser }) {
   return (
     <div>
       <AppName name="StudySync" />
       <div>
-        <p className="pb-6">Do you really want to delete your account?</p>
+        <div className="pb-6">
+          <Message text="Do you really want to delete your account?"/>
+        </div>
         <DeleteAccountForm loggedUser={loggedUser} />
       </div>
     </div>

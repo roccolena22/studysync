@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
-import ManageUsers from "../user/ManageUsers";
-import Gadget from "../user/Gadget";
+import ManageUsers from "./ManageUsers";
+import Gadget from "./Gadget";
 import { sortEventsForTime } from "../../Utilities/timeutils";
 import TitleAndAuthorName from "../card/TitleAndAuthorName";
 import { useSelector } from "react-redux";
 
-export default function StatisticsSection({ activeEvents }) {
+export default function StatisticsContainer({ activeEvents }) {
   const [bookedEvents, setBookedEvents] = useState([]);
   const loggedUser = useSelector((state) => state.auth.user);
   const events = useSelector((state) => state.events);

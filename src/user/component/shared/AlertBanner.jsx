@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export default function Alert({ text, type = "general", onClose }) {
+export default function AlertBanner({ text, type = "general", onClose }) {
   const [isVisible, setIsVisible] = useState(true);
   const duration = 3000;
 

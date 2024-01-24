@@ -6,7 +6,7 @@ import "moment/locale/it";
 import AddEventForm from "./form/AddEventForm";
 import PriorityPopup from "./shared/PriorityPopup";
 import Title from "./shared/Title";
-import Alert from "./shared/Alert";
+import AlertBanner from "./shared/AlertBanner";
 import SecondaryPopup from "./shared/SecondaryPopup";
 import SummaryEventCard from "./card/SummaryEventCard";
 import { useSelector } from "react-redux";
@@ -137,14 +137,14 @@ export default function PersonalCalendar({ events }) {
       )}
 
       {showCreatedEventAlert && (
-        <Alert
+        <AlertBanner
           text="Event created successfully."
           type="success"
           onClose={() => setShowCreatedEventAlert(false)}
         />
       )}
       {showNoValidDateAlert && (
-        <Alert
+        <AlertBanner
           text="You cannot create events in the past tense."
           type="alert"
           onClose={() => setShowNoValidDateAlert(false)}

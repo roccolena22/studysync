@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
-import EventItem from "./EventItem";
+import ItemCard from "./ItemCard";
 import Badge from "../shared/Badge";
 
 export default function EventDetails({ event }) {
-
 
   const [isUnderway, setIsUnderway] = useState(false);
 
@@ -21,7 +20,6 @@ export default function EventDetails({ event }) {
     event.startDate,
     event.startTime,
   ]);
-
 
   const startDateToView = moment(
     `${event.startDate} ${event.startTime}`,
@@ -69,29 +67,29 @@ export default function EventDetails({ event }) {
         <p className="font-bold text-md sm:text-lg">{event.title}</p>
       </div>
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 text-xs sm:text-sm md:text-md">
-        <EventItem
+        <ItemCard
           label="Start"
           text={moment(startDateToView, "DD-MM-YYYY HH:mm").format(
             "DD/MM/YY HH:mm"
           )}
         />
-        <EventItem label="Duration" text={formattedDuration} />
-        <EventItem label="Mode" text={event.mode} />
+        <ItemCard label="Duration" text={formattedDuration} />
+        <ItemCard label="Mode" text={event.mode} />
 
         {event.location && (
-          <EventItem
+          <ItemCard
             label="Location"
             iconName="location"
             text={event.location}
           />
         )}
 
-        {event.platform && <EventItem label="Platform" text={event.platform} />}
+        {event.platform && <ItemCard label="Platform" text={event.platform} />}
 
         {event.platform && event.link && (
-          <EventItem label="Link" link={event.link} />
+          <ItemCard label="Link" link={event.link} />
         )}
-        {event.info && <EventItem label="Info" text={event.info} />}
+        {event.info && <ItemCard label="Info" text={event.info} />}
       </div>
     </div>
   );

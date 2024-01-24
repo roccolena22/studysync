@@ -1,6 +1,6 @@
 import ExternalLink from "../../../shared/component/ExternalLink";
 
-export default function EventItem({ label, text, link, }) {
+export default function ItemCard({ label, text, link, }) {
   return (
     <div>
         <p className="text-gray-700 font-semibold sm:text-md md:text-lg">

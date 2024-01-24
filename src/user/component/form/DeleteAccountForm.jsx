@@ -8,11 +8,11 @@ import Icon from "../../../shared/component/Icon";
 import bcrypt from "bcryptjs";
 import { logout } from "../../../redux/slices/authSlice";
 import { useDispatch } from "react-redux";
-import Alert from "../shared/Alert";
+import AlertBanner from "../shared/AlertBanner";
 
 export default function DeleteAccountForm({ loggedUser }) {
   const [showPassword, setShowPassword] = useState(false);
-  const [showAlert, setShowAlert] = useState(false);
+  const [showAlertBanner, setShowAlertBanner] = useState(false);
   const [passwordIsWrong, setPasswordIsWrong] = useState(false);
 
   const dispatch = useDispatch();
@@ -33,10 +33,10 @@ export default function DeleteAccountForm({ loggedUser }) {
     if (loggedUser && loggedUser.password) {
       const result = await bcrypt.compare(data.password, loggedUser.password);
       if (result) {
-        setShowAlert(true);
+        setShowAlertBanner(true);
         setPasswordIsWrong(false);
         setTimeout(() => {
-          setShowAlert(false);
+          setShowAlertBanner(false);
           dispatch(logout());
         }, 3000);
       } else {
@@ -75,8 +75,8 @@ export default function DeleteAccountForm({ loggedUser }) {
           <Button name="Delete account" />
         </div>
       </form>
-      {showAlert && (
-        <Alert
+      {showAlertBanner && (
+        <AlertBanner
           text="The request to delete your account has been processed."
           type="delete"
         />
