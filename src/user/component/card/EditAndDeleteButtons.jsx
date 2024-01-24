@@ -9,7 +9,8 @@ import EditEventForm from "../form/EditEventForm"
 
 export default function EditAndDeleteButtons({event}) {
   const [editPriorityPopupIsOpen, setEditPriorityPopupIsOpen] = useState(false);
-  const [showAlert, setShowAlert] = useState(false);
+  const [showEditAlert, setShowEditAlert] = useState(false);
+  const [showDeleteAlert, setShowDeleteAlert] = useState(false);
 
   const dispatch = useDispatch();
   const currentDate = new Date();
@@ -23,7 +24,9 @@ export default function EditAndDeleteButtons({event}) {
 
   const handleDelete = async (event) => {
     await deleteRecordFromDatabase("events", event.id);
+    setShowDeleteAlert(!showDeleteAlert)
     dispatch(deleteEvent(event));
+
   };
 
   const handleCloseEditPriorityPopup = () => {
@@ -31,7 +34,7 @@ export default function EditAndDeleteButtons({event}) {
   };
   
   const handleAlert = () => {
-    setShowAlert(!showAlert);
+    setShowEditAlert(!showEditAlert);
   };
 
   return (
@@ -64,10 +67,16 @@ export default function EditAndDeleteButtons({event}) {
           }
         </PriorityPopup>
       )}
-      {showAlert && (
+      {showEditAlert && (
         <AlertBanner
           type="success"
           text="Modification successful!"
+        />
+      )}
+      {showDeleteAlert && (
+        <AlertBanner
+          type="delete"
+          text="Event deleted successfully!"
         />
       )}
     </>
