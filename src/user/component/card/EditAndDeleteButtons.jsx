@@ -9,7 +9,6 @@ import EditEventForm from "../form/EditEventForm"
 
 export default function EditAndDeleteButtons({event}) {
   const [editPriorityPopupIsOpen, setEditPriorityPopupIsOpen] = useState(false);
-  const [showNoValidDateAlert, setShowNoValidDateAlert] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
 
   const dispatch = useDispatch();
@@ -30,9 +29,7 @@ export default function EditAndDeleteButtons({event}) {
   const handleCloseEditPriorityPopup = () => {
     setEditPriorityPopupIsOpen(false);
   };
-  const handleNoValidDateAlert = () => {
-    setShowNoValidDateAlert(!showNoValidDateAlert);
-  };
+  
   const handleAlert = () => {
     setShowAlert(!showAlert);
   };
@@ -63,7 +60,6 @@ export default function EditAndDeleteButtons({event}) {
               event={event}
               handleCloseEditPriorityPopup={handleCloseEditPriorityPopup}
               handleAlert={handleAlert}
-              handleNoValidDateAlert={handleNoValidDateAlert}
             />
           }
         </PriorityPopup>
@@ -72,12 +68,6 @@ export default function EditAndDeleteButtons({event}) {
         <AlertBanner
           type="success"
           text="Modification successful!"
-        />
-      )}
-      {showNoValidDateAlert && (
-        <AlertBanner
-          text="Something is wrong with the dates you chose."
-          type="alert"
         />
       )}
     </>

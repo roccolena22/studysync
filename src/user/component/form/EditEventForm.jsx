@@ -9,13 +9,20 @@ import { updateDatabaseRecord } from "../../../api/apiRequest";
 import TimeEventSection from "./component/TimeEventSection";
 import DetailsEventInForm from "./component/DetailsEventInForm";
 import { fetchEvents } from "../../Utilities/fetchFunctions";
+import { useState } from "react";
+import AlertBanner from "../shared/AlertBanner";
 
 export default function EditEventForm({
   event,
   handleCloseEditPriorityPopup,
   handleAlert,
-  handleNoValidDateAlert,
 }) {
+  const [showNoValidDateAlert, setShowNoValidDateAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState(null);
+
+  const handleNoValidDateAlert = () => {
+    setShowNoValidDateAlert(!showNoValidDateAlert);
+  };
   const dispatch = useDispatch();
 
   const {
@@ -45,10 +52,16 @@ export default function EditEventForm({
     const start = new Date(data.startDate + " " + data.startTime);
     const end = new Date(data.endDate + " " + data.endTime);
 
-    if (start < currentDate || end <= currentDate || start >= end) {
-      handleNoValidDateAlert();
+    if (start <= currentDate || end <= currentDate) {
+      handleNoValidDateAlert(!showNoValidDateAlert);
+      setAlertMessage("You cannot create an event in the past");
+      return;
+    } else if (start >= end) {
+      handleNoValidDateAlert(!showNoValidDateAlert);
+      setAlertMessage("The start and end dates are not consistent");
       return;
     }
+
     const editedData = {
       title: data.title,
       mode: data.mode,
@@ -85,6 +98,7 @@ export default function EditEventForm({
           <Button type="submit" name="Save" />
         </div>
       </form>
+      {showNoValidDateAlert && <AlertBanner text={alertMessage} type="alert" />}
     </div>
   );
 }
