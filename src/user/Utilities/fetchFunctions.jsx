@@ -5,6 +5,7 @@ import { setFollowers } from "../../redux/slices/followersSlice";
 import { setUsers } from "../../redux/slices/usersSlice";
 
 export const fetchEvents = async (dispatch) => {
+  try{
     const eventsFromDatabase = await getListFromDatabase("events");
     const transformArray = (eventsFromDatabase) =>
       eventsFromDatabase.map(
@@ -19,6 +20,10 @@ export const fetchEvents = async (dispatch) => {
       );
     const transformedEventsArray = transformArray(eventsFromDatabase);
     dispatch(setEvents(transformedEventsArray));
+  }catch(error){
+console.error("Error retrieving users from database", error)
+  }
+    
   };
 
   export const fetchBookings = async (dispatch) => {
@@ -26,7 +31,7 @@ export const fetchEvents = async (dispatch) => {
       const bookings = await getListFromDatabase("bookings");
       dispatch(setBookings(bookings));
     } catch (error) {
-      console.error("Error handling reservations:", error);
+      console.error("Error retrieving reservations from database:", error);
     }
   };
 
