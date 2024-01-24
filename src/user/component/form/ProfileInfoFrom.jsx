@@ -9,8 +9,29 @@ import {
 } from "../../../api/apiRequest";
 import { setLoggedUser } from "../../../redux/slices/authSlice";
 import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import AlertBanner from "../shared/AlertBanner";
 
 export default function ProfileInfoForm({ loggedUser }) {
+  const [showUpdatedAlert, setShowUpdatedAlert] = useState(false);
+
+  const handleUpdatingAlert = () => {
+    setShowUpdatedAlert(!showUpdatedAlert);
+  };
+
+  useEffect(() => {
+    let timeoutId;
+
+    if (showUpdatedAlert) {
+      timeoutId = setTimeout(() => {
+        setShowUpdatedAlert(false);
+      }, 3000);
+    }
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, [showUpdatedAlert]);
+
   const {
     handleSubmit,
     formState: { errors },
@@ -27,7 +48,12 @@ export default function ProfileInfoForm({ loggedUser }) {
   const dispatch = useDispatch();
 
   const onSubmit = async (data) => {
-    await updateDatabaseRecord("users", loggedUser.id, data);
+    const recordUpdated = await updateDatabaseRecord(
+      "users",
+      loggedUser.id,
+      data
+    );
+    recordUpdated && handleUpdatingAlert();
     const refreshLoggedUser = await getRecordFromDatabase(
       "users",
       loggedUser.id
@@ -62,6 +88,9 @@ export default function ProfileInfoForm({ loggedUser }) {
           <Button type="submit" name="Update" />
         </div>
       </div>
+      {showUpdatedAlert && (
+        <AlertBanner text="Edit Successful" type="success" />
+      )}
     </form>
   );
 }
