@@ -14,12 +14,16 @@ import { logout } from "../../../redux/slices/authSlice";
 export default function EditPasswordForm({ loggedUser }) {
   const [showPassword, setShowPassword] = useState(false);
   const [passwordError, setPasswordError] = useState(null);
-  const [showAlert, setShowAlert] = useState(false);
+  const [showUpdatedAlert, setShowUpdatedAlert] = useState(false);
+  const [showProblemAlert, setShowProblemAlert] = useState(false);
 
   const dispatch = useDispatch();
 
-  const handleAlert = () => {
-    setShowAlert(!showAlert);
+  const handleUpdatingAlert = () => {
+    setShowUpdatedAlert(!showUpdatedAlert);
+  };
+  const handleProblemAlert = () => {
+    setShowProblemAlert(!showProblemAlert);
   };
 
   const handleShowPassword = () => {
@@ -30,22 +34,27 @@ export default function EditPasswordForm({ loggedUser }) {
     handleSubmit,
     formState: { errors },
     register,
+    reset,
   } = useForm({
     resolver: yupResolver(UpdatePasswordValidator),
   });
 
   const onSubmit = async (data) => {
+    if (data.oldPassword === data.newPassword) {
+      handleProblemAlert();
+      reset()
+      return;
+    }
     const isPasswordMatch = await bcrypt.compare(
       data.oldPassword,
       loggedUser.password
     );
-
     if (isPasswordMatch) {
       const newHashedPassword = await bcrypt.hash(data.newPassword, 10);
       await updateDatabaseRecord("users", loggedUser.id, {
         password: newHashedPassword,
       });
-      handleAlert();
+      handleUpdatingAlert();
       setTimeout(() => {
         dispatch(logout());
       }, 4000);
@@ -65,9 +74,9 @@ export default function EditPasswordForm({ loggedUser }) {
           placeholder="Enter your password"
         >
           <Icon
-          name={showPassword ? "eyeInvisible" : "eye"}
-          onClick={handleShowPassword}
-        />
+            name={showPassword ? "eyeInvisible" : "eye"}
+            onClick={handleShowPassword}
+          />
         </Input>
         <Input
           label="New Password"
@@ -87,10 +96,16 @@ export default function EditPasswordForm({ loggedUser }) {
       <div className="flex justify-end pt-4">
         <Button type="submit" name="Save" />
       </div>
-      {showAlert && (
+      {showUpdatedAlert && (
         <AlertBanner
           type="success"
-          text="Password changed successfully. You will be logged out shortly"
+          text="Password changed successfully. You will be logged out shortly."
+        />
+      )}
+      {showProblemAlert && (
+        <AlertBanner
+          type="alert"
+          text="Choose a password different from the previous one."
         />
       )}
     </form>
