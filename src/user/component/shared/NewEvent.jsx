@@ -10,14 +10,6 @@ export default function NewEvent({ name }) {
   const loggedUser = useSelector((state) => state.auth.user);
   const [newEventPriorityPopup, setNewEventPriorityPopup] = useState(false);
   const [showCreatedEventAlert, setShowCreatedEventAlert] = useState(false);
-  const [showNoValidDateAlert, setShowNoValidDateAlert] = useState(false);
-  const [alertMessage, setAlertMessage] = useState(null)
-
-  const handleNoValidDateAlert = (message) => {
-    setShowNoValidDateAlert(!showNoValidDateAlert);
-    setAlertMessage(message)
-    
-  };
 
   const handleNewEventPriorityPopup = () => {
     setNewEventPriorityPopup(!newEventPriorityPopup);
@@ -38,7 +30,6 @@ export default function NewEvent({ name }) {
               loggedUser={loggedUser}
               handleCreatedEventAlert={handleCreatedEventAlert}
               handleClose={handleNewEventPriorityPopup}
-              handleNoValidDateAlert={handleNoValidDateAlert}
             />
           </div>
         </PriorityPopup>
@@ -49,13 +40,6 @@ export default function NewEvent({ name }) {
           text="Event created successfully."
           type="success"
           onClose={() => setShowCreatedEventAlert(false)}
-        />
-      )}
-      {showNoValidDateAlert && (
-        <AlertBanner
-          text={alertMessage}
-          type="alert"
-          onClose={() => setShowNoValidDateAlert(false)}
         />
       )}
     </div>

@@ -72,14 +72,12 @@ export default function EditAndDeleteButtons({event}) {
         <AlertBanner
           type="success"
           text="Modification successful!"
-          onClose={handleAlert}
         />
       )}
       {showNoValidDateAlert && (
         <AlertBanner
           text="Something is wrong with the dates you chose."
           type="alert"
-          onClose={() => setShowNoValidDateAlert(false)}
         />
       )}
     </>

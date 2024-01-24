@@ -91,7 +91,6 @@ export default function EditPasswordForm({ loggedUser }) {
         <AlertBanner
           type="success"
           text="Password changed successfully. You will be logged out shortly"
-          onClose={handleAlert}
         />
       )}
     </form>

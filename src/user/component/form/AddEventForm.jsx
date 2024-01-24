@@ -10,6 +10,7 @@ import TimeEventSection from "./component/TimeEventSection";
 import DetailsEventInForm from "./component/DetailsEventInForm";
 import moment from "moment";
 import { useEffect, useState } from "react";
+import AlertBanner from "../shared/AlertBanner";
 
 export default function AddEventForm({
   loggedUser,
@@ -17,10 +18,18 @@ export default function AddEventForm({
   endDate,
   startTime,
   endTime,
-  handleCreatedEventAlert,
   handleClose,
-  handleNoValidDateAlert,
+  handleCreatedEventAlert,
 }) {
+  const [showNoValidDateAlert, setShowNoValidDateAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState(null);
+
+  const dispatch = useDispatch();
+  const currentDate = new Date();
+
+  const handleNoValidDateAlert = () => {
+    setShowNoValidDateAlert(!showNoValidDateAlert);
+  };
   const [formattedStartDate, setFormattedStartDate] = useState(
     moment(startDate, "DD/MM/YYYY").format("YYYY-MM-DD")
   );
@@ -42,27 +51,30 @@ export default function AddEventForm({
     },
   });
 
+  const formatDateString = (dateString) =>
+    moment(dateString, "DD/MM/YYYY").format("YYYY-MM-DD");
+
   useEffect(() => {
-    setFormattedStartDate(moment(startDate, "DD/MM/YYYY").format("YYYY-MM-DD"));
+    setFormattedStartDate(formatDateString(startDate));
   }, [startDate]);
 
   useEffect(() => {
-    setFormattedEndDate(moment(endDate, "DD/MM/YYYY").format("YYYY-MM-DD"));
+    setFormattedEndDate(formatDateString(endDate));
   }, [endDate]);
-  const dispatch = useDispatch();
-  const currentDate = new Date();
 
   const onSubmit = async (data) => {
     const start = new Date(data.startDate + " " + data.startTime);
     const end = new Date(data.endDate + " " + data.endTime);
 
     if (start <= currentDate || end <= currentDate) {
-      handleNoValidDateAlert("You cannot create an event in the past");
+      handleNoValidDateAlert(!showNoValidDateAlert);
+      setAlertMessage("You cannot create an event in the past");
       return;
     } else if (start >= end) {
-      handleNoValidDateAlert("The start and end dates are not consistent");
+      handleNoValidDateAlert(!showNoValidDateAlert);
+      setAlertMessage("The start and end dates are not consistent");
       return;
-    }    
+    }
 
     const fullEvent = {
       authorId: [loggedUser.id],
@@ -98,6 +110,7 @@ export default function AddEventForm({
           <Button type="submit" name="Create" />
         </div>
       </form>
+      {showNoValidDateAlert && <AlertBanner text={alertMessage} type="alert" />}
     </div>
   );
 }

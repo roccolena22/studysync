@@ -1,13 +1,12 @@
 import { useState, useEffect } from "react";
 
-export default function AlertBanner({ text, type = "general", onClose }) {
+export default function AlertBanner({ text, type = "general" }) {
   const [isVisible, setIsVisible] = useState(true);
   const duration = 3000;
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       setIsVisible(false);
-      onClose();
     }, duration);
 
     return () => clearTimeout(timeoutId);
