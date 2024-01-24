@@ -65,7 +65,7 @@ export default function EditPasswordForm({ loggedUser }) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="flex space-x-4">
+      <div className="flex flex-col sm:flex-row sm:space-x-4">
         <Input
           label="Current Password"
           type={showPassword ? "text" : "password"}

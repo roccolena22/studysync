@@ -90,7 +90,7 @@ export default function RegistrationForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="flex space-x-4">
+      <div className="flex flex-col sm:flex-row sm:space-x-4">
         <Input
           label="Name"
           errorMessage={errors.firstName?.message}
@@ -108,7 +108,7 @@ export default function RegistrationForm() {
         register={register("email")}
         type="email"
       />
-      <div className="flex space-x-4">
+      <div className="flex flex-col sm:flex-row sm:space-x-4">
         <Input
           label="New password"
           errorMessage={errors.password?.message}

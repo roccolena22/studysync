@@ -64,7 +64,7 @@ export default function ProfileInfoForm({ loggedUser }) {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="w-full">
-        <div className="flex space-x-4">
+        <div className="flex flex-col sm:flex-row sm:space-x-4">
           <Input
             label="Name"
             placeholder="Enter your first name"
