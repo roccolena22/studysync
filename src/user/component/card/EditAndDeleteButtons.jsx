@@ -23,8 +23,8 @@ export default function EditAndDeleteButtons({event}) {
   };
 
   const handleDelete = async (event) => {
-    await deleteRecordFromDatabase("events", event.id);
-    setShowDeleteAlert(!showDeleteAlert)
+    const isDeleted = await deleteRecordFromDatabase("events", event.id);
+    isDeleted.deleted === true && setShowDeleteAlert(!showDeleteAlert)
     dispatch(deleteEvent(event));
 
   };
