@@ -37,8 +37,14 @@ export default function SearchBar({ placeholder, data, dataFromSearch }) {
   };
 
   useEffect(() => {
+    setSearchTerm("");
+    setIsSearching(false);
+    dataFromSearch(data);
+  }, [data.length]);
+
+  useEffect(() => {
     filterData();
-  }, [loggedUser, bookings, data.lenght]);
+  }, [loggedUser, bookings, data.length]);
 
   return (
     <div className="flex space-x-2 sm:space-x-4 items-center w-full rounded-b-lg p-4 shadow-xl bg-white">
