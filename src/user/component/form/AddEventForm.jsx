@@ -81,16 +81,17 @@ export default function AddEventForm({
       ...data,
     };
     const result = await addRecordToDatabase("events", fullEvent);
-    dispatch(
-      addEvent({
-        ...data,
-        authorId: loggedUser.id,
-        lastName: loggedUser.lastName,
-        firstName: loggedUser.firstName,
-        email: loggedUser.email,
-        role: loggedUser.role,
-      })
-    );
+    result &&
+      dispatch(
+        addEvent({
+          ...data,
+          authorId: loggedUser.id,
+          lastName: loggedUser.lastName,
+          firstName: loggedUser.firstName,
+          email: loggedUser.email,
+          role: loggedUser.role,
+        })
+      );
     result && handleCreatedEventAlert();
     handleClose();
   };

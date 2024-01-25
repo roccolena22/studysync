@@ -5,7 +5,7 @@ import { setFollowers } from "../../redux/slices/followersSlice";
 import { setUsers } from "../../redux/slices/usersSlice";
 
 export const fetchEvents = async (dispatch) => {
-  try{
+  try {
     const eventsFromDatabase = await getListFromDatabase("events");
     const transformArray = (eventsFromDatabase) =>
       eventsFromDatabase.map(
@@ -20,35 +20,34 @@ export const fetchEvents = async (dispatch) => {
       );
     const transformedEventsArray = transformArray(eventsFromDatabase);
     dispatch(setEvents(transformedEventsArray));
-  }catch(error){
-console.error("Error retrieving users from database", error)
+  } catch (error) {
+    console.error("Error retrieving users from database", error);
   }
-    
-  };
+};
 
-  export const fetchBookings = async (dispatch) => {
-    try {
-      const bookings = await getListFromDatabase("bookings");
-      dispatch(setBookings(bookings));
-    } catch (error) {
-      console.error("Error retrieving reservations from database:", error);
-    }
-  };
+export const fetchBookings = async (dispatch) => {
+  try {
+    const bookings = await getListFromDatabase("bookings");
+    dispatch(setBookings(bookings));
+  } catch (error) {
+    console.error("Error retrieving reservations from database:", error);
+  }
+};
 
-  export  const fetchFollowers = async (dispatch) => {
-    try {
-      const followersFromDatabase = await getListFromDatabase("followers");
-      dispatch(setFollowers(followersFromDatabase));
-    } catch (error) {
-      console.error("Error retrieving followers from database", error);
-    }
-  };
+export const fetchFollowers = async (dispatch) => {
+  try {
+    const followersFromDatabase = await getListFromDatabase("followers");
+    dispatch(setFollowers(followersFromDatabase));
+  } catch (error) {
+    console.error("Error retrieving followers from database", error);
+  }
+};
 
-  export const fetchUsers = async (dispatch) => {
-    try {
-      const usersFromDatabase = await getListFromDatabase("users");
-      dispatch(setUsers(usersFromDatabase));
-    } catch (error) {
-      console.error("Error retrieving users from database", error);
-    }
-  };
+export const fetchUsers = async (dispatch) => {
+  try {
+    const usersFromDatabase = await getListFromDatabase("users");
+    dispatch(setUsers(usersFromDatabase));
+  } catch (error) {
+    console.error("Error retrieving users from database", error);
+  }
+};
