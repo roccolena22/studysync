@@ -11,6 +11,7 @@ import DetailsEventInForm from "./component/DetailsEventInForm";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import AlertBanner from "../shared/AlertBanner";
+import { fetchEvents } from "../../Utilities/fetchFunctions";
 
 export default function AddEventForm({
   loggedUser,
@@ -93,6 +94,7 @@ export default function AddEventForm({
         })
       );
     result && handleCreatedEventAlert();
+    await fetchEvents(dispatch);
     handleClose();
   };
 
