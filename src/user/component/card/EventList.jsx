@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import EventCard from "./EventCard";
 import SearchBar from "../shared/SearchBar";
 import { useDispatch } from "react-redux";
-import { sortEventsForTime } from "../../Utilities/timeutils";
+import { sortEventsByTime } from "../../Utilities/timeutils";
 import { fetchEvents } from "../../Utilities/fetchFunctions";
 import Message from "../Message";
 
-export default function EventList({ events }) {
+export default function EventList({ eventsToShow }) {
   const [searchedEvents, setSearchedEvents] = useState([]);
   const dispatch = useDispatch();
 
@@ -16,9 +16,9 @@ export default function EventList({ events }) {
 
   useEffect(() => {
     fetchEvents(dispatch);
-  }, [events.length]);
+  }, [eventsToShow.length]);
 
-  const sortedEvents = sortEventsForTime(events);
+  const sortedEvents = sortEventsByTime(eventsToShow);
 
   return (
     <div className="bg-white shadow-xl px-6 rounded-b-lg">
@@ -47,7 +47,7 @@ export default function EventList({ events }) {
           )
         )}
       </div>
-      {events.length <= 0 && (
+      {eventsToShow.length <= 0 && (
         <div className="py-6">
           <Message text="No events to show." />
         </div>

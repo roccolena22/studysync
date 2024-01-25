@@ -32,7 +32,7 @@ export default function EventsPage() {
       <div className="w-full">
         {indexSection === 0 ? (
           <EventList
-            events={nextEvents}
+            eventsToShow={nextEvents}
           />
         ) : (
           <div className="flex flex-col items-center pt-8">

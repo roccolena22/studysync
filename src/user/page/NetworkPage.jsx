@@ -39,7 +39,7 @@ export default function NetworkPage() {
       </div>
       <Title fontSize="text-lg" title="Events of my following" />
       <div className="w-full">
-        <EventList events={networkEvents} />
+        <EventList eventsToShow={networkEvents} />
       </div>
     </div>
   );

@@ -31,12 +31,12 @@ export default function FollowerAndFollowedLists({
       />
       {indexSection === 0 ? (
         <UsersList
-          users={loggedUserFollowing}
+          usersToShow={loggedUserFollowing}
           loggedUser={loggedUser}
         />
       ) : (
         <UsersList
-          users={loggedUserFollowers}
+          usersToShow={loggedUserFollowers}
           loggedUser={loggedUser}
         />
       )}

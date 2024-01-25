@@ -34,7 +34,7 @@ export default function DiscoverUsers() {
           handleClose={handlePriorityPopup}
           title="Search among StudySync users"
         >
-          <UsersList users={users} />
+          <UsersList usersToShow={users} />
         </PriorityPopup>
       )}
     </>

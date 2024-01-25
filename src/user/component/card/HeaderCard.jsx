@@ -42,7 +42,7 @@ export default function HeaderCard({ event, bookedUsers }) {
           }
           title="List of reservations"
         >
-            <UsersList users={bookedUsers} />
+            <UsersList usersToShow={bookedUsers} />
         </PriorityPopup>
       )}
     </>

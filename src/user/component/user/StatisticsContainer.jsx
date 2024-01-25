@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import moment from "moment";
 import ManageUsers from "./ManageUsers";
 import Gadget from "./Gadget";
-import { sortEventsForTime } from "../../Utilities/timeutils";
+import { sortEventsByTime } from "../../Utilities/timeutils";
 import TitleAndAuthorName from "../card/TitleAndAuthorName";
 import { useSelector } from "react-redux";
 
@@ -34,7 +34,7 @@ export default function StatisticsContainer({ activeEvents }) {
   }, [events, bookings, loggedUser]);
 
   const sortedEvents =
-    nextEvents.length > 0 ? sortEventsForTime(nextEvents) : [];
+    nextEvents.length > 0 ? sortEventsByTime(nextEvents) : [];
 
   const startEvent = moment(
     `${sortedEvents[0]?.startDate} ${sortedEvents[0]?.startTime}`,

@@ -4,7 +4,7 @@ import SingleUserInList from "./SingleUserInList";
 import { useDispatch } from "react-redux";
 import { fetchUsers } from "../../Utilities/fetchFunctions";
 
-export default function UsersList({ users }) {
+export default function UsersList({ usersToShow }) {
   const [searchedUsers, setSearchedUsers] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
 
@@ -19,7 +19,7 @@ export default function UsersList({ users }) {
     setIsSearching(true);
   };
 
-  let usersToDisplay = isSearching ? searchedUsers : users;
+  let usersToDisplay = isSearching ? searchedUsers : usersToShow;
 
   const sortedUsers = [...usersToDisplay].sort((a, b) => {
     const firstNameComparison = a.firstName.localeCompare(b.firstName);
@@ -30,10 +30,10 @@ export default function UsersList({ users }) {
 
   return (
     <div>
-      {users.length > 0 && (
+      {usersToShow.length > 0 && (
         <SearchBar
           placeholder="Search for a user based on their name or email"
-          data={users}
+          data={usersToShow}
           dataFromSearch={handleSearch}
         />
       )}
@@ -44,7 +44,7 @@ export default function UsersList({ users }) {
             <SingleUserInList user={user} />
           </div>
         ))}
-        {users.length === 0 && (
+        {usersToShow.length === 0 && (
           <p className="text-lg gray-500">No users to show.</p>
         )}
       </div>

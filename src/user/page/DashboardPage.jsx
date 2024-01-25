@@ -31,11 +31,11 @@ export default function DashboardPage({ userPastEvents, userActiveEvents }) {
       <div className="w-full">
         {indexSection === 0 ? (
           <EventList
-            events={userActiveEvents}
+            eventsToShow={userActiveEvents}
           />
         ) : (
           <EventList
-            events={userPastEvents}
+            eventsToShow={userPastEvents}
           />
         )}
       </div>
