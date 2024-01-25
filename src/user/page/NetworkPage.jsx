@@ -27,7 +27,7 @@ export default function NetworkPage() {
         )
       );
     setNetworkEvents(networkEventsList);
-  }, [events]);
+  }, [events, followers]);
 
   return (
     <div className="flex flex-col items-center">
