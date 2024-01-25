@@ -6,10 +6,13 @@ import { useSelector } from "react-redux";
 
 export default function DiscoverUsers() {
   const users = useSelector((state) => state.users);
+  const loggedUser = useSelector((state) => state.auth.user);
   const [PriorityPopupIsOpen, setPriorityPopupIsOpen] = useState(false);
   const handlePriorityPopup = () => {
     setPriorityPopupIsOpen(!PriorityPopupIsOpen);
   };
+
+  const usersToFollow = users.filter((user) => user.id !== loggedUser.id);
 
   return (
     <>
@@ -34,7 +37,7 @@ export default function DiscoverUsers() {
           handleClose={handlePriorityPopup}
           title="Search among StudySync users"
         >
-          <UsersList usersToShow={users} />
+          <UsersList usersToShow={usersToFollow} />
         </PriorityPopup>
       )}
     </>
