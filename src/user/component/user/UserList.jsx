@@ -12,7 +12,7 @@ export default function UsersList({ usersToShow }) {
   const handleSearch = (dataFromSearch) => {
     setSearchedUsers(dataFromSearch);
   };
-
+  
   useEffect(() => {
     fetchUsers(dispatch);
   }, []);

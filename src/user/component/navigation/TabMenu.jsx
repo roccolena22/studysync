@@ -12,7 +12,7 @@ export default function TabMenu({
     handleSections(index);
   };
   const sectionClass = (sectionIndex) =>
-    `w-1/2 cursor-pointer shadow-xl hover:text-cyan-700 ${
+    `w-1/2 cursor-pointer shadow-lg hover:text-cyan-700 ${
       index === sectionIndex ? "p-2 bg-white" : "p-2 bg-gray-50"
     }`;
 

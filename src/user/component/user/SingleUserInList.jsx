@@ -30,7 +30,6 @@ export default function SingleUserInList({ user }) {
             (item) =>
               item?.idTo?.[0] === userId && item.idFrom[0] === loggedUser.id
           );
-          console.log(currentRecord)
       if (isAdding) {
         await addRecordToDatabase("followers", currentRecord);
       } else if (currentRecord?.id) {
