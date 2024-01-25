@@ -26,7 +26,7 @@ export default function SingleUserInList({ user }) {
     try {
       const followerData = isAdding
         ? { idFrom: [loggedUser.id], idTo: [userId] }
-        : followers?.find((item) => item?.idTo?.[0] === userId);
+        : followers?.find((item) => item?.idTo?.[0] === userId && item.idFrom[0] === loggedUser.id);
       if (isAdding) {
         await addRecordToDatabase("followers", followerData);
       } else if (followerData?.id) {
