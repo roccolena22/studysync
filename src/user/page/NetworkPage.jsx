@@ -4,25 +4,30 @@ import moment from "moment";
 import DiscoverUsers from "../component/user/DiscoverUsers";
 import NewEvent from "../component/shared/NewEvent";
 import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
 export default function NetworkPage() {
   const loggedUser = useSelector((state) => state.auth.user);
   const events = useSelector((state) => state.events);
   const followers = useSelector((state) => state.followers);
+  const [networkEvents, setNetworkEvents] = useState([]);
   const currentDate = moment();
 
-  const networkEvents = events
-    .filter((event) =>
-      followers?.some(
-        (user) =>
-          user.idFrom[0] === loggedUser.id && user.idTo[0] === event.authorId
+  useEffect(() => {
+    const networkEventsList = events
+      .filter((event) =>
+        followers?.some(
+          (user) =>
+            user.idFrom[0] === loggedUser.id && user.idTo[0] === event.authorId
+        )
       )
-    )
-    .filter((event) =>
-      moment(event.endDate + " " + event.endTime, "YYYY-MM-DD HH:mm").isAfter(
-        currentDate
-      )
-    );
+      .filter((event) =>
+        moment(event.endDate + " " + event.endTime, "YYYY-MM-DD HH:mm").isAfter(
+          currentDate
+        )
+      );
+    setNetworkEvents(networkEventsList);
+  }, [events]);
 
   return (
     <div className="flex flex-col items-center">
