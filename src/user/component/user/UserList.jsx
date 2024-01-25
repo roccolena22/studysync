@@ -3,6 +3,7 @@ import SearchBar from "../shared/SearchBar";
 import SingleUserInList from "./SingleUserInList";
 import { useDispatch } from "react-redux";
 import { fetchUsers } from "../../Utilities/fetchFunctions";
+import Message from "../Message";
 
 export default function UsersList({ usersToShow }) {
   const [searchedUsers, setSearchedUsers] = useState([]);
@@ -44,9 +45,7 @@ export default function UsersList({ usersToShow }) {
             <SingleUserInList user={user} />
           </div>
         ))}
-        {usersToShow.length === 0 && (
-          <p className="text-lg gray-500">No users to show.</p>
-        )}
+        {usersToShow.length === 0 && <Message text="No users to show." />}
       </div>
     </div>
   );
