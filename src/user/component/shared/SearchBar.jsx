@@ -49,8 +49,17 @@ export default function SearchBar({ placeholder, data, dataFromSearch }) {
           onChange={handleInputChange}
           className="w-full focus:outline-none bg-gray-50 px-1"
         />
-        {isSearching && (
-          <Icon name="close" onClick={clearSearch} style="cursor-pointer w-6 h-6" />
+        {isSearching ? (
+          <Icon
+            name="close"
+            onClick={clearSearch}
+            style="cursor-pointer w-6 h-6"
+          />
+        ) : (
+          <Icon
+            name="search"
+            style="cursor-pointer"
+          />
         )}
       </div>
     </div>
