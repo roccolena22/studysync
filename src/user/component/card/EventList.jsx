@@ -16,7 +16,7 @@ export default function EventList({ eventsToShow }) {
 
   useEffect(() => {
     fetchEvents(dispatch);
-  }, [eventsToShow.length]);
+  }, []);
 
   const sortedEvents = sortEventsByTime(eventsToShow);
 

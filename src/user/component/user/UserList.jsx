@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import SearchBar from "../shared/SearchBar";
 import SingleUserInList from "./SingleUserInList";
-import { useDispatch } from "react-redux";
-import { fetchUsers } from "../../Utilities/fetchFunctions";
 import Message from "../Message";
+import { fetchUsers } from "../../Utilities/fetchFunctions";
+import { useDispatch } from "react-redux";
 
 export default function UsersList({ usersToShow }) {
   const [searchedUsers, setSearchedUsers] = useState([]);
-
   const dispatch = useDispatch();
 
   const handleSearch = (dataFromSearch) => {
@@ -16,7 +15,8 @@ export default function UsersList({ usersToShow }) {
 
   useEffect(() => {
     fetchUsers(dispatch);
-  }, [usersToShow.length]);
+  }, []);
+
 
   const sortedUsers = usersToShow.sort((a, b) => {
     const firstNameComparison = a.firstName.localeCompare(b.firstName);
