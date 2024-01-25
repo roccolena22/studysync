@@ -17,7 +17,6 @@ export default function UsersList({ usersToShow }) {
     fetchUsers(dispatch);
   }, []);
 
-
   const sortedUsers = usersToShow.sort((a, b) => {
     const firstNameComparison = a.firstName.localeCompare(b.firstName);
     return firstNameComparison !== 0

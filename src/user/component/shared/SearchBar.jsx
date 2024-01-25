@@ -19,7 +19,7 @@ export default function SearchBar({ placeholder, data, dataFromSearch }) {
 
   const clearSearch = () => {
     setSearchTerm("");
-    dataFromSearch(data);
+    dataFromSearch([]);
     setIsSearching(false);
   };
 
