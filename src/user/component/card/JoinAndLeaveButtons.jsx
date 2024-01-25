@@ -18,7 +18,7 @@ export default function JoinAndLeaveButtons({
 
   const toggleBooking = async (eventId, isAdding) => {
     const bookingReduxAction = isAdding ? addBooking : deleteBooking;
-    const bookingData = isAdding
+    const currentRecord = isAdding
       ? {
           eventId: [eventId],
           bookedId: loggedUser.id,
@@ -30,11 +30,11 @@ export default function JoinAndLeaveButtons({
 
     try {
       if (isAdding) {
-        await addRecordToDatabase("bookings", bookingData);
+        await addRecordToDatabase("bookings", currentRecord);
       } else {
-        await deleteRecordFromDatabase("bookings", bookingData.id);
+        await deleteRecordFromDatabase("bookings", currentRecord.id);
       }
-      bookingReduxAction(isAdding ? bookingData : bookingData.id);
+      bookingReduxAction(isAdding ? currentRecord : currentRecord.id);
       fetchBookings(dispatch);
       fetchEvents(dispatch);
     } catch (error) {

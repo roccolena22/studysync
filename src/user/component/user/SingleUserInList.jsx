@@ -24,15 +24,19 @@ export default function SingleUserInList({ user }) {
   const toggleFollow = async (userId, isAdding) => {
     const followerReduxAction = isAdding ? addFollower : deleteFollower;
     try {
-      const followerData = isAdding
+      const currentRecord = isAdding
         ? { idFrom: [loggedUser.id], idTo: [userId] }
-        : followers?.find((item) => item?.idTo?.[0] === userId && item.idFrom[0] === loggedUser.id);
+        : followers?.find(
+            (item) =>
+              item?.idTo?.[0] === userId && item.idFrom[0] === loggedUser.id
+          );
+          console.log(currentRecord)
       if (isAdding) {
-        await addRecordToDatabase("followers", followerData);
-      } else if (followerData?.id) {
-        await deleteRecordFromDatabase("followers", followerData.id);
+        await addRecordToDatabase("followers", currentRecord);
+      } else if (currentRecord?.id) {
+        await deleteRecordFromDatabase("followers", currentRecord.id);
       }
-      dispatch(followerReduxAction(followerData));
+      dispatch(followerReduxAction(currentRecord));
 
       const updatedUsers = await getListFromDatabase("users");
       dispatch(setUsers(updatedUsers));
