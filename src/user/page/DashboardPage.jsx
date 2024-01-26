@@ -20,12 +20,12 @@ export default function DashboardPage({ userPastEvents, userActiveEvents }) {
       <StatisticsContainer activeEvents={userActiveEvents} />
       <div className="w-full pt-10">
         <Title title="My events" fontSize="text-lg" />
-        <TabMenu
-          firstSectionName="Active events"
-          secondSectionName="Past events"
-          handleSections={handleSections}
-        />
       </div>
+      <TabMenu
+        firstSectionName="Active events"
+        secondSectionName="Past events"
+        handleSections={handleSections}
+      />
       <EventList
         eventsToShow={indexSection === 0 ? userActiveEvents : userPastEvents}
       />

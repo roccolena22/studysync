@@ -1,17 +1,17 @@
 import { useState } from "react";
 import Icon from "../../../shared/component/Icon";
 
-export default function SwitchTab({
+export default function SwitchButton({
   firstItem,
   secondItem,
-  handleSections,
-  indexSection,
+  handleSwitch,
+  indexSwitch,
 }) {
-  const [index, setIndex] = useState(indexSection);
+  const [index, setIndex] = useState(indexSwitch);
 
   const handleIndex = (index) => {
     setIndex(index);
-    handleSections(index);
+    handleSwitch(index);
   };
 
   const sectionClass = (sectionIndex) => {

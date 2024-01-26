@@ -25,6 +25,7 @@ const Router = () => {
   const bookings = useSelector((state) => state.bookings);
   const [userPastEvents, setUserPastEvents] = useState([]);
   const [userActiveEvents, setUserActiveEvents] = useState([]);
+  const [allUserEvents, setAllUserEvents] = useState([]);
 
   const dispatch = useDispatch();
 
@@ -59,9 +60,8 @@ const Router = () => {
     const activeEventUserBooked = eventsByBooked.filter(
       (event) => new Date(`${event.endDate} ${event.endTime}`) >= currentDate
     );
-    const activeEvents = [...activeEventsByUser, ...activeEventUserBooked];
-
-    dispatch(setNextEvents(activeEvents));
+    setAllUserEvents([...eventsByAuthor, ...eventsByBooked]);
+    dispatch(setNextEvents([...activeEventsByUser, ...activeEventUserBooked]));
   };
 
   useEffect(() => {
@@ -109,7 +109,9 @@ const Router = () => {
             path="/events"
             element={
               <Protected>
-                <EventsPage />
+                <EventsPage 
+                  allUserEvents={allUserEvents}
+                />
               </Protected>
             }
           />

@@ -3,37 +3,35 @@ import PersonalCalendar from "../component/PersonalCalendar";
 import Suggestion from "../component/shared/Suggestion";
 import Title from "../component/shared/Title";
 import Legend from "../component/user/Legend";
-import SwitchTab from "../component/navigation/SwitchTab";
+import SwitchButton from "../component/navigation/SwitchButton";
 import EventList from "../component/card/EventList";
 import NewEvent from "../component/shared/NewEvent";
 import { useSelector } from "react-redux";
 
-export default function EventsPage() {
-  const [indexSection, setIndexSection] = useState(0);
+export default function EventsPage({ allUserEvents }) {
+  const [indexSwitch, setIndexSwitch] = useState(0);
   const nextEvents = useSelector((state) => state.nextEvents);
 
-  const handleSections = (index) => {
-    setIndexSection(index);
+  const handleSwitch = (index) => {
+    setIndexSwitch(index);
   };
 
   return (
     <div className="flex flex-col items-center relative">
-      <Title title="Next events">
+      <Title title="Events">
         <div className="flex flex-col gap-2 sm:flex-row align-center justify-center items-center sm:space-x-4">
           <NewEvent name="New event" />
-          <SwitchTab
+          <SwitchButton
             firstItem="grid"
             secondItem="calendar"
-            handleSections={handleSections}
-            indexSection={indexSection}
+            handleSwitch={handleSwitch}
+            indexSwitch={indexSwitch}
           />
         </div>
       </Title>
       <div className="w-full">
-        {indexSection === 0 ? (
-          <EventList
-            eventsToShow={nextEvents}
-          />
+        {indexSwitch === 0 ? (
+          <EventList eventsToShow={nextEvents} />
         ) : (
           <div className="flex flex-col items-center pt-8">
             <div className="pb-6">
@@ -44,7 +42,7 @@ export default function EventsPage() {
                 textTwo="Events you attend"
               />
             </div>
-            <PersonalCalendar events={nextEvents} />
+            <PersonalCalendar events={allUserEvents} />
             <Suggestion text="Use the calendar to choose when to create your event" />
           </div>
         )}
