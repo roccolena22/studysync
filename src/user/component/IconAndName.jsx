@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import Icon from "../../../shared/component/Icon";
+import Icon from "../../shared/component/Icon";
 
 export default function IconAndName({
   iconName,

@@ -1,4 +1,4 @@
-import IconAndName from "../user/IconAndName";
+import IconAndName from "../IconAndName";
 
 export default function Footer() {
   return (

@@ -3,7 +3,7 @@ import TabMenu from "../component/navigation/TabMenu";
 import Title from "../component/shared/Title";
 import EventList from "../component/card/EventList";
 import NewEvent from "../component/shared/NewEvent";
-import StatisticsContainer from "../component/user/StatisticsContainer";
+import StatisticsContainer from "../component/StatisticsContainer";
 
 export default function DashboardPage({ userPastEvents, userActiveEvents }) {
   const [indexSection, setIndexSection] = useState(0);

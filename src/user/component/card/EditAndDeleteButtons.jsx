@@ -1,11 +1,11 @@
 import { useDispatch } from "react-redux";
-import IconAndName from "../user/IconAndName";
 import { deleteRecordFromDatabase } from "../../../api/apiRequest";
 import { useState } from "react";
 import { deleteEvent } from "../../../redux/slices/eventsSlice";
 import AlertBanner from "../shared/AlertBanner";
 import PriorityPopup from "../shared/PriorityPopup";
 import EditEventForm from "../form/EditEventForm"
+import IconAndName from "../IconAndName";
 
 export default function EditAndDeleteButtons({event}) {
   const [editPriorityPopupIsOpen, setEditPriorityPopupIsOpen] = useState(false);

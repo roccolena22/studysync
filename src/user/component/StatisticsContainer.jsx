@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
-import ManageUsers from "./ManageUsers";
+import ManageUsers from "../component/user/ManageUsers";
 import Gadget from "./Gadget";
-import { sortEventsByTime } from "../../Utilities/timeutils";
-import TitleAndAuthorName from "../card/TitleAndAuthorName";
-import { useSelector } from "react-redux";
+import { sortEventsByTime } from "../Utilities/timeUtils";
+import TitleAndAuthorName from "./card/TitleAndAuthorName";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchBookings } from "../Utilities/fetchFunctions";
 
 export default function StatisticsContainer({ activeEvents }) {
   const [bookedEvents, setBookedEvents] = useState([]);
@@ -12,6 +13,8 @@ export default function StatisticsContainer({ activeEvents }) {
   const events = useSelector((state) => state.events);
   const nextEvents = useSelector((state) => state.nextEvents);
   const bookings = useSelector((state) => state.bookings);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const handleBookedEvents = async () => {
@@ -99,6 +102,10 @@ export default function StatisticsContainer({ activeEvents }) {
       moment(`${event.endDate} ${event.endTime}`)
     )
   );
+
+  useEffect(() => {
+    fetchBookings(dispatch);
+  }, []);
 
   return (
     <div className="grid grid-cols-1 gap-2 pt-6 w-full">

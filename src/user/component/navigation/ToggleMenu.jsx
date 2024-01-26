@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import IconAndName from "../user/IconAndName";
+import IconAndName from "../IconAndName";
 import { useDispatch } from "react-redux";
 
 export default function ToggleMenu() {

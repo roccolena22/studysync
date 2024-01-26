@@ -2,7 +2,7 @@ import { useState } from "react";
 import PersonalCalendar from "../component/PersonalCalendar";
 import Suggestion from "../component/shared/Suggestion";
 import Title from "../component/shared/Title";
-import Legend from "../component/user/Legend";
+import Legend from "../component/Legend";
 import SwitchButton from "../component/navigation/SwitchButton";
 import EventList from "../component/card/EventList";
 import NewEvent from "../component/shared/NewEvent";

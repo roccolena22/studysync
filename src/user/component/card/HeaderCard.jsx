@@ -1,5 +1,5 @@
 import { useState } from "react";
-import IconAndName from "../user/IconAndName";
+import IconAndName from "../IconAndName";
 import UserDetails from "../user/UserDetails";
 import PriorityPopup from "../shared/PriorityPopup";
 import UsersList from "../user/UserList";
