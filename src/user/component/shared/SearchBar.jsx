@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Icon from "../../../shared/component/Icon";
 
 export default function SearchBar({ placeholder, data, dataFromSearch }) {
@@ -22,6 +22,10 @@ export default function SearchBar({ placeholder, data, dataFromSearch }) {
     dataFromSearch(data);
     setIsSearching(false);
   };
+
+  useEffect(() => {
+    clearSearch();
+  }, [data.length]);
 
   const handleInputChange = (e) => {
     setSearchTerm(e.target.value);
