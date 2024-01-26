@@ -5,7 +5,6 @@ import { EventFormValidator } from "./validator/EventFormValidator";
 import Input from "../../../shared/component/Input";
 import { addRecordToDatabase } from "../../../api/apiRequest";
 import { useDispatch } from "react-redux";
-import { addEvent } from "../../../redux/slices/eventsSlice";
 import TimeEventSection from "./component/TimeEventSection";
 import DetailsEventInForm from "./component/DetailsEventInForm";
 import moment from "moment";
@@ -82,19 +81,8 @@ export default function AddEventForm({
       ...data,
     };
     const result = await addRecordToDatabase("events", fullEvent);
-    result &&
-      dispatch(
-        addEvent({
-          ...data,
-          authorId: loggedUser.id,
-          lastName: loggedUser.lastName,
-          firstName: loggedUser.firstName,
-          email: loggedUser.email,
-          role: loggedUser.role,
-        })
-      );
+    fetchEvents(dispatch);
     result && handleCreatedEventAlert();
-    await fetchEvents(dispatch);
     handleClose();
   };
 

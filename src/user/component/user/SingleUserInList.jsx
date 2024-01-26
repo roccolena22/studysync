@@ -5,10 +5,6 @@ import {
   deleteRecordFromDatabase,
   getListFromDatabase,
 } from "../../../api/apiRequest";
-import {
-  addFollower,
-  deleteFollower,
-} from "../../../redux/slices/followersSlice";
 import { setLoggedUser } from "../../../redux/slices/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { setUsers } from "../../../redux/slices/usersSlice";
@@ -22,7 +18,6 @@ export default function SingleUserInList({ user }) {
   const dispatch = useDispatch();
 
   const toggleFollow = async (userId, isAdding) => {
-    const followerReduxAction = isAdding ? addFollower : deleteFollower;
     try {
       const currentRecord = isAdding
         ? { idFrom: [loggedUser.id], idTo: [userId] }
@@ -35,16 +30,13 @@ export default function SingleUserInList({ user }) {
       } else if (currentRecord?.id) {
         await deleteRecordFromDatabase("followers", currentRecord.id);
       }
-      dispatch(followerReduxAction(currentRecord));
-
+      fetchFollowers?.(dispatch);
       const updatedUsers = await getListFromDatabase("users");
       dispatch(setUsers(updatedUsers));
-
       const refreshLoggedUser = updatedUsers.find(
         (user) => user.id === loggedUser.id
       );
       dispatch(setLoggedUser(refreshLoggedUser));
-      fetchFollowers?.(dispatch);
     } catch (error) {
       console.error(
         `Error ${isAdding ? "adding" : "removing"} follower`,

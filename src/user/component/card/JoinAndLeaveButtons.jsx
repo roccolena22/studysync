@@ -1,5 +1,4 @@
 import Button from "../../../shared/component/Button";
-import { addBooking, deleteBooking } from "../../../redux/slices/bookingsSlice";
 import {
   addRecordToDatabase,
   deleteRecordFromDatabase,
@@ -17,7 +16,6 @@ export default function JoinAndLeaveButtons({
   const dispatch = useDispatch();
 
   const toggleBooking = async (eventId, isAdding) => {
-    const bookingReduxAction = isAdding ? addBooking : deleteBooking;
     const currentRecord = isAdding
       ? {
           eventId: [eventId],
@@ -34,7 +32,6 @@ export default function JoinAndLeaveButtons({
       } else {
         await deleteRecordFromDatabase("bookings", currentRecord.id);
       }
-      bookingReduxAction(isAdding ? currentRecord : currentRecord.id);
       fetchBookings(dispatch);
       fetchEvents(dispatch);
     } catch (error) {
