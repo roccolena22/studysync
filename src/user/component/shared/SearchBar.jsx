@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Icon from "../../../shared/component/Icon";
 
 export default function SearchBar({ placeholder, data, dataFromSearch }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [isSearching, setIsSearching] = useState(false);
+  const [filteredData, setFilteredData] = useState([]);
 
   const filterData = () => {
     const lowerCaseSearchTerm = searchTerm.toLowerCase();
@@ -13,15 +14,19 @@ export default function SearchBar({ placeholder, data, dataFromSearch }) {
           element[property]?.toLowerCase().includes(lowerCaseSearchTerm)
       )
     );
-    dataFromSearch(filteredData);
+    setFilteredData(filteredData);
     setIsSearching(true);
   };
 
   const clearSearch = () => {
     setSearchTerm("");
-    dataFromSearch(data);
+    setFilteredData([]);
     setIsSearching(false);
   };
+
+  useEffect(() => {
+    dataFromSearch(filteredData);
+  }, [filteredData, dataFromSearch]);
 
   useEffect(() => {
     clearSearch();
@@ -30,8 +35,7 @@ export default function SearchBar({ placeholder, data, dataFromSearch }) {
   const handleInputChange = (e) => {
     setSearchTerm(e.target.value);
     if (e.target.value === "") {
-      dataFromSearch(data);
-      setIsSearching(false);
+      clearSearch();
     } else {
       filterData();
     }
