@@ -29,17 +29,12 @@ export default function FollowerAndFollowedLists({
         handleSections={handleSections}
         indexClicked={indexClicked}
       />
-      {indexSection === 0 ? (
-        <UsersList
-          usersToShow={loggedUserFollowing}
-          loggedUser={loggedUser}
-        />
-      ) : (
-        <UsersList
-          usersToShow={loggedUserFollowers}
-          loggedUser={loggedUser}
-        />
-      )}
+      <UsersList
+        usersToShow={
+          indexSection === 0 ? loggedUserFollowing : loggedUserFollowers
+        }
+        loggedUser={loggedUser}
+      />
     </div>
   );
 }

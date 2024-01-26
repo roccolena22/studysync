@@ -25,7 +25,7 @@ export default function UsersList({ usersToShow }) {
   });
 
   return (
-    <div>
+    <div className="w.full">
       {usersToShow.length > 0 && (
         <SearchBar
           placeholder="Search for a user based on their name or email"

@@ -21,7 +21,7 @@ export default function EventList({ eventsToShow }) {
   const sortedEvents = sortEventsByTime(eventsToShow);
 
   return (
-    <div className="bg-white shadow-xl px-6 rounded-b-lg">
+    <div className="bg-white shadow-xl px-6 rounded-b-lg w-full">
       {eventsToShow.length > 0 && (
         <div className="sticky top-20 w-full z-10">
           <SearchBar

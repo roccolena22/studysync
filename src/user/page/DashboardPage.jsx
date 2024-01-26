@@ -17,9 +17,7 @@ export default function DashboardPage({ userPastEvents, userActiveEvents }) {
       <Title title="Dashboard">
         <NewEvent name="New Event" />
       </Title>
-      <StatisticsContainer
-        activeEvents={userActiveEvents}
-      />
+      <StatisticsContainer activeEvents={userActiveEvents} />
       <div className="w-full pt-10">
         <Title title="My events" fontSize="text-lg" />
         <TabMenu
@@ -28,17 +26,9 @@ export default function DashboardPage({ userPastEvents, userActiveEvents }) {
           handleSections={handleSections}
         />
       </div>
-      <div className="w-full">
-        {indexSection === 0 ? (
-          <EventList
-            eventsToShow={userActiveEvents}
-          />
-        ) : (
-          <EventList
-            eventsToShow={userPastEvents}
-          />
-        )}
-      </div>
+      <EventList
+        eventsToShow={indexSection === 0 ? userActiveEvents : userPastEvents}
+      />
     </div>
   );
 }
