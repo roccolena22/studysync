@@ -7,20 +7,9 @@ const followersSlice = createSlice({
     setFollowers: (state, action) => {
       return action.payload;
     },
-    addFollower: (state, action) => {
-      state.push(action.payload);
-    },
-    deleteFollower: (state, action) => {
-      const index = state.findIndex(
-        (follower) => follower.id === action.payload.id
-      );
-      if (index !== -1) {
-        state.splice(index, 1);
-      }
-    },
   },
 });
 
-export const { setFollowers, addFollower, deleteFollower } =
+export const { setFollowers } =
   followersSlice.actions;
 export default followersSlice.reducer;
