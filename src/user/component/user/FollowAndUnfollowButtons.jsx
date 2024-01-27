@@ -1,37 +1,34 @@
 import { useDispatch, useSelector } from "react-redux";
 import Button from "../../../shared/component/Button";
-import { addRecordToDatabase, deleteRecordFromDatabase, getListFromDatabase } from "../../../api/apiRequest";
-import { setUsers } from "../../../redux/slices/usersSlice";
-import { setLoggedUser } from "../../../redux/slices/authSlice";
-import { fetchFollowers, fetchUsers } from "../../Utilities/fetchFunctions";
+import {
+  addRecordToDatabase,
+  deleteRecordFromDatabase,
+} from "../../../api/apiRequest";
+import { fetchFollowers } from "../../Utilities/fetchFunctions";
+import { useEffect, useState } from "react";
 
-
-export default function FollowAndUnfollowButtons({
-  user,
-}) {
-  const users = useSelector((state) => state.users);
+export default function FollowAndUnfollowButtons({ user }) {
+  const [isFollowed, setIsFollowed] = useState(false);
   const logged = useSelector((state) => state.auth.user);
+  const followers = useSelector((state) => state.followers);
+  const isLoggedUser = logged.id === user.id;
 
-  const loggedUser = users.find(user => user.id === logged.id);  const followers = useSelector((state) => state.followers);
-  const isLoggedUser = loggedUser.id === user.id;
-
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const toggleFollow = async (userId, isAdding) => {
     try {
       const currentRecord = isAdding
-        ? { idFrom: [loggedUser.id], idTo: [userId] }
+        ? { idFrom: [logged.id], idTo: [userId] }
         : followers?.find(
             (item) =>
-              item?.idTo?.[0] === userId && item.idFrom[0] === loggedUser.id
+              item.idTo[0] === userId && item.idFrom[0] === logged.id
           );
       if (isAdding) {
         await addRecordToDatabase("followers", currentRecord);
       } else if (currentRecord?.id) {
         await deleteRecordFromDatabase("followers", currentRecord.id);
       }
-      fetchFollowers?.(dispatch);
-      fetchUsers(dispatch)
+      fetchFollowers(dispatch);
     } catch (error) {
       console.error(
         `Error ${isAdding ? "adding" : "removing"} follower`,
@@ -40,12 +37,12 @@ export default function FollowAndUnfollowButtons({
     }
   };
 
-  const isFollowed =
-    user.followersIds &&
-    loggedUser.followingIds &&
-    loggedUser.followingIds.some((element) =>
-      user.followersIds.includes(element)
+  useEffect(() => {
+    const follow = followers.find(
+      (item) => item.idTo[0] === user.id && item.idFrom[0] === logged.id
     );
+    setIsFollowed(!!follow);
+  }, [followers, user.id, logged.id]);
 
   return (
     <>
