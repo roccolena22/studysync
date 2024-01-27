@@ -1,6 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Button from "../../../shared/component/Button";
 import { useState } from "react";
 import { RegistrationFormValidator } from "./validator/RegistrationFormValidator";
@@ -16,6 +16,7 @@ import {
 } from "../../../api/apiRequest";
 import ChoiceOfRole from "../ChoiceOfRole";
 import ErrorMessage from "../ErrorMessage";
+import AlertBanner from "../../../user/component/shared/AlertBanner";
 
 export default function RegistrationForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -23,8 +24,8 @@ export default function RegistrationForm() {
   const [checkedTeacher, setCheckedTeacher] = useState(false);
   const [checkedStudent, setCheckedStudent] = useState(false);
   const [error, setError] = useState(false);
+  const [showBanner, setShowBanner] = useState(false);
 
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleShowPassword = () => {
@@ -46,6 +47,7 @@ export default function RegistrationForm() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(RegistrationFormValidator),
@@ -73,7 +75,6 @@ export default function RegistrationForm() {
         dispatch(setLoggedUser(loggedUser));
         const updatedUsers = [...users, data];
         dispatch(addUser(updatedUsers));
-        navigate("/");
         const updateObj = {
           firstName: data.firstName,
           lastName: data.lastName,
@@ -81,11 +82,17 @@ export default function RegistrationForm() {
           role: data.role,
           password: data.password,
         };
-        await addRecordToDatabase("users", updateObj);
+        const result = await addRecordToDatabase("users", updateObj);
+        result && handleBanner();
+        reset()
       }
     } catch (error) {
       console.error("Error retrieving users from database:", error);
     }
+  };
+
+  const handleBanner = () => {
+    setShowBanner(!showBanner);
   };
 
   return (
@@ -146,6 +153,13 @@ export default function RegistrationForm() {
         </Link>
         <Button type="submit" name="Register" />
       </div>
+      {showBanner && (
+        <AlertBanner
+          text="Registration done! Proceed to login."
+          type="success"
+          onClose={() => setShowBanner(false)}
+        />
+      )}
     </form>
   );
 }
