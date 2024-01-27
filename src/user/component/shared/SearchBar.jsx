@@ -42,8 +42,8 @@ export default function SearchBar({ placeholder, data, dataFromSearch }) {
   };
 
   return (
-    <div className="flex space-x-2 sm:space-x-4 items-center w-full rounded-b-lg p-4 shadow-xl bg-white">
-      <div className="flex items-center border border-gray-400 rounded-lg py-2 w-full bg-white">
+    <div className="flex space-x-2 sm:space-x-4 items-center w-full rounded-b-lg p-2 sm:p-4 shadow-xl bg-white">
+      <div className="flex items-center border border-gray-400 rounded-lg py-1 sm:py-2 w-full bg-white">
         <input
           placeholder={placeholder}
           value={searchTerm}
@@ -51,13 +51,11 @@ export default function SearchBar({ placeholder, data, dataFromSearch }) {
           className="w-full focus:outline-none bg-white px-1"
         />
       </div>
-      <div>
         {isSearching ? (
-          <Icon name="close" onClick={clearSearch} style="cursor-pointer" />
+          <Icon name="close" onClick={clearSearch} style="cursor-pointer h-4 w-4" />
         ) : (
-          <Icon name="search" onClick={filterData} style="cursor-pointer" />
+          <Icon name="search" onClick={filterData} style="cursor-pointer h-4 w-4" />
         )}
-      </div>
     </div>
   );
 }

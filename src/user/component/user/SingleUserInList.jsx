@@ -5,7 +5,7 @@ import FollowAndUnfollowButtons from "./FollowAndUnfollowButtons";
 export default function SingleUserInList({ user }) {
  
   return (
-    <div className="flex justify-between items-center border-b border-gray-400 w-full py-2">
+    <div className="flex justify-between items-center border-b border-gray-400 w-full py-1">
       <UserDetails
         firstName={user.firstName}
         lastName={user.lastName}
