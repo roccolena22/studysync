@@ -4,16 +4,12 @@ import {
   deleteRecordFromDatabase,
 } from "../../../api/apiRequest";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchBookings,
-  fetchEvents,
-} from "../../Utilities/fetchFunctions";
+import { fetchBookings } from "../../Utilities/fetchFunctions";
+import { useEffect, useState } from "react";
 
-export default function JoinAndLeaveButtons({
-  event,
-  userIsBooked,
-}) {
-  const logged = useSelector((state) => state.auth.user);
+export default function JoinAndLeaveButtons({ event, bookedUsers }) {
+  const [isBooked, setIsBooked] = useState(false);
+  const loggedUser = useSelector((state) => state.auth.user);
   const bookings = useSelector((state) => state.bookings);
   const dispatch = useDispatch();
 
@@ -21,11 +17,10 @@ export default function JoinAndLeaveButtons({
     const currentRecord = isAdding
       ? {
           eventId: [eventId],
-          bookedId: logged.id,
+          bookedId: loggedUser.id,
         }
       : bookings.find(
-          (item) =>
-            item.bookedId === logged.id && eventId === item.eventId[0]
+          (item) => item.bookedId === loggedUser.id && eventId === item.eventId[0]
         );
 
     try {
@@ -34,17 +29,24 @@ export default function JoinAndLeaveButtons({
       } else {
         await deleteRecordFromDatabase("bookings", currentRecord.id);
       }
-      fetchEvents(dispatch);
       fetchBookings(dispatch);
     } catch (error) {
       console.error(`Error ${isAdding ? "adding" : "removing"} booking`, error);
     }
   };
+
+  useEffect(() => {
+    const booked = bookings.find(
+      (item) => item.bookedId === loggedUser.id && event.id === item.eventId[0]
+    );
+    setIsBooked(!!booked);
+  }, [bookings, event.id, loggedUser.id]);
+
   return (
     <>
-      {event.bookingsRecordId && event.bookingsRecordId.length >= event.places
+      {bookedUsers && bookedUsers.length >= event.places
         ? ""
-        : !userIsBooked && (
+        : !isBooked && (
             <Button
               small
               name="Join"
@@ -52,7 +54,7 @@ export default function JoinAndLeaveButtons({
             />
           )}
 
-      {userIsBooked && (
+      {isBooked && (
         <Button
           small
           outline

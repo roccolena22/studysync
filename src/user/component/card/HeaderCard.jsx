@@ -7,9 +7,10 @@ import { fetchBookings } from "../../Utilities/fetchFunctions";
 import { useDispatch } from "react-redux";
 
 export default function HeaderCard({ event, bookedUsers }) {
-  const dispatch = useDispatch()
   const [reservationsPriorityPopupIsOpen, setReservationsPriorityPopupIsOpen] =
     useState(false);
+
+  const dispatch = useDispatch();
 
   const handleReservationsPopup = () => {
     setReservationsPriorityPopupIsOpen(!reservationsPriorityPopupIsOpen);
@@ -29,9 +30,9 @@ export default function HeaderCard({ event, bookedUsers }) {
           <IconAndName
             iconName="group"
             onClick={() => handleReservationsPopup()}
-            label={`${
-              event.bookingsRecordId ? event.bookingsRecordId.length : "0"
-            }${event.places ? "/" + event.places : ""}`}
+            label={`${bookedUsers ? bookedUsers.length : "0"}${
+              event.places ? "/" + event.places : ""
+            }`}
           />
         )}
       </div>
@@ -42,7 +43,7 @@ export default function HeaderCard({ event, bookedUsers }) {
           }
           title="List of reservations"
         >
-            <UsersList usersToShow={bookedUsers} />
+          <UsersList usersToShow={bookedUsers} />
         </PriorityPopup>
       )}
     </>

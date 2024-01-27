@@ -1,14 +1,14 @@
 import { useState } from "react";
 import TabMenu from "../navigation/TabMenu";
 import UsersList from "./UserList";
+import { useSelector } from "react-redux";
 
 export default function FollowerAndFollowedLists({
-  users,
   followingIds,
   followersIds,
-  loggedUser,
   indexClicked,
 }) {
+  const users = useSelector((state) => state.users);
   const [indexSection, setIndexSection] = useState(indexClicked);
 
   const handleSections = (index) => {
@@ -33,7 +33,6 @@ export default function FollowerAndFollowedLists({
         usersToShow={
           indexSection === 0 ? loggedUserFollowing : loggedUserFollowers
         }
-        loggedUser={loggedUser}
       />
     </div>
   );

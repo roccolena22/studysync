@@ -9,9 +9,7 @@ import { sortEventsByTime } from "../Utilities/timeutils";
 
 export default function StatisticsContainer({ activeEvents }) {
   const [bookedEvents, setBookedEvents] = useState([]);
-  const users = useSelector((state) => state.users);
-  const logged = useSelector((state) => state.auth.user);
-  const loggedUser = users.find((user) => user.id === logged.id);
+  const loggedUser = useSelector((state) => state.auth.user);
   const events = useSelector((state) => state.events);
   const nextEvents = useSelector((state) => state.nextEvents);
   const bookings = useSelector((state) => state.bookings);
@@ -27,7 +25,7 @@ export default function StatisticsContainer({ activeEvents }) {
             return event.bookingsRecordId.some((bookingId) =>
               bookings.some(
                 (booking) =>
-                  bookingId === booking.id && booking.bookedId === logged.id
+                  bookingId === booking.id && booking.bookedId === loggedUser.id
               )
             );
           }
@@ -36,7 +34,7 @@ export default function StatisticsContainer({ activeEvents }) {
       setBookedEvents(eventsByBooked);
     };
     handleBookedEvents();
-  }, [events, bookings, loggedUser]);
+  }, [events, bookings]);
 
   const sortedEvents =
     nextEvents.length > 0 ? sortEventsByTime(nextEvents) : [];
@@ -112,7 +110,7 @@ export default function StatisticsContainer({ activeEvents }) {
   return (
     <div className="grid grid-cols-1 gap-2 pt-6 w-full">
       <div className="grid gap-2 sm:grid-cols-2">
-        <ManageUsers loggedUser={loggedUser} />
+        <ManageUsers />
         <div className="grid grid-cols-1 gap-2">
           <Gadget
             title="Today's events:"

@@ -9,7 +9,6 @@ import { useSelector } from "react-redux";
 export default function AccountContentContainer() {
   const users = useSelector((state) => state.users);
   const logged = useSelector((state) => state.auth.user);
-
   const loggedUser = users.find((user) => user.id === logged.id);
   const [isOpen, setIsOpen] = useState(false);
 

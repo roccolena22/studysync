@@ -1,31 +1,17 @@
-import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import BodyCard from "./BodyCard";
 import FooterCard from "./FooterCard";
 import HeaderCard from "./HeaderCard";
-import { useSelector } from "react-redux";
 
-export default function EventCard({
-  event,
-}) {
-  const users = useSelector((state) => state.users);
-  const logged = useSelector((state) => state.auth.user);
-
-  const loggedUser = users.find(user => user.id === logged.id);
+export default function EventCard({ event }) {
   const bookings = useSelector((state) => state.bookings);
-  const [bookedUsers, setBookedUsers] = useState([]);
+  const users = useSelector((state) => state.users);
 
-  useEffect(() => {
-    const idsArray =
-      event && event.bookingsRecordId && bookings
-        ? bookings
-            .filter((booking) => event.bookingsRecordId.includes(booking.id))
-            .map((booking) => booking.bookedId)
-        : [];
-    setBookedUsers(
-      (users && users.filter((user) => idsArray.includes(user.id))) || []
-    );
-  }, [event, bookings, loggedUser]);
-  const userIsBooked = bookedUsers.find((user) => user.id === loggedUser.id);
+  const bookeds = bookings
+    .filter((item) => item.eventId && item.eventId.includes(event.id))
+    .map((item) => item.bookedId);
+
+  const bookedUsers = users.filter((user) => bookeds.includes(user.id));
 
   return (
     <>
@@ -37,18 +23,11 @@ export default function EventCard({
               : "border-purple-500"
           } pb-1 rounded-t-lg`}
         >
-          <HeaderCard
-            event={event}
-            bookedUsers={bookedUsers}
-          />
+          <HeaderCard event={event} bookedUsers={bookedUsers} />
         </div>
         <BodyCard event={event} />
         <div className="absolute bottom-2 right-3">
-          <FooterCard
-            event={event}
-            userIsBooked={userIsBooked}
-            loggedUser={loggedUser}
-          />
+          <FooterCard event={event} bookedUsers={bookedUsers} />
         </div>
       </div>
     </>

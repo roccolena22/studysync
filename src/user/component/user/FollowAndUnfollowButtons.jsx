@@ -9,19 +9,19 @@ import { useEffect, useState } from "react";
 
 export default function FollowAndUnfollowButtons({ user }) {
   const [isFollowed, setIsFollowed] = useState(false);
-  const logged = useSelector((state) => state.auth.user);
+  const loggedUser = useSelector((state) => state.auth.user);
   const followers = useSelector((state) => state.followers);
-  const isLoggedUser = logged.id === user.id;
+  const isLoggedUser = loggedUser.id === user.id;
 
   const dispatch = useDispatch();
 
   const toggleFollow = async (userId, isAdding) => {
     try {
       const currentRecord = isAdding
-        ? { idFrom: [logged.id], idTo: [userId] }
+        ? { idFrom: [loggedUser.id], idTo: [userId] }
         : followers?.find(
             (item) =>
-              item.idTo[0] === userId && item.idFrom[0] === logged.id
+              item.idTo[0] === userId && item.idFrom[0] === loggedUser.id
           );
       if (isAdding) {
         await addRecordToDatabase("followers", currentRecord);
@@ -39,10 +39,10 @@ export default function FollowAndUnfollowButtons({ user }) {
 
   useEffect(() => {
     const follow = followers.find(
-      (item) => item.idTo[0] === user.id && item.idFrom[0] === logged.id
+      (item) => item.idTo[0] === user.id && item.idFrom[0] === loggedUser.id
     );
     setIsFollowed(!!follow);
-  }, [followers, user.id, logged.id]);
+  }, [followers, user.id, loggedUser.id]);
 
   return (
     <>

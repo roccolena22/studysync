@@ -4,13 +4,8 @@ import PriorityPopup from "./PriorityPopup";
 import Title from "./Title";
 import AddEventForm from "../form/AddEventForm";
 import AlertBanner from "./AlertBanner";
-import { useSelector } from "react-redux";
 
 export default function NewEvent({ name }) {
-  const users = useSelector((state) => state.users);
-  const logged = useSelector((state) => state.auth.user);
-
-  const loggedUser = users.find((user) => user.id === logged.id);
   const [newEventPriorityPopup, setNewEventPriorityPopup] = useState(false);
   const [showCreatedEventAlert, setShowCreatedEventAlert] = useState(false);
 
@@ -30,7 +25,6 @@ export default function NewEvent({ name }) {
           <Title fontSize="text-lg" title="New event" />
           <div className="pt-4">
             <AddEventForm
-              loggedUser={loggedUser}
               handleCreatedEventAlert={handleCreatedEventAlert}
               handleClose={handleNewEventPriorityPopup}
             />

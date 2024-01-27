@@ -13,7 +13,6 @@ import AlertBanner from "../shared/AlertBanner";
 import { fetchEvents } from "../../Utilities/fetchFunctions";
 
 export default function AddEventForm({
-  loggedUser,
   startDate,
   endDate,
   startTime,
@@ -23,6 +22,7 @@ export default function AddEventForm({
 }) {
   const [showNoValidDateAlert, setShowNoValidDateAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState(null);
+  const loggedUser = useSelector((state) => state.auth.user);
 
   const dispatch = useDispatch();
   const currentDate = new Date();

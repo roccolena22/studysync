@@ -5,9 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchFollowers } from "../../Utilities/fetchFunctions";
 
 export default function ManageUsers() {
-  const users = useSelector((state) => state.users);
-  const logged = useSelector((state) => state.auth.user);
-  const loggedUser = users.find((user) => user.id === logged.id);
+  const loggedUser = useSelector((state) => state.auth.user);
   const followers = useSelector((state) => state.followers);
   const [PriorityPopupIsOpen, setPriorityPopupIsOpen] = useState(false);
   const [indexClicked, setIndexClicked] = useState(0);
@@ -19,14 +17,14 @@ export default function ManageUsers() {
 
   const followingIds = followers
     ? followers
-        .filter((item) => item.idFrom?.includes(logged.id))
+        .filter((item) => item.idFrom?.includes(loggedUser.id))
         .map((item) => item.idTo)
         .flat()
     : [];
 
   const followersIds = followers
     ? followers
-        .filter((item) => item.idTo?.includes(logged.id))
+        .filter((item) => item.idTo?.includes(loggedUser.id))
         .map((item) => item.idFrom)
         .flat()
     : [];
@@ -57,8 +55,6 @@ export default function ManageUsers() {
       {PriorityPopupIsOpen && (
         <PriorityPopup handleClose={handlePriorityPopup}>
           <FollowerAndFollowedLists
-            users={users}
-            loggedUser={loggedUser}
             indexClicked={indexClicked}
             followersIds={followersIds}
             followingIds={followingIds}
