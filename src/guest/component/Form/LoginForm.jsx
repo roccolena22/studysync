@@ -8,9 +8,8 @@ import Input from "../../../shared/component/Input";
 import Icon from "../../../shared/component/Icon";
 import bcrypt from "bcryptjs";
 import { useDispatch } from "react-redux";
-import { getListFromDatabase } from "../../../api/apiRequest";
-import { setUsers } from "../../../redux/slices/usersSlice";
 import { setLoggedUser } from "../../../redux/slices/authSlice";
+import { getListFromDatabase } from "../../../api/apiRequest";
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -40,7 +39,6 @@ export default function LoginForm() {
 
           if (result) {
             dispatch(setLoggedUser(loggedUser));
-            dispatch(setUsers(users));
             navigate("/");
           } else {
             setLoginError("Invalid email or password");

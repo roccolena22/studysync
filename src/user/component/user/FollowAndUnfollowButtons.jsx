@@ -3,14 +3,16 @@ import Button from "../../../shared/component/Button";
 import { addRecordToDatabase, deleteRecordFromDatabase, getListFromDatabase } from "../../../api/apiRequest";
 import { setUsers } from "../../../redux/slices/usersSlice";
 import { setLoggedUser } from "../../../redux/slices/authSlice";
-import { fetchFollowers } from "../../Utilities/fetchFunctions";
+import { fetchFollowers, fetchUsers } from "../../Utilities/fetchFunctions";
 
 
 export default function FollowAndUnfollowButtons({
   user,
 }) {
-  const loggedUser = useSelector((state) => state.auth.user);
-  const followers = useSelector((state) => state.followers);
+  const users = useSelector((state) => state.users);
+  const logged = useSelector((state) => state.auth.user);
+
+  const loggedUser = users.find(user => user.id === logged.id);  const followers = useSelector((state) => state.followers);
   const isLoggedUser = loggedUser.id === user.id;
 
   const dispatch = useDispatch()
@@ -29,12 +31,7 @@ export default function FollowAndUnfollowButtons({
         await deleteRecordFromDatabase("followers", currentRecord.id);
       }
       fetchFollowers?.(dispatch);
-      const updatedUsers = await getListFromDatabase("users");
-      dispatch(setUsers(updatedUsers));
-      const refreshLoggedUser = updatedUsers.find(
-        (user) => user.id === loggedUser.id
-      );
-      dispatch(setLoggedUser(refreshLoggedUser));
+      fetchUsers(dispatch)
     } catch (error) {
       console.error(
         `Error ${isAdding ? "adding" : "removing"} follower`,

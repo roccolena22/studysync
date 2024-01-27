@@ -12,8 +12,8 @@ import {
 export default function JoinAndLeaveButtons({
   event,
   userIsBooked,
-  loggedUser,
 }) {
+  const logged = useSelector((state) => state.auth.user);
   const bookings = useSelector((state) => state.bookings);
   const dispatch = useDispatch();
 
@@ -21,11 +21,11 @@ export default function JoinAndLeaveButtons({
     const currentRecord = isAdding
       ? {
           eventId: [eventId],
-          bookedId: loggedUser.id,
+          bookedId: logged.id,
         }
       : bookings.find(
           (item) =>
-            item.bookedId === loggedUser.id && eventId === item.eventId[0]
+            item.bookedId === logged.id && eventId === item.eventId[0]
         );
 
     try {

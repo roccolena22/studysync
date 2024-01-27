@@ -7,7 +7,10 @@ import AlertBanner from "./AlertBanner";
 import { useSelector } from "react-redux";
 
 export default function NewEvent({ name }) {
-  const loggedUser = useSelector((state) => state.auth.user);
+  const users = useSelector((state) => state.users);
+  const logged = useSelector((state) => state.auth.user);
+
+  const loggedUser = users.find((user) => user.id === logged.id);
   const [newEventPriorityPopup, setNewEventPriorityPopup] = useState(false);
   const [showCreatedEventAlert, setShowCreatedEventAlert] = useState(false);
 

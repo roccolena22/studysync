@@ -7,8 +7,10 @@ import { useSelector } from "react-redux";
 export default function EventCard({
   event,
 }) {
-  const loggedUser = useSelector((state) => state.auth.user);
   const users = useSelector((state) => state.users);
+  const logged = useSelector((state) => state.auth.user);
+
+  const loggedUser = users.find(user => user.id === logged.id);
   const bookings = useSelector((state) => state.bookings);
   const [bookedUsers, setBookedUsers] = useState([]);
 

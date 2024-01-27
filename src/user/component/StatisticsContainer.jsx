@@ -2,14 +2,16 @@ import React, { useState, useEffect } from "react";
 import moment from "moment";
 import ManageUsers from "../component/user/ManageUsers";
 import Gadget from "./Gadget";
-import { sortEventsByTime } from "../Utilities/timeUtils";
 import TitleAndAuthorName from "./card/TitleAndAuthorName";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBookings } from "../Utilities/fetchFunctions";
+import { sortEventsByTime } from "../Utilities/timeutils";
 
 export default function StatisticsContainer({ activeEvents }) {
   const [bookedEvents, setBookedEvents] = useState([]);
-  const loggedUser = useSelector((state) => state.auth.user);
+  const users = useSelector((state) => state.users);
+  const logged = useSelector((state) => state.auth.user);
+  const loggedUser = users.find((user) => user.id === logged.id);
   const events = useSelector((state) => state.events);
   const nextEvents = useSelector((state) => state.nextEvents);
   const bookings = useSelector((state) => state.bookings);
@@ -25,7 +27,7 @@ export default function StatisticsContainer({ activeEvents }) {
             return event.bookingsRecordId.some((bookingId) =>
               bookings.some(
                 (booking) =>
-                  bookingId === booking.id && booking.bookedId === loggedUser.id
+                  bookingId === booking.id && booking.bookedId === logged.id
               )
             );
           }

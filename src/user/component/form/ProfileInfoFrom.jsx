@@ -11,6 +11,7 @@ import { setLoggedUser } from "../../../redux/slices/authSlice";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import AlertBanner from "../shared/AlertBanner";
+import { fetchUsers } from "../../Utilities/fetchFunctions";
 
 export default function ProfileInfoForm({ loggedUser }) {
   const [showUpdatedAlert, setShowUpdatedAlert] = useState(false);
@@ -54,11 +55,7 @@ export default function ProfileInfoForm({ loggedUser }) {
       data
     );
     recordUpdated && handleUpdatingAlert();
-    const refreshLoggedUser = await getRecordFromDatabase(
-      "users",
-      loggedUser.id
-    );
-    dispatch(setLoggedUser(refreshLoggedUser));
+    fetchUsers(dispatch)
   };
 
   return (

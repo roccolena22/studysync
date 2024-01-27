@@ -13,7 +13,9 @@ import { useSelector } from "react-redux";
 
 export default function PersonalCalendar({ events }) {
   const localizer = momentLocalizer(moment);
-  const loggedUser = useSelector((state) => state.auth.user);
+  const users = useSelector((state) => state.users);
+  const logged = useSelector((state) => state.auth.user);
+  const loggedUser = users.find((user) => user.id === logged.id);
   const [newEventPriorityPopup, setNewEventPriorityPopup] = useState(false);
   const [eventSecondaryPopup, setEventsSecondaryPopup] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState(null);
@@ -91,7 +93,6 @@ export default function PersonalCalendar({ events }) {
       </p>
     </div>
   );
-
 
   return (
     <div className="w-full flex flex-col items-center">

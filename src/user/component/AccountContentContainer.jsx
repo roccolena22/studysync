@@ -7,7 +7,10 @@ import Title from "./shared/Title";
 import { useSelector } from "react-redux";
 
 export default function AccountContentContainer() {
-  const loggedUser = useSelector((state) => state.auth.user);
+  const users = useSelector((state) => state.users);
+  const logged = useSelector((state) => state.auth.user);
+
+  const loggedUser = users.find((user) => user.id === logged.id);
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClose = () => {
@@ -20,7 +23,7 @@ export default function AccountContentContainer() {
       <div className="pt-6">
         <Title title="Edit password" />
         <div className="pt-6">
-          <EditPasswordForm loggedUser={loggedUser}/>
+          <EditPasswordForm loggedUser={loggedUser} />
         </div>
         <p
           className="text-red-800 font-semibold cursor-pointer pt-20 text-center"
