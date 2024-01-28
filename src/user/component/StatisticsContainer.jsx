@@ -4,7 +4,6 @@ import ManageUsers from "../component/user/ManageUsers";
 import Gadget from "./Gadget";
 import TitleAndAuthorName from "./card/TitleAndAuthorName";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchBookings } from "../Utilities/fetchFunctions";
 import { sortEventsByTime } from "../Utilities/timeutils";
 
 export default function StatisticsContainer({ activeEvents }) {
@@ -102,10 +101,6 @@ export default function StatisticsContainer({ activeEvents }) {
       moment(`${event.endDate} ${event.endTime}`)
     )
   );
-
-  useEffect(() => {
-    fetchBookings(dispatch);
-  }, []);
 
   return (
     <div className="grid grid-cols-1 gap-2 pt-6 w-full">

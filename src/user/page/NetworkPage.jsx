@@ -3,9 +3,8 @@ import EventList from "../component/card/EventList";
 import moment from "moment";
 import DiscoverUsers from "../component/user/DiscoverUsers";
 import NewEvent from "../component/shared/NewEvent";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { fetchBookings } from "../Utilities/fetchFunctions";
 
 export default function NetworkPage() {
   const loggedUser = useSelector((state) => state.auth.user);
@@ -13,7 +12,6 @@ export default function NetworkPage() {
   const followers = useSelector((state) => state.followers);
   const [networkEvents, setNetworkEvents] = useState([]);
   const currentDate = moment();
-  const dispatch = useDispatch();
 
   useEffect(() => {
     const networkEventsList = events
@@ -30,10 +28,6 @@ export default function NetworkPage() {
       );
     setNetworkEvents(networkEventsList);
   }, [events, followers]);
-
-  useEffect(() => {
-    fetchBookings(dispatch);
-  }, []);
 
   return (
     <div className="flex flex-col items-center">
