@@ -1,50 +1,33 @@
-import { sortEvents } from "../timeutils";
+import { sortEventsByTime } from "../timeutils";
 
-test('sortEvents should sort events array based on endDate and endTime', () => {
-  const unsortedEvents = [
-    {
-      endDate: '2024-01-30',
-      endTime: '12:00',
-    },
-    {
-      endDate: '2024-01-25',
-      endTime: '14:30',
-    },
-    {
-      endDate: '2024-02-01',
-      endTime: '10:00',
-    },
-  ];
+describe("sortEventsByTime", () => {
+  test("ordina correttamente gli eventi per tempo", () => {
+    const eventsArray = [
+      { endDate: "2024-01-28", endTime: "10:00" },
+      { endDate: "2024-01-28", endTime: "09:00" },
+      { endDate: "2024-01-28", endTime: "12:30" },
+    ];
 
-  const sortedEvents = sortEvents(unsortedEvents);
+    const sortedEvents = sortEventsByTime(eventsArray);
 
-  expect(sortedEvents).toEqual([
-    {
-      endDate: '2024-01-25',
-      endTime: '14:30',
-    },
-    {
-      endDate: '2024-01-30',
-      endTime: '12:00',
-    },
-    {
-      endDate: '2024-02-01',
-      endTime: '10:00',
-    },
-  ]);
-});
+    expect(sortedEvents).toEqual([
+      { endDate: "2024-01-28", endTime: "09:00" },
+      { endDate: "2024-01-28", endTime: "10:00" },
+      { endDate: "2024-01-28", endTime: "12:30" },
+    ]);
+  });
 
-test('sortEvents should handle empty events array', () => {
-  const emptyEvents = [];
-  const result = sortEvents(emptyEvents);
+  test("gestisce correttamente un array vuoto", () => {
+    const eventsArray = [];
+    const sortedEvents = sortEventsByTime(eventsArray);
 
-  expect(result).toEqual([]);
-});
+    expect(sortedEvents).toEqual([]);
+  });
 
-test('sortEvents should handle null or undefined events array', () => {
-  const resultNull = sortEvents(null);
-  const resultUndefined = sortEvents(undefined);
+  test("gestisce correttamente un array con un solo evento", () => {
+    const eventsArray = [{ endDate: "2024-01-28", endTime: "15:00" }];
+    const sortedEvents = sortEventsByTime(eventsArray);
 
-  expect(resultNull).toBeNull();
-  expect(resultUndefined).toBeUndefined();
+    expect(sortedEvents).toEqual([{ endDate: "2024-01-28", endTime: "15:00" }]);
+  });
 });

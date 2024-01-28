@@ -12,6 +12,11 @@ export default function DashboardPage({ userPastEvents, userActiveEvents }) {
     setIndexSection(index);
   };
 
+  const data = {one: 1};
+  data.two = 22;
+
+  console.log(data)
+
   return (
     <div className="flex flex-col items-center justify-center">
       <Title title="Dashboard">
