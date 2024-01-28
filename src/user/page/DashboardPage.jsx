@@ -19,7 +19,7 @@ export default function DashboardPage({ userPastEvents, userActiveEvents }) {
       </Title>
       <StatisticsContainer activeEvents={userActiveEvents} />
       <div className="w-full pt-10">
-        <Title title="My events" fontSize="text-lg" />
+        <Title title="Events created by me" fontSize="text-lg" />
       </div>
       <TabMenu
         firstSectionName="Active events"
