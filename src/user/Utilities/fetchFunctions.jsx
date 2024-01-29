@@ -27,8 +27,8 @@ export const fetchEvents = async (dispatch) => {
 
 export const fetchBookings = async (dispatch) => {
   try {
-    const bookings = await getListFromDatabase("bookings");
-    dispatch(setBookings(bookings));
+    const bookingsFromDatabase = await getListFromDatabase("bookings");
+    dispatch(setBookings(bookingsFromDatabase));
   } catch (error) {
     console.error("Error retrieving reservations from database:", error);
   }
