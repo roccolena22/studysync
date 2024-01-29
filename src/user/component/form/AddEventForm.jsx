@@ -9,8 +9,8 @@ import TimeEventSection from "./component/TimeEventSection";
 import DetailsEventInForm from "./component/DetailsEventInForm";
 import moment from "moment";
 import { useEffect, useState } from "react";
-import AlertBanner from "../shared/AlertBanner";
 import { fetchEvents } from "../../Utilities/fetchFunctions";
+import AlertBanner from "../../../shared/component/AlertBanner";
 
 export default function AddEventForm({
   startDate,

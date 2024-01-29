@@ -1,10 +1,10 @@
 import { useState } from "react";
-import IconAndName from "../IconAndName";
 import UserDetails from "../user/UserDetails";
 import PriorityPopup from "../shared/PriorityPopup";
 import UsersList from "../user/UserList";
 import { fetchBookings } from "../../Utilities/fetchFunctions";
 import { useDispatch } from "react-redux";
+import IconAndName from "../shared/IconAndName";
 
 export default function HeaderCard({ event, bookedUsers }) {
   const [reservationsPriorityPopupIsOpen, setReservationsPriorityPopupIsOpen] =

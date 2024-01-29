@@ -3,7 +3,7 @@ import Button from "../../../shared/component/Button";
 import PriorityPopup from "./PriorityPopup";
 import Title from "./Title";
 import AddEventForm from "../form/AddEventForm";
-import AlertBanner from "./AlertBanner";
+import AlertBanner from "../../../shared/component/AlertBanner";
 
 export default function NewEvent({ name }) {
   const [newEventPriorityPopup, setNewEventPriorityPopup] = useState(false);

@@ -9,7 +9,7 @@ import TimeEventSection from "./component/TimeEventSection";
 import DetailsEventInForm from "./component/DetailsEventInForm";
 import { fetchEvents } from "../../Utilities/fetchFunctions";
 import { useState } from "react";
-import AlertBanner from "../shared/AlertBanner";
+import AlertBanner from "../../../shared/component/AlertBanner";
 
 export default function EditEventForm({
   event,

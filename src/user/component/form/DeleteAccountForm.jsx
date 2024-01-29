@@ -8,7 +8,7 @@ import Icon from "../../../shared/component/Icon";
 import bcrypt from "bcryptjs";
 import { logout } from "../../../redux/slices/authSlice";
 import { useDispatch } from "react-redux";
-import AlertBanner from "../shared/AlertBanner";
+import AlertBanner from "../../../shared/component/AlertBanner";
 
 export default function DeleteAccountForm({ loggedUser }) {
   const [showPassword, setShowPassword] = useState(false);

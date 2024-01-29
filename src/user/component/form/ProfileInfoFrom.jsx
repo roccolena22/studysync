@@ -4,14 +4,12 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { UserInfoValidator } from "./validator/UserInfoValidator";
 import {
-  getRecordFromDatabase,
   updateDatabaseRecord,
 } from "../../../api/apiRequest";
-import { setLoggedUser } from "../../../redux/slices/authSlice";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import AlertBanner from "../shared/AlertBanner";
 import { fetchUsers } from "../../Utilities/fetchFunctions";
+import AlertBanner from "../../../shared/component/AlertBanner";
 
 export default function ProfileInfoForm({ loggedUser }) {
   const [showUpdatedAlert, setShowUpdatedAlert] = useState(false);

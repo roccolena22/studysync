@@ -6,10 +6,10 @@ import "moment/locale/it";
 import AddEventForm from "./form/AddEventForm";
 import PriorityPopup from "./shared/PriorityPopup";
 import Title from "./shared/Title";
-import AlertBanner from "./shared/AlertBanner";
 import SecondaryPopup from "./shared/SecondaryPopup";
 import SummaryEventCard from "./card/SummaryEventCard";
 import { useSelector } from "react-redux";
+import AlertBanner from "../../shared/component/AlertBanner";
 
 export default function PersonalCalendar({ events }) {
   const localizer = momentLocalizer(moment);

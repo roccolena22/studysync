@@ -16,7 +16,7 @@ import {
 } from "../../../api/apiRequest";
 import ChoiceOfRole from "../ChoiceOfRole";
 import ErrorMessage from "../ErrorMessage";
-import AlertBanner from "../../../user/component/shared/AlertBanner";
+import AlertBanner from "../../../shared/component/AlertBanner";
 
 export default function RegistrationForm() {
   const [showPassword, setShowPassword] = useState(false);
