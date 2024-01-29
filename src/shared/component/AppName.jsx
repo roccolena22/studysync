@@ -1,8 +1,5 @@
-import { Link } from "react-router-dom";
-
 export default function AppName({ white, name }) {
   return (
-    <Link to="/">
       <div className="py-4 font-semibold">
         <p
           className={`text-[28px] ${
@@ -13,6 +10,5 @@ export default function AppName({ white, name }) {
           {name}
         </p>
       </div>
-    </Link>
   );
 }

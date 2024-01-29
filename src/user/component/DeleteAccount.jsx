@@ -3,7 +3,7 @@ import Message from "./Message";
 import DeleteAccountForm from "./form/DeleteAccountForm";
 export default function DeleteAccount({ loggedUser }) {
   return (
-    <div>
+    <>
       <AppName name="StudySync" />
       <div>
         <div className="pb-6">
@@ -11,6 +11,6 @@ export default function DeleteAccount({ loggedUser }) {
         </div>
         <DeleteAccountForm loggedUser={loggedUser} />
       </div>
-    </div>
+    </>
   );
 }

@@ -7,7 +7,7 @@ export default function ErrorPage() {
   const loggedUser = useSelector((state) => state.auth.user);
 
   return (
-    <div>
+    <>
       <div className="px-2">
         <AppName name="StudySync" />
       </div>
@@ -32,6 +32,6 @@ export default function ErrorPage() {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
