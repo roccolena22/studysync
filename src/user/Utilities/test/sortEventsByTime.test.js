@@ -1,4 +1,4 @@
-import { sortEventsByTime } from "../timeutils";
+import { sortEventsByTime } from "../sortEventsByTime";
 
   test("Correctly orders events by time", () => {
     const eventsArray = [

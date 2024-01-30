@@ -4,7 +4,7 @@ import ManageUsers from "../component/user/ManageUsers";
 import Gadget from "./Gadget";
 import TitleAndAuthorName from "./card/TitleAndAuthorName";
 import { useDispatch, useSelector } from "react-redux";
-import { sortEventsByTime } from "../Utilities/timeutils";
+import { sortEventsByTime } from "../Utilities/sortEventsByTime";
 
 export default function StatisticsContainer({ activeEvents }) {
   const [bookedEvents, setBookedEvents] = useState([]);

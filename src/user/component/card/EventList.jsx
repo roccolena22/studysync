@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import EventCard from "./EventCard";
 import SearchBar from "../shared/SearchBar";
 import { useDispatch } from "react-redux";
-import { sortEventsByTime } from "../../Utilities/timeutils";
+import { sortEventsByTime } from "../../Utilities/sortEventsByTime";
 import { fetchBookings, fetchEvents, fetchUsers } from "../../Utilities/fetchFunctions";
 import Message from "../Message";
 
