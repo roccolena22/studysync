@@ -23,30 +23,120 @@ export default function Icon({ name, style, color, onClick }) {
   const colorClass = color ? `text-${color}` : "text-cyan-700";
   const classNames = `${style} ${colorClass}`;
   const iconMapping = {
-    logo: <BsCcCircle className={classNames} onClick={onClick} />,
     dashboard: (
       <MdOutlineDashboardCustomize className={classNames} onClick={onClick} />
     ),
-    menu: <FiMenu className={classNames} onClick={onClick} />,
-    search: <BsSearch className={classNames} onClick={onClick} />,
-    logout: <HiLogout className={classNames} onClick={onClick} />,
-    account: <MdManageAccounts className={classNames} onClick={onClick} />,
-    calendar: <IoCalendarOutline className={classNames} onClick={onClick} />,
-    delete: <RiDeleteBinLine className={classNames} onClick={onClick} />,
-    alert: <AiOutlineAlert className={classNames} onClick={onClick} />,
-    network: <BiNetworkChart className={classNames} onClick={onClick} />,
-    edit: <MdOutlineEdit className={classNames} onClick={onClick} />,
-    save: <TfiSave className={classNames} onClick={onClick} />,
-    close: <IoIosClose className={classNames} onClick={onClick} />,
-    light: <FaLightbulb className={classNames} onClick={onClick} />,
-    back: <FaArrowLeft className={classNames} onClick={onClick} />,
-    group: <HiUserGroup className={classNames} onClick={onClick} />,
-    eye: <AiOutlineEye className={classNames} onClick={onClick} />,
-    eyeInvisible: (
-      <AiOutlineEyeInvisible className={classNames} onClick={onClick} />
+    menu: (
+      <FiMenu
+        data-testid="icon-menu"
+        className={classNames}
+        onClick={onClick}
+      />
     ),
-    open: <IoMdOpen className={classNames} onClick={onClick} />,
-    grid: <CiGrid41 className={classNames} onClick={onClick} />,
+    search: (
+      <BsSearch
+        data-testid="icon-search"
+        className={classNames}
+        onClick={onClick}
+      />
+    ),
+    logout: (
+      <HiLogout
+        data-testid="icon-logout"
+        className={classNames}
+        onClick={onClick}
+      />
+    ),
+    account: (
+      <MdManageAccounts
+        data-testid="icon-account"
+        className={classNames}
+        onClick={onClick}
+      />
+    ),
+    calendar: (
+      <IoCalendarOutline
+        data-testid="icon-calendar"
+        className={classNames}
+        onClick={onClick}
+      />
+    ),
+    delete: (
+      <RiDeleteBinLine
+        data-testid="icon-delete"
+        className={classNames}
+        onClick={onClick}
+      />
+    ),
+    network: (
+      <BiNetworkChart
+        data-testid="icon-netwrok"
+        className={classNames}
+        onClick={onClick}
+      />
+    ),
+    edit: (
+      <MdOutlineEdit
+        data-testid="icon-edit"
+        className={classNames}
+        onClick={onClick}
+      />
+    ),
+    save: (
+      <TfiSave
+        data-testid="icon-save"
+        className={classNames}
+        onClick={onClick}
+      />
+    ),
+    close: (
+      <IoIosClose
+        data-testid="icon-close"
+        className={classNames}
+        onClick={onClick}
+      />
+    ),
+    light: (
+      <FaLightbulb
+        data-testid="icon-light"
+        className={classNames}
+        onClick={onClick}
+      />
+    ),
+    back: (
+      <FaArrowLeft
+        data-testid="icon-back"
+        className={classNames}
+        onClick={onClick}
+      />
+    ),
+    group: (
+      <HiUserGroup
+        data-testid="icon-group"
+        className={classNames}
+        onClick={onClick}
+      />
+    ),
+    eye: (
+      <AiOutlineEye
+        data-testid="icon-eye"
+        className={classNames}
+        onClick={onClick}
+      />
+    ),
+    eyeInvisible: (
+      <AiOutlineEyeInvisible
+        data-testid="icon-eyeInvisible"
+        className={classNames}
+        onClick={onClick}
+      />
+    ),
+    open: (
+      <IoMdOpen data-testid="open" className={classNames} onClick={onClick} />
+    ),
+    grid: (
+      <CiGrid41 data-testid="grid" className={classNames} onClick={onClick} />
+    ),
   };
   return iconMapping[name];
 }

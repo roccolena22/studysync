@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export default function AlertBanner({ text, type = "general" }) {
+export default function AlertBanner({ text, type }) {
   const [isVisible, setIsVisible] = useState(true);
   const duration = 3000;
 
@@ -14,7 +14,6 @@ export default function AlertBanner({ text, type = "general" }) {
 
   const alertTypes = {
     success: "border-green-600 bg-green-100",
-    problem: "border-red-500 bg-red-100",
     alert: "border-yellow-600 bg-yellow-100",
     delete: "border-red-800 bg-red-200",
   };
@@ -22,9 +21,9 @@ export default function AlertBanner({ text, type = "general" }) {
   return isVisible ? (
     <div className="fixed top-14 left-1/2 transform -translate-x-1/2 z-[120]">
       <div
-        className={`bg-white border-2 rounded-lg px-4 py-3 w-72 ${alertTypes[type]} overflow-y-auto`}
+        className={`bg-white border-2 rounded-lg px-4 py-3 w-72 text-gray-600 overflow-y-auto ${alertTypes[type]} `}
       >
-        <p className="text-center text-gray-600">{text}</p>
+        <p className="text-center">{text}</p>
       </div>
     </div>
   ) : null;
