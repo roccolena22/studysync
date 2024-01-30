@@ -7,7 +7,7 @@ export default function ItemCard({ label, text, link, }) {
           {label}
         </p>
       {text && <span className="text-xs md:text-md">{text}</span>}
-      {link && <ExternalLink link={link} paste />}
+      {link && <ExternalLink link={link} />}
     </div>
   );
 }

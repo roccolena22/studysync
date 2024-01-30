@@ -26,7 +26,7 @@ export default function RecoveryPasswordForm() {
           register={register("email")}
         />
         <div className="flex flex-col items-center py-4">
-          <Button type="submit">Get reset link</Button>
+          <Button type="submit" name="Get reset links" />
         </div>
       </form>
     </div>

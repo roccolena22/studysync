@@ -1,17 +1,19 @@
 import LoginForm from "../component/Form/LoginForm";
 import AppName from "../../shared/component/AppName";
 import GuestPageContainer from "../component/GuestPageContainer";
-import InternalLink from "../../shared/component/InternalLink";
+import { Link } from "react-router-dom";
 
 export default function LoginPage() {
   return (
     <GuestPageContainer>
       <AppName name="StudySync" />
       <LoginForm />
-      <InternalLink
-        path="/recovery-password"
-        text="Did you forget your password?"
-      />
+      <Link
+        to="/recovery-password"
+        className="text-xs text-cyan-700 text-center"
+      >
+        <p className="pb-2">Did you forget your password?</p>
+      </Link>
     </GuestPageContainer>
   );
 }
