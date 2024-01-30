@@ -3,7 +3,6 @@ export default function Button({
   outline = false,
   onClick,
   type,
-  children,
   small = false,
 }) {
   const buttonStyle = outline
@@ -20,7 +19,6 @@ export default function Button({
       type={type}
     >
       <p className="text-sm">{name}</p>
-      {children}
     </button>
   );
 }
