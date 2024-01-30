@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Button from "../../../shared/component/Button";
 import PriorityPopup from "./PriorityPopup";
 import Title from "./Title";
 import AddEventForm from "../form/AddEventForm";
@@ -19,7 +18,12 @@ export default function NewEvent({ name }) {
 
   return (
     <div>
-      <Button small outline name={name} onClick={handleNewEventPriorityPopup} />
+      <p
+        className="text-sm font-normal text-cyan-700 cursor-pointer"
+        onClick={handleNewEventPriorityPopup}
+      >
+        {name}
+      </p>
       {newEventPriorityPopup && (
         <PriorityPopup handleClose={handleNewEventPriorityPopup}>
           <Title fontSize="text-lg" title="New event" />
