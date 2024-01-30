@@ -10,7 +10,7 @@ jest.mock("../../../redux/slices/usersSlice.js", () => ({
   setUsers: jest.fn(),
 }));
 
-test("recupera e imposta gli utenti correttamente", async () => {
+test("recover and set up users correctly", async () => {
   const mockDispatch = jest.fn();
   const mockUsersFromDatabase = [
     { firstName: "Rocco", lastName: "Lena" },
@@ -31,7 +31,7 @@ test("recupera e imposta gli utenti correttamente", async () => {
   expect(mockDispatch).toHaveBeenCalledWith(setUsers(mockUsersFromDatabase));
 });
 
-test("chiama dispatch anche senza utenti", async () => {
+test("calls dispatch even without users", async () => {
   const mockDispatch = jest.fn();
 
   // Simula il comportamento di getListFromDatabase senza utenti
@@ -47,12 +47,12 @@ test("chiama dispatch anche senza utenti", async () => {
   expect(setUsers).toHaveBeenCalledWith([]);
 });
 
-test("gestisce altri tipi di errori in getListFromDatabase", async () => {
+test("handles other types of errors in getListFromDatabase", async () => {
   const mockDispatch = jest.fn();
 
   // Simula un altro tipo di errore in getListFromDatabase
   getListFromDatabase.mockImplementation(() => {
-    throw new Error("Altro tipo di errore durante il recupero degli utenti");
+    throw new Error("Other type of error when recovering users");
   });
 
   // Crea uno spy per console.error
@@ -77,7 +77,7 @@ test("gestisce altri tipi di errori in getListFromDatabase", async () => {
   consoleErrorSpy.mockRestore();
 });
 
-test("gestisce correttamente un errore in getListFromDatabase", async () => {
+test("handles an error correctly in getListFromDatabase", async () => {
   const mockDispatch = jest.fn();
 
   // Simula un errore in getListFromDatabase

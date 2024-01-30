@@ -12,7 +12,7 @@ jest.mock("../../../redux/slices/bookingsSlice.js", () => ({
 }));
 
 // Testa il caso di successo
-test("fetchBookings con successo", async () => {
+test("fetchBookings successfully", async () => {
   const mockDispatch = jest.fn();
   const mockBookingsFromDatabase = [
     { id: "1", name: "Booking 1" },
@@ -36,7 +36,7 @@ test("fetchBookings con successo", async () => {
 });
 
 // Testa il caso in cui non ci sono prenotazioni nel database
-test("fetchBookings senza prenotazioni nel database", async () => {
+test("fetchBookings with no reservations in the database", async () => {
   const mockDispatch = jest.fn();
 
   // Simula il comportamento di getListFromDatabase senza prenotazioni
@@ -56,11 +56,11 @@ test("fetchBookings senza prenotazioni nel database", async () => {
 });
 
 // Testa il caso di errore durante il recupero delle prenotazioni
-test("fetchBookings con errore nel recupero delle prenotazioni", async () => {
+test("fetchBookings with error fetching bookings", async () => {
   const mockDispatch = jest.fn();
 
   // Simula un errore in getListFromDatabase
-  const mockError = new Error("Errore nel recupero delle prenotazioni");
+  const mockError = new Error("Error retrieving reservations");
   getListFromDatabase.mockRejectedValue(mockError);
 
   // Crea uno spy per console.error
