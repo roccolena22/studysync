@@ -106,7 +106,7 @@ export default function StatisticsContainer({ activeEvents }) {
     <div className="grid grid-cols-1 gap-2 pt-6 w-full">
       <div className="grid gap-2 sm:grid-cols-2">
         <ManageUsers />
-        <div className="grid grid-cols-1 gap-2">
+        <div className="grid grid-cols-2 sm:grid-cols-1 gap-2">
           <Gadget
             title="Today's events:"
             value={countEventsForToday(nextEvents)}
@@ -114,7 +114,7 @@ export default function StatisticsContainer({ activeEvents }) {
           <Gadget title="All next events:" value={nextEvents.length} />
         </div>
       </div>
-      <div className="grid gap-2 sm:grid-cols-2 w-full">
+      <div className="grid grid-cols-2 gap-2">
         <Gadget
           title="My active events:"
           value={activeEvents ? activeEvents.length : "0"}

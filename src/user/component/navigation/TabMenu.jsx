@@ -12,13 +12,13 @@ export default function TabMenu({
     handleSections(index);
   };
   const sectionClass = (sectionIndex) =>
-    `w-1/2 cursor-pointer hover:text-cyan-700 ${
-      index === sectionIndex ? "p-2 bg-white" : "p-2 bg-gray-50"
+    `w-1/2 cursor-pointer hover:text-cyan-700 py-4 sm:py-2 px-2 ${
+      index === sectionIndex ? "bg-white" : "bg-gray-50"
     }`;
 
   return (
     <div className="w-full bg-gray-50 rounded-t-lg">
-      <div className="flex font-semibold text-xs md:text-sm lg:text-lg px-2 px-2 sm:px-0">
+      <div className="flex font-semibold text-sm md:text-md lg:text-lg sm:px-0">
         <div onClick={() => handleIndex(0)} className={sectionClass(0)}>
           <p>{firstSectionName}</p>
         </div>
