@@ -29,5 +29,5 @@ export const RegistrationFormValidator = yup.object().shape({
     .trim(),
   confirmPassword: yup
     .string()
-    .oneOf([yup.ref("password"), null], "Passwords must match"),
+    .oneOf([yup.ref("password")], "Passwords must match"),
 });
