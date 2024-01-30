@@ -3,7 +3,7 @@ import EventCard from "./EventCard";
 import SearchBar from "../shared/SearchBar";
 import { useDispatch } from "react-redux";
 import { sortEventsByTime } from "../../Utilities/timeutils";
-import { fetchBookings, fetchEvents } from "../../Utilities/fetchFunctions";
+import { fetchBookings, fetchEvents, fetchUsers } from "../../Utilities/fetchFunctions";
 import Message from "../Message";
 
 export default function EventList({ eventsToShow }) {
@@ -16,6 +16,7 @@ export default function EventList({ eventsToShow }) {
 
   useEffect(() => {
     fetchEvents(dispatch);
+    fetchUsers(dispatch);
     fetchBookings(dispatch);
   }, []);
 
