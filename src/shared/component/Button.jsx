@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export default function Button({
   name,
@@ -9,14 +9,15 @@ export default function Button({
   small = false,
 }) {
   const buttonStyle = outline
-    ? "border border-cyan-700 hover:border-cyan-800 text-cyan-700 hover:bg-cyan-800 hover:text-white transition duration-300 ease-in-out"
-    : "bg-cyan-700 text-white hover:bg-cyan-800 transition duration-300 ease-in-out";
+    ? "border border-cyan-700 text-cyan-700 hover:border-cyan-800 hover:text-white"
+    : "bg-cyan-700 text-white";
 
   const buttonSize = small ? "w-20 px-1" : "w-32 py-1";
 
   return (
     <button
-      className={`rounded-lg flex justify-center items-center ${buttonSize} ${buttonStyle}`}
+      className={`rounded-lg flex justify-center items-center hover:bg-cyan-800 transition duration-300 ease-in-out
+ ${buttonSize} ${buttonStyle}`}
       onClick={onClick}
       type={type}
     >
