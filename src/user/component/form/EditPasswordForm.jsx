@@ -94,7 +94,7 @@ export default function EditPasswordForm({ loggedUser }) {
       </div>
       <p className="text-red-500">{passwordError}</p>
       <div className="flex justify-end pt-4">
-        <Button type="submit" name="Save" />
+        <Button small type="submit" name="Save" />
       </div>
       {showUpdatedAlert && (
         <AlertBanner

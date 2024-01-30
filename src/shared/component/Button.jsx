@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function Button({
   name,
   outline = false,
@@ -9,19 +7,19 @@ export default function Button({
   small = false,
 }) {
   const buttonStyle = outline
-    ? "border border-cyan-700 text-cyan-700 hover:border-cyan-800 hover:text-white"
-    : "bg-cyan-700 text-white";
+    ? "text-cyan-700 hover:border-cyan-800 hover:text-white border border-cyan-700"
+    : "text-white bg-cyan-700";
 
-  const buttonSize = small ? "w-20 px-1" : "w-32 py-1";
+  const buttonSize = small ? "w-20" : "w-32";
 
   return (
     <button
-      className={`rounded-lg flex justify-center items-center hover:bg-cyan-800 transition duration-300 ease-in-out
+      className={`py-1 rounded-lg flex justify-center hover:bg-cyan-800 transition duration-300 ease-in-out
  ${buttonSize} ${buttonStyle}`}
       onClick={onClick}
       type={type}
     >
-      <p className={`${small ? "text-sm" : "text-md"}`}>{name}</p>
+      <p className="text-sm">{name}</p>
       {children}
     </button>
   );

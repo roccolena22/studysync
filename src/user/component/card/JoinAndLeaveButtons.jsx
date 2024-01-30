@@ -20,7 +20,8 @@ export default function JoinAndLeaveButtons({ event, bookedUsers }) {
           bookedId: loggedUser.id,
         }
       : bookings.find(
-          (item) => item.bookedId === loggedUser.id && eventId === item.eventId[0]
+          (item) =>
+            item.bookedId === loggedUser.id && eventId === item.eventId[0]
         );
 
     try {
@@ -53,7 +54,6 @@ export default function JoinAndLeaveButtons({ event, bookedUsers }) {
               onClick={() => toggleBooking(event.id, true)}
             />
           )}
-
       {isBooked && (
         <Button
           small
