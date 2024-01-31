@@ -8,13 +8,13 @@ export default function Badge({ text }) {
     underway: "bg-green-600",
   };
 
-  const style = colorMapping[text] || "bg-gray-800";
+  const bgColor = colorMapping[text] || "bg-gray-800";
 
   return (
     <div
-      className={`text-[10px] text-white rounded-lg px-1 rounded-lg ${style} h-3 sm:h-4 flex justify-center items-center w-fit`}
+      className={`${bgColor} text-[10px] text-white rounded-lg px-1 rounded-lg h-3 sm:h-4 flex justify-center items-center w-fit font-semibold`}
     >
-      <p className="font-semibold">{text && text.toUpperCase()}</p>
+      <p>{text && text.toUpperCase()}</p>
     </div>
   );
 }
