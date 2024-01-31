@@ -14,7 +14,7 @@ import {
   addRecordToDatabase,
   getListFromDatabase,
 } from "../../../api/apiRequest";
-import ChoiceOfRole from "../ChoiceOfRole";
+import ChoiceRole from "../ChoiceRole";
 import AlertBanner from "../../../shared/component/AlertBanner";
 import Message from "../../../shared/component/Message";
 
@@ -139,7 +139,7 @@ export default function RegistrationForm() {
           />
         </Input>
       </div>
-      <ChoiceOfRole
+      <ChoiceRole
         handleCheckBox={handleCheckBox}
         checkedTeacher={checkedTeacher}
         checkedStudent={checkedStudent}
