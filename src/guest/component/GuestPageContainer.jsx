@@ -1,10 +1,11 @@
 export default function GuestPageContainer({ children }) {
   return (
-    <div data-testid="guest-container" className="min-h-screen flex items-center px-4 w-full">
-      <div className="w-full flex flex-col items-center">
-        <div className="bg-white px-8 py-2 rounded-lg shadow-md w-full z-10 sm:w-3/5 lg:w-2/5">
-          {children}
-        </div>
+    <div
+      data-testid="guest-container"
+      className="min-h-screen flex justify-center items-center px-4 w-full"
+    >
+      <div className="bg-white px-8 py-2 rounded-lg shadow-md w-full z-10 sm:w-3/5 lg:w-2/5">
+        {children}
       </div>
     </div>
   );
