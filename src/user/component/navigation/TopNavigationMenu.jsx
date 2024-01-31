@@ -2,8 +2,12 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../../../redux/slices/authSlice";
 import IconAndName from "../shared/IconAndName";
+import ToggleMenu from "../navigation/ToggleMenu";
+import { useEffect, useState } from "react";
 
-export default function TopNavigationMenu({ toggleNavigationMenu }) {
+export default function TopNavigationMenu() {
+  const [toggleMenuIsOpen, setToggleMenuIsOpen] = useState(false);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -11,6 +15,19 @@ export default function TopNavigationMenu({ toggleNavigationMenu }) {
     dispatch(logout());
     navigate("/login");
   };
+
+  const toggleNavigationMenu = () => {
+    setToggleMenuIsOpen(!toggleMenuIsOpen);
+  };
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 640) {
+        setToggleMenuIsOpen(false);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+  }, []);
 
   return (
     <div className="flex space-x-5">
@@ -37,6 +54,11 @@ export default function TopNavigationMenu({ toggleNavigationMenu }) {
           onClick={handleLogout}
         />
       </div>
+      {toggleMenuIsOpen && (
+        <div className="sm:hidden h-32 w-fit z-30 fixed top-20 right-0">
+          <ToggleMenu />
+        </div>
+      )}
     </div>
   );
 }
