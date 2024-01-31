@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import SearchBar from "../shared/SearchBar";
 import SingleUserInList from "./SingleUserInList";
-import Message from "../Message";
+import Message from "../../../shared/component/Message";
 import { fetchUsers } from "../../Utilities/fetchFunctions";
 import { useDispatch } from "react-redux";
 

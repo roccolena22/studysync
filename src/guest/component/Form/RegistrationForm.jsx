@@ -15,8 +15,8 @@ import {
   getListFromDatabase,
 } from "../../../api/apiRequest";
 import ChoiceOfRole from "../ChoiceOfRole";
-import ErrorMessage from "../ErrorMessage";
 import AlertBanner from "../../../shared/component/AlertBanner";
+import Message from "../../../shared/component/Message";
 
 export default function RegistrationForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -145,7 +145,7 @@ export default function RegistrationForm() {
         checkedStudent={checkedStudent}
       />
       {error && (
-        <ErrorMessage text="Oops... this email is already associated with another account" />
+        <Message type="error" text="Oops... this email is already associated with another account" />
       )}
       <div className="flex justify-between items-center py-4">
         <Link to="/login">

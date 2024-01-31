@@ -4,7 +4,7 @@ import SearchBar from "../shared/SearchBar";
 import { useDispatch } from "react-redux";
 import { sortEventsByTime } from "../../Utilities/sortEventsByTime";
 import { fetchBookings, fetchEvents, fetchUsers } from "../../Utilities/fetchFunctions";
-import Message from "../Message";
+import Message from "../../../shared/component/Message";
 
 export default function EventList({ eventsToShow }) {
   const [searchedEvents, setSearchedEvents] = useState([]);

@@ -1,5 +1,5 @@
 import AppName from "../../shared/component/AppName";
-import Message from "./Message";
+import Message from "../../shared/component/Message";
 import DeleteAccountForm from "./form/DeleteAccountForm";
 export default function DeleteAccount({ loggedUser }) {
   return (
