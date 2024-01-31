@@ -1,16 +1,16 @@
 import React from "react";
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
-import ChoiceOfRole from "../ChoiceOfRole";
+import ChoiceRole from "../ChoiceRole";
 
 
-test("renders ChoiceOfRole component with checkboxes", () => {
+test("renders ChoiceRole component with checkboxes", () => {
     const handleCheckBox = jest.fn();
     const checkedTeacher = true;
     const checkedStudent = false;
   
     render(
-      <ChoiceOfRole
+      <ChoiceRole
         handleCheckBox={handleCheckBox}
         checkedTeacher={checkedTeacher}
         checkedStudent={checkedStudent}

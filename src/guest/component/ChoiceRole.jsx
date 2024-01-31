@@ -1,4 +1,4 @@
-export default function ChoiceOfRole({
+export default function ChoiceRole({
   handleCheckBox,
   checkedTeacher,
   checkedStudent,
