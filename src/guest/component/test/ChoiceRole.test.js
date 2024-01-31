@@ -16,14 +16,35 @@ test("renders ChoiceRole component with checkboxes", () => {
     />
   );
 
-  // Verifica che gli elementi della tua componente siano presenti
   const teacherCheckbox = screen.getByLabelText("Teacher");
   const studentCheckbox = screen.getByLabelText("Student");
 
   expect(teacherCheckbox).toBeInTheDocument();
   expect(studentCheckbox).toBeInTheDocument();
 
-  // Verifica che le checkbox abbiano i valori corretti
   expect(teacherCheckbox).toBeChecked();
   expect(studentCheckbox).not.toBeChecked();
+});
+
+test("renders ChoiceRole component with checkboxes", () => {
+  const handleCheckBox = jest.fn();
+  const checkedTeacher = false;
+  const checkedStudent = true;
+
+  render(
+    <ChoiceRole
+      handleCheckBox={handleCheckBox}
+      checkedTeacher={checkedTeacher}
+      checkedStudent={checkedStudent}
+    />
+  );
+
+  const teacherCheckbox = screen.getByLabelText("Teacher");
+  const studentCheckbox = screen.getByLabelText("Student");
+
+  expect(teacherCheckbox).toBeInTheDocument();
+  expect(studentCheckbox).toBeInTheDocument();
+
+  expect(teacherCheckbox).not.toBeChecked();
+  expect(studentCheckbox).toBeChecked();
 });

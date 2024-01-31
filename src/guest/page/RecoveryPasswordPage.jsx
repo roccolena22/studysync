@@ -3,6 +3,7 @@ import AppName from "../../shared/component/AppName";
 import Icon from "../../shared/component/Icon";
 import RecoveryPasswordForm from "../component/Form/RecoveryPasswordForm";
 import GuestPageContainer from "../component/GuestPageContainer";
+import Message from "../../shared/component/Message";
 
 export default function RecoveryPasswordPage() {
   return (
@@ -14,9 +15,7 @@ export default function RecoveryPasswordPage() {
         </Link>
       </div>
       <RecoveryPasswordForm />
-      <p className="text-xs py-3 text-gray-400 text-center">
-        If the email is correct, you will receive a link to reset your password
-      </p>
+      <Message text="If the email is correct, you will receive a link to reset your password" />
     </GuestPageContainer>
   );
 }

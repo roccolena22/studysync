@@ -8,7 +8,7 @@ test("render Message component", () => {
   const messageItem = screen.getByText("No user to show");
   expect(messageItem).toBeInTheDocument();
   expect(messageItem).toHaveTextContent("No user to show");
-  expect(messageItem).toHaveClass("text-lg");
+  expect(messageItem).toHaveClass("text-md w-full text-center");
   expect(messageItem).toHaveClass("text-gray-600");
 });
 
@@ -17,7 +17,7 @@ test("render Message component", () => {
     const messageItem = screen.getByText("No user to show");
     expect(messageItem).toBeInTheDocument();
     expect(messageItem).toHaveTextContent("No user to show");
-    expect(messageItem).toHaveClass("text-lg");
+    expect(messageItem).toHaveClass("text-md w-full text-center");
     expect(messageItem).toHaveClass("text-red-600");
   });
   
