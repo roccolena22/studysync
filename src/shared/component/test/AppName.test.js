@@ -7,6 +7,7 @@ test('renders the name passed as props', () => {
   render(<AppName name="StudySync" />);
   const nameElement = screen.getByText(/StudySync/i);
   expect(nameElement).toBeInTheDocument();
+  expect(nameElement).toHaveTextContent("StudySync");
 });
 
 test('renders with white color when white prop is true', () => {

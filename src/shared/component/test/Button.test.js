@@ -25,6 +25,8 @@ test("renders small Button component", () => {
   const buttonElement = screen.getByRole("button", { name: /Click me/i });
 
   expect(buttonElement).toHaveClass("w-20");
+  expect(buttonElement).toHaveTextContent("Click me");
+
 });
 
 
