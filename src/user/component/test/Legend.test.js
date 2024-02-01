@@ -2,13 +2,12 @@ import React from "react";
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import Legend from "../Legend";
+const colorOne = "bg-blue-500";
+const colorTwo = "bg-green-500";
+const textOne = "Category One";
+const textTwo = "Category Two";
 
 test("renders Legend component with correct colors and texts", () => {
-  const colorOne = "bg-blue-500";
-  const colorTwo = "bg-green-500";
-  const textOne = "Category One";
-  const textTwo = "Category Two";
-
   render(
     <Legend
       colorOne={colorOne}
@@ -37,11 +36,6 @@ test("renders Legend component with correct colors and texts", () => {
 });
 
 test("renders Legend component with correct element types", () => {
-  const colorOne = "bg-blue-500";
-  const colorTwo = "bg-green-500";
-  const textOne = "Category One";
-  const textTwo = "Category Two";
-
   render(
     <Legend
       colorOne={colorOne}
