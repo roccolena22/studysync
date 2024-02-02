@@ -9,6 +9,8 @@ test("renders main container div with correct styling", () => {
   const mainContainerDiv = screen.getByTestId("guest-container");
 
   expect(mainContainerDiv).toBeInTheDocument();
+  expect(mainContainerDiv.tagName).toBe("DIV");
+
   expect(mainContainerDiv).toHaveClass(
     "min-h-screen",
     "flex",
@@ -23,7 +25,12 @@ test("renders children content", () => {
   render(<GuestPageContainer>{mockChild}</GuestPageContainer>);
 
   const childElement = screen.getByTestId("mock-child");
+  expect(childElement.tagName).toBe("DIV");
+  expect(childElement.parentElement.tagName).toBe("DIV");
 
   expect(childElement).toBeInTheDocument();
   expect(childElement).toHaveTextContent("Mock Child");
+  expect(childElement.parentElement).toHaveClass(
+    "bg-white px-8 py-2 rounded-lg shadow-md w-full z-10 sm:w-3/5 lg:w-1/5"
+  );
 });

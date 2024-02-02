@@ -10,6 +10,7 @@ test("render Message component", () => {
   expect(messageItem).toHaveTextContent("No user to show");
   expect(messageItem).toHaveClass("text-md w-full text-center");
   expect(messageItem).toHaveClass("text-gray-600");
+  expect(messageItem.tagName).toBe("P");
 });
 
 test("render Message component", () => {

@@ -6,23 +6,25 @@ import AlertBanner from "../AlertBanner";
 test("renders with specific text and success type", () => {
   render(<AlertBanner text="Change made successfully" type="success" />);
 
-  const element = screen.getByText("Change made successfully");
+  const textElement = screen.getByText("Change made successfully");
 
-  expect(element).toBeInTheDocument();
-  expect(element).toHaveClass("text-center");
-  expect(element.closest("div")).toHaveClass("border-green-600");
-  expect(element.closest("div")).toHaveClass("bg-green-100");
+  expect(textElement).toBeInTheDocument();
+  expect(textElement).toHaveClass("text-center");
+  expect(textElement.closest("div")).toHaveClass("border-green-600");
+  expect(textElement.closest("div")).toHaveClass("bg-green-100");
+  expect(textElement.tagName).toBe("P");
+  expect(textElement.parentElement.tagName).toBe("DIV");
 });
 
 test("renders with specific text and alert type", () => {
   render(<AlertBanner text="Alert message" type="alert" />);
 
-  const element = screen.getByText("Alert message");
+  const textElement = screen.getByText("Alert message");
 
-  expect(element).toBeInTheDocument();
-  expect(element).toHaveClass("text-center");
-  expect(element.closest("div")).toHaveClass("border-yellow-600");
-  expect(element.closest("div")).toHaveClass("bg-yellow-100");
+  expect(textElement).toBeInTheDocument();
+  expect(textElement).toHaveClass("text-center");
+  expect(textElement.closest("div")).toHaveClass("border-yellow-600");
+  expect(textElement.closest("div")).toHaveClass("bg-yellow-100");
 });
 
 test("does not render after timeout", async () => {
@@ -30,11 +32,11 @@ test("does not render after timeout", async () => {
     render(<AlertBanner text="Message" type="success" />);
   });
 
-  const element = screen.getByText("Message");
+  const textElement = screen.getByText("Message");
 
   await act(async () => {
     await new Promise((resolve) => setTimeout(resolve, 3000));
   });
 
-  expect(element).not.toBeInTheDocument();
+  expect(textElement).not.toBeInTheDocument();
 });

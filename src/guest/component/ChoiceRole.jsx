@@ -3,10 +3,11 @@ export default function ChoiceRole({
   checkedTeacher,
   checkedStudent,
 }) {
+  const checkBoxContainerClasses = "flex space-x-2 items-center";
   return (
     <div className="flex items-center space-x-4 pt-2 mb-4">
       <p className="font-semibold">I am a...</p>
-      <div className="flex space-x-2 items-center">
+      <div className={checkBoxContainerClasses}>
         <label htmlFor="teacherCheckbox">Teacher</label>
         <input
           id="teacherCheckbox"
@@ -15,7 +16,7 @@ export default function ChoiceRole({
           onChange={() => handleCheckBox(0)}
         />
       </div>
-      <div className="flex space-x-2 items-center">
+      <div className={checkBoxContainerClasses}>
         <label htmlFor="studentCheckbox">Student</label>
         <input
           id="studentCheckbox"

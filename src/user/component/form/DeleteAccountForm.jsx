@@ -7,10 +7,12 @@ import { DeleteFormValidator } from "./validator/DeleteFormValidator";
 import Icon from "../../../shared/component/Icon";
 import bcrypt from "bcryptjs";
 import { logout } from "../../../redux/slices/authSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import AlertBanner from "../../../shared/component/AlertBanner";
 
-export default function DeleteAccountForm({ loggedUser }) {
+export default function DeleteAccountForm() {
+  const loggedUser = useSelector((state) => state.auth.user);
+
   const [showPassword, setShowPassword] = useState(false);
   const [showAlertBanner, setShowAlertBanner] = useState(false);
   const [passwordIsWrong, setPasswordIsWrong] = useState(false);

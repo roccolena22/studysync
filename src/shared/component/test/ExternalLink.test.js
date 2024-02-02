@@ -12,6 +12,7 @@ test("renders the link passed as props", () => {
     expect(linkElement).toHaveClass("text-cyan-700");
     expect(linkElement).toHaveClass("cursor-pointer");
     expect(linkElement).toHaveClass("underline");
+    expect(linkElement.tagName).toBe("A");
   });
 
   test("renders the link passed as props", () => {

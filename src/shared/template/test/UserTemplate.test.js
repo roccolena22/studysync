@@ -15,6 +15,8 @@ test("renders UserTemplate component and applies styles", () => {
   );
 
   const userTemplateElement = screen.getByTestId("user-template");
+  expect(userTemplateElement.tagName).toBe("DIV");
+
 
   expect(userTemplateElement).toHaveClass(
     "flex",

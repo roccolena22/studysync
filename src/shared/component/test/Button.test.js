@@ -18,6 +18,7 @@ test("renders Button component with default props", () => {
   expect(buttonElement).toHaveClass("w-32");
   expect(buttonElement).toHaveClass("text-white");
   expect(buttonElement).not.toHaveClass("w-20");
+  expect(buttonElement.tagName).toBe("BUTTON");
 });
 
 test("renders small Button component", () => {
@@ -26,9 +27,7 @@ test("renders small Button component", () => {
 
   expect(buttonElement).toHaveClass("w-20");
   expect(buttonElement).toHaveTextContent("Click me");
-
 });
-
 
 test("renders outlined Button component", () => {
   render(<Button name="Click me" outline />);
@@ -41,7 +40,6 @@ test("renders outlined Button component", () => {
   expect(buttonElement).toHaveClass("border-cyan-700");
   expect(buttonElement).not.toHaveClass("bg-cyan-700");
 });
-
 
 test("triggers onClick handler when clicked", () => {
   const onClickMock = jest.fn();
