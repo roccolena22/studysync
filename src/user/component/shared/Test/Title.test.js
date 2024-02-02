@@ -9,6 +9,9 @@ test("renders Title component with default font size", () => {
   const titleElement = screen.getByText(titleText);
 
   expect(titleElement).toBeInTheDocument();
+  expect(titleElement.tagName).toBe("P");
+  expect(titleElement.parentElement.tagName).toBe("DIV");
+  expect(titleElement).toHaveTextContent(titleText);
 });
 
 test("renders Title component with children", () => {

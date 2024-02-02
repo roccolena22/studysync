@@ -15,6 +15,8 @@ test("renders Badge component with correct color for 't' text", () => {
   const badgeElement = screen.getByText("T");
   expect(badgeElement).toBeInTheDocument();
   expect(badgeElement).toHaveTextContent("T");
+  expect(badgeElement.tagName).toBe("P");
+  expect(badgeElement.parentElement.tagName).toBe("DIV");
 });
 
 test("renders Badge component with correct color for 's' text", () => {

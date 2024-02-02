@@ -9,5 +9,8 @@ test("renders Suggestion component with provided text", () => {
 
   const suggestionElement = screen.getByText(textProps);
   expect(suggestionElement).toBeInTheDocument();
+  expect(suggestionElement.tagName).toBe("SPAN");
+  expect(suggestionElement.parentElement.tagName).toBe("DIV");
+  expect(suggestionElement).toHaveTextContent(textProps)
 });
 
