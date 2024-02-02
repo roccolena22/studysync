@@ -25,6 +25,8 @@ test("renders with specific text and alert type", () => {
   expect(textElement).toHaveClass("text-center");
   expect(textElement.closest("div")).toHaveClass("border-yellow-600");
   expect(textElement.closest("div")).toHaveClass("bg-yellow-100");
+  expect(textElement.tagName).toBe("P");
+  expect(textElement.parentElement.tagName).toBe("DIV");
 });
 
 test("does not render after timeout", async () => {

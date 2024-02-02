@@ -18,6 +18,7 @@ import { AiOutlineEye } from "react-icons/ai";
 import { AiOutlineEyeInvisible } from "react-icons/ai";
 import { IoMdOpen } from "react-icons/io";
 import { CiGrid41 } from "react-icons/ci";
+import { BiSolidErrorAlt } from "react-icons/bi";
 
 export default function Icon({ name, style, color, onClick }) {
   const colorClass = color ? `text-${color}` : "text-cyan-700";
@@ -138,5 +139,13 @@ export default function Icon({ name, style, color, onClick }) {
       <CiGrid41 data-testid="grid" className={classNames} onClick={onClick} />
     ),
   };
-  return iconMapping[name];
+
+  if (!iconMapping[name]) {
+    console.error(`Icon "${name}" not found in the mapping.`);
+    return (
+      <BiSolidErrorAlt data-testid="icon-error" className="text-red-500" />
+    );
+  }
+
+  return <div data-testid="icon">{iconMapping[name]}</div>;
 }

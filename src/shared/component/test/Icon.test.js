@@ -41,3 +41,19 @@ test("renders Icon component with default color", () => {
   fireEvent.click(iconElement);
   expect(mockOnClick).toHaveBeenCalledTimes(1);
 });
+
+test("redirect warning icon when name is wrong", () => {
+  const consoleErrorSpy = jest.spyOn(console, "error").mockImplementation(() => {});
+
+  render(<Icon name="searcdwh" style="custom-style" color="red" />);
+
+  const iconElement = screen.getByTestId("icon-error");
+
+  expect(iconElement).toBeInTheDocument();
+
+  expect(consoleErrorSpy).toHaveBeenCalledWith(
+    expect.stringContaining('Icon "searcdwh" not found in the mapping.')
+  );
+
+  consoleErrorSpy.mockRestore();
+});

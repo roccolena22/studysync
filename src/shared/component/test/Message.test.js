@@ -3,22 +3,41 @@ import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import Message from "../Message";
 
-test("render Message component", () => {
-  render(<Message text="No user to show" />);
-  const messageItem = screen.getByText("No user to show");
-  expect(messageItem).toBeInTheDocument();
-  expect(messageItem).toHaveTextContent("No user to show");
-  expect(messageItem).toHaveClass("text-md w-full text-center");
-  expect(messageItem).toHaveClass("text-gray-600");
-  expect(messageItem.tagName).toBe("P");
+test("renders Message component with error type", () => {
+  const text = "This is an error message";
+  const type = "error";
+
+  render(<Message text={text} type={type} />);
+
+  const messageElement = screen.getByText(text);
+  expect(messageElement).toBeInTheDocument();
+  expect(messageElement).toHaveClass("text-sm w-full text-center text-red-600");
+  expect(messageElement).toHaveTextContent(text);
+  expect(messageElement.tagName).toBe("P");
 });
 
-test("render Message component", () => {
-    render(<Message text="No user to show" type="error"/>);
-    const messageItem = screen.getByText("No user to show");
-    expect(messageItem).toBeInTheDocument();
-    expect(messageItem).toHaveTextContent("No user to show");
-    expect(messageItem).toHaveClass("text-md w-full text-center");
-    expect(messageItem).toHaveClass("text-red-600");
-  });
-  
+test("renders Message component with highlighted type", () => {
+  const text = "This is a highlighted message";
+  const type = "highlighted";
+
+  render(<Message text={text} type={type} />);
+
+  const messageElement = screen.getByText(text);
+  expect(messageElement).toBeInTheDocument();
+  expect(messageElement).toHaveClass("text-sm w-full text-center text-cyan-700");
+  expect(messageElement).toHaveTextContent(text);
+  expect(messageElement.tagName).toBe("P");
+});
+
+test("renders Message component with default type", () => {
+  const text = "This is a default message";
+  const type = "unknownType";
+
+  render(<Message text={text} type={type} />);
+
+  const messageElement = screen.getByText(text);
+  expect(messageElement).toBeInTheDocument();
+  expect(messageElement).toHaveClass("text-sm w-full text-center text-gray-600");
+  expect(messageElement).toHaveTextContent(text);
+  expect(messageElement.tagName).toBe("P");
+});

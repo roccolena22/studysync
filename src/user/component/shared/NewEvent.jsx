@@ -17,7 +17,7 @@ export default function NewEvent({ name }) {
   };
 
   return (
-    <div>
+    <>
       <p
         className="text-sm font-normal text-cyan-700 cursor-pointer"
         onClick={handleNewEventPriorityPopup}
@@ -43,6 +43,6 @@ export default function NewEvent({ name }) {
           onClose={() => setShowCreatedEventAlert(false)}
         />
       )}
-    </div>
+    </>
   );
 }

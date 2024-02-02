@@ -7,7 +7,7 @@ export default function DeleteAccount() {
     <>
       <AppName name="StudySync" />
         <div className="pb-6">
-          <Message text="Do you really want to delete your account?" />
+          <Message text="Do you really want to delete your account?" type="highlighted"/>
         </div>
         <DeleteAccountForm />
     </>

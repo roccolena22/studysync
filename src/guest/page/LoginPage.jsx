@@ -2,6 +2,7 @@ import LoginForm from "../component/Form/LoginForm";
 import AppName from "../../shared/component/AppName";
 import GuestPageContainer from "../component/GuestPageContainer";
 import { Link } from "react-router-dom";
+import Message from "../../shared/component/Message";
 
 export default function LoginPage() {
   return (
@@ -10,9 +11,10 @@ export default function LoginPage() {
       <LoginForm />
       <Link
         to="/recovery-password"
-        className="text-xs text-cyan-700 text-center"
       >
-        <p className="pb-2">Did you forget your password?</p>
+        <div className="pb-2">
+        <Message text="Did you forget your password?" type="highlighted"/>
+        </div>
       </Link>
     </GuestPageContainer>
   );
