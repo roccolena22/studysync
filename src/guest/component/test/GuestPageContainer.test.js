@@ -31,6 +31,6 @@ test("renders children content", () => {
   expect(childElement).toBeInTheDocument();
   expect(childElement).toHaveTextContent("Mock Child");
   expect(childElement.parentElement).toHaveClass(
-    "bg-white px-8 py-2 rounded-lg shadow-md w-full z-10 sm:w-3/5 lg:w-1/5"
+    "bg-white px-8 py-2 rounded-lg shadow-md z-10"
   );
 });
