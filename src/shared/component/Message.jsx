@@ -1,5 +1,7 @@
-export default function Message({ text, type }) {
-  let className = "text-sm w-full text-center ";
+import Icon from "./Icon";
+
+export default function Message({ text, type, iconName, iconStyle }) {
+  let className = "text-sm ";
 
   switch (type) {
     case "error":
@@ -12,5 +14,12 @@ export default function Message({ text, type }) {
       className += "text-gray-600";
   }
 
-  return <p className={className}>{text}</p>;
+  return (
+    <div className="w-full flex items-center space-x-1 pt-6">
+      {iconName && (
+        <Icon data-testid="icon" name={iconName} style={iconStyle} />
+      )}
+      <p className={className}>{text}</p>
+    </div>
+  );
 }

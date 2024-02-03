@@ -9,11 +9,11 @@ test("renders Message component with error type", () => {
 
   render(<Message text={text} type={type} />);
 
-  const messageElement = screen.getByText(text);
-  expect(messageElement).toBeInTheDocument();
-  expect(messageElement).toHaveClass("text-sm w-full text-center text-red-600");
-  expect(messageElement).toHaveTextContent(text);
-  expect(messageElement.tagName).toBe("P");
+  const textElement = screen.getByText(text);
+  expect(textElement).toBeInTheDocument();
+  expect(textElement).toHaveClass("text-sm text-red-600");
+  expect(textElement).toHaveTextContent(text);
+  expect(textElement.tagName).toBe("P");
 });
 
 test("renders Message component with highlighted type", () => {
@@ -22,11 +22,11 @@ test("renders Message component with highlighted type", () => {
 
   render(<Message text={text} type={type} />);
 
-  const messageElement = screen.getByText(text);
-  expect(messageElement).toBeInTheDocument();
-  expect(messageElement).toHaveClass("text-sm w-full text-center text-cyan-700");
-  expect(messageElement).toHaveTextContent(text);
-  expect(messageElement.tagName).toBe("P");
+  const textElement = screen.getByText(text);
+  expect(textElement).toBeInTheDocument();
+  expect(textElement).toHaveClass("text-sm text-cyan-700");
+  expect(textElement).toHaveTextContent(text);
+  expect(textElement.tagName).toBe("P");
 });
 
 test("renders Message component with default type", () => {
@@ -35,9 +35,37 @@ test("renders Message component with default type", () => {
 
   render(<Message text={text} type={type} />);
 
-  const messageElement = screen.getByText(text);
-  expect(messageElement).toBeInTheDocument();
-  expect(messageElement).toHaveClass("text-sm w-full text-center text-gray-600");
-  expect(messageElement).toHaveTextContent(text);
-  expect(messageElement.tagName).toBe("P");
+  const textElement = screen.getByText(text);
+  expect(textElement).toBeInTheDocument();
+  expect(textElement).toHaveClass("text-sm text-gray-600");
+  expect(textElement).toHaveTextContent(text);
+  expect(textElement.tagName).toBe("P");
+});
+
+test("renders Message without type", () => {
+  const text = "This is an error message";
+
+  render(<Message text={text} />);
+
+  const textElement = screen.getByText(text);
+  expect(textElement).toBeInTheDocument();
+  expect(textElement).toHaveClass("text-sm text-gray-600");
+  expect(textElement).toHaveTextContent(text);
+  expect(textElement.tagName).toBe("P");
+});
+
+test("renders Message without text and without iconName", () => {
+  render(<Message />);
+
+  const textElement = screen.queryByText(/This is a default message/i);
+
+  expect(textElement).not.toBeInTheDocument();
+});
+
+test("renders Message with icon", () => {
+  render(<Message iconName="close" iconStyle="text-red-500" />);
+
+  const iconElement = screen.getByTestId("icon");
+
+  expect(iconElement).toBeInTheDocument();
 });

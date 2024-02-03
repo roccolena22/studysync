@@ -1,12 +1,12 @@
 import { useState } from "react";
 import PersonalCalendar from "../component/PersonalCalendar";
-import Suggestion from "../component/shared/Suggestion";
 import Title from "../component/shared/Title";
 import Legend from "../component/Legend";
 import SwitchButton from "../component/navigation/SwitchButton";
 import EventList from "../component/card/EventList";
 import NewEvent from "../component/shared/NewEvent";
 import { useSelector } from "react-redux";
+import Message from "../../shared/component/Message";
 
 export default function EventsPage({ allUserEvents }) {
   const [indexSwitch, setIndexSwitch] = useState(0);
@@ -43,7 +43,11 @@ export default function EventsPage({ allUserEvents }) {
               />
             </div>
             <PersonalCalendar events={allUserEvents} />
-            <Suggestion text="Use the calendar to choose when to create your event" />
+            <Message
+              text="Use the calendar to choose when to create your event"
+              iconName="light"
+              iconStyle="text-yellow-400"
+            />
           </div>
         )}
       </div>

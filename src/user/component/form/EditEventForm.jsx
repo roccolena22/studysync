@@ -96,7 +96,7 @@ export default function EditEventForm({
           <Button type="submit" name="Save" />
         </div>
       </form>
-      {showNoValidDateAlert && <AlertBanner text={alertMessage} type="alert" />}
+      {showNoValidDateAlert && <AlertBanner />}
     </div>
   );
 }

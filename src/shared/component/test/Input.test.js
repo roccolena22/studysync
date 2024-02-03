@@ -9,12 +9,40 @@ test("renders Input component with Label and Placeholder", () => {
   expect(
     screen.getByPlaceholderText("Enter your username")
   ).toBeInTheDocument();
+  const inputContainer = screen.getByRole("textbox").parentElement;
+
+  expect(inputContainer).toHaveClass(
+    "flex",
+    "items-center",
+    "border",
+    "border-gray-400",
+    "rounded-lg",
+    "px-3",
+    "py-2",
+    "w-full",
+    "bg-white"
+  );
+  expect(inputContainer.tagName).toBe("DIV");
 });
 
 test("renders input with error message", () => {
   render(<Input errorMessage="Username is required" />);
 
   expect(screen.getByText("Username is required")).toBeInTheDocument();
+  const inputContainer = screen.getByRole("textbox").parentElement;
+
+  expect(inputContainer).toHaveClass(
+    "flex",
+    "items-center",
+    "border",
+    "border-gray-400",
+    "rounded-lg",
+    "px-3",
+    "py-2",
+    "w-full",
+    "bg-white"
+  );
+  expect(inputContainer.tagName).toBe("DIV");
 });
 
 test("renders Input component with Label, Placeholder, and Children", () => {
@@ -29,6 +57,20 @@ test("renders Input component with Label, Placeholder, and Children", () => {
     screen.getByPlaceholderText("Enter your password")
   ).toBeInTheDocument();
   expect(screen.getByText("Toggle Password")).toBeInTheDocument();
+  const inputContainer = screen.getByRole("textbox").parentElement;
+
+  expect(inputContainer).toHaveClass(
+    "flex",
+    "items-center",
+    "border",
+    "border-gray-400",
+    "rounded-lg",
+    "px-3",
+    "py-2",
+    "w-full",
+    "bg-white"
+  );
+  expect(inputContainer.tagName).toBe("DIV");
 });
 
 test("applies default styles to the input container", () => {
@@ -46,6 +88,7 @@ test("applies default styles to the input container", () => {
     "w-full",
     "bg-white"
   );
+  expect(inputContainer.tagName).toBe("DIV");
 });
 
 test("applies error styles to the error message", () => {
@@ -53,4 +96,18 @@ test("applies error styles to the error message", () => {
 
   const errorMessage = screen.getByText("Invalid input");
   expect(errorMessage).toHaveClass("text-red-500");
+  const inputContainer = screen.getByRole("textbox").parentElement;
+
+  expect(inputContainer).toHaveClass(
+    "flex",
+    "items-center",
+    "border",
+    "border-gray-400",
+    "rounded-lg",
+    "px-3",
+    "py-2",
+    "w-full",
+    "bg-white"
+  );
+  expect(inputContainer.tagName).toBe("DIV");
 });

@@ -21,9 +21,11 @@ export default function AlertBanner({ text, type }) {
   return isVisible ? (
     <div className="fixed top-14 left-1/2 transform -translate-x-1/2 z-[120]">
       <div
-        className={`bg-white border-2 rounded-lg px-4 py-3 w-72 text-gray-600 overflow-y-auto ${alertTypes[type]} `}
+        className={`bg-white border-2 rounded-lg px-4 py-3 w-72 text-gray-600 overflow-y-auto ${
+          type ? alertTypes[type] : "border-gray-600 bg-gray-100"
+        }`}
       >
-        <p className="text-center">{text}</p>
+        <p className="text-center">{text ? text : console.error("text is missing!")}</p>
       </div>
     </div>
   ) : null;
