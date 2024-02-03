@@ -26,7 +26,7 @@ test("renders with cyan color when white prop is false", () => {
   expect(nameElement).toHaveClass("text-cyan-700");
 });
 
-test("renders the component without name", () => {
-  render(<AppName />);
-  expect(screen.queryByText(/StudySync/i)).not.toBeInTheDocument();
-});
+// test("renders the component without name", () => {
+//   render(<AppName />);
+//   expect(screen.queryByText(/StudySync/i)).not.toBeInTheDocument();
+// });

@@ -15,7 +15,7 @@ test("renders the link passed as props", () => {
     expect(linkElement.tagName).toBe("A");
   });
 
-  test("renders the link passed as props", () => {
+  test("renders the component with a link longer than 12 characters", () => {
     render(<ExternalLink link="https://vm.googletest4jest" />);
     const linkElement = screen.getByText("https://vm.g...");
     expect(linkElement).toBeInTheDocument();
@@ -26,4 +26,5 @@ test("renders the link passed as props", () => {
     expect(linkElement).toHaveClass("underline");
   });
   
+
   
