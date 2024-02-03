@@ -1,4 +1,3 @@
-import { BsCcCircle } from "react-icons/bs";
 import { MdOutlineDashboardCustomize } from "react-icons/md";
 import { BsSearch } from "react-icons/bs";
 import { HiLogout } from "react-icons/hi";
@@ -6,7 +5,6 @@ import { MdManageAccounts } from "react-icons/md";
 import { FiMenu } from "react-icons/fi";
 import { IoCalendarOutline } from "react-icons/io5";
 import { RiDeleteBinLine } from "react-icons/ri";
-import { AiOutlineAlert } from "react-icons/ai";
 import { BiNetworkChart } from "react-icons/bi";
 import { MdOutlineEdit } from "react-icons/md";
 import { TfiSave } from "react-icons/tfi";
