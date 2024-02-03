@@ -4,7 +4,7 @@ export default function GuestPageContainer({ children }) {
       data-testid="guest-container"
       className="min-h-screen flex justify-center items-center px-4 w-full"
     >
-      <div className="bg-white px-8 py-2 rounded-lg shadow-md w-full z-10 sm:w-3/5 lg:w-1/5">
+      <div className="bg-white px-8 py-2 rounded-lg shadow-md z-10 w-full sm:w-96">
         {children}
       </div>
     </div>
