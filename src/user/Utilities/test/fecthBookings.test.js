@@ -2,7 +2,6 @@ import { fetchBookings } from "../fetchFunctions";
 import { getListFromDatabase } from "../../../api/apiRequest";
 import { setBookings } from "../../../redux/slices/bookingsSlice";
 
-// Mock delle funzioni
 jest.mock(".../../../api/apiRequest.js", () => ({
   getListFromDatabase: jest.fn(),
 }));
@@ -11,7 +10,6 @@ jest.mock("../../../redux/slices/bookingsSlice.js", () => ({
   setBookings: jest.fn(),
 }));
 
-// Testa il caso di successo
 test("fetchBookings successfully", async () => {
   const mockDispatch = jest.fn();
   const mockBookingsFromDatabase = [
@@ -35,27 +33,20 @@ test("fetchBookings successfully", async () => {
   expect(mockDispatch).toHaveBeenCalledWith(setBookings(mockBookingsFromDatabase));
 });
 
-// Testa il caso in cui non ci sono prenotazioni nel database
 test("fetchBookings with no reservations in the database", async () => {
   const mockDispatch = jest.fn();
 
-  // Simula il comportamento di getListFromDatabase senza prenotazioni
   getListFromDatabase.mockResolvedValue([]);
 
-  // Esegui la funzione fetchBookings
   await fetchBookings(mockDispatch);
 
-  // Verifica che getListFromDatabase sia stata chiamata
   expect(getListFromDatabase).toHaveBeenCalledWith("bookings");
 
-  // Verifica che setBookings sia stata chiamata con un array vuoto
   expect(setBookings).toHaveBeenCalledWith([]);
 
-  // Verifica che dispatch sia stata chiamata con l'azione giusta (setBookings)
   expect(mockDispatch).toHaveBeenCalledWith(setBookings([]));
 });
 
-// Testa il caso di errore durante il recupero delle prenotazioni
 test("fetchBookings with error fetching bookings", async () => {
   const mockDispatch = jest.fn();
 
