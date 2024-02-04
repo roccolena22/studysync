@@ -9,11 +9,9 @@ export default function LoginPage() {
     <GuestPageContainer>
       <AppName name="StudySync" />
       <LoginForm />
-      <Link
-        to="/recovery-password"
-      >
+      <Link to="/recovery-password">
         <div className="pb-2">
-        <Message text="Did you forget your password?" type="highlighted"/>
+          <Message text="Did you forget your password?" type="highlighted" />
         </div>
       </Link>
     </GuestPageContainer>

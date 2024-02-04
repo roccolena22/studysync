@@ -128,7 +128,13 @@ export default function StatisticsContainer({ activeEvents }) {
         <div>
           <Gadget title={`Events underway now: ${underwayEvents.length}`}>
             {underwayEvents.map((event) => (
-              <TitleAndAuthorName key={event.id} event={event} />
+              <TitleAndAuthorName
+                key={event.id}
+                title={event.title}
+                role={event.role}
+                firstName={event.firstName}
+                lastName={event.lastName}
+              />
             ))}
           </Gadget>
         </div>

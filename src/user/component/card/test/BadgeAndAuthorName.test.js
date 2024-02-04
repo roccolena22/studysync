@@ -3,9 +3,12 @@ import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import BadgeAndAuthorName from "../BadgeAndAuthorName";
 
-test("render component with fullName props", () => {
-  const fullName = "Roberto Brandi";
-  render(<BadgeAndAuthorName fullName={fullName} />);
+test("render component with firstName and lastName props", () => {
+  const firstName = "Roberto";
+  const lastName = "Brandi";
+  render(<BadgeAndAuthorName firstName={firstName} lastName={lastName} />);
+  const fullName = `${firstName} ${lastName}`;
+
   const fullNameElement = screen.getByText(fullName);
   expect(fullNameElement).toBeInTheDocument();
   expect(fullNameElement.tagName).toBe("P");
@@ -27,9 +30,14 @@ test("render component with role props", () => {
 });
 
 test("render component with fullName and role props", () => {
-  const fullName = "Roberto Brandi";
+  const firstName = "Roberto";
+  const lastName = "Brandi";
   const role = "student";
-  render(<BadgeAndAuthorName fullName={fullName} role={role} />);
+  render(
+    <BadgeAndAuthorName firstName={firstName} lastName={lastName} role={role} />
+  );
+  const fullName = `${firstName} ${lastName}`;
+
   const fullNameElement = screen.getByText(fullName);
   expect(fullNameElement).toBeInTheDocument();
   expect(fullNameElement.tagName).toBe("P");

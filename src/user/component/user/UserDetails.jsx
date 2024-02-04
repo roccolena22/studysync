@@ -1,12 +1,11 @@
 import BadgeAndAuthorName from "../card/BadgeAndAuthorName";
 
 export default function UserDetails({ firstName, lastName, role, email }) {
-  const fullName = `${firstName} ${lastName}`;
-
   return (
     <div className="flex flex-col items-start" data-testid="user-details">
       <BadgeAndAuthorName
-        fullName={fullName}
+        firstName={firstName}
+        lastName={lastName}
         role={role}
         data-testid="badge-and-author"
       />
