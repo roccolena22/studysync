@@ -4,7 +4,6 @@ import ItemCard from "./ItemCard";
 import Badge from "../shared/Badge";
 
 export default function EventDetails({ event }) {
-
   const [isUnderway, setIsUnderway] = useState(false);
 
   const currentDate = new Date();
