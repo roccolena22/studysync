@@ -45,7 +45,7 @@ export default function FollowAndUnfollowButtons({ user }) {
   }, [followers, user.id, loggedUser.id]);
 
   return (
-    <>
+    <div data-testid="follow-and-unfollow-buttons">
       {!isLoggedUser &&
         (isFollowed === true ? (
           <Button
@@ -61,6 +61,6 @@ export default function FollowAndUnfollowButtons({ user }) {
             name="Follow"
           />
         ))}
-    </>
+    </div>
   );
 }

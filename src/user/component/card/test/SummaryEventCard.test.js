@@ -20,7 +20,7 @@ const mockEvent = {
   role: "student",
 };
 
-test("renders SummaryEventCard with correct user and event details", () => {
+test("renders SummaryEventCard with correct userBody and eventDetails", () => {
   render(<SummaryEventCard event={mockEvent} />);
 
   const summaryEventCardContainer = screen.getByTestId("summary-event-Card");
