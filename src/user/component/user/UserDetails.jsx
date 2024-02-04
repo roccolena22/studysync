@@ -7,7 +7,6 @@ export default function UserDetails({ firstName, lastName, role, email }) {
         firstName={firstName}
         lastName={lastName}
         role={role}
-        data-testid="badge-and-author"
       />
       <p className="text-xs pb-1">{email}</p>
     </div>

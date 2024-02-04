@@ -44,7 +44,7 @@ export default function JoinAndLeaveButtons({ event, bookedUsers }) {
   }, [bookings, event.id, loggedUser.id]);
 
   return (
-    <>
+    <div data-testid="join-and-leave-buttons">
       {bookedUsers && bookedUsers.length >= event.places
         ? ""
         : !isBooked && (
@@ -62,6 +62,6 @@ export default function JoinAndLeaveButtons({ event, bookedUsers }) {
           onClick={() => toggleBooking(event.id, false)}
         />
       )}
-    </>
+    </div>
   );
 }

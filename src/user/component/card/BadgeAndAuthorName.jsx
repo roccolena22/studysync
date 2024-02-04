@@ -5,7 +5,7 @@ export default function BadgeAndAuthorName({ firstName, lastName, role }) {
 
   return (
     <div data-testid="badge-and-author" className="flex space-x-1 items-center">
-      {role && <Badge data-testid="badge" text={role.slice(0, 1)} />}
+      {role && <Badge text={role.slice(0, 1)} />}
       <p>{fullName}</p>
     </div>
   );

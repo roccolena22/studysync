@@ -17,7 +17,7 @@ export default function Message({ text, type, iconName, iconStyle }) {
   return (
     <div className="w-full flex justify-center items-center space-x-1 pt-6">
       {iconName && (
-        <Icon data-testid="icon" name={iconName} style={iconStyle} />
+        <Icon name={iconName} style={iconStyle} />
       )}
       <p className={className}>{text}</p>
     </div>

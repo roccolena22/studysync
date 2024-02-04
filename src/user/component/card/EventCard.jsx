@@ -15,7 +15,7 @@ export default function EventCard({ event }) {
 
   return (
     <>
-      <div className="w-full h-96 relative rounded-lg p-3 bg-gray-50 shadow-xl">
+      <div data-testid="event-card" className="w-full h-96 relative rounded-lg p-3 bg-gray-50 shadow-xl">
         <div
           className={`flex justify-between items-center border-b ${
             event.role && event.role.includes("student")
@@ -23,11 +23,17 @@ export default function EventCard({ event }) {
               : "border-purple-500"
           } pb-1 rounded-t-lg`}
         >
-          <HeaderCard event={event} bookedUsers={bookedUsers} />
+          <HeaderCard
+            event={event}
+            bookedUsers={bookedUsers}
+          />
         </div>
         <BodyCard event={event} />
         <div className="absolute bottom-2 right-3">
-          <FooterCard event={event} bookedUsers={bookedUsers} />
+          <FooterCard
+            event={event}
+            bookedUsers={bookedUsers}
+          />
         </div>
       </div>
     </>

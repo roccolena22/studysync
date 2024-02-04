@@ -18,7 +18,7 @@ export default function HeaderCard({ event, bookedUsers }) {
   };
 
   return (
-    <>
+    <div data-testid="header-card">
       <div className="w-full flex justify-between items-center">
         <UserDetails
           firstName={event.firstName}
@@ -46,6 +46,6 @@ export default function HeaderCard({ event, bookedUsers }) {
           <UsersList usersToShow={bookedUsers} />
         </PriorityPopup>
       )}
-    </>
+    </div>
   );
 }

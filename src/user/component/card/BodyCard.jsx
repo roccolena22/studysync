@@ -3,7 +3,7 @@ import moment from "moment";
 import ItemCard from "./ItemCard";
 import Badge from "../shared/Badge";
 
-export default function EventDetails({ event }) {
+export default function BodyCard({ event }) {
   const [isUnderway, setIsUnderway] = useState(false);
 
   const currentDate = new Date();
@@ -54,7 +54,7 @@ export default function EventDetails({ event }) {
   }
 
   return (
-    <div className="w-full">
+    <div data-testid="body-card" className="w-full">
       <div className="w-full flex flex-col gap-2 sm:flex-row-reverse justify-between sm:items-center pt-2 sm:pt-4 pb-4">
         <div className="space-x-1 items-center flex justify-center">
           {isUnderway && <Badge text="underway" />}

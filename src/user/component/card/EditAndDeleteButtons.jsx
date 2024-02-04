@@ -3,11 +3,11 @@ import { deleteRecordFromDatabase } from "../../../api/apiRequest";
 import { useState } from "react";
 import { deleteEvent } from "../../../redux/slices/eventsSlice";
 import PriorityPopup from "../shared/PriorityPopup";
-import EditEventForm from "../form/EditEventForm"
+import EditEventForm from "../form/EditEventForm";
 import IconAndName from "../shared/IconAndName";
 import AlertBanner from "../../../shared/component/AlertBanner";
 
-export default function EditAndDeleteButtons({event}) {
+export default function EditAndDeleteButtons({ event }) {
   const [editPriorityPopupIsOpen, setEditPriorityPopupIsOpen] = useState(false);
   const [showEditAlert, setShowEditAlert] = useState(false);
   const [showDeleteAlert, setShowDeleteAlert] = useState(false);
@@ -24,20 +24,20 @@ export default function EditAndDeleteButtons({event}) {
 
   const handleDelete = async (event) => {
     const isDeleted = await deleteRecordFromDatabase("events", event.id);
-    isDeleted.deleted === true && setShowDeleteAlert(!showDeleteAlert)
+    isDeleted.deleted === true && setShowDeleteAlert(!showDeleteAlert);
     dispatch(deleteEvent(event));
   };
 
   const handleCloseEditPriorityPopup = () => {
     setEditPriorityPopupIsOpen(false);
   };
-  
+
   const handleisEditedAlert = () => {
     setShowEditAlert(!showEditAlert);
   };
 
   return (
-    <>
+    <div data-testid="edit-and-delete-buttons">
       {!eventIsFinished && (
         <IconAndName
           iconName="edit"
@@ -67,17 +67,11 @@ export default function EditAndDeleteButtons({event}) {
         </PriorityPopup>
       )}
       {showEditAlert && (
-        <AlertBanner
-          type="success"
-          text="Modification successful!"
-        />
+        <AlertBanner type="success" text="Modification successful!" />
       )}
       {showDeleteAlert && (
-        <AlertBanner
-          type="delete"
-          text="Event deleted successfully!"
-        />
+        <AlertBanner type="delete" text="Event deleted successfully!" />
       )}
-    </>
+    </div>
   );
 }

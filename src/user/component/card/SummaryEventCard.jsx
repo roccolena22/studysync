@@ -1,10 +1,13 @@
 import UserDetails from "../user/UserDetails";
-import EventDetails from "./BodyCard";
+import BodyCard from "./BodyCard";
 
 export default function SummaryEventCard({ event }) {
   return (
     <div>
-      <div className="border-b border-gray-400">
+      <div
+        data-testid="summary-event-Card"
+        className="border-b border-gray-400"
+      >
         <UserDetails
           firstName={event.firstName}
           lastName={event.lastName}
@@ -12,7 +15,7 @@ export default function SummaryEventCard({ event }) {
           email={event.email}
         />
       </div>
-      <EventDetails event={event} />
+      <BodyCard event={event} />
     </div>
   );
 }
