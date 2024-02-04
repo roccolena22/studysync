@@ -4,11 +4,11 @@ import Title from "./Title";
 export default function PriorityPopup({ children, handleClose, title }) {
   return (
     <div
-      data-testid="background"
+      data-testid="priority-popup-bg"
       className="fixed top-0 right-0 w-screen h-screen flex justify-center items-center bg-black bg-opacity-20 z-[100]"
     >
       <div
-        data-testid="popup-container"
+        data-testid="priority-popup-container"
         className="bg-gray-50 rounded-lg px-4 w-5/6 lg:w-2/3 h-5/6 overflow-y-auto"
       >
         <div className="flex justify-end pt-2 sticky top-0 bg-gray-50">

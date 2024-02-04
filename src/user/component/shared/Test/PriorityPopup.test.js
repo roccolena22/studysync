@@ -6,10 +6,11 @@ import PriorityPopup from "../PriorityPopup";
 test("renders PriorityPopup component", () => {
     render(<PriorityPopup />);
     
-    const popupElement = screen.getByTestId("popup-container");
-    const backgroundElement = screen.getByTestId("background");
+    const popupElement = screen.getByTestId("priority-popup-container");
+    const backgroundElement = screen.getByTestId("priority-popup-bg");
   
     expect(popupElement).toBeInTheDocument();
+    expect(popupElement).toHaveClass("bg-gray-50 rounded-lg px-4 w-5/6 lg:w-2/3 h-5/6 overflow-y-auto")
     expect(popupElement.tagName).toBe("DIV");
     expect(popupElement.parentElement.tagName).toBe("DIV");
   
@@ -25,16 +26,6 @@ test("renders PriorityPopup component", () => {
     expect(textElement).toBeInTheDocument();
     expect(textElement.parentElement.tagName).toBe("DIV");
     });
-  
-//   test("closes PriorityPopup on close button click", () => {
-//     const handleClose = jest.fn();
-//     render(<PriorityPopup handleClose={handleClose} />);
-    
-//     const iconClose = screen.getByTestId("icon-close");
-//     iconClose.click();
-  
-//     expect(handleClose).toHaveBeenCalledTimes(1);
-//   });
   
   test("does not render title when not provided", () => {
     render(<PriorityPopup />);
