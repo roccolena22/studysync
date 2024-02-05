@@ -1,6 +1,6 @@
 export default function AppName({ white, name }) {
   return (
-      <div className="py-4 font-semibold">
+      <div data-test-id="appname" className="py-4 font-semibold">
         <p
           className={`text-[28px] ${
             white ? "text-white" : "text-cyan-700"
