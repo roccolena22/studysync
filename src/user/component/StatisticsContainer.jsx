@@ -3,7 +3,7 @@ import moment from "moment";
 import ManageUsers from "../component/user/ManageUsers";
 import Gadget from "./Gadget";
 import TitleAndAuthorName from "./card/TitleAndAuthorName";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { sortEventsByTime } from "../Utilities/sortEventsByTime";
 
 export default function StatisticsContainer({ activeEvents }) {
@@ -12,8 +12,6 @@ export default function StatisticsContainer({ activeEvents }) {
   const events = useSelector((state) => state.events);
   const nextEvents = useSelector((state) => state.nextEvents);
   const bookings = useSelector((state) => state.bookings);
-
-  const dispatch = useDispatch();
 
   useEffect(() => {
     const handleBookedEvents = async () => {
