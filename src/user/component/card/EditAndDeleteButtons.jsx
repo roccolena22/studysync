@@ -37,7 +37,7 @@ export default function EditAndDeleteButtons({ event }) {
   };
 
   return (
-    <div data-testid="edit-and-delete-buttons">
+    <div data-testid="edit-and-delete-buttons" className="flex space-x-2">
       {!eventIsFinished && (
         <IconAndName
           iconName="edit"

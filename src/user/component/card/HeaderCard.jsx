@@ -18,8 +18,8 @@ export default function HeaderCard({ event, bookedUsers }) {
   };
 
   return (
-    <div data-testid="header-card">
-      <div className="w-full flex justify-between items-center">
+    <div data-testid="header-card" className="w-full">
+      <div className="flex w-full items-center justify-between">
         <UserDetails
           firstName={event.firstName}
           lastName={event.lastName}

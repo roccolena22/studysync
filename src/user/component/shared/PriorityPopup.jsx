@@ -9,7 +9,7 @@ export default function PriorityPopup({ children, handleClose, title }) {
     >
       <div
         data-testid="priority-popup-container"
-        className="bg-gray-50 rounded-lg px-4 w-5/6 lg:w-2/3 h-5/6 overflow-y-auto"
+        className="bg-gray-50 rounded-lg px-4 w-5/6 lg:w-2/3 h-5/6 overflow-y-auto pb-4"
       >
         <div className="flex justify-end pt-2 sticky top-0 bg-gray-50">
           <Icon

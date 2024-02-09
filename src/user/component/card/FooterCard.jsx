@@ -7,7 +7,7 @@ export default function FooterCard({ event, bookedUsers }) {
   const ownerEvent = loggedUser.id === event.authorId;
 
   return (
-    <div data-testid="footer-card" className="flex space-x-2">
+    <div data-testid="footer-card">
       {ownerEvent ? (
         <EditAndDeleteButtons event={event} />
       ) : (
