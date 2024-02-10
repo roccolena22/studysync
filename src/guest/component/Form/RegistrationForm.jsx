@@ -84,7 +84,7 @@ export default function RegistrationForm() {
         };
         const result = await addRecordToDatabase("users", updateObj);
         result && handleBanner();
-        reset()
+        reset();
       }
     } catch (error) {
       console.error("Error retrieving users from database:", error);
@@ -145,7 +145,10 @@ export default function RegistrationForm() {
         checkedStudent={checkedStudent}
       />
       {error && (
-        <Message type="error" text="Oops... this email is already associated with another account" />
+        <Message
+          type="error"
+          text="Oops... this email is already associated with another account"
+        />
       )}
       <div className="flex justify-between items-center py-4">
         <Link to="/login">

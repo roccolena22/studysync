@@ -21,6 +21,7 @@ export default function LoginForm() {
   const {
     handleSubmit,
     register,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(LoginFormValidator),
@@ -36,7 +37,6 @@ export default function LoginForm() {
 
         if (userPassword) {
           const result = await bcrypt.compare(data.password, userPassword);
-
           if (result) {
             dispatch(setLoggedUser(loggedUser));
             navigate("/");
@@ -44,10 +44,8 @@ export default function LoginForm() {
             setLoginError("Invalid email or password");
           }
         } else {
-          setLoginError("Invalid email or password");
+          setLoginError("There is a temporary problem, please try again later");
         }
-      } else {
-        setLoginError("Invalid email or password");
       }
     } catch (error) {
       console.error("Error during login:", error);
@@ -61,10 +59,13 @@ export default function LoginForm() {
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
       event.preventDefault();
-      handleSubmit(onSubmit)(event);
+      handleSubmit((data) => {
+        onSubmit(data);
+        reset();
+      })(event);
     }
   };
-
+  
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="py-2">
       <Input
