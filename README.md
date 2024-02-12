@@ -22,8 +22,6 @@ Navigare nella directory del progetto.
 Eseguire yarn install per installare le dipendenze.
 Eseguire yarn start per avviare il server di sviluppo.
 
-Note Aggiuntive
-Nel file apiRequest.js ci sono le mie credenziali Airtable per effettuare chiamate API.
 
 Licenza
 Questo progetto è distribuito con licenza MIT License.
