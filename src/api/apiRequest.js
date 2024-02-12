@@ -1,17 +1,15 @@
 import axios from "axios";
-
-const API_KEY =
-  "patwdAD7rzex8Ij5W.e978b342ebe8655aea285c6274ea86e5da74275c89dd181db80680a23c470c2d";
-const baseId = "appuffXtZ3FVbuxF4";
+const VITE_API_KEY = import.meta.env.VITE_API_KEY;
+const VITE_BASE_ID = import.meta.env.VITE_BASE_ID;
 
 // GET list
 export async function getListFromDatabase(tableName) {
   try {
     const response = await axios.get(
-      `https://api.airtable.com/v0/${baseId}/${tableName}`,
+      `https://api.airtable.com/v0/${VITE_BASE_ID}/${tableName}`,
       {
         headers: {
-          Authorization: `Bearer ${API_KEY}`,
+          Authorization: `Bearer ${VITE_API_KEY}`,
         },
       }
     );
@@ -32,10 +30,10 @@ export async function getListFromDatabase(tableName) {
 export async function getRecordFromDatabase(tableName, recordId) {
   try {
     const response = await axios.get(
-      `https://api.airtable.com/v0/${baseId}/${tableName}/${recordId}`,
+      `https://api.airtable.com/v0/${VITE_BASE_ID}/${tableName}/${recordId}`,
       {
         headers: {
-          Authorization: `Bearer ${API_KEY}`,
+          Authorization: `Bearer ${VITE_API_KEY}`,
         },
       }
     );
@@ -51,7 +49,7 @@ export async function getRecordFromDatabase(tableName, recordId) {
 export async function updateDatabaseRecord(tableName, recordId, data) {
   try {
     const response = await axios.patch(
-      `https://api.airtable.com/v0/${baseId}/${tableName}/${recordId}`,
+      `https://api.airtable.com/v0/${VITE_BASE_ID}/${tableName}/${recordId}`,
       {
         fields: data,
       },
@@ -59,7 +57,7 @@ export async function updateDatabaseRecord(tableName, recordId, data) {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
-          Authorization: `Bearer ${API_KEY}`,
+          Authorization: `Bearer ${VITE_API_KEY}`,
         },
       }
     );
@@ -75,7 +73,7 @@ export async function updateDatabaseRecord(tableName, recordId, data) {
 export async function addRecordToDatabase(tableName, data) {
   try {
     const response = await axios.post(
-      `https://api.airtable.com/v0/${baseId}/${tableName}`,
+      `https://api.airtable.com/v0/${VITE_BASE_ID}/${tableName}`,
       {
         records: [
           {
@@ -87,7 +85,7 @@ export async function addRecordToDatabase(tableName, data) {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
-          Authorization: `Bearer ${API_KEY}`,
+          Authorization: `Bearer ${VITE_API_KEY}`,
         },
       }
     );
@@ -103,12 +101,12 @@ export async function addRecordToDatabase(tableName, data) {
 export async function deleteRecordFromDatabase(tableName, recordId) {
   try {
     const response = await axios.delete(
-      `https://api.airtable.com/v0/${baseId}/${tableName}/${recordId}`,
+      `https://api.airtable.com/v0/${VITE_BASE_ID}/${tableName}/${recordId}`,
       {
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
-          Authorization: `Bearer ${API_KEY}`,
+          Authorization: `Bearer ${VITE_API_KEY}`,
         },
       }
     );
