@@ -1,4 +1,3 @@
-StudySync
 StudySync è una piattaforma web progettata per contesti educativi, pensata sia per insegnanti che per studenti. Gli insegnanti possono creare eventi come ricevimenti, lezioni e altro, mentre gli studenti possono organizzare sessioni di studio collettive ed eventi simili. 
 
 Principali Tecnologie Utilizzate
