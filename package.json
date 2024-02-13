@@ -51,7 +51,7 @@
     "postcss": "^8.4.31",
     "redux-mock-store": "^1.5.4",
     "tailwindcss": "^3.3.3",
-    "vite": "^4.4.5",
+    "vite": "^4.5.2",
     "whatwg-fetch": "^3.6.20"
   },
   "main": "index.js",
