@@ -9,15 +9,15 @@ export default function ToggleMenu() {
 
   const handleLogout = () => {
     dispatch(logout());
-    navigate("/login");
+    navigate("/studysync/login");
   };
   return (
     <div className="bg-cyan-700 border-b border-l border-cyan-800 w-full flex space-x-5 p-4 rounded-bl-lg shadow-xl">
-      <IconAndName label="account" iconName="account" pathname="/account" />
+      <IconAndName label="account" iconName="account" pathname="/studysync/account" />
       <IconAndName
         label="logout"
         iconName="logout"
-        pathname="/login"
+        pathname="/studysync/login"
         onClick={handleLogout}
       />
     </div>

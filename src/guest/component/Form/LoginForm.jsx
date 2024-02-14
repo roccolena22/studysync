@@ -39,7 +39,7 @@ export default function LoginForm() {
           const result = await bcrypt.compare(data.password, userPassword);
           if (result) {
             dispatch(setLoggedUser(loggedUser));
-            navigate("/studysync");
+            navigate("/studysync/");
           } else {
             setLoginError("Invalid email or password");
           }
