@@ -1,5 +1,5 @@
 {
-  "homepage": "https://roccolena22.github.io/StudySync/",
+  "homepage": "https://roccolena22.github.io/studysync/",
   "name": "studysync",
   "private": false,
   "version": "0.0.0",
@@ -56,7 +56,7 @@
     "whatwg-fetch": "^3.6.20"
   },
   "main": "index.js",
-  "repository": "https://github.com/roccolena22/StudySync.git",
+  "repository": "https://github.com/roccolena22/studysync.git",
   "author": "Rocco Lena <128648624+roccolena22@users.noreply.github.com>",
   "license": "MIT"
 }
