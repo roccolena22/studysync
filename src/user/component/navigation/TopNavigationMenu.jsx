@@ -32,7 +32,7 @@ export default function TopNavigationMenu() {
   return (
     <div className="flex space-x-5">
       <div className="hidden md:block md:flex space-x-5">
-        <IconAndName label="dashboard" iconName="dashboard" pathname="/" />
+        <IconAndName label="dashboard" iconName="dashboard" pathname="/studysync" />
         <IconAndName label="events" iconName="calendar" pathname="/events" />
         <IconAndName label="network" iconName="network" pathname="/network" />
       </div>
