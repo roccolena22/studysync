@@ -87,7 +87,7 @@ const Router = () => {
           }
         >
           <Route
-            path="/"
+            path="/studysync"
             element={
               <Protected>
                 <DashboardPage
