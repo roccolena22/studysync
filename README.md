@@ -36,15 +36,24 @@ di seguito qualche schermata di alcune pagine dell’applicazione.
 
 dashboard in versione Tablet
 
-<img width="400" alt="Schermata 2024-02-15 alle 12 21 25" src="https://github.com/roccolena22/studysync/assets/128648624/599c6752-3b50-4b36-9540-6344ea4143a5">
+
+<img width="390" alt="Schermata 2024-02-15 alle 15 53 21" src="https://github.com/roccolena22/studysync/assets/128648624/73f28b78-9019-4a7c-9704-5ec9ad99ab23">
 
 area personale in versione mobile 
 
-<img width="400" alt="Schermata 2024-02-15 alle 12 24 00" src="https://github.com/roccolena22/studysync/assets/128648624/0b994a2b-c9e9-49df-937a-dc5f863e938a">
+<img width="390" alt="31223" src="https://github.com/roccolena22/studysync/assets/128648624/619358ba-836f-4ba0-b7b7-ad0ad1ef2659">
 
-calendario in versione desktop 
+pagina degli eventi in versione desktop
 
-<img width="900" alt="Schermata 2024-02-15 alle 12 22 23" src="https://github.com/roccolena22/studysync/assets/128648624/4f990792-9a82-4da0-916d-dc154dca6a4c">
+
+visualizzazione eventi in modalità calendario
+<img width="590" alt="3245" src="https://github.com/roccolena22/studysync/assets/128648624/43559aee-d01d-4807-998e-c49ebf9d602b">
+
+
+visualizzazione eventi sottoforma di card
+
+<img width="594" alt="Schermata 2024-02-15 alle 15 54 16" src="https://github.com/roccolena22/studysync/assets/128648624/e296f432-57d8-4539-a874-fde3fcfe2c5d">
+
 
 Installazione e configurazione
 
