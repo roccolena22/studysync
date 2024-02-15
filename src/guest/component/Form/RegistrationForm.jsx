@@ -7,7 +7,6 @@ import { RegistrationFormValidator } from "./validator/RegistrationFormValidator
 import Input from "../../../shared/component/Input";
 import Icon from "../../../shared/component/Icon";
 import bcrypt from "bcryptjs";
-import { setLoggedUser } from "../../../redux/slices/authSlice";
 import { addUser } from "../../../redux/slices/usersSlice";
 import { useDispatch } from "react-redux";
 import {
@@ -71,8 +70,6 @@ export default function RegistrationForm() {
 
         data.password = hash;
         data.confirmPassword = hash;
-        const loggedUser = users.find((user) => user.email === data.email);
-        dispatch(setLoggedUser(loggedUser));
         const updatedUsers = [...users, data];
         dispatch(addUser(updatedUsers));
         const updateObj = {
