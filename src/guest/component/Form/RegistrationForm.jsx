@@ -27,7 +27,6 @@ export default function RegistrationForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -82,7 +81,9 @@ export default function RegistrationForm() {
 
         const result = await addRecordToDatabase("users", updateObj);
         if (result) {
-          dispatch(setLoggedUser(updateObj));
+          const users = await getListFromDatabase("users");
+          const loggedUser = users.find((user) => user.email === data.email);
+          dispatch(setLoggedUser(loggedUser));
           navigate("/studysync/");
         }
         reset();
