@@ -34,11 +34,17 @@ Questo progetto è funzionante, ma ancora in fase di sviluppo, in quanto manca l
 Screenshots
 di seguito qualche schermata di alcune pagine dell’applicazione.
 
-dashboard in versione Tablet <img width="400" alt="Schermata 2024-02-15 alle 12 21 25" src="https://github.com/roccolena22/studysync/assets/128648624/599c6752-3b50-4b36-9540-6344ea4143a5">
+dashboard in versione Tablet
 
-area personale in versione mobile <img width="400" alt="Schermata 2024-02-15 alle 12 24 00" src="https://github.com/roccolena22/studysync/assets/128648624/0b994a2b-c9e9-49df-937a-dc5f863e938a">
+<img width="400" alt="Schermata 2024-02-15 alle 12 21 25" src="https://github.com/roccolena22/studysync/assets/128648624/599c6752-3b50-4b36-9540-6344ea4143a5">
 
-calendario in versione desktop <img width="900" alt="Schermata 2024-02-15 alle 12 22 23" src="https://github.com/roccolena22/studysync/assets/128648624/4f990792-9a82-4da0-916d-dc154dca6a4c">
+area personale in versione mobile 
+
+<img width="400" alt="Schermata 2024-02-15 alle 12 24 00" src="https://github.com/roccolena22/studysync/assets/128648624/0b994a2b-c9e9-49df-937a-dc5f863e938a">
+
+calendario in versione desktop 
+
+<img width="900" alt="Schermata 2024-02-15 alle 12 22 23" src="https://github.com/roccolena22/studysync/assets/128648624/4f990792-9a82-4da0-916d-dc154dca6a4c">
 
 Installazione e configurazione
 
