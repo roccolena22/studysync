@@ -18,7 +18,7 @@ export default function ErrorContent() {
         )}
       </div>
       <div className="flex justify-center pt-4">
-        <Link to={loggedUser ? "/" : "login"}>
+        <Link to={loggedUser ? "/studysync" : "login"}>
           <Button name={loggedUser ? "Dashboard" : "Login"} />
         </Link>
       </div>
