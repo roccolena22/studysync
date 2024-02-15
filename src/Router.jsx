@@ -75,15 +75,15 @@ const Router = () => {
           <Route path="*" element={<ErrorPage />} />
         </Route>
         <Route element={<GuestTemplate />}>
-          <Route exact path="/studysync/login" element={<LoginPage />} />
+          <Route exact path="/</studysync>/login" element={<LoginPage />} />
           <Route
             exact
-            path="/studysync/registration"
+            path="/</studysync>/registration"
             element={<RegistrationPage />}
           />
           <Route
             exact
-            path="/studysync/recovery-password"
+            path="</studysync>/recovery-password"
             element={<RecoveryPasswordPage />}
           />
         </Route>
@@ -96,7 +96,7 @@ const Router = () => {
         >
           <Route
             exact
-            path="/studysync"
+            path="</studysync>"
             element={
               <Protected>
                 <DashboardPage
@@ -108,7 +108,7 @@ const Router = () => {
           />
           <Route
             exact
-            path="/studysync/account"
+            path="</studysync>/account"
             element={
               <Protected>
                 <AccountPage />
@@ -117,7 +117,7 @@ const Router = () => {
           />
           <Route
             exact
-            path="/studysync/events"
+            path="</studysync>/events"
             element={
               <Protected>
                 <EventsPage allUserEvents={allUserEvents} />
@@ -126,7 +126,7 @@ const Router = () => {
           />
           <Route
             exact
-            path="/studysync/network"
+            path="</studysync>/network"
             element={
               <Protected>
                 <NetworkPage />
