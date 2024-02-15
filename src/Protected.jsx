@@ -4,5 +4,5 @@ import { Navigate } from "react-router-dom";
 export default function Protected({ children }) {
   const loggedUser = useSelector((state) => state.auth.user);
 
-  return loggedUser ? children : <Navigate to="/login" replace />;
+  return loggedUser ? children : <Navigate to="/studysync/login" replace />;
 }

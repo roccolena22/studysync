@@ -88,7 +88,7 @@ export default function LoginForm() {
       {loginError && <p className="text-red-500">{loginError}</p>}
       <div className="flex justify-center space-x-4 py-6">
         <Button type="submit" name="Login" />
-        <Link to="/registration">
+        <Link to="/studysync/registration">
           <Button name="Sign-up" outline />
         </Link>
       </div>

@@ -151,7 +151,7 @@ export default function RegistrationForm() {
         />
       )}
       <div className="flex justify-between items-center py-4">
-        <Link to="/login">
+        <Link to="/studysync/login">
           <Icon name="back" />
         </Link>
         <Button type="submit" name="Register" />

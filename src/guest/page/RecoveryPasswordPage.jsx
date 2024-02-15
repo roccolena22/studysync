@@ -10,7 +10,7 @@ export default function RecoveryPasswordPage() {
     <GuestPageContainer>
       <div className="flex justify-between items-center">
         <AppName name="StudySync" />
-        <Link to="/login">
+        <Link to="/studysync/login">
           <Icon name="back" />
         </Link>
       </div>
