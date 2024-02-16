@@ -1,7 +1,15 @@
+import { useEffect } from "react";
 import Icon from "../../../shared/component/Icon";
 import Title from "./Title";
 
 export default function PriorityPopup({ children, handleClose, title }) {
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
   return (
     <div
       data-testid="priority-popup-bg"
