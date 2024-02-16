@@ -22,7 +22,7 @@ Gli utenti per accedere all’applicazione devono prima registrarsi e poi posson
 
 Prossimi obiettivi:
 
-migrazione a typescript, sono partito con javascript per ridurre le tempistiche di sviluppo;
+Migrazione a typescript, sono partito con javascript per ridurre le tempistiche di sviluppo;
 completamento unit test, non ho ancora testato tutte le componenti per ragioni tempistiche;
 back-end;
 
