@@ -32,9 +32,21 @@ export default function TopNavigationMenu() {
   return (
     <div className="flex space-x-5">
       <div className="hidden md:block md:flex space-x-5">
-        <IconAndName label="dashboard" iconName="dashboard" pathname="/studysync/" />
-        <IconAndName label="events" iconName="calendar" pathname="/studysync/events" />
-        <IconAndName label="network" iconName="network" pathname="/studysync/network" />
+        <IconAndName
+          label="dashboard"
+          iconName="dashboard"
+          pathname="/studysync/"
+        />
+        <IconAndName
+          label="events"
+          iconName="calendar"
+          pathname="/studysync/events"
+        />
+        <IconAndName
+          label="network"
+          iconName="network"
+          pathname="/studysync/network"
+        />
       </div>
       <div className="sm:hidden">
         <IconAndName
@@ -45,8 +57,12 @@ export default function TopNavigationMenu() {
         />
       </div>
 
-      <div className=" hidden sm:block sm:flex space-x-5">
-        <IconAndName label="account" iconName="account" pathname="/studysync/account" />
+      <div className="hidden sm:block sm:flex space-x-5">
+        <IconAndName
+          label="account"
+          iconName="account"
+          pathname="/studysync/account"
+        />
         <IconAndName
           label="logout"
           iconName="logout"

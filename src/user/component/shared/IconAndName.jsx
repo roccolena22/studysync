@@ -10,7 +10,6 @@ export default function IconAndName({
   pathname,
 }) {
   const location = useLocation();
-  const [isHovered, setIsHovered] = useState(false);
 
   const commonContainerClasses = "flex flex-col cursor-pointer items-center";
   const commonTextClasses = "text-[10px]";
@@ -23,21 +22,13 @@ export default function IconAndName({
         className={`${commonContainerClasses} transition delay-150 duration-300 ease-in-out`}
       >
         <div
-          className={`rounded-2xl w-8 h-8 p-2 ${
-            isHovered ? "border border-full border-white" : ""
-          } ${location.pathname === pathname ? "bg-gray-400" : ""}`}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
+          className={`rounded-2xl w-8 h-8 flex items-center justify-center hover:border border-full border-white ${
+            location.pathname === pathname ? "bg-gray-400" : ""
+          }`}
         >
           <Icon color="white" name={iconName} />
         </div>
-        <p
-          className={`text-[13px] text-white`}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-        >
-          {label.toUpperCase()}
-        </p>
+        <p className={`text-[13px] text-white`}>{label.toUpperCase()}</p>
       </Link>
     </div>
   ) : (
