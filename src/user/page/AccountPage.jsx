@@ -5,7 +5,6 @@ import Title from "../component/shared/Title";
 
 export default function AccountPage() {
   const loggedUser = useSelector((state) => state.auth.user);
-  console.log(loggedUser)
   return (
     <div className="flex flex-col items-center">
       <Title title="Info Account">

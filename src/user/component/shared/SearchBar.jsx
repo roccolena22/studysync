@@ -42,7 +42,7 @@ export default function SearchBar({ placeholder, data, dataFromSearch }) {
   };
 
   return (
-    <div className="flex space-x-2 sm:space-x-4 items-center w-full rounded-b-lg p-2 sm:p-4 shadow-xl bg-white">
+    <div className="flex space-x-4 items-center w-full rounded-b-lg p-4 shadow-xl bg-white">
       <div className="flex items-center border border-gray-400 rounded-lg py-1 sm:py-2 w-full bg-white">
         <input
           placeholder={placeholder}
