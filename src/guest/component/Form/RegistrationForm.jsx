@@ -16,6 +16,7 @@ import {
 import ChoiceRole from "../ChoiceRole";
 import Message from "../../../shared/component/Message";
 import { setLoggedUser } from "../../../redux/slices/authSlice";
+import PasswordRequirement from "../../../shared/component/PasswordRequirements";
 
 export default function RegistrationForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -137,6 +138,7 @@ export default function RegistrationForm() {
           />
         </Input>
       </div>
+      <PasswordRequirement />
       <ChoiceRole
         handleCheckBox={handleCheckBox}
         checkedTeacher={checkedTeacher}

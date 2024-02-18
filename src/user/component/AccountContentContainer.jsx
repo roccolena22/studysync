@@ -5,6 +5,7 @@ import DeleteAccount from "./DeleteAccount";
 import EditPasswordForm from "./form/EditPasswordForm";
 import Title from "./shared/Title";
 import { useSelector } from "react-redux";
+import PasswordRequirement from "../../shared/component/PasswordRequirements";
 
 export default function AccountContentContainer() {
   const loggedUser = useSelector((state) => state.auth.user);
@@ -22,6 +23,7 @@ export default function AccountContentContainer() {
         <div className="pt-6">
           <EditPasswordForm loggedUser={loggedUser} />
         </div>
+        <PasswordRequirement />
         <p
           className="text-red-800 font-semibold cursor-pointer pt-20 text-center"
           onClick={handleClose}
