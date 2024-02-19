@@ -20,7 +20,7 @@ export default function RecoveryPasswordForm() {
     <div className="py-4">
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input
-          label="E-mail"
+          label="Email"
           type="email"
           errorMessage={errors.email?.message}
           register={register("email")}

@@ -69,7 +69,7 @@ export default function LoginForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="py-2">
       <Input
-        label="E-mail"
+        label="Email"
         errorMessage={errors.email?.message}
         register={register("email")}
       />

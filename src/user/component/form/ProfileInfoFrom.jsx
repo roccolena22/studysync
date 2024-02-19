@@ -74,8 +74,8 @@ export default function ProfileInfoForm({ loggedUser }) {
           />
         </div>
         <Input
-          label="E-mail"
-          placeholder="Enter your E-mail"
+          label="Email"
+          placeholder="Enter your Email"
           register={register("email")}
           errorMessage={errors.email?.message}
         />
