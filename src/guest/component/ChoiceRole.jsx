@@ -5,8 +5,11 @@ export default function ChoiceRole({
 }) {
   const checkBoxContainerClasses = "flex space-x-2 items-center";
   return (
-    <div data-testid="choiceRoleContainer" className="flex items-center space-x-4 pt-2 mb-4">
-      <p className="font-semibold">I am a...</p>
+    <div data-testid="choiceRoleContainer" className="flex space-x-4 pt-2 mb-4">
+      <div className="flex items-start">
+        <span className="font-semibold">I am a...</span>
+        <span className="text-red-500 text-xs">*</span>
+      </div>
       <div className={checkBoxContainerClasses}>
         <label htmlFor="teacherCheckbox">Teacher</label>
         <input

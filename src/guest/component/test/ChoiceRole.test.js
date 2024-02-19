@@ -17,7 +17,7 @@ function renderChoiceRole({ handleCheckBox, checkedTeacher, checkedStudent }) {
   const studentCheckbox = screen.getByLabelText("Student");
 
   const container = screen.getByTestId("choiceRoleContainer");
-  expect(container).toHaveClass("flex items-center space-x-4 pt-2 mb-4");
+  expect(container).toHaveClass("flex space-x-4 pt-2 mb-4");
 
   return { teacherCheckbox, studentCheckbox };
 }

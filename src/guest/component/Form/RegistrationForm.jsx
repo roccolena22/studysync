@@ -101,11 +101,13 @@ export default function RegistrationForm() {
           label="Name"
           errorMessage={errors.firstName?.message}
           register={register("firstName")}
+          required
         />
         <Input
           label="Surname"
           errorMessage={errors.lastName?.message}
           register={register("lastName")}
+          required
         />
       </div>
       <Input
@@ -113,6 +115,7 @@ export default function RegistrationForm() {
         errorMessage={errors.email?.message}
         register={register("email")}
         type="email"
+        required
       />
       <div className="flex flex-col sm:flex-row sm:space-x-4">
         <Input
@@ -120,6 +123,7 @@ export default function RegistrationForm() {
           errorMessage={errors.password?.message}
           register={register("password")}
           type={showPassword ? "text" : "password"}
+          required
         >
           <Icon
             name={showPassword ? "eyeInvisible" : "eye"}
@@ -131,6 +135,7 @@ export default function RegistrationForm() {
           errorMessage={errors.confirmPassword?.message}
           register={register("confirmPassword")}
           type={showPassword ? "text" : "password"}
+          required
         >
           <Icon
             name={showPassword ? "eyeInvisible" : "eye"}
