@@ -59,18 +59,15 @@ area personale in versione mobile
 <img width="390" alt="31223" src="https://github.com/roccolena22/studysync/assets/128648624/619358ba-836f-4ba0-b7b7-ad0ad1ef2659">
     </li>
 <br>
-  <li>
-pagina degli eventi in versione desktop:
-<br>
     </li>
   <li>
-visualizzazione eventi in modalità calendario
+visualizzazione eventi in modalità calendario in versione desktop
 <br>
 <img width="590" alt="3245" src="https://github.com/roccolena22/studysync/assets/128648624/43559aee-d01d-4807-998e-c49ebf9d602b">
     </li>
 <br>
   <li>
-visualizzazione eventi sottoforma di card
+visualizzazione eventi sottoforma di card in versione desktop
 <br>
 <img width="594" alt="Schermata 2024-02-15 alle 15 54 16" src="https://github.com/roccolena22/studysync/assets/128648624/e296f432-57d8-4539-a874-fde3fcfe2c5d">
     </li>
