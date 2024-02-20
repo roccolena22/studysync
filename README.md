@@ -90,9 +90,11 @@ npm run dev
 <h1>Note</h1>
 
 <p>Questo progetto è stato inizialmente pensato per sopperire ad una mancanza che hanno la maggior parte degli atenei universitari, un sistema per connettere insegnanti e studenti, uno strumento che consente agli insegnanti di programmare meglio le loro attività potendo tenere traccia dei partecipanti ad esempio attivando la possibilità di prenotarsi ad un proprio ricevimento.
-  <br>
+</p>
+<p>
 È stata anche l’occasione per l'utilizzo di nuove tecnologie e la familiarizzazione con la documentazione per le nuove funzionalità.
 Non avevo mai utilizzato un Persistor per salvare i dati di login, nel localstorage, una scelta obbligata nel mio caso, data la mancanza del back-end.
-  <br>
+</p>
+<p>
 Le principali tecnologie utilizzate sono state React, Redux, Tailwind CSS, Javascript, Jest, React Big Calendar, React Router, React Hook Form, Yup.
 ​​Ho scelto Airtable come database, il quale mi ha permesso di creare delle tabelle a cui poter effettuare chiamate API proprio come farei con un database frutto del back-end. In alcune situazioni ho dovuto adottare delle scelte vincolate da Airtable come l'invio di dati sottoforma di array per i campi condivisi e il limite di dover scaricare tutto il contenuto della tabella in alcune situazioni come il Login dove non ho la possibilità di usare una formula per filtrare solo l'utente che tenta l'accesso.</p>
