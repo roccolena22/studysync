@@ -1,4 +1,4 @@
-Nome e presentazione
+<h1>Nome e presentazione</h1>
 
 StudySync
 
