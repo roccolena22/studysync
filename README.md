@@ -8,27 +8,27 @@ Realizzata con React, Redux, JavaScript, and Tailwind CSS.</p>
 <h1>Funzionalità:</h1>
 <ul>
   <li>
-Creazione di eventi:
+Creazione di eventi:<br>
 gli utenti possono creare vari eventi come ricevimenti, lezioni, ecc. Possono modificare e cancellare i propri eventi
     </li>
   <li>
-Prenotazione agli Eventi:
+Prenotazione agli Eventi:<br>
 gli utenti possono prenotarsi agli eventi che desiderano, in questo modo l’evento sarà aggiunto al loro calendario.
   </li>
   <li>
-Seguire e smettere di seguire: 
+Seguire e smettere di seguire: <br>
 è fondamentale seguire gli utenti dei quali si vogliono visualizzare gli eventi per potersi prenotare e partecipare.
     </li>
   <li>
-Integrazione del Calendario: 
+Integrazione del Calendario: <br>
 gli utenti hanno a disposizione una visualizzazione sotto forma di calendaro dove possono visualizzare facilmente tutti gli eventi in programma.
     </li>
   <li>
-Area personale:
+Area personale:<br>
 Gli utenti possono modificare il proprio dati di accesso ed il nome con cui vengono visualizzati dagli altri utenti nell’area personale.
     </li>
   <li>
-Login e registrazione:
+Login e registrazione:<br>
 Gli utenti per accedere all’applicazione devono prima registrarsi e poi possono effettuare il login.
     </li>
 </ul>
