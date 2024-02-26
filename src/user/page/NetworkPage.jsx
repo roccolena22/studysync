@@ -31,9 +31,7 @@ export default function NetworkPage() {
 
   return (
     <div className="flex flex-col items-center">
-      <Title title="Network">
-        <NewEvent name="New Event" />
-      </Title>
+      <Title title="Network" />
       <div className="w-full pt-6 pb-10">
         <DiscoverUsers />
       </div>
