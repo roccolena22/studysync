@@ -42,7 +42,7 @@ Gli utenti per accedere all’applicazione devono prima registrarsi e poi posson
 
 <h1>Stato del progetto</h1>
 
-Questo progetto è funzionante, ma ancora in fase di sviluppo, in quanto manca la parte back-end, al momento viene utilizzato Airtable.
+Questo progetto è funzionante, ma ancora in fase di sviluppo, in quanto manca la parte back-end, al momento viene utilizzato Airtable come database provvisorio.
 
 <h1>Screenshots</h1>
 <h3>Di seguito qualche schermata di alcune pagine dell’applicazione.</h3>
