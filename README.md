@@ -2,7 +2,7 @@
 
 <h3>StudySync</h3>
 
-<p>Una web app dal design responsive pensata per connettere insegnanti e studenti. Gli insegnanti possono creare eventi come, lezioni, ricevimenti, e altro ancora, mentre gli studenti possono organizzare eventi come sessioni di studio collettive, seguire gli utenti di cui vogliono visualizzare gli eventi per poi prenotarsi.
+<p>Una web app dal design responsive pensata per connettere insegnanti e studenti. Gli insegnanti possono creare eventi come, lezioni, ricevimenti, e altro ancora; mentre gli studenti possono organizzare eventi come sessioni di studio collettive, e possono seguire gli utenti di cui vogliono visualizzare gli eventi per poi prenotarsi.
 Realizzata con React, Redux, JavaScript, and Tailwind CSS.</p>
 
 <h1>Funzionalità:</h1>
