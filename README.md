@@ -82,17 +82,17 @@ Clonare questo repository sul proprio computer locale, avrai bisogno di node e n
 Navigare nella directory del progetto. 
 </li>
   <li>
-Installazione delle dipendenze
-npm install 
-</li>
-<li>
-Per eseguire i test
-npm run test
+Installazione delle dipendenze con
+"npm install" 
 </li>
 <li>
 Per avviare il server di sviluppo.
 npm run dev 
   </li>
+  <li>
+Per eseguire i test
+npm run test
+</li>
 </ul>
 <h1>Note</h1>
 
