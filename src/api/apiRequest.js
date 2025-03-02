@@ -1,18 +1,18 @@
 import axios from "axios";
+
 const VITE_API_KEY = import.meta.env.VITE_API_KEY;
 const VITE_BASE_ID = import.meta.env.VITE_BASE_ID;
+
+const airtableStandardUrl = `https://api.airtable.com/v0/${VITE_BASE_ID}/${tableName}`;
 
 // GET list
 export async function getListFromDatabase(tableName) {
   try {
-    const response = await axios.get(
-      `https://api.airtable.com/v0/${VITE_BASE_ID}/${tableName}`,
-      {
-        headers: {
-          Authorization: `Bearer ${VITE_API_KEY}`,
-        },
-      }
-    );
+    const response = await axios.get(airtableStandardUrl, {
+      headers: {
+        Authorization: `Bearer ${VITE_API_KEY}`,
+      },
+    });
 
     const responseData = response.data;
     const dataFromDatabase = responseData.records.map((element) => ({
@@ -29,14 +29,11 @@ export async function getListFromDatabase(tableName) {
 //GET signle record
 export async function getRecordFromDatabase(tableName, recordId) {
   try {
-    const response = await axios.get(
-      `https://api.airtable.com/v0/${VITE_BASE_ID}/${tableName}/${recordId}`,
-      {
-        headers: {
-          Authorization: `Bearer ${VITE_API_KEY}`,
-        },
-      }
-    );
+    const response = await axios.get(`${airtableStandardUrl}/${recordId}`, {
+      headers: {
+        Authorization: `Bearer ${VITE_API_KEY}`,
+      },
+    });
 
     return response.data.fields;
   } catch (error) {
@@ -48,8 +45,7 @@ export async function getRecordFromDatabase(tableName, recordId) {
 // PATCH edit record
 export async function updateDatabaseRecord(tableName, recordId, data) {
   try {
-    const response = await axios.patch(
-      `https://api.airtable.com/v0/${VITE_BASE_ID}/${tableName}/${recordId}`,
+    const response = await axios.patch(`${airtableStandardUrl}/${recordId}`,
       {
         fields: data,
       },
@@ -72,8 +68,7 @@ export async function updateDatabaseRecord(tableName, recordId, data) {
 // POST add record
 export async function addRecordToDatabase(tableName, data) {
   try {
-    const response = await axios.post(
-      `https://api.airtable.com/v0/${VITE_BASE_ID}/${tableName}`,
+    const response = await axios.post(airtableStandardUrl,
       {
         records: [
           {
@@ -100,16 +95,13 @@ export async function addRecordToDatabase(tableName, data) {
 //DELETE record
 export async function deleteRecordFromDatabase(tableName, recordId) {
   try {
-    const response = await axios.delete(
-      `https://api.airtable.com/v0/${VITE_BASE_ID}/${tableName}/${recordId}`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          Authorization: `Bearer ${VITE_API_KEY}`,
-        },
-      }
-    );
+    const response = await axios.delete(`${airtableStandardUrl}/${recordId}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${VITE_API_KEY}`,
+      },
+    });
 
     return response.data;
   } catch (error) {
