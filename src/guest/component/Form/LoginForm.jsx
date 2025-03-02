@@ -10,6 +10,7 @@ import bcrypt from "bcryptjs";
 import { useDispatch } from "react-redux";
 import { setLoggedUser } from "../../../redux/slices/authSlice";
 import { getListFromDatabase } from "../../../api/apiRequest";
+import guestTranslations from "../../translations/guestTranslations";
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -41,10 +42,10 @@ export default function LoginForm() {
             dispatch(setLoggedUser(loggedUser));
             navigate("/studysync/");
           } else {
-            setLoginError("Invalid email or password");
+            setLoginError(guestTranslations.login.invalidCredentials);
           }
         } else {
-          setLoginError("There is a temporary problem, please try again later");
+          setLoginError(guestTranslations.login.temporaryProblem);
         }
       }
     } catch (error) {
@@ -69,12 +70,12 @@ export default function LoginForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="py-2">
       <Input
-        label="Email"
+        label={guestTranslations.login.emailLabel}
         errorMessage={errors.email?.message}
         register={register("email")}
       />
       <Input
-        label="Password"
+        label={guestTranslations.login.passwordLabel}
         errorMessage={errors.password?.message}
         register={register("password")}
         type={showPassword ? "text" : "password"}
@@ -87,9 +88,9 @@ export default function LoginForm() {
       </Input>
       {loginError && <p className="text-red-500">{loginError}</p>}
       <div className="flex justify-center space-x-4 py-6">
-        <Button type="submit" name="Login" />
+        <Button type="submit" name={guestTranslations.login.loginButton} />
         <Link to="/studysync/registration">
-          <Button name="Sign-up" outline />
+          <Button name={guestTranslations.login.registerButton} outline />
         </Link>
       </div>
     </form>
