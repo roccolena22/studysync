@@ -1,4 +1,16 @@
-export default function Legend({ colorOne, colorTwo, textOne, textTwo }) {
+interface LegendProps {
+  colorOne: string;
+  colorTwo: string;
+  textOne: string;
+  textTwo: string;
+}
+
+export default function Legend({
+  colorOne,
+  colorTwo,
+  textOne,
+  textTwo,
+}: LegendProps) {
   return (
     <div className="flex items-center space-x-4">
       <div className="flex items-center">

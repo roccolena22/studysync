@@ -2,7 +2,6 @@ import Title from "../component/shared/Title";
 import EventList from "../component/card/EventList";
 import moment from "moment";
 import DiscoverUsers from "../component/user/DiscoverUsers";
-import NewEvent from "../component/shared/NewEvent";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 

@@ -1,17 +1,17 @@
+import { UserRoles } from "../../../src/shared/models";
+
 interface ChoiceRoleProps {
-  handleCheckBox: (index: number) => void;
-  checkedTeacher: boolean;
-  checkedStudent: boolean;
+  handleChange: (value: UserRoles) => void;
+  selectedRole: UserRoles;
   studentLabel: string;
   teacherLabel: string;
 }
 
 export default function ChoiceRole({
-  handleCheckBox,
-  checkedTeacher,
-  checkedStudent,
+  handleChange,
+  selectedRole,
   studentLabel,
-  teacherLabel, 
+  teacherLabel,
 }: ChoiceRoleProps): JSX.Element {
   const checkBoxContainerClasses = "flex space-x-2 items-center";
 
@@ -22,22 +22,26 @@ export default function ChoiceRole({
         <span className="text-red-500 text-xs">*</span>
       </div>
       <div className={checkBoxContainerClasses}>
-        <label htmlFor="teacherCheckbox">{teacherLabel}</label>
         <input
-          id="teacherCheckbox"
-          checked={checkedTeacher}
-          type="checkbox"
-          onChange={() => handleCheckBox(0)}
+          id="teacherRadio"
+          type="radio"
+          name="role"
+          value={UserRoles.TEACHER}
+          checked={selectedRole === UserRoles.TEACHER}
+          onChange={() => handleChange(UserRoles.TEACHER)}
         />
+        <label htmlFor="teacherRadio">{teacherLabel}</label>
       </div>
       <div className={checkBoxContainerClasses}>
-        <label htmlFor="studentCheckbox">{studentLabel}</label>
         <input
-          id="studentCheckbox"
-          checked={checkedStudent}
-          type="checkbox"
-          onChange={() => handleCheckBox(1)}
+          id="studentRadio"
+          type="radio"
+          name="role"
+          value={UserRoles.STUDENT}
+          checked={selectedRole === UserRoles.STUDENT}
+          onChange={() => handleChange(UserRoles.STUDENT)}
         />
+        <label htmlFor="studentRadio">{studentLabel}</label>
       </div>
     </div>
   );

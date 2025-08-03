@@ -36,7 +36,7 @@ export const RegistrationFormValidator = yup.object().shape({
     .oneOf([yup.ref("password")], guestTranslations.registration.confirmPassword.error.match)
     .required(guestTranslations.registration.confirmPassword.required),
   role: yup
-  .mixed<UserRoles>()
+  .string()
   .oneOf(Object.values(UserRoles), guestTranslations.registration.role.error.invalid)
   .required(guestTranslations.registration.role.required),
 });

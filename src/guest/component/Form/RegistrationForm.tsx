@@ -27,43 +27,35 @@ interface RegistrationFormData {
 
 export default function RegistrationForm(): JSX.Element {
   const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [role, setRole] = useState<UserRoles | null>(null);
-  const [checkedTeacher, setCheckedTeacher] = useState<boolean>(false);
-  const [checkedStudent, setCheckedStudent] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleShowPassword = () => {
-    setShowPassword((prev) => !prev);
-  };
-
-  const handleCheckBox = (input: number) => {
-    if (input === 0) {
-      setRole(UserRoles.TEACHER);
-      setCheckedTeacher(true);
-      setCheckedStudent(false);
-    } else if (input === 1) {
-      setRole(UserRoles.STUDENT);
-      setCheckedTeacher(false);
-      setCheckedStudent(true);
-    }
-  };
-
   const {
     register,
     handleSubmit,
     reset,
+    setValue,
+    watch,
     formState: { errors },
   } = useForm<RegistrationFormData>({
     resolver: yupResolver(RegistrationFormValidator),
+    defaultValues: { role: UserRoles.STUDENT }, // default STUDENT
   });
+
+  const selectedRole = watch("role");
+
+  const handleShowPassword = () => {
+    setShowPassword((prev) => !prev);
+  };
+
+  const handleRoleChange = (role: UserRoles) => {
+    setValue("role", role, { shouldValidate: true });
+  };
 
   const onSubmit: SubmitHandler<RegistrationFormData> = async (data) => {
     try {
-      if (role === null) return;
-
       const existingUser = await getRecordByField("users", "email", data.email);
 
       if (existingUser) {
@@ -78,7 +70,7 @@ export default function RegistrationForm(): JSX.Element {
           lastName: data.lastName,
           email: data.email,
           password: hash,
-          role: role,
+          role: data.role,
         };
 
         const result = await addRecordToDatabase("users", newUser);
@@ -150,12 +142,14 @@ export default function RegistrationForm(): JSX.Element {
       </div>
       <PasswordRequirement />
       <ChoiceRole
-        handleCheckBox={handleCheckBox}
-        checkedTeacher={checkedTeacher}
-        checkedStudent={checkedStudent}
+        selectedRole={selectedRole}
+        handleChange={handleRoleChange}
         teacherLabel={guestTranslations.registration.roleTeacher}
         studentLabel={guestTranslations.registration.roleStudent}
       />
+      {errors.role && (
+        <p className="text-red-500 text-xs mb-2">{errors.role.message}</p>
+      )}
       {error && (
         <Message
           type={MessageTypes.ERROR}

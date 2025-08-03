@@ -1,12 +1,25 @@
+import React, { ReactNode } from "react";
+import { UseFormRegisterReturn } from "react-hook-form";
+
+interface InputProps {
+  label?: string;
+  errorMessage?: string;
+  type?: string;
+  register?: UseFormRegisterReturn;
+  children?: ReactNode;
+  required?: boolean;
+  placeholder?: string;
+}
+
 export default function Input({
   label,
-  placeholder,
   errorMessage,
   type = "text",
   register,
   children,
-  required,
-}) {
+  required = false,
+  placeholder = "",
+}: InputProps) {
   return (
     <div className="py-2 w-full">
       <div className="flex">

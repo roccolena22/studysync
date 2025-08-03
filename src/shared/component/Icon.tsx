@@ -1,3 +1,4 @@
+import React from "react";
 import { MdOutlineDashboardCustomize } from "react-icons/md";
 import { BsSearch } from "react-icons/bs";
 import { HiLogout } from "react-icons/hi";
@@ -5,23 +6,28 @@ import { MdManageAccounts } from "react-icons/md";
 import { FiMenu } from "react-icons/fi";
 import { IoCalendarOutline } from "react-icons/io5";
 import { RiDeleteBinLine } from "react-icons/ri";
-import { BiNetworkChart } from "react-icons/bi";
+import { BiNetworkChart, BiSolidErrorAlt } from "react-icons/bi";
 import { MdOutlineEdit } from "react-icons/md";
 import { TfiSave } from "react-icons/tfi";
 import { IoIosClose } from "react-icons/io";
-import { FaLightbulb } from "react-icons/fa";
-import { FaArrowLeft } from "react-icons/fa";
+import { FaLightbulb, FaArrowLeft } from "react-icons/fa";
 import { HiUserGroup } from "react-icons/hi";
-import { AiOutlineEye } from "react-icons/ai";
-import { AiOutlineEyeInvisible } from "react-icons/ai";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { IoMdOpen } from "react-icons/io";
 import { CiGrid41 } from "react-icons/ci";
-import { BiSolidErrorAlt } from "react-icons/bi";
 
-export default function Icon({ name, style, color, onClick }) {
+interface IconProps {
+  name: string;
+  style?: string;
+  color?: string;
+  onClick?: () => void;
+}
+
+export default function Icon({ name, style = "", color, onClick }: IconProps) {
   const colorClass = color ? `text-${color}` : "text-cyan-700";
-  const classNames = `${style} ${colorClass}`;
-  const iconMapping = {
+  const classNames = `${style} ${colorClass}`.trim();
+
+  const iconMapping: Record<string, JSX.Element> = {
     dashboard: (
       <MdOutlineDashboardCustomize className={classNames} onClick={onClick} />
     ),
