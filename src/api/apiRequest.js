@@ -1,4 +1,5 @@
 import axios from "axios";
+
 const VITE_API_KEY = import.meta.env.VITE_API_KEY;
 const VITE_BASE_ID = import.meta.env.VITE_BASE_ID;
 
@@ -8,7 +9,7 @@ const airtableBaseUrl = `https://api.airtable.com/v0/${VITE_BASE_ID}`;
 export async function getListFromDatabase(tableName) {
   try {
     const response = await axios.get(
-      `/${airtableBaseUrl/tableName}`,
+      `${airtableBaseUrl}/${tableName}`,
       {
         headers: {
           Authorization: `Bearer ${VITE_API_KEY}`,
@@ -17,22 +18,21 @@ export async function getListFromDatabase(tableName) {
     );
 
     const responseData = response.data;
-    const dataFromDatabase = responseData.records.map((element) => ({
+    return responseData.records.map((element) => ({
+      id: element.id, // se ti serve l'id del record
       ...element.fields,
     }));
-
-    return dataFromDatabase;
   } catch (error) {
-    console.error("Error during GET request:", error);
+    console.error("Error during GET request:", error.response || error);
     throw error;
   }
 }
 
-//GET signle record
+// GET single record
 export async function getRecordFromDatabase(tableName, recordId) {
   try {
     const response = await axios.get(
-      `/${airtableBaseUrl}/${tableName}/${recordId}`,
+      `${airtableBaseUrl}/${tableName}/${recordId}`,
       {
         headers: {
           Authorization: `Bearer ${VITE_API_KEY}`,
@@ -42,7 +42,7 @@ export async function getRecordFromDatabase(tableName, recordId) {
 
     return response.data.fields;
   } catch (error) {
-    console.error("Error during GET request:", error);
+    console.error("Error during GET request:", error.response || error);
     throw error;
   }
 }
@@ -51,7 +51,7 @@ export async function getRecordFromDatabase(tableName, recordId) {
 export async function updateDatabaseRecord(tableName, recordId, data) {
   try {
     const response = await axios.patch(
-      `/${airtableBaseUrl}/${tableName}/${recordId}`,
+      `${airtableBaseUrl}/${tableName}/${recordId}`,
       {
         fields: data,
       },
@@ -66,7 +66,7 @@ export async function updateDatabaseRecord(tableName, recordId, data) {
 
     return response.data;
   } catch (error) {
-    console.error("Error during PATCH request:", error);
+    console.error("Error during PATCH request:", error.response || error);
     throw error;
   }
 }
@@ -75,7 +75,7 @@ export async function updateDatabaseRecord(tableName, recordId, data) {
 export async function addRecordToDatabase(tableName, data) {
   try {
     const response = await axios.post(
-      `/${airtableBaseUrl}/${tableName}`,
+      `${airtableBaseUrl}/${tableName}`,
       {
         records: [
           {
@@ -94,16 +94,16 @@ export async function addRecordToDatabase(tableName, data) {
 
     return response.data;
   } catch (error) {
-    console.error("Error during POST request:", error);
+    console.error("Error during POST request:", error.response || error);
     throw error;
   }
 }
 
-//DELETE record
+// DELETE record
 export async function deleteRecordFromDatabase(tableName, recordId) {
   try {
     const response = await axios.delete(
-      `/${airtableBaseUrl}/${tableName}/${recordId}`,
+      `${airtableBaseUrl}/${tableName}/${recordId}`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -115,7 +115,7 @@ export async function deleteRecordFromDatabase(tableName, recordId) {
 
     return response.data;
   } catch (error) {
-    console.error("Error during DELETE request:", error);
+    console.error("Error during DELETE request:", error.response || error);
     throw error;
   }
 }

@@ -17,6 +17,7 @@ import ChoiceRole from "../ChoiceRole";
 import Message from "../../../shared/component/Message";
 import { setLoggedUser } from "../../../redux/slices/authSlice";
 import PasswordRequirement from "../../../shared/component/PasswordRequirements";
+import guestTranslations from "../../translations/guestTranslations";
 
 export default function RegistrationForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -98,20 +99,20 @@ export default function RegistrationForm() {
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col sm:flex-row sm:space-x-4">
         <Input
-          label="Name"
+          label={guestTranslations.registration.nameLabel}
           errorMessage={errors.firstName?.message}
           register={register("firstName")}
           required
         />
         <Input
-          label="Surname"
+          label={guestTranslations.registration.surnameLabel}
           errorMessage={errors.lastName?.message}
           register={register("lastName")}
           required
         />
       </div>
       <Input
-        label="Email"
+        label={guestTranslations.registration.emailLabel}
         errorMessage={errors.email?.message}
         register={register("email")}
         type="email"
@@ -119,7 +120,7 @@ export default function RegistrationForm() {
       />
       <div className="flex flex-col sm:flex-row sm:space-x-4">
         <Input
-          label="New password"
+          label={guestTranslations.registration.newPasswordLabel}
           errorMessage={errors.password?.message}
           register={register("password")}
           type={showPassword ? "text" : "password"}
@@ -131,7 +132,7 @@ export default function RegistrationForm() {
           />
         </Input>
         <Input
-          label="Confirm password"
+          label={guestTranslations.registration.confirmPasswordLabel}
           errorMessage={errors.confirmPassword?.message}
           register={register("confirmPassword")}
           type={showPassword ? "text" : "password"}
@@ -148,18 +149,23 @@ export default function RegistrationForm() {
         handleCheckBox={handleCheckBox}
         checkedTeacher={checkedTeacher}
         checkedStudent={checkedStudent}
+        teacherLabel={guestTranslations.registration.roleTeacher}
+        studentLabel={guestTranslations.registration.roleStudent}
       />
       {error && (
         <Message
           type="error"
-          text="Oops... this email is already associated with another account"
+          text={guestTranslations.registration.emailAlreadyExists}
         />
       )}
       <div className="flex justify-between items-center py-4">
         <Link to="/studysync/login">
           <Icon name="back" />
         </Link>
-        <Button type="submit" name="Register" />
+        <Button
+          type="submit"
+          name={guestTranslations.registration.registerButton}
+        />
       </div>
     </form>
   );
