@@ -10,6 +10,7 @@ import SecondaryPopup from "./shared/SecondaryPopup";
 import SummaryEventCard from "./card/SummaryEventCard";
 import { useSelector } from "react-redux";
 import AlertBanner from "../../shared/component/AlertBanner";
+import { AlertTypes } from "../../shared/models";
 
 export default function PersonalCalendar({ events }) {
   const localizer = momentLocalizer(moment);
@@ -140,14 +141,14 @@ export default function PersonalCalendar({ events }) {
       {showCreatedEventAlert && (
         <AlertBanner
           text="Event created successfully."
-          type="success"
+          type={AlertTypes}
           onClose={() => setShowCreatedEventAlert(false)}
         />
       )}
       {showNoValidDateAlert && (
         <AlertBanner
           text="You cannot create events in the past tense."
-          type="alert"
+          type={AlertTypes.ERROR}
           onClose={() => setShowNoValidDateAlert(false)}
         />
       )}

@@ -80,7 +80,7 @@ export default function DeleteAccountForm() {
       {showAlertBanner && (
         <AlertBanner
           text="The request to delete your account has been processed."
-          type="delete"
+          type={AlertTypes.SUCCESS}
         />
       )}
     </>

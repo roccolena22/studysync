@@ -10,6 +10,7 @@ import { updateDatabaseRecord } from "../../../api/apiRequest";
 import AlertBanner from "../../../shared/component/AlertBanner";
 import { useDispatch } from "react-redux";
 import { logout } from "../../../redux/slices/authSlice";
+import { AlertTypes } from "../../../shared/models";
 
 export default function EditPasswordForm({ loggedUser }) {
   const [showPassword, setShowPassword] = useState(false);
@@ -98,13 +99,13 @@ export default function EditPasswordForm({ loggedUser }) {
       </div>
       {showUpdatedAlert && (
         <AlertBanner
-          type="success"
+          type={AlertTypes.SUCCESS}
           text="Password changed successfully. You will be logged out shortly."
         />
       )}
       {showProblemAlert && (
         <AlertBanner
-          type="alert"
+          type={AlertTypes.ERROR}
           text="Choose a password different from the previous one."
         />
       )}

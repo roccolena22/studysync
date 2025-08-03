@@ -1,10 +1,21 @@
+import React from "react";
+import { UseFormRegisterReturn } from "react-hook-form";
+
+interface DropdownMenuProps {
+  label: string;
+  register: UseFormRegisterReturn;
+  errorMessage?: string;
+  options: string[];
+  onOptionSelected: (value: string) => void;
+}
+
 const DropdownMenu = ({
   label,
   register,
   errorMessage,
   options,
   onOptionSelected,
-}) => {
+}: DropdownMenuProps): JSX.Element => {
   return (
     <div className="py-2 w-full">
       <p className="font-semibold">{label}</p>

@@ -9,6 +9,8 @@ export const EventFormValidator = yup.object().shape({
   mode: yup.string().required("The mode is required"),
   info: yup.string().max(20, "The additional info cannot exceed 20 characters"),
   startTime: yup.string().required("The starting time is mandatory"),
+  startDate: yup.string().required("The starting date is mandatory"),
+  endDate: yup.string().required("The ending date is mandatory"),
   endTime: yup.string().required("The end time is mandatory"),
   places: yup
     .mixed()

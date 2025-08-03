@@ -11,6 +11,7 @@ import moment from "moment";
 import { useEffect, useState } from "react";
 import { fetchEvents } from "../../Utilities/fetchFunctions";
 import AlertBanner from "../../../shared/component/AlertBanner";
+import { AlertTypes } from "../../../shared/models";
 
 export default function AddEventForm({
   startDate,
@@ -101,7 +102,7 @@ export default function AddEventForm({
           <Button type="submit" name="Create" />
         </div>
       </form>
-      {showNoValidDateAlert && <AlertBanner text={alertMessage} type="alert" />}
+      {showNoValidDateAlert && <AlertBanner text={alertMessage} type={AlertTypes.ALERT} />}
     </div>
   );
 }

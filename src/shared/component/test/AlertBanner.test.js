@@ -1,10 +1,10 @@
-import React from "react";
 import "@testing-library/jest-dom";
 import { render, screen, act } from "@testing-library/react";
 import AlertBanner from "../AlertBanner";
+import { AlertTypes } from "../../models";
 
 test("renders with specific text and success type", () => {
-  render(<AlertBanner text="Change made successfully" type="success" />);
+  render(<AlertBanner text="Change made successfully" type={AlertTypes.SUCCESS} />);
 
   const textElement = screen.getByText("Change made successfully");
   expect(textElement).toBeInTheDocument();
@@ -16,7 +16,7 @@ test("renders with specific text and success type", () => {
 });
 
 test("renders with specific text and delete type", () => {
-  render(<AlertBanner text="deletion successful" type="delete" />);
+  render(<AlertBanner text="deletion successful" type={AlertTypes.ERROR} />);
 
   const textElement = screen.getByText("deletion successful");
 
@@ -29,7 +29,7 @@ test("renders with specific text and delete type", () => {
 });
 
 test("renders with specific text and alert type", () => {
-  render(<AlertBanner text="Alert message" type="alert" />);
+  render(<AlertBanner text="Alert message" type={AlertTypes.ALERT} />);
 
   const textElement = screen.getByText("Alert message");
 
@@ -59,7 +59,7 @@ test("renders when text is missing", () => {
     .spyOn(console, "error")
     .mockImplementation(() => {});
 
-  render(<AlertBanner type="success" />);
+  render(<AlertBanner type={AlertTypes.SUCCESS} />);
 
   expect(consoleErrorSpy).toHaveBeenCalledWith(
     expect.stringContaining("text is missing!")
@@ -68,7 +68,7 @@ test("renders when text is missing", () => {
 
 test("does not render after timeout", async () => {
   act(() => {
-    render(<AlertBanner text="Message" type="success" />);
+    render(<AlertBanner text="Message" type={AlertTypes.SUCCESS} />);
   });
 
   const textElement = screen.getByText("Message");

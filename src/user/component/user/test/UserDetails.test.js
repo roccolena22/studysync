@@ -2,11 +2,12 @@ import React from "react";
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import UserDetails from "../UserDetails";
+import { UserRoles } from "../../../../shared/models";
 
 test("renders UserDetails component with user details", () => {
   const firstName = "John";
   const lastName = "Doe";
-  const role = "Teacher";
+  const role = UserRoles.TEACHER;
   const email = "john.doe@example.com";
 
   render(

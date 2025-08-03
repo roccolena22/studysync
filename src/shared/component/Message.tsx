@@ -1,6 +1,19 @@
+import { MessageTypes } from "../models";
 import Icon from "./Icon";
 
-export default function Message({ text, type, iconName, iconStyle }) {
+interface MessageProps {
+  text: string;
+  type?: MessageTypes;
+  iconName?: string;
+  iconStyle?: string;
+}
+
+export default function Message({
+  text,
+  type = MessageTypes.DEFAULT,
+  iconName,
+  iconStyle,
+}: MessageProps): JSX.Element {
   let className = "text-sm ";
 
   switch (type) {
@@ -16,9 +29,7 @@ export default function Message({ text, type, iconName, iconStyle }) {
 
   return (
     <div className="w-full flex justify-center items-center space-x-1 pt-6">
-      {iconName && (
-        <Icon name={iconName} style={iconStyle} />
-      )}
+      {iconName && <Icon name={iconName} style={iconStyle} />}
       <p className={className}>{text}</p>
     </div>
   );

@@ -6,6 +6,7 @@ import PriorityPopup from "../shared/PriorityPopup";
 import EditEventForm from "../form/EditEventForm";
 import IconAndName from "../shared/IconAndName";
 import AlertBanner from "../../../shared/component/AlertBanner";
+import { AlertTypes } from "../../../shared/models";
 
 export default function EditAndDeleteButtons({ event }) {
   const [editPriorityPopupIsOpen, setEditPriorityPopupIsOpen] = useState(false);
@@ -67,10 +68,10 @@ export default function EditAndDeleteButtons({ event }) {
         </PriorityPopup>
       )}
       {showEditAlert && (
-        <AlertBanner type="success" text="Modification successful!" />
+        <AlertBanner type={AlertTypes.SUCCESS} text="Modification successful!" />
       )}
       {showDeleteAlert && (
-        <AlertBanner type="delete" text="Event deleted successfully!" />
+        <AlertBanner type={AlertTypes.ERROR} text="Event deleted successfully!" />
       )}
     </div>
   );

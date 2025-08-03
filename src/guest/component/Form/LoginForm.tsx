@@ -1,8 +1,8 @@
-import { useForm } from "react-hook-form";
+import React, { useState, KeyboardEvent } from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Button from "../../../shared/component/Button";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
 import { LoginFormValidator } from "./validator/LoginFormValidator";
 import Input from "../../../shared/component/Input";
 import Icon from "../../../shared/component/Icon";
@@ -12,9 +12,14 @@ import { setLoggedUser } from "../../../redux/slices/authSlice";
 import { getRecordByField } from "../../../api/apiRequest";
 import guestTranslations from "../../translations/guestTranslations";
 
-export default function LoginForm() {
-  const [showPassword, setShowPassword] = useState(false);
-  const [loginError, setLoginError] = useState(null);
+interface LoginFormInputs {
+  email: string;
+  password: string;
+}
+
+export default function LoginForm(): JSX.Element {
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [loginError, setLoginError] = useState<string | null>(null);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -24,16 +29,16 @@ export default function LoginForm() {
     register,
     reset,
     formState: { errors },
-  } = useForm({
+  } = useForm<LoginFormInputs>({
     resolver: yupResolver(LoginFormValidator),
   });
 
-  const onSubmit = async (data) => {
+  const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
     try {
       const loggedUser = await getRecordByField("users", "email", data.email);
 
       if (loggedUser) {
-        const userPassword = loggedUser && loggedUser.password;
+        const userPassword = loggedUser.password;
 
         if (userPassword) {
           const result = await bcrypt.compare(data.password, userPassword);
@@ -46,17 +51,20 @@ export default function LoginForm() {
         } else {
           setLoginError(guestTranslations.login.temporaryProblem);
         }
+      } else {
+        setLoginError(guestTranslations.login.invalidCredentials);
       }
     } catch (error) {
       console.error("Error during login:", error);
+      setLoginError(guestTranslations.login.temporaryProblem);
     }
   };
 
   const handleShowPassword = () => {
-    setShowPassword(!showPassword);
+    setShowPassword((prev) => !prev);
   };
 
-  const handleKeyDown = (event) => {
+  const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
       event.preventDefault();
       handleSubmit((data) => {
@@ -65,16 +73,16 @@ export default function LoginForm() {
       })(event);
     }
   };
-  
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="py-2">
       <Input
-        label={guestTranslations.login.emailLabel}
+        label={guestTranslations.login.email.label}
         errorMessage={errors.email?.message}
         register={register("email")}
       />
       <Input
-        label={guestTranslations.login.passwordLabel}
+        label={guestTranslations.login.password.label}
         errorMessage={errors.password?.message}
         register={register("password")}
         type={showPassword ? "text" : "password"}

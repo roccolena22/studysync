@@ -2,9 +2,12 @@ import { Outlet } from "react-router-dom";
 import Navbar from "../../user/component/navigation/Navbar";
 import Footer from "../../user/component/navigation/Footer";
 
-export default function UserTemplate() {
+export default function UserTemplate(): JSX.Element {
   return (
-    <div data-testid="user-template" className="flex flex-col min-h-screen items-center bg-gray-50 text-gray-700">
+    <div
+      data-testid="user-template"
+      className="flex flex-col min-h-screen items-center bg-gray-50 text-gray-700"
+    >
       <div className="sticky top-0 z-20 w-full">
         <Navbar />
       </div>

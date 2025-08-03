@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { fetchUsers } from "../../Utilities/fetchFunctions";
 import AlertBanner from "../../../shared/component/AlertBanner";
+import { AlertTypes } from "../../../shared/models";
 
 export default function ProfileInfoForm({ loggedUser }) {
   const [showUpdatedAlert, setShowUpdatedAlert] = useState(false);
@@ -84,7 +85,7 @@ export default function ProfileInfoForm({ loggedUser }) {
         </div>
       </div>
       {showUpdatedAlert && (
-        <AlertBanner text="Edit Successful" type="success" />
+        <AlertBanner text="Edit Successful" type={AlertTypes.SUCCESS} />
       )}
     </form>
   );

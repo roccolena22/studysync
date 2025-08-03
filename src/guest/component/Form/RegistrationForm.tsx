@@ -1,5 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../../../shared/component/Button";
 import { useState } from "react";
@@ -14,28 +14,38 @@ import Message from "../../../shared/component/Message";
 import { setLoggedUser } from "../../../redux/slices/authSlice";
 import PasswordRequirement from "../../../shared/component/PasswordRequirements";
 import guestTranslations from "../../translations/guestTranslations";
+import { MessageTypes, UserRoles } from "../../../shared/models";
 
-export default function RegistrationForm() {
-  const [showPassword, setShowPassword] = useState(false);
-  const [role, setRole] = useState(null);
-  const [checkedTeacher, setCheckedTeacher] = useState(false);
-  const [checkedStudent, setCheckedStudent] = useState(false);
-  const [error, setError] = useState(false);
+interface RegistrationFormData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  role: UserRoles;
+}
+
+export default function RegistrationForm(): JSX.Element {
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [role, setRole] = useState<UserRoles | null>(null);
+  const [checkedTeacher, setCheckedTeacher] = useState<boolean>(false);
+  const [checkedStudent, setCheckedStudent] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleShowPassword = () => {
-    setShowPassword(!showPassword);
+    setShowPassword((prev) => !prev);
   };
 
-  const handleCheckBox = (input) => {
+  const handleCheckBox = (input: number) => {
     if (input === 0) {
-      setRole("teacher");
+      setRole(UserRoles.TEACHER);
       setCheckedTeacher(true);
       setCheckedStudent(false);
     } else if (input === 1) {
-      setRole("student");
+      setRole(UserRoles.STUDENT);
       setCheckedTeacher(false);
       setCheckedStudent(true);
     }
@@ -46,15 +56,13 @@ export default function RegistrationForm() {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm({
+  } = useForm<RegistrationFormData>({
     resolver: yupResolver(RegistrationFormValidator),
   });
 
-  const onSubmit = async (data) => {
+  const onSubmit: SubmitHandler<RegistrationFormData> = async (data) => {
     try {
-      if (role === null) {
-        return;
-      }
+      if (role === null) return;
 
       const existingUser = await getRecordByField("users", "email", data.email);
 
@@ -63,19 +71,17 @@ export default function RegistrationForm() {
       } else {
         setError(false);
 
-        data.role = role;
         const hash = await bcrypt.hash(data.password, 10);
-        data.password = hash;
 
-        const updateObj = {
+        const newUser = {
           firstName: data.firstName,
           lastName: data.lastName,
           email: data.email,
-          role: data.role,
-          password: data.password,
+          password: hash,
+          role: role,
         };
 
-        const result = await addRecordToDatabase("users", updateObj);
+        const result = await addRecordToDatabase("users", newUser);
         if (result) {
           const loggedUser = await getRecordByField(
             "users",
@@ -88,8 +94,8 @@ export default function RegistrationForm() {
 
         reset();
       }
-    } catch (error) {
-      console.error("Error during registration:", error);
+    } catch (err) {
+      console.error("Error during registration:", err);
     }
   };
 
@@ -97,20 +103,20 @@ export default function RegistrationForm() {
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col sm:flex-row sm:space-x-4">
         <Input
-          label={guestTranslations.registration.nameLabel}
+          label={guestTranslations.registration.name.label}
           errorMessage={errors.firstName?.message}
           register={register("firstName")}
           required
         />
         <Input
-          label={guestTranslations.registration.surnameLabel}
+          label={guestTranslations.registration.surname.label}
           errorMessage={errors.lastName?.message}
           register={register("lastName")}
           required
         />
       </div>
       <Input
-        label={guestTranslations.registration.emailLabel}
+        label={guestTranslations.registration.email.label}
         errorMessage={errors.email?.message}
         register={register("email")}
         type="email"
@@ -118,7 +124,7 @@ export default function RegistrationForm() {
       />
       <div className="flex flex-col sm:flex-row sm:space-x-4">
         <Input
-          label={guestTranslations.registration.newPasswordLabel}
+          label={guestTranslations.registration.newPassword.label}
           errorMessage={errors.password?.message}
           register={register("password")}
           type={showPassword ? "text" : "password"}
@@ -130,7 +136,7 @@ export default function RegistrationForm() {
           />
         </Input>
         <Input
-          label={guestTranslations.registration.confirmPasswordLabel}
+          label={guestTranslations.registration.confirmPassword.label}
           errorMessage={errors.confirmPassword?.message}
           register={register("confirmPassword")}
           type={showPassword ? "text" : "password"}
@@ -152,7 +158,7 @@ export default function RegistrationForm() {
       />
       {error && (
         <Message
-          type="error"
+          type={MessageTypes.ERROR}
           text={guestTranslations.registration.emailAlreadyExists}
         />
       )}

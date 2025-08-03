@@ -1,4 +1,12 @@
-export default function GuestPageContainer({ children }) {
+import React, { ReactNode } from "react";
+
+interface GuestPageContainerProps {
+  children: ReactNode;
+}
+
+export default function GuestPageContainer({
+  children,
+}: GuestPageContainerProps): JSX.Element {
   return (
     <div
       data-testid="guest-container"

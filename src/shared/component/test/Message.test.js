@@ -2,10 +2,11 @@ import React from "react";
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import Message from "../Message";
+import { MessageTypes } from "../../models";
 
 test("renders Message component with error type", () => {
   const text = "This is an error message";
-  const type = "error";
+  const type = MessageTypes.ERROR;
 
   render(<Message text={text} type={type} />);
 

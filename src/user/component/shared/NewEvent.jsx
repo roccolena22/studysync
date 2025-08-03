@@ -39,7 +39,7 @@ export default function NewEvent({ name }) {
       {showCreatedEventAlert && (
         <AlertBanner
           text="Event created successfully."
-          type="success"
+          type={AlertTypes.SUCCESS}
           onClose={() => setShowCreatedEventAlert(false)}
         />
       )}

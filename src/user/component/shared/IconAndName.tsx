@@ -1,6 +1,13 @@
-import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import Icon from "../../../shared/component/Icon";
+
+interface IconAndNameProps {
+  iconName: string;
+  label: string;
+  onClick?: () => void;
+  color?: string;
+  pathname?: string;
+}
 
 export default function IconAndName({
   iconName,
@@ -8,7 +15,7 @@ export default function IconAndName({
   onClick,
   color = "text-cyan-700",
   pathname,
-}) {
+}: IconAndNameProps): JSX.Element {
   const location = useLocation();
 
   const commonContainerClasses = "flex flex-col cursor-pointer items-center";
