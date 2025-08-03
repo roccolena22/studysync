@@ -7,12 +7,8 @@ import { RegistrationFormValidator } from "./validator/RegistrationFormValidator
 import Input from "../../../shared/component/Input";
 import Icon from "../../../shared/component/Icon";
 import bcrypt from "bcryptjs";
-import { addUser } from "../../../redux/slices/usersSlice";
 import { useDispatch } from "react-redux";
-import {
-  addRecordToDatabase,
-  getListFromDatabase,
-} from "../../../api/apiRequest";
+import { addRecordToDatabase, getRecordByField } from "../../../api/apiRequest";
 import ChoiceRole from "../ChoiceRole";
 import Message from "../../../shared/component/Message";
 import { setLoggedUser } from "../../../redux/slices/authSlice";
@@ -56,23 +52,21 @@ export default function RegistrationForm() {
 
   const onSubmit = async (data) => {
     try {
-      const users = await getListFromDatabase("users");
       if (role === null) {
         return;
       }
-      const existingUser = users.find((user) => user.email === data.email);
+
+      const existingUser = await getRecordByField("users", "email", data.email);
+
       if (existingUser) {
         setError(true);
       } else {
         setError(false);
 
         data.role = role;
-
         const hash = await bcrypt.hash(data.password, 10);
-
         data.password = hash;
-        const updatedUsers = [...users, data];
-        dispatch(addUser(updatedUsers));
+
         const updateObj = {
           firstName: data.firstName,
           lastName: data.lastName,
@@ -83,15 +77,19 @@ export default function RegistrationForm() {
 
         const result = await addRecordToDatabase("users", updateObj);
         if (result) {
-          const users = await getListFromDatabase("users");
-          const loggedUser = users.find((user) => user.email === data.email);
+          const loggedUser = await getRecordByField(
+            "users",
+            "email",
+            data.email
+          );
           dispatch(setLoggedUser(loggedUser));
           navigate("/studysync/");
         }
+
         reset();
       }
     } catch (error) {
-      console.error("Error retrieving users from database:", error);
+      console.error("Error during registration:", error);
     }
   };
 

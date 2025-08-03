@@ -1,11 +1,12 @@
 const guestTranslations = {
-  "login": {
-    "emailLabel": "Email",
-    "passwordLabel": "Password",
-    "invalidCredentials": "Invalid email or password",
-    "temporaryProblem": "There is a temporary problem, please try again later",
-    "loginButton": "Login",
-    "registerButton": "Sign-up"
+  login: {
+    emailLabel: "Email",
+    passwordLabel: "Password",
+    invalidCredentials: "Invalid email or password",
+    temporaryProblem: "There is a temporary problem, please try again later",
+    loginButton: "Login",
+    registerButton: "Sign-up",
+    recoveryPasswordButton: "Did you forget your password?",
   },
    registration: {
     nameLabel: "Name",
@@ -18,6 +19,11 @@ const guestTranslations = {
     emailAlreadyExists: "Oops... this email is already associated with another account",
     registerButton: "Register",
   },
+  recoveryPassword: {
+    emailLabel: "Email",
+    sendButton: "Get reset link",
+    infoMessage: "If the email is correct, you will receive a link to reset your password"
+  }
 };
 
 export default guestTranslations;

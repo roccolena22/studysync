@@ -1,5 +1,5 @@
 const commonTranslations = {
-  "appName": "StudySync"
+  appName: "StudySync"
 };
 
 export default commonTranslations;

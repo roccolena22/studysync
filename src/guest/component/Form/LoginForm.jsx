@@ -9,7 +9,7 @@ import Icon from "../../../shared/component/Icon";
 import bcrypt from "bcryptjs";
 import { useDispatch } from "react-redux";
 import { setLoggedUser } from "../../../redux/slices/authSlice";
-import { getListFromDatabase } from "../../../api/apiRequest";
+import { getRecordByField } from "../../../api/apiRequest";
 import guestTranslations from "../../translations/guestTranslations";
 
 export default function LoginForm() {
@@ -30,8 +30,7 @@ export default function LoginForm() {
 
   const onSubmit = async (data) => {
     try {
-      const users = await getListFromDatabase("users");
-      const loggedUser = users.find((user) => user.email === data.email);
+      const loggedUser = await getRecordByField("users", "email", data.email);
 
       if (loggedUser) {
         const userPassword = loggedUser && loggedUser.password;

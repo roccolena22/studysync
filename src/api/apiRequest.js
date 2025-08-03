@@ -47,6 +47,33 @@ export async function getRecordFromDatabase(tableName, recordId) {
   }
 }
 
+// GET filtered record by field
+export async function getRecordByField(tableName, fieldName, value) {
+  try {
+    const response = await axios.get(
+      `${airtableBaseUrl}/${tableName}?filterByFormula=${encodeURIComponent(`{${fieldName}} = '${value}'`)}`,
+      {
+        headers: {
+          Authorization: `Bearer ${VITE_API_KEY}`,
+        },
+      }
+    );
+
+    const records = response.data.records;
+    if (records.length > 0) {
+      return {
+        id: records[0].id,
+        ...records[0].fields,
+      };
+    } else {
+      return null;
+    }
+  } catch (error) {
+    console.error("Error during filtered GET request:", error.response || error);
+    throw error;
+  }
+}
+
 // PATCH edit record
 export async function updateDatabaseRecord(tableName, recordId, data) {
   try {
