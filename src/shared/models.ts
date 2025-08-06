@@ -14,3 +14,10 @@ export enum MessageTypes {
   HIGHLIGHTED = "highlighted",
   DEFAULT = "default",
 }
+
+export enum TabelName {
+  USERS = "users",
+  EVENTS = "events",
+  BOOKINGS = "bookings",
+FOLLOWERS = "followers"
+}

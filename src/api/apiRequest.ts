@@ -1,4 +1,5 @@
 import axios from "axios";
+import { TabelName } from "../shared/models";
 
 const VITE_API_KEY = import.meta.env.VITE_API_KEY;
 const VITE_BASE_ID = import.meta.env.VITE_BASE_ID;
@@ -6,7 +7,7 @@ const VITE_BASE_ID = import.meta.env.VITE_BASE_ID;
 const airtableBaseUrl = `https://api.airtable.com/v0/${VITE_BASE_ID}`;
 
 // GET list
-export async function getListFromDatabase(tableName) {
+export async function getListFromDatabase(tableName : TabelName) {
   try {
     const response = await axios.get(
       `${airtableBaseUrl}/${tableName}`,
@@ -19,7 +20,7 @@ export async function getListFromDatabase(tableName) {
 
     const responseData = response.data;
     return responseData.records.map((element) => ({
-      id: element.id, // se ti serve l'id del record
+      id: element.id,
       ...element.fields,
     }));
   } catch (error) {
@@ -29,7 +30,7 @@ export async function getListFromDatabase(tableName) {
 }
 
 // GET single record
-export async function getRecordFromDatabase(tableName, recordId) {
+export async function getRecordFromDatabase(tableName : TabelName, recordId) {
   try {
     const response = await axios.get(
       `${airtableBaseUrl}/${tableName}/${recordId}`,
@@ -48,7 +49,7 @@ export async function getRecordFromDatabase(tableName, recordId) {
 }
 
 // GET filtered record by field
-export async function getRecordByField(tableName, fieldName, value) {
+export async function getRecordByField(tableName : TabelName, fieldName, value) {
   try {
     const response = await axios.get(
       `${airtableBaseUrl}/${tableName}?filterByFormula=${encodeURIComponent(`{${fieldName}} = '${value}'`)}`,
@@ -75,7 +76,7 @@ export async function getRecordByField(tableName, fieldName, value) {
 }
 
 // PATCH edit record
-export async function updateDatabaseRecord(tableName, recordId, data) {
+export async function updateDatabaseRecord(tableName : TabelName, recordId, data) {
   try {
     const response = await axios.patch(
       `${airtableBaseUrl}/${tableName}/${recordId}`,
@@ -99,7 +100,7 @@ export async function updateDatabaseRecord(tableName, recordId, data) {
 }
 
 // POST add record
-export async function addRecordToDatabase(tableName, data) {
+export async function addRecordToDatabase(tableName : TabelName, data) {
   try {
     const response = await axios.post(
       `${airtableBaseUrl}/${tableName}`,
@@ -127,7 +128,7 @@ export async function addRecordToDatabase(tableName, data) {
 }
 
 // DELETE record
-export async function deleteRecordFromDatabase(tableName, recordId) {
+export async function deleteRecordFromDatabase(tableName : TabelName, recordId) {
   try {
     const response = await axios.delete(
       `${airtableBaseUrl}/${tableName}/${recordId}`,
