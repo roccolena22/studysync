@@ -1,5 +1,6 @@
-import React, { ReactNode } from "react";
 import { UseFormRegisterReturn } from "react-hook-form";
+import React, { ReactNode, KeyboardEvent } from "react";
+
 
 interface InputProps {
   label?: string;
@@ -9,6 +10,7 @@ interface InputProps {
   children?: ReactNode;
   required?: boolean;
   placeholder?: string;
+  onKeyDown?: (event: KeyboardEvent<HTMLInputElement>) => void;
 }
 
 export default function Input({
@@ -19,6 +21,7 @@ export default function Input({
   children,
   required = false,
   placeholder = "",
+  onKeyDown,
 }: InputProps) {
   return (
     <div className="py-2 w-full">
@@ -32,6 +35,7 @@ export default function Input({
           type={type}
           placeholder={placeholder}
           className="w-full focus:outline-none bg-white"
+          onKeyDown={onKeyDown}
         />
         {children}
       </div>

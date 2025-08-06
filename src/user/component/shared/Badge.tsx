@@ -18,7 +18,6 @@ export default function Badge({ text }: BadgeProps): JSX.Element {
 
   return (
     <div
-      data-testid="badge"
       className={`${bgColor} text-[10px] text-white px-1 rounded-lg h-3 sm:h-4 flex justify-center items-center w-fit font-semibold`}
     >
       <p>{text.toUpperCase()}</p>

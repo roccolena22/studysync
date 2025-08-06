@@ -1,5 +1,3 @@
-import { min } from "react-big-calendar/lib/utils/dates";
-
 const guestTranslations = {
   login: {
     email: {
@@ -88,10 +86,13 @@ const guestTranslations = {
       label: "Email",
       placeholder: "Enter your email",
       required: "Email is required",
+      error: "Invalid Email"
     },
     loading: "Sending...",
     sendButton: "Get reset link",
-    infoMessage: "If the email is correct, you will receive a link to reset your password",
+    infoMessage: "If the email is correct, you will receive a link to re,set your password",
+    emailSended: "A recovery link has been sent to your email.",
+    emailNotSended: "Something went wrong. Please try again."
   },
 };
 

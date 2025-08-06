@@ -5,7 +5,7 @@ import Button from "../../../shared/component/Button";
 import guestTranslations from "../../translations/guestTranslations";
 import * as yup from "yup";
 import { useState } from "react";
-import Message from "../../../shared/component/Message"; // se già esiste
+import Message from "../../../shared/component/Message";
 import { MessageTypes } from "../../../shared/models";
 
 interface RecoveryPasswordFormData {
@@ -15,8 +15,8 @@ interface RecoveryPasswordFormData {
 const schema = yup.object({
   email: yup
     .string()
-    .email("Invalid email format")
-    .required("Email is required"),
+    .email(guestTranslations.recoveryPassword.email.error)
+    .required(guestTranslations.recoveryPassword.email.required),
 });
 
 export default function RecoveryPasswordForm(): JSX.Element {
@@ -37,11 +37,11 @@ export default function RecoveryPasswordForm(): JSX.Element {
       // Simula richiesta API
       await new Promise((resolve) => setTimeout(resolve, 1000));
       console.log("Recovery email sent to:", data.email);
-      setSuccessMessage("A recovery link has been sent to your email.");
+      setSuccessMessage(guestTranslations.recoveryPassword.emailSended);
       setErrorMessage(null);
       reset();
     } catch (err) {
-      setErrorMessage("Something went wrong. Please try again.");
+      setErrorMessage(guestTranslations.recoveryPassword.emailNotSended);
       setSuccessMessage(null);
     }
   };
