@@ -1,11 +1,8 @@
-interface Event {
-  endDate: string;
-  endTime: string;
-}
+import { EventModel } from "../models";
 
 export const sortEventsByTime = (
-  eventsArray?: Event[]
-): Event[] | undefined => {
+  eventsArray?: EventModel[]
+): EventModel[] | undefined => {
   if (!eventsArray) return undefined;
 
   return [...eventsArray].sort((a, b) => {

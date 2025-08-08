@@ -17,10 +17,14 @@ export default function Badge({ text }: BadgeProps): JSX.Element {
   const bgColor = colorMapping[text] || "bg-gray-800";
 
   return (
-    <div
-      className={`${bgColor} text-[10px] text-white px-1 rounded-lg h-3 sm:h-4 flex justify-center items-center w-fit font-semibold`}
-    >
-      <p>{text.toUpperCase()}</p>
-    </div>
+    <>
+      {text && (
+        <div
+          className={`${bgColor} text-[10px] text-white px-1 rounded-lg h-3 sm:h-4 flex justify-center items-center w-fit font-semibold`}
+        >
+          <p>{String(text).toUpperCase()}</p>
+        </div>
+      )}
+    </>
   );
 }

@@ -1,83 +1,76 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import Button from "../../../shared/component/Button";
-import {
-  addRecordToDatabase,
-  deleteRecordFromDatabase,
-} from "../../../api/apiRequest";
-import { fetchBookings } from "../../Utilities/fetchFunctions";
+import { addRecordToDatabase } from "../../../api/apiRequest";
+import { deleteBooking } from "../../../api/apiBookings";
 import { TabelName } from "../../../shared/models";
-
-interface User {
-  id: string;
-  [key: string]: any;
-}
-
-interface Booking {
-  id: string;
-  eventId: string[];
-  bookedId: string;
-}
+import { EventModel, User, Booking } from "../../models";
 
 interface Props {
-  event: any;
-  bookedUsers: User[];
+  event: EventModel;
+  bookedUsers: Booking[];      // Array di prenotazioni (bookings)
+  loggedUserId: string;            // Utente loggato
+  updateBookingForEvent: (eventId: string, newBookings: Booking[]) => void;
 }
 
-export default function JoinAndLeaveButtons({ event, bookedUsers }: Props): JSX.Element {
+export default function JoinAndLeaveButtons({
+  event,
+  bookedUsers,
+  loggedUserId,
+  updateBookingForEvent,
+}: Props): JSX.Element {
   const [isBooked, setIsBooked] = useState<boolean>(false);
-  const loggedUser = useSelector((state: any) => state.auth.user as User);
-  const bookings = useSelector((state: any) => state.bookings as Booking[]);
-  const dispatch = useDispatch();
+
+  // Controlla se l'utente è già prenotato per questo evento
+  useEffect(() => {
+    const booked = bookedUsers.some(booking => booking.bookedId === loggedUserId);
+    setIsBooked(booked);
+  }, [bookedUsers, loggedUserId]);
 
   const toggleBooking = async (eventId: string, isAdding: boolean) => {
-    const currentRecord = isAdding
-      ? {
-          eventId: [eventId],
-          bookedId: loggedUser.id,
-        }
-      : bookings.find(
-          (item) =>
-            item.bookedId === loggedUser.id && item.eventId[0] === eventId
-        );
-
     try {
-      if (isAdding) {
-        await addRecordToDatabase(TabelName.BOOKINGS, currentRecord);
-      } else if (currentRecord && "id" in currentRecord) {
-        await deleteRecordFromDatabase(TabelName.BOOKINGS, currentRecord.id);
+     if (isAdding) {
+  const response = await addRecordToDatabase(TabelName.BOOKINGS, {
+    eventId: [eventId],
+    bookedId: loggedUserId,
+    // authorId rimosso
+  });
+
+  const newBooking: Booking = {
+    id: response.records[0].id,
+    bookedId: loggedUserId,
+    eventId: eventId,
+    authorId: "", // lo popolerai dopo se serve, magari ricaricando il record
+  };
+
+  updateBookingForEvent(eventId, [...bookedUsers, newBooking]);
+} else {
+        // Trova la prenotazione da rimuovere (quella con bookedId = loggedUserId)
+        const bookingToRemove = bookedUsers.find(b => b.bookedId === loggedUserId);
+        if (!bookingToRemove) return;
+
+        // Rimuovi prenotazione dal database
+        await deleteBooking(bookingToRemove.id);
+
+        // Aggiorna la lista locale rimuovendo la prenotazione eliminata
+        updateBookingForEvent(
+          eventId,
+          bookedUsers.filter(b => b.id !== bookingToRemove.id)
+        );
       }
-      fetchBookings(dispatch);
     } catch (error) {
-      console.error(`Error ${isAdding ? "adding" : "removing"} booking`, error);
+      console.error(`Errore ${isAdding ? "aggiungendo" : "rimuovendo"} la prenotazione`, error);
     }
   };
 
-  useEffect(() => {
-    const booked = bookings.find(
-      (item) => item.bookedId === loggedUser.id && item.eventId[0] === event.id
-    );
-    setIsBooked(!!booked);
-  }, [bookings, event.id, loggedUser.id]);
-
-  const isFull = bookedUsers && bookedUsers.length >= event.places;
+  const isFull = bookedUsers.length >= event.places;
 
   return (
     <div>
       {!isFull && !isBooked && (
-        <Button
-          small
-          name="Join"
-          onClick={() => toggleBooking(event.id, true)}
-        />
+        <Button small name="Join" onClick={() => toggleBooking(event.id, true)} />
       )}
       {isBooked && (
-        <Button
-          small
-          outline
-          name="Leave"
-          onClick={() => toggleBooking(event.id, false)}
-        />
+        <Button small outline name="Leave" onClick={() => toggleBooking(event.id, false)} />
       )}
     </div>
   );

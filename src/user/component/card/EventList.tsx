@@ -1,28 +1,54 @@
 import React, { useEffect, useState } from "react";
 import EventCard from "./EventCard";
 import SearchBar from "../shared/SearchBar";
-import { useDispatch } from "react-redux";
 import { sortEventsByTime } from "../../Utilities/sortEventsByTime";
-import { fetchBookings, fetchEvents, fetchUsers } from "../../Utilities/fetchFunctions";
 import Message from "../../../shared/component/Message";
+import { getBookingByFilter } from "../../../api/apiBookings";
+import { EventModel, Booking } from "../../models";
 
 interface EventListProps {
-  eventsToShow: any[];
+  eventsToShow: EventModel[];
 }
 
 export default function EventList({ eventsToShow }: EventListProps): JSX.Element {
-  const [searchedEvents, setSearchedEvents] = useState<Event[]>([]);
-  const dispatch = useDispatch();
+  const [searchedEvents, setSearchedEvents] = useState<EventModel[]>([]);
+  const [bookingsByEvent, setBookingsByEvent] = useState<Record<string, Booking[]>>({});
 
-  const handleSearch = (dataFromSearch: Event[]) => {
-    setSearchedEvents(dataFromSearch);
+  const handleSearch = (dataFromSearch?: EventModel[]) => {
+    setSearchedEvents(dataFromSearch ?? []);
+  };
+
+  // Funzione per aggiornare localmente lo stato delle prenotazioni di un evento
+  const updateBookingForEvent = (eventId: string, newBookings: Booking[]) => {
+    setBookingsByEvent((prev) => ({
+      ...prev,
+      [eventId]: newBookings,
+    }));
   };
 
   useEffect(() => {
-    fetchEvents(dispatch);
-    fetchUsers(dispatch);
-    fetchBookings(dispatch);
-  }, [dispatch]);
+    const fetchAllBookings = async () => {
+      if (eventsToShow.length === 0) return;
+
+      const ids = eventsToShow.map((e) => e.id);
+      const formula = `OR(${ids.map((id) => `{eventId}='${id}'`).join(",")})`;
+
+      try {
+        const allBookings = await getBookingByFilter(formula);
+        // Raggruppa per eventId
+        const grouped: Record<string, Booking[]> = {};
+        allBookings.forEach((b) => {
+          if (!grouped[b.eventId]) grouped[b.eventId] = [];
+          grouped[b.eventId].push(b);
+        });
+        setBookingsByEvent(grouped);
+      } catch (error) {
+        console.error("Errore nel recupero delle prenotazioni:", error);
+      }
+    };
+
+    fetchAllBookings();
+  }, [eventsToShow]);
 
   const sortedEvents = sortEventsByTime(eventsToShow);
 
@@ -38,7 +64,7 @@ export default function EventList({ eventsToShow }: EventListProps): JSX.Element
         </div>
       )}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 py-6">
-        {(searchedEvents.length > 0 ? searchedEvents : sortedEvents).map(
+        {(searchedEvents && searchedEvents.length > 0 ? searchedEvents : sortedEvents).map(
           (event, index) => (
             <div
               className={
@@ -48,7 +74,11 @@ export default function EventList({ eventsToShow }: EventListProps): JSX.Element
               }
               key={event.id ?? index}
             >
-              <EventCard event={event} />
+              <EventCard
+                event={event}
+                bookedUsers={bookingsByEvent[event.id] || []}
+                updateBookingForEvent={updateBookingForEvent}
+              />
             </div>
           )
         )}

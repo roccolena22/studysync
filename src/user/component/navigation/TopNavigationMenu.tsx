@@ -27,24 +27,26 @@ export default function TopNavigationMenu(): JSX.Element {
       }
     };
     window.addEventListener("resize", handleResize);
-    // Cleanup on unmount
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
     <div className="flex space-x-5">
-      <div className="hidden md:block md:flex space-x-5">
+      <div className="hidden md:flex space-x-5">
         <IconAndName
+        color="white"
           label="dashboard"
           iconName="dashboard"
           pathname="/studysync/"
         />
         <IconAndName
+        color="white"
           label="events"
           iconName="calendar"
           pathname="/studysync/events"
         />
         <IconAndName
+        color="white"
           label="network"
           iconName="network"
           pathname="/studysync/network"
@@ -52,19 +54,22 @@ export default function TopNavigationMenu(): JSX.Element {
       </div>
       <div className="sm:hidden">
         <IconAndName
+        color="white"
           label="menu"
           iconName="menu"
           onClick={toggleNavigationMenu}
         />
       </div>
 
-      <div className="hidden sm:block sm:flex space-x-5">
+      <div className="hidden sm:flex space-x-5">
         <IconAndName
+        color="white"
           label="account"
           iconName="account"
           pathname="/studysync/account"
         />
         <IconAndName
+        color="white"
           label="logout"
           iconName="logout"
           pathname="/studysync/login"

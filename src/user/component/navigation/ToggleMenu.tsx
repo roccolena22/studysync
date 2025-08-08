@@ -18,12 +18,14 @@ export default function ToggleMenu(): JSX.Element {
         label="account"
         iconName="account"
         pathname="/studysync/account"
+        color="white"
       />
       <IconAndName
         label="logout"
         iconName="logout"
         pathname="/studysync/login"
         onClick={handleLogout}
+        color="white"
       />
     </div>
   );

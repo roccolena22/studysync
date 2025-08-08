@@ -1,15 +1,16 @@
 import { useDispatch } from "react-redux";
 import { deleteRecordFromDatabase } from "../../../api/apiRequest";
 import { useState } from "react";
-import { deleteEvent } from "../../../redux/slices/eventsSlice";
 import PriorityPopup from "../shared/PriorityPopup";
 import EditEventForm from "../form/EditEventForm";
 import IconAndName from "../shared/IconAndName";
 import AlertBanner from "../../../shared/component/AlertBanner";
 import { AlertTypes, TabelName } from "../../../shared/models";
+import { deleteEventRecord } from "../../../api/apiEvents";
+import { EventModel } from "../../models";
 
 interface Props {
-  event: any;
+  event: EventModel;
 }
 
 export default function EditAndDeleteButtons({ event }: Props): JSX.Element {
@@ -28,14 +29,13 @@ export default function EditAndDeleteButtons({ event }: Props): JSX.Element {
   };
 
   const handleDelete = async (eventToDelete: any) => {
-    const isDeleted = await deleteRecordFromDatabase(
-      TabelName.EVENTS,
+    const isDeleted = await deleteEventRecord(
       eventToDelete.id
     );
     if (isDeleted?.deleted === true) {
       setShowDeleteAlert(true);
     }
-    dispatch(deleteEvent(eventToDelete));
+    deleteEventRecord(eventToDelete);
   };
 
   const handleCloseEditPriorityPopup = () => {
@@ -59,7 +59,7 @@ export default function EditAndDeleteButtons({ event }: Props): JSX.Element {
         iconName="delete"
         label="delete"
         onClick={() => handleDelete(event)}
-        color="text-red-800"
+        color="red"
       />
 
       {editPriorityPopupIsOpen && (

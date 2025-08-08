@@ -1,13 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { persistReducer, persistStore, PersistConfig } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-
-import authReducer from "./slices/authSlice";
-import followersReducer from "./slices/followersSlice";
-import eventsReducer from "./slices/eventsSlice";
-import nextEventsReducer from "./slices/nextEventsSlice";
-import bookingsReducer from "./slices/bookingsSlice";
-import usersReducer from "./slices/usersSlice";
+import authReducer from "./slices/authSlice";;
 
 const persistConfig: PersistConfig<any> = {
   key: "root",
@@ -19,11 +13,6 @@ const persistedReducer = persistReducer<any>(persistConfig, authReducer);
 export const store = configureStore({
   reducer: {
     auth: persistedReducer,
-    followers: followersReducer,
-    users: usersReducer,
-    events: eventsReducer,
-    nextEvents: nextEventsReducer,
-    bookings: bookingsReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

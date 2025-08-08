@@ -2,12 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Button from "../../shared/component/Button";
 import { useSelector } from "react-redux";
-
-interface User {
-  id: string;
-  name: string;
-  email: string;
-}
+import { User } from "../models";
 
 export default function ErrorContent(): JSX.Element {
   const loggedUser = useSelector((state: any) => state.auth.user) as User | null;

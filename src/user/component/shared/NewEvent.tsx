@@ -45,7 +45,6 @@ export default function NewEvent({ name }: NewEventProps): JSX.Element {
         <AlertBanner
           text="Event created successfully."
           type={AlertTypes.SUCCESS}
-          onClose={() => setShowCreatedEventAlert(false)}
         />
       )}
     </>

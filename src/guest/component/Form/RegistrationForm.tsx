@@ -15,6 +15,7 @@ import { setLoggedUser } from "../../../redux/slices/authSlice";
 import PasswordRequirement from "../../../shared/component/PasswordRequirements";
 import guestTranslations from "../../translations/guestTranslations";
 import { MessageTypes, TabelName, UserRoles } from "../../../shared/models";
+import { addUser, getUserByField } from "../../../api/apiUsers";
 
 interface RegistrationFormData {
   firstName: string;
@@ -56,7 +57,7 @@ export default function RegistrationForm(): JSX.Element {
 
   const onSubmit: SubmitHandler<RegistrationFormData> = async (data) => {
     try {
-      const existingUser = await getRecordByField(TabelName.USERS, "email", data.email);
+      const existingUser = await getUserByField("email", data.email);
 
       if (existingUser) {
         setError(true);
@@ -73,10 +74,9 @@ export default function RegistrationForm(): JSX.Element {
           role: data.role,
         };
 
-        const result = await addRecordToDatabase(TabelName.USERS, newUser);
+        const result = await addUser(newUser);
         if (result) {
-          const loggedUser = await getRecordByField(
-            TabelName.USERS,
+          const loggedUser = await getUserByField(
             "email",
             data.email
           );

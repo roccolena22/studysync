@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import moment from "moment";
 import ItemCard from "./ItemCard";
 import Badge from "../shared/Badge";
+import { EventModel } from "../../models";
 
 interface BodyCardProps {
-  event: any;
+  event: EventModel;
 }
 
 export default function BodyCard({ event }: BodyCardProps): JSX.Element {

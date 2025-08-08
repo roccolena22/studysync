@@ -5,22 +5,27 @@ interface IconAndNameProps {
   iconName: string;
   label: string;
   onClick?: () => void;
-  color?: string;
+  color?: keyof typeof COLORS;
   pathname?: string;
 }
+
+const COLORS = {
+  cyan: "text-cyan-700",
+  white: "text-white",
+  red: "text-red-800",
+};
 
 export default function IconAndName({
   iconName,
   label,
   onClick,
-  color = "text-cyan-700",
+  color = "cyan",
   pathname,
 }: IconAndNameProps): JSX.Element {
   const location = useLocation();
-
+  const colorClass = COLORS[color] || COLORS.cyan; // Fallback sicuro
   const commonContainerClasses = "flex flex-col cursor-pointer items-center";
-  const commonTextClasses = "text-[10px]";
-  const textClasses = commonTextClasses + ` ${color}`;
+  const isActive = pathname && location.pathname === pathname;
 
   return pathname ? (
     <div onClick={onClick}>
@@ -30,18 +35,18 @@ export default function IconAndName({
       >
         <div
           className={`rounded-2xl w-8 h-8 flex items-center justify-center hover:border border-full border-white ${
-            location.pathname === pathname ? "bg-gray-400" : ""
+            isActive ? "bg-gray-400" : ""
           }`}
         >
-          <Icon color="white" name={iconName} />
+          <Icon name={iconName} style={`w-4 h-4 ${colorClass}`} />
         </div>
-        <p className={`text-[13px] text-white`}>{label.toUpperCase()}</p>
+        <p className={`text-[13px] ${colorClass}`}>{label.toUpperCase()}</p>
       </Link>
     </div>
   ) : (
     <div className={commonContainerClasses} onClick={onClick}>
-      <Icon name={iconName} style={`w-3 h-3 ${color}`} />
-      <span className={textClasses}>{label.toUpperCase()}</span>
+      <Icon name={iconName} style={`w-4 h-4 ${colorClass}`} />
+      <p className={`text-[13px] ${colorClass}`}>{label.toUpperCase()}</p>
     </div>
   );
 }

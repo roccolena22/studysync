@@ -2,14 +2,13 @@ import React, { useState } from "react";
 import UserDetails from "../user/UserDetails";
 import PriorityPopup from "../shared/PriorityPopup";
 import UsersList from "../user/UserList";
-import { fetchBookings } from "../../Utilities/fetchFunctions";
-import { useDispatch } from "react-redux";
 import IconAndName from "../shared/IconAndName";
+import { Booking, EventModel } from "../../models";
 
 
 interface HeaderCardProps {
-  event: any;
-  bookedUsers?: any[];
+  event: EventModel;
+  bookedUsers?: Booking[];
 }
 
 export default function HeaderCard({
@@ -18,11 +17,10 @@ export default function HeaderCard({
 }: HeaderCardProps): JSX.Element {
   const [reservationsPriorityPopupIsOpen, setReservationsPriorityPopupIsOpen] =
     useState(false);
-  const dispatch = useDispatch();
 
   const handleReservationsPopup = () => {
     setReservationsPriorityPopupIsOpen((prev) => !prev);
-    fetchBookings(dispatch);
+  
   };
 
   return (
@@ -49,7 +47,7 @@ export default function HeaderCard({
           handleClose={() => setReservationsPriorityPopupIsOpen(false)}
           title="List of reservations"
         >
-          <UsersList usersToShow={bookedUsers} />
+          <UsersList bookedUsers={bookedUsers} />
         </PriorityPopup>
       )}
     </div>

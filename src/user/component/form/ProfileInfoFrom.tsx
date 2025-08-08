@@ -1,27 +1,17 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { UserInfoValidator } from "./validator/UserInfoValidator";
-
 import Button from "../../../shared/component/Button";
 import Input from "../../../shared/component/Input";
 import AlertBanner from "../../../shared/component/AlertBanner";
-
-import { updateDatabaseRecord } from "../../../api/apiRequest";
-import { fetchUsers } from "../../Utilities/fetchFunctions";
-import { AlertTypes, TabelName } from "../../../shared/models";
-
-// Tipi
-interface LoggedUser {
-  id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-}
+import { updateUser, getUser } from "../../../api/apiUsers";
+import { AlertTypes } from "../../../shared/models";
+import { User } from "../../models";
 
 interface Props {
-  loggedUser: LoggedUser;
+  loggedUser: User;
+  onUserUpdated: (user: User) => void;
 }
 
 interface FormData {
@@ -30,10 +20,11 @@ interface FormData {
   email: string;
 }
 
-export default function ProfileInfoForm({ loggedUser }: Props): JSX.Element {
- const [showUpdatedAlert, setShowUpdatedAlert] = useState<boolean>(false);
-
-  const dispatch = useDispatch();
+export default function ProfileInfoForm({
+  loggedUser,
+  onUserUpdated,
+}: Props): JSX.Element {
+  const [showUpdatedAlert, setShowUpdatedAlert] = useState<boolean>(false);
 
   const handleUpdatingAlert = () => {
     setShowUpdatedAlert(true);
@@ -65,14 +56,13 @@ export default function ProfileInfoForm({ loggedUser }: Props): JSX.Element {
   });
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
-    const recordUpdated = await updateDatabaseRecord(
-      TabelName.USERS,
-      loggedUser.id,
-      data
-    );
+    const recordUpdated = await updateUser(loggedUser.id, data);
+
     if (recordUpdated) {
       handleUpdatingAlert();
-      fetchUsers(dispatch);
+
+      const freshData = await getUser(loggedUser.id);
+      onUserUpdated({ id: loggedUser.id, ...freshData });
     }
   };
 

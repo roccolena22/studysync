@@ -12,6 +12,7 @@ import { setLoggedUser } from "../../../redux/slices/authSlice";
 import { getRecordByField } from "../../../api/apiRequest";
 import guestTranslations from "../../translations/guestTranslations";
 import { TabelName } from "../../../shared/models";
+import { getUserByField } from "../../../api/apiUsers";
 
 interface LoginFormInputs {
   email: string;
@@ -36,7 +37,7 @@ export default function LoginForm(): JSX.Element {
 
   const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
     try {
-      const loggedUser = await getRecordByField(TabelName.USERS, "email", data.email);
+      const loggedUser = await getUserByField("email", data.email);
 
       if (loggedUser) {
         const userPassword = loggedUser.password;

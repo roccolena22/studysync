@@ -9,16 +9,19 @@ export default function Footer(): JSX.Element {
           label="dashboard"
           iconName="dashboard"
           pathname="/studysync/"
+          color="white"
         />
         <IconAndName
           label="events"
           iconName="calendar"
           pathname="/studysync/events"
+          color="white"
         />
         <IconAndName
           label="network"
           iconName="network"
           pathname="/studysync/network"
+          color="white"
         />
       </div>
     </div>

@@ -14,18 +14,18 @@ import TimeEventSection from "./component/TimeEventSection";
 import DetailsEventInForm from "./component/DetailsEventInForm";
 import moment from "moment";
 import { useEffect, useState } from "react";
-import { fetchEvents } from "../../Utilities/fetchFunctions";
 import AlertBanner from "../../../shared/component/AlertBanner";
 import { AlertTypes, TabelName } from "../../../shared/models";
+import { addEventRecord } from "../../../api/apiEvents";
 
 interface AddEventFormProps {
-  startDate: any; // es. "DD/MM/YYYY"
-  endDate: any; // es. "DD/MM/YYYY"
-  startTime: any; // es. "HH:mm"
-  endTime: any; // es. "HH:mm"
   handleClose: () => void;
   handleCreatedEventAlert: () => void;
-  loggedUser: any;
+  startDate?: any; 
+  endDate?: any; 
+  startTime?: any; 
+  endTime?: any;
+  loggedUserId?: string;
 }
 
 export default function AddEventForm({
@@ -35,12 +35,11 @@ export default function AddEventForm({
   endTime,
   handleClose,
   handleCreatedEventAlert,
-  loggedUser,
+  loggedUserId,
 }: AddEventFormProps) {
   const [showNoValidDateAlert, setShowNoValidDateAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState<string | null>(null);
 
-  const dispatch = useDispatch();
   const currentDate = new Date();
 
   const [formattedStartDate, setFormattedStartDate] = useState(
@@ -93,19 +92,18 @@ export default function AddEventForm({
       return;
     }
 
-    if (!loggedUser?.id) {
+    if (!loggedUserId) {
       setAlertMessage("User not logged in");
       setShowNoValidDateAlert(true);
       return;
     }
 
     const fullEvent = {
-      authorId: [loggedUser.id],
+      authorId: [loggedUserId],
       ...data,
     };
 
-    const result = await addRecordToDatabase(TabelName.EVENTS, fullEvent);
-    fetchEvents(dispatch);
+    const result = await addEventRecord(fullEvent);
     if (result) handleCreatedEventAlert();
     handleClose();
   };

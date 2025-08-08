@@ -6,34 +6,39 @@ const VITE_BASE_ID = import.meta.env.VITE_BASE_ID;
 
 const airtableBaseUrl = `https://api.airtable.com/v0/${VITE_BASE_ID}`;
 
-// GET list
-export async function getListFromDatabase(tableName : TabelName) {
-  try {
-    const response = await axios.get(
-      `${airtableBaseUrl}/${tableName}`,
-      {
-        headers: {
-          Authorization: `Bearer ${VITE_API_KEY}`,
-        },
-      }
-    );
 
-    const responseData = response.data;
-    return responseData.records.map((element) => ({
-      id: element.id,
-      ...element.fields,
-    }));
+// GET paginated records
+export async function getPaginatedUsers(limit: number = 15, offset?: string) {
+  try {
+    const url = `${airtableBaseUrl}/${TabelName.USERS}?pageSize=${limit}${
+      offset ? `&offset=${offset}` : ""
+    }`;
+
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${VITE_API_KEY}`,
+      },
+    });
+
+    return {
+      records: response.data.records.map((rec) => ({
+        id: rec.id,
+        ...rec.fields,
+      })),
+      offset: response.data.offset, // se presente, usarlo per caricare la prossima pagina
+    };
   } catch (error) {
-    console.error("Error during GET request:", error.response || error);
+    console.error("Error during paginated GET request:", error.response || error);
     throw error;
   }
 }
 
+
 // GET single record
-export async function getRecordFromDatabase(tableName : TabelName, recordId: string) {
+export async function getUser(recordId: string) {
   try {
     const response = await axios.get(
-      `${airtableBaseUrl}/${tableName}/${recordId}`,
+      `${airtableBaseUrl}/${TabelName.USERS}/${recordId}`,
       {
         headers: {
           Authorization: `Bearer ${VITE_API_KEY}`,
@@ -49,10 +54,10 @@ export async function getRecordFromDatabase(tableName : TabelName, recordId: str
 }
 
 // GET filtered record by field
-export async function getRecordByField(tableName : TabelName, fieldName: string, value) {
+export async function getUserByField(fieldName: string, value) {
   try {
     const response = await axios.get(
-      `${airtableBaseUrl}/${tableName}?filterByFormula=${encodeURIComponent(`{${fieldName}} = '${value}'`)}`,
+      `${airtableBaseUrl}/${TabelName.USERS}?filterByFormula=${encodeURIComponent(`{${fieldName}} = '${value}'`)}`,
       {
         headers: {
           Authorization: `Bearer ${VITE_API_KEY}`,
@@ -76,8 +81,7 @@ export async function getRecordByField(tableName : TabelName, fieldName: string,
 }
 
 // GET all records where linked field contains a specific record ID
-export async function getRecordsByLinkedField(
-  tableName: TabelName,
+export async function getUsersByLinkedField(
   fieldName: string,
   recordId: string
 ) {
@@ -85,7 +89,7 @@ export async function getRecordsByLinkedField(
     const filterFormula = `FIND("${recordId}", ARRAYJOIN({${fieldName}}))`;
 
     const response = await axios.get(
-      `${airtableBaseUrl}/${tableName}?filterByFormula=${encodeURIComponent(filterFormula)}`,
+      `${airtableBaseUrl}/${TabelName.USERS}?filterByFormula=${encodeURIComponent(filterFormula)}`,
       {
         headers: {
           Authorization: `Bearer ${VITE_API_KEY}`,
@@ -106,13 +110,10 @@ export async function getRecordsByLinkedField(
 
 
 // GET records using a custom Airtable formula
-export async function getRecordsByFilter(
-  tableName: TabelName,
-  formula: string
-) {
+export async function getUsersByFilter(formula: string) {
   try {
     const response = await axios.get(
-      `${airtableBaseUrl}/${tableName}?filterByFormula=${encodeURIComponent(formula)}`,
+      `${airtableBaseUrl}/${TabelName.USERS}?filterByFormula=${encodeURIComponent(formula)}`,
       {
         headers: {
           Authorization: `Bearer ${VITE_API_KEY}`,
@@ -120,6 +121,7 @@ export async function getRecordsByFilter(
       }
     );
 
+    console.log("Airtable response data:", response.data); // <-- qui
     return response.data.records.map((element) => ({
       id: element.id,
       ...element.fields,
@@ -131,11 +133,12 @@ export async function getRecordsByFilter(
 }
 
 
+
 // PATCH edit record
-export async function updateDatabaseRecord(tableName : TabelName, recordId: string, data) {
+export async function updateUser(recordId: string, data) {
   try {
     const response = await axios.patch(
-      `${airtableBaseUrl}/${tableName}/${recordId}`,
+      `${airtableBaseUrl}/${TabelName.USERS}/${recordId}`,
       {
         fields: data,
       },
@@ -156,10 +159,10 @@ export async function updateDatabaseRecord(tableName : TabelName, recordId: stri
 }
 
 // POST add record
-export async function addRecordToDatabase(tableName : TabelName, data) {
+export async function addUser(data) {
   try {
     const response = await axios.post(
-      `${airtableBaseUrl}/${tableName}`,
+      `${airtableBaseUrl}/${TabelName.USERS}`,
       {
         records: [
           {
@@ -184,10 +187,10 @@ export async function addRecordToDatabase(tableName : TabelName, data) {
 }
 
 // DELETE record
-export async function deleteRecordFromDatabase(tableName : TabelName, recordId: string) {
+export async function deleteUser(recordId: string) {
   try {
     const response = await axios.delete(
-      `${airtableBaseUrl}/${tableName}/${recordId}`,
+      `${airtableBaseUrl}/${TabelName.USERS}/${recordId}`,
       {
         headers: {
           "Content-Type": "application/json",

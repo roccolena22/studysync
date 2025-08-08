@@ -7,28 +7,14 @@ import { useDispatch } from "react-redux";
 import { updateDatabaseRecord } from "../../../api/apiRequest";
 import TimeEventSection from "./component/TimeEventSection";
 import DetailsEventInForm from "./component/DetailsEventInForm";
-import { fetchEvents } from "../../Utilities/fetchFunctions";
 import { useState } from "react";
 import AlertBanner from "../../../shared/component/AlertBanner";
 import { AlertTypes, TabelName } from "../../../shared/models";
-
-interface Event {
-  id: string;
-  title: string;
-  location: string;
-  platform: string;
-  info: string;
-  mode: "In person" | "Remotely" | "Mixed";
-  startDate: string; // YYYY-MM-DD
-  endDate: string; // YYYY-MM-DD
-  startTime: string; // HH:mm
-  endTime: string; // HH:mm
-  places: number;
-  link?: string;
-}
+import { updateEventRecord } from "../../../api/apiEvents";
+import { EventModel } from "../../models";
 
 interface EditEventFormProps {
-  event: Event;
+  event: EventModel;
   handleCloseEditPriorityPopup: (value: boolean) => void;
   handleisEditedAlert: () => void;
 }
@@ -44,7 +30,6 @@ export default function EditEventForm({
   const handleNoValidDateAlert = () => {
     setShowNoValidDateAlert((prev) => !prev);
   };
-  const dispatch = useDispatch();
 
   const {
     handleSubmit,
@@ -97,8 +82,7 @@ export default function EditEventForm({
       startDate: data.startDate,
       endDate: data.endDate,
     };
-    const result = await updateDatabaseRecord(TabelName.EVENTS, event.id, editedData);
-    fetchEvents(dispatch);
+    const result = await updateEventRecord(event.id, editedData);
     handleCloseEditPriorityPopup(false);
     if (result) {
       handleisEditedAlert();

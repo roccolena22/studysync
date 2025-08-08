@@ -11,17 +11,13 @@ import AlertBanner from "../../../shared/component/AlertBanner";
 import { useDispatch } from "react-redux";
 import { logout } from "../../../redux/slices/authSlice";
 import { AlertTypes, TabelName } from "../../../shared/models";
+import { User } from "../../models";
+import { updateUser } from "../../../api/apiUsers";
 
-// Define expected props
 interface EditPasswordFormProps {
-  loggedUser: {
-    id: string,
-    password: string,
-    [key: string]: any, // in case you pass other props too
-  };
+  loggedUser: User
 }
 
-// Define form data shape
 interface PasswordFormData {
   oldPassword: string;
   newPassword: string;
@@ -76,7 +72,7 @@ const {
 
     if (isPasswordMatch) {
       const newHashedPassword = await bcrypt.hash(data.newPassword, 10);
-      await updateDatabaseRecord(TabelName.USERS, loggedUser.id, {
+      await updateUser( loggedUser.id, {
         password: newHashedPassword,
       });
       handleUpdatingAlert();
