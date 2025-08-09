@@ -13,7 +13,7 @@ export default function Loader({
   text,
 }: LoaderProps) {
   return (
-    <div className="flex flex-col items-center justify-center space-y-2">
+    <div className="flex flex-col items-center justify-center space-y-2 py-6">
       <svg
         className={`animate-spin ${size} ${color}`}
         xmlns="http://www.w3.org/2000/svg"

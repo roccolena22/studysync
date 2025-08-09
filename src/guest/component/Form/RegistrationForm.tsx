@@ -8,13 +8,12 @@ import Input from "../../../shared/component/Input";
 import Icon from "../../../shared/component/Icon";
 import bcrypt from "bcryptjs";
 import { useDispatch } from "react-redux";
-import { addRecordToDatabase, getRecordByField } from "../../../api/apiRequest";
 import ChoiceRole from "../ChoiceRole";
 import Message from "../../../shared/component/Message";
 import { setLoggedUser } from "../../../redux/slices/authSlice";
 import PasswordRequirement from "../../../shared/component/PasswordRequirements";
 import guestTranslations from "../../translations/guestTranslations";
-import { MessageTypes, TabelName, UserRoles } from "../../../shared/models";
+import { MessageTypes, UserRoles } from "../../../shared/models";
 import { addUser, getUserByField } from "../../../api/apiUsers";
 
 interface RegistrationFormData {
@@ -26,7 +25,13 @@ interface RegistrationFormData {
   role: UserRoles;
 }
 
-export default function RegistrationForm(): JSX.Element {
+interface RegistrationFormProps {
+  onLoadingChange?: (loading: boolean) => void;
+}
+
+export default function RegistrationForm({
+  onLoadingChange,
+}: RegistrationFormProps): JSX.Element {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
 
@@ -57,6 +62,8 @@ export default function RegistrationForm(): JSX.Element {
 
   const onSubmit: SubmitHandler<RegistrationFormData> = async (data) => {
     try {
+      onLoadingChange?.(true); // avviso il padre che parte il loader
+
       const existingUser = await getUserByField("email", data.email);
 
       if (existingUser) {
@@ -76,10 +83,7 @@ export default function RegistrationForm(): JSX.Element {
 
         const result = await addUser(newUser);
         if (result) {
-          const loggedUser = await getUserByField(
-            "email",
-            data.email
-          );
+          const loggedUser = await getUserByField("email", data.email);
           dispatch(setLoggedUser(loggedUser));
           navigate("/studysync/");
         }
@@ -88,6 +92,8 @@ export default function RegistrationForm(): JSX.Element {
       }
     } catch (err) {
       console.error("Error during registration:", err);
+    } finally {
+      onLoadingChange?.(false); // fermo loader sempre
     }
   };
 
@@ -124,7 +130,7 @@ export default function RegistrationForm(): JSX.Element {
           register={register("password")}
           type={showPassword ? "text" : "password"}
           required
-           placeholder={guestTranslations.registration.newPassword.placeholder}
+          placeholder={guestTranslations.registration.newPassword.placeholder}
         >
           <Icon
             name={showPassword ? "eyeInvisible" : "eye"}
@@ -137,7 +143,7 @@ export default function RegistrationForm(): JSX.Element {
           register={register("confirmPassword")}
           type={showPassword ? "text" : "password"}
           required
-           placeholder={guestTranslations.registration.confirmPassword.placeholder}
+          placeholder={guestTranslations.registration.confirmPassword.placeholder}
         >
           <Icon
             name={showPassword ? "eyeInvisible" : "eye"}

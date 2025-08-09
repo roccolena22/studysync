@@ -2,28 +2,33 @@ import React, { useState, KeyboardEvent } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Button from "../../../shared/component/Button";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { LoginFormValidator } from "./validator/LoginFormValidator";
 import Input from "../../../shared/component/Input";
 import Icon from "../../../shared/component/Icon";
 import bcrypt from "bcryptjs";
 import { useDispatch } from "react-redux";
 import { setLoggedUser } from "../../../redux/slices/authSlice";
-import { getRecordByField } from "../../../api/apiRequest";
+import { getUserByField } from "../../../api/apiUsers";
 import guestTranslations from "../../translations/guestTranslations";
 import { TabelName } from "../../../shared/models";
-import { getUserByField } from "../../../api/apiUsers";
 
 interface LoginFormInputs {
   email: string;
   password: string;
 }
 
-export default function LoginForm(): JSX.Element {
+interface LoginFormProps {
+  onLoginSuccess?: () => void;
+  onLoadingChange?: (loading: boolean) => void;
+}
+
+export default function LoginForm({
+  onLoginSuccess,
+  onLoadingChange,
+}: LoginFormProps): JSX.Element {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [loginError, setLoginError] = useState<string | null>(null);
-
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const {
@@ -37,6 +42,8 @@ export default function LoginForm(): JSX.Element {
 
   const onSubmit: SubmitHandler<LoginFormInputs> = async (data) => {
     try {
+      onLoadingChange?.(true); // avviso il padre che parte il caricamento
+
       const loggedUser = await getUserByField("email", data.email);
 
       if (loggedUser) {
@@ -46,7 +53,8 @@ export default function LoginForm(): JSX.Element {
           const result = await bcrypt.compare(data.password, userPassword);
           if (result) {
             dispatch(setLoggedUser(loggedUser));
-            navigate("/studysync/");
+            onLoginSuccess?.(); // redirect gestito dal padre
+            return;
           } else {
             setLoginError(guestTranslations.login.invalidCredentials);
           }
@@ -59,6 +67,8 @@ export default function LoginForm(): JSX.Element {
     } catch (error) {
       console.error("Error during login:", error);
       setLoginError(guestTranslations.login.temporaryProblem);
+    } finally {
+      onLoadingChange?.(false); // stop loader in ogni caso
     }
   };
 
@@ -78,12 +88,15 @@ export default function LoginForm(): JSX.Element {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="py-2">
+      {/* Email */}
       <Input
         label={guestTranslations.login.email.label}
         errorMessage={errors.email?.message}
         register={register("email")}
         placeholder={guestTranslations.login.email.placeholder}
       />
+
+      {/* Password */}
       <Input
         label={guestTranslations.login.password.label}
         errorMessage={errors.password?.message}
@@ -97,7 +110,11 @@ export default function LoginForm(): JSX.Element {
           onClick={handleShowPassword}
         />
       </Input>
+
+      {/* Error message */}
       {loginError && <p className="text-red-500">{loginError}</p>}
+
+      {/* Buttons */}
       <div className="flex justify-center space-x-4 py-6">
         <Button type="submit" label={guestTranslations.login.loginButton} />
         <Link to="/studysync/registration">
