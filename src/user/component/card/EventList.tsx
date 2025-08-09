@@ -5,6 +5,7 @@ import { sortEventsByTime } from "../../Utilities/sortEventsByTime";
 import Message from "../../../shared/component/Message";
 import { getBookingByFilter } from "../../../api/apiBookings";
 import { EventModel, Booking } from "../../models";
+import { DefaultColor } from "../../../shared/models";
 
 interface EventListProps {
   eventsToShow: EventModel[];
@@ -53,7 +54,7 @@ export default function EventList({ eventsToShow }: EventListProps): JSX.Element
   const sortedEvents = sortEventsByTime(eventsToShow);
 
   return (
-    <div className="bg-white shadow-xl px-6 rounded-b-lg w-full">
+    <div className={`bg-${DefaultColor.SECONDARY_COLOR}shadow-xl px-6 rounded-b-lg w-full`}>
       {eventsToShow.length > 0 && (
         <div className="sticky top-20 w-full z-10">
           <SearchBar
