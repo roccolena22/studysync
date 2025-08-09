@@ -20,7 +20,7 @@ export default function PaginationControls({
     <div className="flex justify-between mt-4">
       <Button
       outline
-      name="Prev"
+      label="Prev"
         onClick={onPrev}
         disabled={!canPrev}
       />
@@ -30,7 +30,7 @@ export default function PaginationControls({
             </p>
       <Button
       outline
-      name="Next"
+      label="Next"
         onClick={onNext}
         disabled={!canNext}
       />

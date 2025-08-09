@@ -8,18 +8,21 @@ import { useSelector } from "react-redux";
 import moment from "moment";
 import { getEventRecordsByFilter } from "../../api/apiEvents";
 import { EventModel } from "../models";
+import Loader from "../../shared/component/Loader";
 
 export default function DashboardPage(): JSX.Element {
   const [indexSection, setIndexSection] = useState<number>(0);
 
   const [userActiveEvents, setUserActiveEvents] = useState<EventModel[]>([]);
   const [userPastEvents, setUserPastEvents] = useState<EventModel[]>([]);
-  const [userAllActiveEvents, setUserAllActiveEvents] = useState<EventModel[]>([]); // attivi (autore + prenotato)
+  const [userAllActiveEvents, setUserAllActiveEvents] = useState<EventModel[]>([]);
+  const [loading, setLoading] = useState<boolean>(true); // stato di caricamento
 
   const loggedUserId = useSelector((state: any) => state.auth.user.id);
 
   useEffect(() => {
     const fetchEvents = async () => {
+      setLoading(true); // inizia il caricamento
       try {
         const now = moment();
 
@@ -57,6 +60,8 @@ export default function DashboardPage(): JSX.Element {
         setUserAllActiveEvents(allActiveEvents);
       } catch (error) {
         console.error("Failed to fetch events", error);
+      } finally {
+        setLoading(false); // fine caricamento
       }
     };
 
@@ -66,6 +71,14 @@ export default function DashboardPage(): JSX.Element {
   const handleSections = (index: number): void => {
     setIndexSection(index);
   };
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Loader size="h-22 w-22" color="text-blue-500" />
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col items-center justify-center">

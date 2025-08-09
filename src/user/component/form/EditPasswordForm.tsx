@@ -114,7 +114,7 @@ const {
       </div>
       {passwordError && <p className="text-red-500">{passwordError}</p>}
       <div className="flex justify-end pt-4">
-        <Button small type="submit" name="Save" />
+        <Button small type="submit" label="Save" />
       </div>
       {showUpdatedAlert && (
         <AlertBanner

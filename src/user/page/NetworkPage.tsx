@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { EventModel, User } from "../models";
 import { getEventRecordsByFilter } from "../../api/apiEvents";
 import { getFollowerRecordsByLinkedField } from "../../api/apiFollowers";
+import Loader from "../../shared/component/Loader";
 
 interface RootState {
   auth: {
@@ -16,40 +17,59 @@ interface RootState {
 export default function NetworkPage(): JSX.Element {
   const loggedUser = useSelector((state: RootState) => state.auth.user);
   const [networkEvents, setNetworkEvents] = useState<EventModel[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchNetworkEvents = async () => {
-      if (!loggedUser?.id) return;
-
-      const following = await getFollowerRecordsByLinkedField(
-        "idFrom",
-        loggedUser.id
-      );
-
-      if (!following || following.length === 0) {
-        setNetworkEvents([]);
+      if (!loggedUser?.id) {
+        setLoading(false);
         return;
       }
 
-      const orAuthors = following
-        .map((f) => `{authorId} = '${f.idTo}'`)
-        .join(",");
+      try {
+        setLoading(true);
 
-      const formula = `AND(
-        OR(${orAuthors}),
-        OR(
-          IS_SAME(DATETIME_PARSE(CONCATENATE({endDate}, " ", {endTime}), 'YYYY-MM-DD HH:mm'), NOW()),
-          IS_AFTER(DATETIME_PARSE(CONCATENATE({endDate}, " ", {endTime}), 'YYYY-MM-DD HH:mm'), NOW())
-        )
-      )`;
+        const following = await getFollowerRecordsByLinkedField(
+          "idFrom",
+          loggedUser.id
+        );
 
-      const events = await getEventRecordsByFilter(formula);
+        if (!following || following.length === 0) {
+          setNetworkEvents([]);
+          return;
+        }
 
-      setNetworkEvents(events);
+        const orAuthors = following
+          .map((f) => `{authorId} = '${f.idTo}'`)
+          .join(",");
+
+        const formula = `AND(
+          OR(${orAuthors}),
+          OR(
+            IS_SAME(DATETIME_PARSE(CONCATENATE({endDate}, " ", {endTime}), 'YYYY-MM-DD HH:mm'), NOW()),
+            IS_AFTER(DATETIME_PARSE(CONCATENATE({endDate}, " ", {endTime}), 'YYYY-MM-DD HH:mm'), NOW())
+          )
+        )`;
+
+        const events = await getEventRecordsByFilter(formula);
+        setNetworkEvents(events);
+      } catch (error) {
+        console.error("Failed to fetch network events", error);
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchNetworkEvents();
   }, [loggedUser]);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Loader size="h-22 w-22" color="text-cyan-700" />
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col items-center">

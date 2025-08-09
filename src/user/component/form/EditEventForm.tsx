@@ -101,7 +101,7 @@ export default function EditEventForm({
         <TimeEventSection register={register} errors={errors} />
         <DetailsEventInForm register={register} errors={errors} />
         <div className="flex justify-end pb-4">
-          <Button type="submit" name="Save" />
+          <Button type="submit" label="Save" />
         </div>
       </form>
       {showNoValidDateAlert && (

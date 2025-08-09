@@ -90,7 +90,7 @@ export default function ProfileInfoForm({
           errorMessage={errors.email?.message}
         />
         <div className="flex justify-end py-4">
-          <Button small type="submit" name="Save" />
+          <Button small type="submit" label="Save" />
         </div>
       </div>
       {showUpdatedAlert && (

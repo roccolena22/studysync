@@ -67,10 +67,10 @@ export default function JoinAndLeaveButtons({
   return (
     <div>
       {!isFull && !isBooked && (
-        <Button small name="Join" onClick={() => toggleBooking(event.id, true)} />
+        <Button small label="Join" onClick={() => toggleBooking(event.id, true)} />
       )}
       {isBooked && (
-        <Button small outline name="Leave" onClick={() => toggleBooking(event.id, false)} />
+        <Button small outline label="Leave" onClick={() => toggleBooking(event.id, false)} />
       )}
     </div>
   );

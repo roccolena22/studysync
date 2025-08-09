@@ -97,9 +97,9 @@ export default function LoginForm(): JSX.Element {
       </Input>
       {loginError && <p className="text-red-500">{loginError}</p>}
       <div className="flex justify-center space-x-4 py-6">
-        <Button type="submit" name={guestTranslations.login.loginButton} />
+        <Button type="submit" label={guestTranslations.login.loginButton} />
         <Link to="/studysync/registration">
-          <Button name={guestTranslations.login.registerButton} outline />
+          <Button label={guestTranslations.login.registerButton} outline />
         </Link>
       </div>
     </form>

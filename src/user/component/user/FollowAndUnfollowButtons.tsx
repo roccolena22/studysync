@@ -34,14 +34,14 @@ if (isLoggedUser) return <></>;
           small
           outline
           onClick={() => toggleFollow(user, false)}
-          name={loading ? "Unfollowing..." : "Unfollow"}
+          label={loading ? "Unfollowing..." : "Unfollow"}
           disabled={loading}
         />
       ) : (
         <Button
           small
           onClick={() => toggleFollow(user, true)}
-          name={loading ? "Following..." : "Follow"}
+          label={loading ? "Following..." : "Follow"}
           disabled={loading}
         />
       )}

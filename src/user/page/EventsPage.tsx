@@ -11,57 +11,70 @@ import moment from "moment";
 import { getEventRecordsByFilter } from "../../api/apiEvents";
 import { getBookingByFilter } from "../../api/apiBookings";
 import { EventModel } from "../models";
+import Loader from "../../shared/component/Loader"; // importa il loader
 
 export default function EventsPage() {
   const [indexSwitch, setIndexSwitch] = useState<number>(0);
   const [nextEvents, setNextEvents] = useState<EventModel[]>([]);
   const loggedUserId = useSelector((state: any) => state.auth.user.id);
   const [activeEvents, setActiveEvents] = useState<EventModel[]>([]);
+  const [loading, setLoading] = useState<boolean>(true); // stato loading
 
   const handleSwitch = (index: number) => {
     setIndexSwitch(index);
   };
 
-useEffect(() => {
-  const fetchEvents = async () => {
-    try {
-      // 1) Prendi tutti i bookings dell'utente
-      const bookingsFormula = `{bookedId} = '${loggedUserId}'`;
-      const userBookings = await getBookingByFilter( bookingsFormula);
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        setLoading(true);
 
-      const bookedEventIds = userBookings.map((b: any) => b.eventId); 
-      console.log("bookedEventIds", bookedEventIds);
+        // 1) Prendi tutti i bookings dell'utente
+        const bookingsFormula = `{bookedId} = '${loggedUserId}'`;
+        const userBookings = await getBookingByFilter(bookingsFormula);
 
-      // 2) Formula per prendere gli eventi creati o prenotati
-      let eventsFormula = `{authorId} = '${loggedUserId}'`;
-      if (bookedEventIds.length > 0) {
-        const idsOR = bookedEventIds.map(id => `{id} = '${id}'`).join(",");
-        eventsFormula = `OR(
-          {authorId} = '${loggedUserId}',
-          ${idsOR}
-        )`;
+        const bookedEventIds = userBookings.map((b: any) => b.eventId);
+        console.log("bookedEventIds", bookedEventIds);
+
+        // 2) Formula per prendere gli eventi creati o prenotati
+        let eventsFormula = `{authorId} = '${loggedUserId}'`;
+        if (bookedEventIds.length > 0) {
+          const idsOR = bookedEventIds
+            .map((id) => `{id} = '${id}'`)
+            .join(",");
+          eventsFormula = `OR(
+            {authorId} = '${loggedUserId}',
+            ${idsOR}
+          )`;
+        }
+
+        const events = await getEventRecordsByFilter(eventsFormula);
+
+        // 3) Filtra solo eventi futuri
+        const currentDate = moment();
+        const activeEvents = events.filter((event) =>
+          moment(`${event.endDate} ${event.endTime}`, "YYYY-MM-DD HH:mm").isSameOrAfter(currentDate)
+        );
+
+        setActiveEvents(activeEvents);
+        setNextEvents(events);
+      } catch (error) {
+        console.error("Failed to fetch events", error);
+      } finally {
+        setLoading(false); // fine caricamento
       }
+    };
 
-      const events = await getEventRecordsByFilter(eventsFormula);
+    if (loggedUserId) fetchEvents();
+  }, [loggedUserId]);
 
-      // 3) Filtra solo eventi futuri
-      const currentDate = moment();
-      const activeEvents = events.filter(event =>
-        moment(`${event.endDate} ${event.endTime}`, "YYYY-MM-DD HH:mm")
-          .isSameOrAfter(currentDate)
-      );
-
-      setActiveEvents(activeEvents);
-      setNextEvents(events);
-
-    } catch (error) {
-      console.error("Failed to fetch events", error);
-    }
-  };
-
-  if (loggedUserId) fetchEvents();
-}, [loggedUserId]);
-
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Loader size="h-22 w-22" color="text-cyan-700" />
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col items-center relative">

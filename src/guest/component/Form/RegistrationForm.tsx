@@ -162,7 +162,7 @@ export default function RegistrationForm(): JSX.Element {
         </Link>
         <Button
           type="submit"
-          name={guestTranslations.registration.registerButton}
+          label={guestTranslations.registration.registerButton}
         />
       </div>
     </form>

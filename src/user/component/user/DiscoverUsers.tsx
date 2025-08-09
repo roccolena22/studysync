@@ -27,7 +27,7 @@ export default function DiscoverUsers(): JSX.Element {
             Discover new users to follow
           </p>
           <div className="absolute bottom-2">
-            <Button name="Discover" outline onClick={handlePriorityPopup} />
+            <Button label="Discover" outline onClick={handlePriorityPopup} />
           </div>
         </div>
       </div>

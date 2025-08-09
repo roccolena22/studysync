@@ -1,7 +1,7 @@
 import React, { MouseEventHandler, ButtonHTMLAttributes } from "react";
 
 interface ButtonProps {
-  name: string;
+  label: string;
   outline?: boolean;
   onClick?: MouseEventHandler<HTMLButtonElement>;
   type?: "button" | "submit" | "reset";
@@ -10,7 +10,7 @@ interface ButtonProps {
 }
 
 export default function Button({
-  name,
+  label,
   outline = false,
   onClick,
   type = "button",
@@ -31,7 +31,7 @@ export default function Button({
       type={type}
       disabled={disabled}
     >
-      <p className="text-sm">{name}</p>
+      <p className="text-sm">{label}</p>
     </button>
   );
 }

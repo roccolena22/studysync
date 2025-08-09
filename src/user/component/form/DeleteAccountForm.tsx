@@ -87,7 +87,7 @@ export default function DeleteAccountForm() {
           )}
         </div>
         <div className="flex justify-end pt-10">
-          <Button name="Delete account" />
+          <Button label="Delete account" />
         </div>
       </form>
       {showAlertBanner && (

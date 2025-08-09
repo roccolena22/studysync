@@ -60,7 +60,7 @@ export default function RecoveryPasswordForm(): JSX.Element {
         <div className="flex flex-col items-center py-4">
           <Button
             type="submit"
-            name={
+            label={
               isSubmitting
                 ? guestTranslations.recoveryPassword.loading
                 : guestTranslations.recoveryPassword.sendButton

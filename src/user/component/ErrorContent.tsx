@@ -20,7 +20,7 @@ export default function ErrorContent(): JSX.Element {
       </div>
       <div className="flex justify-center pt-4">
         <Link to={loggedUser ? "/studysync" : "/studysync/login"}>
-          <Button name={loggedUser ? "Dashboard" : "Login"} />
+          <Button label={loggedUser ? "Dashboard" : "Login"} />
         </Link>
       </div>
     </div>
