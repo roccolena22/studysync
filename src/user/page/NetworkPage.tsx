@@ -76,7 +76,7 @@ export default function NetworkPage(): JSX.Element {
   return (
     <div className="flex flex-col items-center">
       <Title title="Network" />
-      <div className="w-full pt-6 pb-10">
+      <div className="w-full pb-10">
         <DiscoverUsers />
       </div>
       <Title fontSize="text-lg" title="Events of my following" />

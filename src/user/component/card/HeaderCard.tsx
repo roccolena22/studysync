@@ -3,8 +3,8 @@ import UserDetails from "../user/UserDetails";
 import PriorityPopup from "../shared/PriorityPopup";
 import UsersList from "../user/UserList";
 import IconAndName from "../shared/IconAndName";
-import { Booking, EventModel } from "../../models";
-
+import { Booking, EventModel, User } from "../../models";
+import { getUsersByFilter } from "../../../api/apiUsers";
 
 interface HeaderCardProps {
   event: EventModel;
@@ -13,14 +13,41 @@ interface HeaderCardProps {
 
 export default function HeaderCard({
   event,
-  bookedUsers,
+  bookedUsers = [],
 }: HeaderCardProps): JSX.Element {
   const [reservationsPriorityPopupIsOpen, setReservationsPriorityPopupIsOpen] =
     useState(false);
+  const [users, setUsers] = useState<User[]>([]);
+  const [loading, setLoading] = useState(false);
 
-  const handleReservationsPopup = () => {
-    setReservationsPriorityPopupIsOpen((prev) => !prev);
-  
+  const handleReservationsPopup = async () => {
+    setLoading(true);
+    try {
+      // Prendi tutti gli bookedId unici
+      const uniqueBookedIds = [...new Set(bookedUsers.map((b) => b.bookedId))];
+
+      if (uniqueBookedIds.length === 0) {
+        setUsers([]);
+      } else {
+   
+        const orConditions = uniqueBookedIds
+          .map((id) => `{id} = "${id}"`)
+          .join(",");
+
+        const formula = `OR(${orConditions})`;
+
+    
+        const fetchedUsers = await getUsersByFilter(formula);
+
+        setUsers(fetchedUsers);
+      }
+    } catch (error) {
+      console.error("Errore nel caricamento utenti:", error);
+      setUsers([]);
+    } finally {
+      setLoading(false);
+      setReservationsPriorityPopupIsOpen(true);
+    }
   };
 
   return (
@@ -36,18 +63,21 @@ export default function HeaderCard({
           <IconAndName
             iconName="group"
             onClick={handleReservationsPopup}
-            label={`${bookedUsers ? bookedUsers.length : "0"}${
-              event.places ? "/" + event.places : ""
-            }`}
+            label={`${bookedUsers.length}/${event.places ?? ""}`}
           />
         )}
       </div>
+
       {reservationsPriorityPopupIsOpen && (
         <PriorityPopup
           handleClose={() => setReservationsPriorityPopupIsOpen(false)}
           title="List of reservations"
         >
-          <UsersList bookedUsers={bookedUsers} />
+          {loading ? (
+            <p>Caricamento utenti...</p>
+          ) : (
+            <UsersList usersToShow={users} />
+          )}
         </PriorityPopup>
       )}
     </div>

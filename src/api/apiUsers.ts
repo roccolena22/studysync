@@ -121,7 +121,6 @@ export async function getUsersByFilter(formula: string) {
       }
     );
 
-    console.log("Airtable response data:", response.data); // <-- qui
     return response.data.records.map((element) => ({
       id: element.id,
       ...element.fields,
@@ -131,8 +130,6 @@ export async function getUsersByFilter(formula: string) {
     throw error;
   }
 }
-
-
 
 // PATCH edit record
 export async function updateUser(recordId: string, data) {

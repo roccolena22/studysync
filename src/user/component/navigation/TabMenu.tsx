@@ -24,7 +24,7 @@ export default function TabMenu({
   const sectionClass = (sectionIndex: number): string =>
   `w-1/2 cursor-pointer py-4 sm:py-2 px-2 ${
     index === sectionIndex ? `${DefaultColor.BG_SECONDARY_COLOR}` : "bg-slate-200"
-  } hover:brightness-110`;
+  } hover:brightness-105`;
 
   return (
     <div className="w-full bg-slate-50 rounded-t-lg">

@@ -35,7 +35,6 @@ export default function EventsPage() {
         const userBookings = await getBookingByFilter(bookingsFormula);
 
         const bookedEventIds = userBookings.map((b: any) => b.eventId);
-        console.log("bookedEventIds", bookedEventIds);
 
         // 2) Formula per prendere gli eventi creati o prenotati
         let eventsFormula = `{authorId} = '${loggedUserId}'`;
