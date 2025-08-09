@@ -58,6 +58,7 @@ export default function HeaderCard({
           lastName={event.lastName}
           email={event.email}
           role={event.role}
+          id={event.authorId}
         />
         {event.places !== undefined && (
           <IconAndName

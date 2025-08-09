@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { UserInfoValidator } from "./validator/UserInfoValidator";
+import { AccountInfoValidator } from "./validator/AccountInfoValidator";
 import Button from "../../../shared/component/Button";
 import Input from "../../../shared/component/Input";
 import AlertBanner from "../../../shared/component/AlertBanner";
@@ -9,7 +9,7 @@ import { updateUser, getUser } from "../../../api/apiUsers";
 import { AlertTypes } from "../../../shared/models";
 import { User } from "../../models";
 
-interface Props {
+interface AccountInfoFormProps {
   loggedUser: User;
   onUserUpdated: (user: User) => void;
 }
@@ -20,10 +20,10 @@ interface FormData {
   email: string;
 }
 
-export default function ProfileInfoForm({
+export default function AccountInfoForm({
   loggedUser,
   onUserUpdated,
-}: Props): JSX.Element {
+}: AccountInfoFormProps): JSX.Element {
   const [showUpdatedAlert, setShowUpdatedAlert] = useState<boolean>(false);
 
   const handleUpdatingAlert = () => {
@@ -47,7 +47,7 @@ export default function ProfileInfoForm({
     formState: { errors },
     register,
   } = useForm<FormData>({
-    resolver: yupResolver(UserInfoValidator),
+    resolver: yupResolver(AccountInfoValidator),
     defaultValues: {
       firstName: loggedUser.firstName,
       lastName: loggedUser.lastName,

@@ -6,7 +6,7 @@ import Title from "./shared/Title";
 import PasswordRequirement from "../../shared/component/PasswordRequirements";
 import { User } from "../models";
 import { getUserByField } from "../../api/apiUsers";
-import ProfileInfoForm from "./form/ProfileInfoFrom";
+import AccountInfoForm from "./form/AccountInfoFrom";
 
 interface AccountContentContainerProps {
   loggedUserId: string;
@@ -34,7 +34,7 @@ export default function AccountContentContainer({
     <div className="pt-6 w-full flex flex-col justify-center">
       {loggedUser && (
         <>
-          <ProfileInfoForm
+          <AccountInfoForm
             loggedUser={loggedUser}
             onUserUpdated={setLoggedUser} // passiamo la funzione per aggiornare i dati
           />

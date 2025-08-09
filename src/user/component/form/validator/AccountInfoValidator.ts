@@ -1,6 +1,6 @@
 import * as yup from "yup";
 
-export const UserInfoValidator = yup.object().shape({
+export const AccountInfoValidator = yup.object().shape({
   firstName: yup
     .string()
     .max(30, "The name cannot exceed 30 characters")

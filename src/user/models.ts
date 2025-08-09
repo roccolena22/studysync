@@ -8,6 +8,7 @@ password?: string;
 eventIds?: string[];
 followingIds?: string[];
 followerIds?: string[];
+info?: string;
 }
 
 export interface Booking {

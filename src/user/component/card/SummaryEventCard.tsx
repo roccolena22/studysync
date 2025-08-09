@@ -20,6 +20,7 @@ export default function SummaryEventCard({
           lastName={event.lastName}
           role={event.role}
           email={event.email}
+          id={event.authorId}
         />
       </div>
       <BodyCard event={event} />

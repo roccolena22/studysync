@@ -17,6 +17,12 @@ export default function ToggleMenu(): JSX.Element {
     <div
   className={`w-full flex space-x-5 p-4 rounded-bl-lg shadow-xl ${DefaultColor.BG_PRIMARY_COLOR}`}
 >
+  <IconAndName
+    color={DefaultColor.SECONDARY_COLOR}
+    label="profile"
+    iconName="profile"
+    pathname={`/studysync/profile`}
+  />
       <IconAndName
         label="account"
         iconName="account"

@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../../redux/slices/authSlice";
 import IconAndName from "../shared/IconAndName";
 import ToggleMenu from "./ToggleMenu";
@@ -63,6 +63,12 @@ export default function TopNavigationMenu(): JSX.Element {
       </div>
 
       <div className="hidden sm:flex space-x-5">
+        <IconAndName
+  color={DefaultColor.SECONDARY_COLOR}
+  label="profile"
+  iconName="profile"
+  pathname={`/studysync/profile`}
+/>
         <IconAndName
         color={DefaultColor.SECONDARY_COLOR}
           label="account"

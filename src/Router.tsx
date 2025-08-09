@@ -15,6 +15,7 @@ import DashboardPage from "./user/page/DashboardPage";
 import LoginPage from "./guest/page/LoginPage";
 import RegistrationPage from "./guest/page/RegistrationPage";
 import RecoveryPasswordPage from "./guest/page/RecoveryPasswordPage";
+import UserProfilePage from "./user/page/UserProfilePagePage";
 
 const Router = () => {
   const router = createBrowserRouter(
@@ -57,6 +58,10 @@ const Router = () => {
               </Protected>
             }
           />
+          <Route path="/studysync/profile/:id" element={
+            <Protected>
+              <UserProfilePage />
+            </Protected>} />
           <Route
             path="/studysync/events"
             element={

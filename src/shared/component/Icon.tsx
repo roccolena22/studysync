@@ -15,6 +15,8 @@ import { HiUserGroup } from "react-icons/hi";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { IoMdOpen } from "react-icons/io";
 import { CiGrid41 } from "react-icons/ci";
+import { MdOutlinePermIdentity } from "react-icons/md";
+
 import { DefaultColor } from "../models";
 
 interface IconProps {
@@ -53,6 +55,12 @@ export default function Icon({ name, style = "", color, onClick }: IconProps) {
     account: (
       <MdManageAccounts
         className={classNames}
+        onClick={onClick}
+      />
+    ),
+    profile: (
+      <MdOutlinePermIdentity
+      className={classNames}
         onClick={onClick}
       />
     ),

@@ -22,6 +22,7 @@ export default function SingleUserInList({
         lastName={user.lastName}
         email={user.email}
         role={user.role}
+        id={user.id}
       />
       <FollowAndUnfollowButtons
         user={user}
