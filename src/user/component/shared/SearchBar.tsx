@@ -83,14 +83,14 @@ export default function SearchBar<T extends Record<string, any>>({
   };
 
   return (
-    <div className={`flex space-x-4 items-center w-full rounded-b-lg p-4 shadow-xl bg-${DefaultColor.SECONDARY_COLOR}`}>
-      <div className={`flex items-center border border-gray-400 rounded-lg py-1 sm:py-2 w-full bg-${DefaultColor.SECONDARY_COLOR}`}>
+    <div className={`flex space-x-4 items-center w-full rounded-b-lg p-4 shadow-xl ${DefaultColor.BG_SECONDARY_COLOR}`}>
+      <div className={`flex items-center border border-slate-400 rounded-lg py-1 sm:py-2 w-full ${DefaultColor.BG_SECONDARY_COLOR}`}>
         <input
           placeholder={placeholder}
           value={searchTerm}
           onChange={handleInputChange}
           onKeyDown={handleKeyDown} // Avvia ricerca su Invio
-          className={`w-full focus:outline-none bg-${DefaultColor.SECONDARY_COLOR} px-1`}
+          className={`w-full focus:outline-none ${DefaultColor.BG_SECONDARY_COLOR} px-1`}
 
         />
       </div>

@@ -5,7 +5,7 @@ import { DefaultColor } from "../../../shared/models";
 export default function Footer(): JSX.Element {
   return (
 <div
-  className={`flex items-center w-full bg-${DefaultColor.PRIMARY_COLOR} h-20 border-t border-cyan-800`}
+  className={`flex items-center w-full ${DefaultColor.BG_PRIMARY_COLOR} h-20`}
 >
       <div className="flex justify-around w-full">
         <IconAndName

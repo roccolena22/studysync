@@ -99,12 +99,14 @@ export default function RegistrationForm(): JSX.Element {
           errorMessage={errors.firstName?.message}
           register={register("firstName")}
           required
+          placeholder={guestTranslations.registration.name.placeholder}
         />
         <Input
           label={guestTranslations.registration.surname.label}
           errorMessage={errors.lastName?.message}
           register={register("lastName")}
           required
+          placeholder={guestTranslations.registration.surname.placeholder}
         />
       </div>
       <Input
@@ -113,6 +115,7 @@ export default function RegistrationForm(): JSX.Element {
         register={register("email")}
         type="email"
         required
+        placeholder={guestTranslations.registration.email.placeholder}
       />
       <div className="flex flex-col sm:flex-row sm:space-x-4">
         <Input
@@ -121,6 +124,7 @@ export default function RegistrationForm(): JSX.Element {
           register={register("password")}
           type={showPassword ? "text" : "password"}
           required
+           placeholder={guestTranslations.registration.newPassword.placeholder}
         >
           <Icon
             name={showPassword ? "eyeInvisible" : "eye"}
@@ -133,6 +137,7 @@ export default function RegistrationForm(): JSX.Element {
           register={register("confirmPassword")}
           type={showPassword ? "text" : "password"}
           required
+           placeholder={guestTranslations.registration.confirmPassword.placeholder}
         >
           <Icon
             name={showPassword ? "eyeInvisible" : "eye"}

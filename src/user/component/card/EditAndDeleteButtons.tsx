@@ -18,7 +18,6 @@ export default function EditAndDeleteButtons({ event }: Props): JSX.Element {
   const [showEditAlert, setShowEditAlert] = useState(false);
   const [showDeleteAlert, setShowDeleteAlert] = useState(false);
 
-  const dispatch = useDispatch();
   const currentDate = new Date();
 
   const eventIsFinished =

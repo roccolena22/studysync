@@ -16,14 +16,14 @@ export default function SecondaryPopup({
 }: SecondaryPopupProps): JSX.Element {
   return (
     <div
-  className={`fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-fit h-fit flex flex-col justify-center items-center z-[100] rounded-lg shadow-xl border border-${DefaultColor.PRIMARY_COLOR}`}
+  className={`fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-fit h-fit flex flex-col justify-center items-center z-[100] rounded-lg shadow-xl border ${DefaultColor.BORDER_PRIMARY_COLOR}`}
 >
 
       <div className="w-full">
         <div className="flex justify-end p-2 sticky top-0">
           <Icon
             name="close"
-            style="rounded-2xl w-6 h-6 hover:border border-red-800 hover:text-red-800"
+            style="rounded-2xl w-6 h-6 hover:border border-red-800 hover:brightness-110"
             onClick={handleClose}
           />
         </div>

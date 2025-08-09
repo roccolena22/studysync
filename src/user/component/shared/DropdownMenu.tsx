@@ -20,7 +20,7 @@ const DropdownMenu = ({
   return (
     <div className="py-2 w-full">
       <p className="font-semibold">{label}</p>
-<div className={`border border-gray-400 rounded-lg px-3 py-2 w-full bg-${DefaultColor.SECONDARY_COLOR}`}>
+<div className={`border border-slate-400 rounded-lg px-3 py-2 w-full ${DefaultColor.BG_SECONDARY_COLOR}`}>
 
         <select
           className="w-full"

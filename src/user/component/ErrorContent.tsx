@@ -11,7 +11,7 @@ export default function ErrorContent(): JSX.Element {
   return (
     <div className="flex flex-col">
       <div className="flex flex-col items-center">
-        <p className={`text-lg text-${DefaultColor.PRIMARY_COLOR} pb-4`}>Oops!</p>
+        <p className={`text-lg ${DefaultColor.TEXT_PRIMARY_COLOR} pb-4`}>Oops!</p>
         <p>Sorry, an unexpected error has occurred.</p>
         {loggedUser ? (
           <p>Do you want to return to the Dashboard?</p>
@@ -20,7 +20,7 @@ export default function ErrorContent(): JSX.Element {
         )}
       </div>
       <div className="flex justify-center pt-4">
-        <Link to={loggedUser ? "/studysync" : "/studysync/login"}>
+        <Link to={loggedUser ? "/studysync/" : "/login"}>
           <Button label={loggedUser ? "Dashboard" : "Login"} />
         </Link>
       </div>

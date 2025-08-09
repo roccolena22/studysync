@@ -16,7 +16,7 @@ export default function SingleUserInList({
   toggleFollow,
 }: SingleUserInListProps) {
   return (
-    <div className="flex justify-between items-center border-b border-gray-400 w-full py-1">
+    <div className="flex justify-between items-center border-b border-slate-400 w-full py-1">
       <UserDetails
         firstName={user.firstName}
         lastName={user.lastName}

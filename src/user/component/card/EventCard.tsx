@@ -11,7 +11,7 @@ interface Props {
 
 export default function EventCard({ event, bookedUsers, updateBookingForEvent }: Props): JSX.Element {
   return (
-    <div className="w-full h-96 relative rounded-lg p-3 bg-gray-50 shadow-xl">
+    <div className="w-full h-96 relative rounded-lg p-3 bg-slate-50 shadow-xl">
       <div
         className={`flex justify-between items-center border-b ${
           event.role?.includes("student")

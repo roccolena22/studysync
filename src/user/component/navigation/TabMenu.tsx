@@ -23,11 +23,11 @@ export default function TabMenu({
 
   const sectionClass = (sectionIndex: number): string =>
   `w-1/2 cursor-pointer py-4 sm:py-2 px-2 ${
-    index === sectionIndex ? `bg-${DefaultColor.SECONDARY_COLOR}` : "bg-gray-50"
-  } hover:text-${DefaultColor.PRIMARY_COLOR}`;
+    index === sectionIndex ? `${DefaultColor.BG_SECONDARY_COLOR}` : "bg-slate-200"
+  } hover:brightness-110`;
 
   return (
-    <div className="w-full bg-gray-50 rounded-t-lg">
+    <div className="w-full bg-slate-50 rounded-t-lg">
       <div className="flex font-semibold text-sm md:text-md lg:text-lg sm:px-0">
         <div onClick={() => handleIndex(0)} className={sectionClass(0)}>
           <p>{firstSectionName}</p>

@@ -9,6 +9,7 @@ import moment from "moment";
 import { getEventRecordsByFilter } from "../../api/apiEvents";
 import { EventModel } from "../models";
 import Loader from "../../shared/component/Loader";
+import { DefaultColor } from "../../shared/models";
 
 export default function DashboardPage(): JSX.Element {
   const [indexSection, setIndexSection] = useState<number>(0);
@@ -75,7 +76,7 @@ export default function DashboardPage(): JSX.Element {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <Loader size="h-22 w-22" color="text-blue-500" />
+        <Loader size="h-22 w-22" color={DefaultColor.TEXT_PRIMARY_COLOR} />
       </div>
     );
   }

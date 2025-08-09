@@ -67,7 +67,7 @@ export default function NetworkPage(): JSX.Element {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <Loader size="h-22 w-22" color={`text-${DefaultColor.PRIMARY_COLOR}`}
+        <Loader size="h-22 w-22" color={DefaultColor.TEXT_PRIMARY_COLOR}
  />
       </div>
     );

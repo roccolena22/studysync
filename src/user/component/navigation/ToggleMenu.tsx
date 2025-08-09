@@ -15,7 +15,7 @@ export default function ToggleMenu(): JSX.Element {
 
   return (
     <div
-  className={`border-b border-l border-cyan-800 w-full flex space-x-5 p-4 rounded-bl-lg shadow-xl bg-${DefaultColor.PRIMARY_COLOR}`}
+  className={`w-full flex space-x-5 p-4 rounded-bl-lg shadow-xl ${DefaultColor.BG_PRIMARY_COLOR}`}
 >
       <IconAndName
         label="account"

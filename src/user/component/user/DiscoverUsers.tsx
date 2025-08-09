@@ -22,7 +22,7 @@ export default function DiscoverUsers(): JSX.Element {
 
   return (
     <>
-<div className={`relative h-24 bg-${DefaultColor.SECONDARY_COLOR} w-full rounded-lg shadow-xl py-4`}>
+<div className={`relative h-24 ${DefaultColor.BG_SECONDARY_COLOR} w-full rounded-lg shadow-xl py-4`}>
 
         <div className="w-full flex flex-col justify-between items-center">
           <p className="sm:text-lg font-semibold text-center">

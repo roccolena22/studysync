@@ -21,10 +21,10 @@ export default function Message({
       className += "text-red-600";
       break;
     case "highlighted":
-      className += ` text-${DefaultColor.PRIMARY_COLOR}`;
+      className += `${DefaultColor.TEXT_PRIMARY_COLOR}`;
       break;
     default:
-      className += "text-gray-600";
+      className += "text-slate-600";
   }
 
   return (

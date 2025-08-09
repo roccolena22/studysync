@@ -13,7 +13,7 @@ export default function SummaryEventCard({
   return (
     <>
       <div
-        className="border-b border-gray-400"
+        className="border-b border-slate-400"
       >
         <UserDetails
           firstName={event.firstName}

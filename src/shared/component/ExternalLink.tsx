@@ -9,7 +9,7 @@ export default function ExternalLink({ link }: ExternalLinkProps): JSX.Element {
   return (
     <a
       href={link}
-      className={`text-xs md:text-md text-${DefaultColor.PRIMARY_COLOR} cursor-pointer underline`}
+      className={`text-xs md:text-md ${DefaultColor.TEXT_PRIMARY_COLOR} cursor-pointer underline`}
       target="_blank"
       rel="noopener noreferrer"
     >

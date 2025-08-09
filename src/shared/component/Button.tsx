@@ -19,15 +19,15 @@ export default function Button({
   disabled
 }: ButtonProps): JSX.Element {
 const buttonStyle = outline
-  ? `text-${DefaultColor.PRIMARY_COLOR} hover:border-cyan-800 hover:text-${DefaultColor.SECONDARY_COLOR} border border-${DefaultColor.PRIMARY_COLOR}`
-  : `text-${DefaultColor.SECONDARY_COLOR} bg-${DefaultColor.PRIMARY_COLOR}`;
+  ? `${DefaultColor.TEXT_PRIMARY_COLOR} hover:brightness-110 border ${DefaultColor.BORDER_PRIMARY_COLOR}`
+  : `${DefaultColor.TEXT_SECONDARY_COLOR} ${DefaultColor.BG_PRIMARY_COLOR}`;
 
 
   const buttonSize = small ? "w-20" : "w-32";
 
   return (
     <button
-      className={`py-1 rounded-lg flex justify-center hover:bg-cyan-800 transition duration-300 ease-in-out
+      className={`py-1 cursor-pointer rounded-lg flex justify-center hover:brightness-110 transition duration-300 ease-in-out
       ${buttonSize} ${buttonStyle}`}
       onClick={onClick}
       type={type}

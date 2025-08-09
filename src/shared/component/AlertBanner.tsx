@@ -32,12 +32,12 @@ export default function AlertBanner({
   };
 
   const alertClass =
-    type && alertTypes[type] ? alertTypes[type] : "border-gray-600 bg-gray-100";
+    type && alertTypes[type] ? alertTypes[type] : "border-slate-600 bg-slate-100";
 
   return isVisible ? (
     <div className="fixed top-14 left-1/2 transform -translate-x-1/2 z-[120]">
       <div
-        className={`bg-${DefaultColor.SECONDARY_COLOR} border-2 rounded-lg px-4 py-3 w-72 text-gray-600 overflow-y-auto ${alertClass}`}
+        className={`${DefaultColor.BG_PRIMARY_COLOR} border-2 rounded-lg px-4 py-3 w-72 text-slate-600 overflow-y-auto ${alertClass}`}
       >
         <p className="text-center">{text}</p>
       </div>

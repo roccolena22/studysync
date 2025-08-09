@@ -82,6 +82,7 @@ export default function LoginForm(): JSX.Element {
         label={guestTranslations.login.email.label}
         errorMessage={errors.email?.message}
         register={register("email")}
+        placeholder={guestTranslations.login.email.placeholder}
       />
       <Input
         label={guestTranslations.login.password.label}
@@ -89,6 +90,7 @@ export default function LoginForm(): JSX.Element {
         register={register("password")}
         type={showPassword ? "text" : "password"}
         onKeyDown={handleKeyDown}
+        placeholder={guestTranslations.login.password.placeholder}
       >
         <Icon
           name={showPassword ? "eyeInvisible" : "eye"}

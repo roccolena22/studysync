@@ -9,7 +9,7 @@ interface LoaderProps {
 
 export default function Loader({
   size = "h-8 w-8",
-  color = `text-${DefaultColor.PRIMARY_COLOR}`,
+  color = DefaultColor.TEXT_PRIMARY_COLOR,
   text,
 }: LoaderProps) {
   return (
@@ -34,7 +34,7 @@ export default function Loader({
           d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
         ></path>
       </svg>
-      {text && <span className="text-gray-600 text-sm">{text}</span>}
+      {text && <span className="text-slate-600 text-sm">{text}</span>}
     </div>
   );
 }

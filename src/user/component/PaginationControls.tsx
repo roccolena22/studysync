@@ -25,7 +25,7 @@ export default function PaginationControls({
         disabled={!canPrev}
       />
         
-<p className="text-sm text-gray-500">
+<p className="text-sm text-slate-500">
                {pageIndex}
             </p>
       <Button

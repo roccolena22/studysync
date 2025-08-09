@@ -24,7 +24,7 @@ export default function NewEvent({ name }: NewEventProps): JSX.Element {
   return (
     <>
       <p
-        className={`text-sm font-normal text-${DefaultColor.PRIMARY_COLOR} cursor-pointer`}
+        className={`text-sm font-normal ${DefaultColor.TEXT_PRIMARY_COLOR} cursor-pointer`}
         onClick={handleNewEventPriorityPopup}
       >
         {name}

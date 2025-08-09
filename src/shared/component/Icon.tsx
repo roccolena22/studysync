@@ -25,7 +25,7 @@ interface IconProps {
 }
 
 export default function Icon({ name, style = "", color, onClick }: IconProps) {
-  const colorClass = color ? `text-${color}` : `text-${DefaultColor.PRIMARY_COLOR}`;
+  const colorClass = color ? `text-${color}` : `${DefaultColor.TEXT_PRIMARY_COLOR}`;
   const classNames = `${style} ${colorClass}`.trim();
 
   const iconMapping: Record<string, JSX.Element> = {

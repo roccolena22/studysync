@@ -29,7 +29,7 @@ const [index, setIndex] = useState<number>(indexSwitch);
 
  const sectionClass = (sectionIndex: number): string => {
   return `w-1/2 cursor-pointer ${
-    index === sectionIndex ? `bg-${DefaultColor.SECONDARY_COLOR} shadow-xl` : "bg-gray-50"
+    index === sectionIndex ? `${DefaultColor.BG_SECONDARY_COLOR} shadow-xl` : "bg-slate-50"
   } flex justify-center rounded-full py-1`;
 };
 

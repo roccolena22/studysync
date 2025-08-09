@@ -49,20 +49,20 @@ export default function ManageUsers(): JSX.Element {
   };
 
   return (
-<div className={`w-full flex items-center bg-${DefaultColor.SECONDARY_COLOR} rounded-lg shadow-xl py-2 sm:py-0 space-x-4`}>
+<div className={`w-full flex items-center ${DefaultColor.BG_SECONDARY_COLOR} rounded-lg shadow-xl py-2 sm:py-0 space-x-4`}>
       <div className="flex justify-around w-full text-lg font-semibold items-center">
         <div
-          className={`flex flex-col items-center space-y-1 bg-gray-50 shadow-xl hover:border hover:border-${DefaultColor.PRIMARY_COLOR} rounded-lg p-2 sm:p-4 cursor-pointer`}
+          className={`flex flex-col items-center space-y-1 bg-slate-50 shadow-xl hover:border hover:brightness-110 rounded-lg p-2 sm:p-4 cursor-pointer`}
           onClick={() => handlePriorityPopup(0)}
         >
-          <span className="text-gray-600">Following</span>
+          <span className="text-slate-600">Following</span>
           <span>{following.length}</span>
         </div>
         <div
-          className={`flex flex-col items-center space-y-1 bg-gray-50 shadow-xl hover:border hover:border-${DefaultColor.PRIMARY_COLOR} rounded-lg p-2 sm:p-4 cursor-pointer`}
+          className={`flex flex-col items-center space-y-1 bg-slate-50 shadow-xl hover:border hover:brightness-110 rounded-lg p-2 sm:p-4 cursor-pointer`}
           onClick={() => handlePriorityPopup(1)}
         >
-          <span className="text-gray-600">Followers</span>
+          <span className="text-slate-600">Followers</span>
           <span>{followers.length}</span>
         </div>
       </div>
