@@ -21,3 +21,8 @@ export enum TabelName {
   BOOKINGS = "bookings",
 FOLLOWERS = "followers"
 }
+
+export enum DefaultColor{
+  PRIMARY_COLOR = "cyan-700",
+  SECONDARY_COLOR = "white"
+}

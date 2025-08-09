@@ -15,7 +15,7 @@ import SecondaryPopup from "./shared/SecondaryPopup";
 import SummaryEventCard from "./card/SummaryEventCard";
 import { useSelector } from "react-redux";
 import AlertBanner from "../../shared/component/AlertBanner";
-import { AlertTypes } from "../../shared/models";
+import { AlertTypes, DefaultColor } from "../../shared/models";
 import { EventModel } from "../models";
 
 interface CalendarEvent extends RBCEvent {
@@ -80,7 +80,7 @@ export default function PersonalCalendar({ events }: PersonalCalendarProps) {
     const style = {
       backgroundColor:
         event.authorId === loggedUser?.id ? "#16A34A" : "#EA580C",
-      color: "white",
+      color: DefaultColor.SECONDARY_COLOR,
       borderColor: "transparent",
       display: "block",
       fontSize: "0px",

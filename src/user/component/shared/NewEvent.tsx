@@ -3,7 +3,7 @@ import PriorityPopup from "./PriorityPopup";
 import Title from "./Title";
 import AddEventForm from "../form/AddEventForm";
 import AlertBanner from "../../../shared/component/AlertBanner";
-import { AlertTypes } from "../../../shared/models";
+import { AlertTypes, DefaultColor } from "../../../shared/models";
 
 interface NewEventProps {
   name: string;
@@ -24,7 +24,7 @@ export default function NewEvent({ name }: NewEventProps): JSX.Element {
   return (
     <>
       <p
-        className="text-sm font-normal text-cyan-700 cursor-pointer"
+        className={`text-sm font-normal text-${DefaultColor.PRIMARY_COLOR} cursor-pointer`}
         onClick={handleNewEventPriorityPopup}
       >
         {name}

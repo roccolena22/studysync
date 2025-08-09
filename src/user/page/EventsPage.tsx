@@ -12,6 +12,7 @@ import { getEventRecordsByFilter } from "../../api/apiEvents";
 import { getBookingByFilter } from "../../api/apiBookings";
 import { EventModel } from "../models";
 import Loader from "../../shared/component/Loader"; // importa il loader
+import { DefaultColor } from "../../shared/models";
 
 export default function EventsPage() {
   const [indexSwitch, setIndexSwitch] = useState<number>(0);
@@ -71,7 +72,8 @@ export default function EventsPage() {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <Loader size="h-22 w-22" color="text-cyan-700" />
+        <Loader size="h-22 w-22" color={`text-${DefaultColor.PRIMARY_COLOR}`}
+ />
       </div>
     );
   }

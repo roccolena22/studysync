@@ -1,5 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import Icon from "../../../shared/component/Icon";
+import { DefaultColor } from "../../../shared/models";
 
 interface IconAndNameProps {
   iconName: string;
@@ -10,8 +11,8 @@ interface IconAndNameProps {
 }
 
 const COLORS = {
-  cyan: "text-cyan-700",
-  white: "text-white",
+  defaultColor: `text-${DefaultColor.PRIMARY_COLOR}`,
+  white: `text-${DefaultColor.SECONDARY_COLOR}`,
   red: "text-red-800",
 };
 
@@ -19,11 +20,11 @@ export default function IconAndName({
   iconName,
   label,
   onClick,
-  color = "cyan",
+  color = "defaultColor",
   pathname,
 }: IconAndNameProps): JSX.Element {
   const location = useLocation();
-  const colorClass = COLORS[color] || COLORS.cyan; // Fallback sicuro
+  const colorClass = COLORS[color] || COLORS.defaultColor; // Fallback sicuro
   const commonContainerClasses = "flex flex-col cursor-pointer items-center";
   const isActive = pathname && location.pathname === pathname;
 
@@ -34,7 +35,7 @@ export default function IconAndName({
         className={`${commonContainerClasses} transition delay-150 duration-300 ease-in-out`}
       >
         <div
-          className={`rounded-2xl w-8 h-8 flex items-center justify-center hover:border border-full border-white ${
+          className={`rounded-2xl w-8 h-8 flex items-center justify-center hover:border border-full border-${DefaultColor.SECONDARY_COLOR} ${
             isActive ? "bg-gray-400" : ""
           }`}
         >

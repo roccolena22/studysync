@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { DefaultColor } from "../../../shared/models";
 
 interface TabMenuProps {
   firstSectionName: string;
@@ -21,9 +22,9 @@ export default function TabMenu({
   };
 
   const sectionClass = (sectionIndex: number): string =>
-    `w-1/2 cursor-pointer hover:text-cyan-700 py-4 sm:py-2 px-2 ${
-      index === sectionIndex ? "bg-white" : "bg-gray-50"
-    }`;
+  `w-1/2 cursor-pointer py-4 sm:py-2 px-2 ${
+    index === sectionIndex ? `bg-${DefaultColor.SECONDARY_COLOR}` : "bg-gray-50"
+  } hover:text-${DefaultColor.PRIMARY_COLOR}`;
 
   return (
     <div className="w-full bg-gray-50 rounded-t-lg">

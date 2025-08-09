@@ -15,6 +15,7 @@ import { HiUserGroup } from "react-icons/hi";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { IoMdOpen } from "react-icons/io";
 import { CiGrid41 } from "react-icons/ci";
+import { DefaultColor } from "../models";
 
 interface IconProps {
   name: string;
@@ -24,7 +25,7 @@ interface IconProps {
 }
 
 export default function Icon({ name, style = "", color, onClick }: IconProps) {
-  const colorClass = color ? `text-${color}` : "text-cyan-700";
+  const colorClass = color ? `text-${color}` : `text-${DefaultColor.PRIMARY_COLOR}`;
   const classNames = `${style} ${colorClass}`.trim();
 
   const iconMapping: Record<string, JSX.Element> = {

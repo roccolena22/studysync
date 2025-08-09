@@ -5,6 +5,7 @@ import Title from "../component/shared/Title";
 import Loader from "../../shared/component/Loader";
 import { User } from "../models";
 import { useEffect, useState } from "react";
+import { DefaultColor } from "../../shared/models";
 
 export default function AccountPage(): JSX.Element {
   const loggedUser = useSelector<any, User | undefined>(
@@ -22,7 +23,8 @@ export default function AccountPage(): JSX.Element {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <Loader size="h-22 w-22" color="text-cyan-700" />
+        <Loader size="h-22 w-22" color={`text-${DefaultColor.PRIMARY_COLOR}`}
+ />
       </div>
     );
   }

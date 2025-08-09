@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { AlertTypes } from "../../shared/models";
+import { AlertTypes, DefaultColor } from "../../shared/models";
 
 interface AlertBannerProps {
   text: string;
@@ -37,7 +37,7 @@ export default function AlertBanner({
   return isVisible ? (
     <div className="fixed top-14 left-1/2 transform -translate-x-1/2 z-[120]">
       <div
-        className={`bg-white border-2 rounded-lg px-4 py-3 w-72 text-gray-600 overflow-y-auto ${alertClass}`}
+        className={`bg-${DefaultColor.SECONDARY_COLOR} border-2 rounded-lg px-4 py-3 w-72 text-gray-600 overflow-y-auto ${alertClass}`}
       >
         <p className="text-center">{text}</p>
       </div>

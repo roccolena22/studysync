@@ -1,6 +1,7 @@
 import React, { ReactNode, useEffect } from "react";
 import Icon from "../../../shared/component/Icon";
 import Title from "./Title";
+import { DefaultColor } from "../../../shared/models";
 
 interface PriorityPopupProps {
   children: ReactNode;
@@ -31,7 +32,7 @@ export default function PriorityPopup({
         <div className="flex justify-end pt-2 sticky top-0 bg-gray-50">
           <Icon
             name="close"
-            style="rounded-2xl w-6 h-6 hover:border border-red-800 hover:text-red-800 bg-white"
+            style={`rounded-2xl w-6 h-6 hover:border border-red-800 hover:text-red-800 bg-${DefaultColor.SECONDARY_COLOR}`}
             onClick={handleClose}
           />
         </div>

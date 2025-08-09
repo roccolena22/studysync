@@ -7,6 +7,7 @@ import { EventModel, User } from "../models";
 import { getEventRecordsByFilter } from "../../api/apiEvents";
 import { getFollowerRecordsByLinkedField } from "../../api/apiFollowers";
 import Loader from "../../shared/component/Loader";
+import { DefaultColor } from "../../shared/models";
 
 interface RootState {
   auth: {
@@ -66,7 +67,8 @@ export default function NetworkPage(): JSX.Element {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <Loader size="h-22 w-22" color="text-cyan-700" />
+        <Loader size="h-22 w-22" color={`text-${DefaultColor.PRIMARY_COLOR}`}
+ />
       </div>
     );
   }

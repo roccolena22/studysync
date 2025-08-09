@@ -1,4 +1,5 @@
 import React from "react";
+import { DefaultColor } from "../../../shared/models";
 
 interface BadgeProps {
   text: string;
@@ -20,7 +21,8 @@ export default function Badge({ text }: BadgeProps): JSX.Element {
     <>
       {text && (
         <div
-          className={`${bgColor} text-[10px] text-white px-1 rounded-lg h-3 sm:h-4 flex justify-center items-center w-fit font-semibold`}
+  className={`${bgColor} text-[10px] text-${DefaultColor.SECONDARY_COLOR} px-1 rounded-lg h-3 sm:h-4 flex justify-center items-center w-fit font-semibold`}
+
         >
           <p>{String(text).toUpperCase()}</p>
         </div>

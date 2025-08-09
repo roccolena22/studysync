@@ -1,4 +1,5 @@
 import React from "react";
+import { DefaultColor } from "../models";
 
 interface LoaderProps {
   size?: string;
@@ -8,7 +9,7 @@ interface LoaderProps {
 
 export default function Loader({
   size = "h-8 w-8",
-  color = "text-cyan-700",
+  color = `text-${DefaultColor.PRIMARY_COLOR}`,
   text,
 }: LoaderProps) {
   return (

@@ -1,4 +1,5 @@
-import React, { MouseEventHandler, ButtonHTMLAttributes } from "react";
+import React, { MouseEventHandler } from "react";
+import { DefaultColor } from "../models";
 
 interface ButtonProps {
   label: string;
@@ -17,9 +18,10 @@ export default function Button({
   small = false,
   disabled
 }: ButtonProps): JSX.Element {
-  const buttonStyle = outline
-    ? "text-cyan-700 hover:border-cyan-800 hover:text-white border border-cyan-700"
-    : "text-white bg-cyan-700";
+const buttonStyle = outline
+  ? `text-${DefaultColor.PRIMARY_COLOR} hover:border-cyan-800 hover:text-${DefaultColor.SECONDARY_COLOR} border border-${DefaultColor.PRIMARY_COLOR}`
+  : `text-${DefaultColor.SECONDARY_COLOR} bg-${DefaultColor.PRIMARY_COLOR}`;
+
 
   const buttonSize = small ? "w-20" : "w-32";
 
