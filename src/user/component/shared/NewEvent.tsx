@@ -8,9 +8,9 @@ import { useSelector } from "react-redux";
 
 interface NewEventProps {
   name: string;
+  onEventCreated: () => void;
 }
-
-export default function NewEvent({ name }: NewEventProps): JSX.Element {
+export default function NewEvent({ name, onEventCreated }: NewEventProps): JSX.Element {
   const [newEventPriorityPopup, setNewEventPriorityPopup] = useState(false);
   const [showCreatedEventAlert, setShowCreatedEventAlert] = useState(false);
   const loggedUser = useSelector((state: any) => state.auth.user);
@@ -19,9 +19,11 @@ export default function NewEvent({ name }: NewEventProps): JSX.Element {
     setNewEventPriorityPopup(!newEventPriorityPopup);
   };
 
-  const handleCreatedEventAlert = () => {
+ const handleCreatedEventAlert = () => {
     setShowCreatedEventAlert(!showCreatedEventAlert);
+    onEventCreated(); // chiama il refresh degli eventi
   };
+
 
   return (
     <>

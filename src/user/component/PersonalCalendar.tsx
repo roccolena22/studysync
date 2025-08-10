@@ -44,8 +44,8 @@ const loggedUser = useSelector((state: any) => state.auth.user) as User;
 
   const eventForCalendar: CalendarEvent[] = events.map((event) => ({
     ...event,
-    start: new Date(`${event.startDate} ${event.startTime}`),
-    end: new Date(`${event.endDate} ${event.endTime}`),
+    start: new Date(`${event.startDate}`),
+    end: new Date(`${event.endDate}`),
   }));
 
   const handleNoValidDateAlert = () => {

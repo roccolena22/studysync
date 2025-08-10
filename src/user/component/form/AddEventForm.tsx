@@ -40,8 +40,6 @@ export default function AddEventForm({
   const [showNoValidDateAlert, setShowNoValidDateAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState<string | null>(null);
 
-  const currentDate = new Date();
-
   const [formattedStartDate, setFormattedStartDate] = useState(
     moment(startDate, "DD/MM/YYYY").format("YYYY-MM-DD")
   );
