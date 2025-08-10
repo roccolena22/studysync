@@ -13,24 +13,15 @@ export default function BodyCard({ event }: BodyCardProps): JSX.Element {
 
   useEffect(() => {
     const currentDate = new Date();
-    const end = new Date(`${event.endDate} ${event.endTime}`);
-    const start = new Date(`${event.startDate} ${event.startTime}`);
+    const start = new Date(event.startDate);
+    const end = new Date(event.endDate);
     setIsUnderway(start <= currentDate && currentDate <= end);
-  }, [event.endDate, event.endTime, event.startDate, event.startTime]);
+  }, [event.startDate, event.endDate]);
 
-  const startDateToView = moment(
-    `${event.startDate} ${event.startTime}`,
-    "YYYY-MM-DD HH:mm"
-  ).format("DD-MM-YYYY HH:mm");
+  const startDateToView = moment(event.startDate).format("DD-MM-YYYY HH:mm");
 
-  const startDate = moment(
-    `${event.startDate} ${event.startTime}`,
-    "YYYY-MM-DD HH:mm"
-  );
-  const endDate = moment(
-    `${event.endDate} ${event.endTime}`,
-    "YYYY-MM-DD HH:mm"
-  );
+  const startDate = moment(event.startDate);
+  const endDate = moment(event.endDate);
   const duration = moment.duration(endDate.diff(startDate));
 
   let formattedDuration = "";
@@ -62,6 +53,7 @@ export default function BodyCard({ event }: BodyCardProps): JSX.Element {
               <Badge text="soldout" />
             )}
         </div>
+
         <p className="font-bold text-md sm:text-lg">{event.title}</p>
       </div>
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 text-xs sm:text-sm md:text-md">

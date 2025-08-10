@@ -7,7 +7,7 @@ role: string;
 password?: string;
 eventIds?: string[];
 followingIds?: string[];
-followerIds?: string[];
+followersIds?: string[];
 info?: string;
 }
 
@@ -29,9 +29,7 @@ export interface EventModel {
   email: string;
   role: string;
   endDate: Date;
-  endTime: string;
   startDate: Date;
-  startTime: string;
   authorId: string;
   bookingsRecordId?: string[];
   places: number;
@@ -43,4 +41,5 @@ export interface EventModel {
   info?: string;
   firstName: string;
   lastName: string;
+  creationDate: string;
 }

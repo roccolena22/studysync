@@ -8,6 +8,9 @@ import { getEventRecordsByFilter } from "../../api/apiEvents";
 import { getFollowerRecordsByLinkedField } from "../../api/apiFollowers";
 import Loader from "../../shared/component/Loader";
 import { DefaultColor } from "../../shared/models";
+import IconAndName from "../component/shared/IconAndName";
+import { useNavigate } from "react-router-dom";
+import Icon from "../../shared/component/Icon";
 
 interface RootState {
   auth: {
@@ -16,6 +19,9 @@ interface RootState {
 }
 
 export default function NetworkPage(): JSX.Element {
+
+ const navigate = useNavigate();
+
   const loggedUser = useSelector((state: RootState) => state.auth.user);
   const [networkEvents, setNetworkEvents] = useState<EventModel[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -75,7 +81,12 @@ export default function NetworkPage(): JSX.Element {
 
   return (
     <div className="flex flex-col items-center">
-      <Title title="Network" />
+      <div className="flex space-x-4 w-full items-center border-b border-slate-400 pb-2">
+        <Icon name="back" onClick={() => navigate(-1)}/>
+          <Title title="Network" />
+      </div>
+
+      
       <div className="w-full pb-10">
         <DiscoverUsers />
       </div>

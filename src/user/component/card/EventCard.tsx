@@ -2,6 +2,7 @@ import BodyCard from "./BodyCard";
 import FooterCard from "./FooterCard";
 import HeaderCard from "./HeaderCard";
 import { Booking, EventModel } from "../../models";
+import moment from "moment";
 
 interface Props {
   event: EventModel;
@@ -28,6 +29,9 @@ export default function EventCard({ event, bookedUsers, updateBookingForEvent }:
           bookedUsers={bookedUsers}
           updateBookingForEvent={updateBookingForEvent}
         />
+      </div>
+      <div className="absolute bottom-2 left-3">
+        <p className="text-xs text-slate-400">{moment(event.creationDate).format("DD/MM/YY HH:mm")}</p>
       </div>
     </div>
   );

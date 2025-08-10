@@ -13,7 +13,7 @@ interface RootState {
 }
 
 export default function DiscoverUsers(): JSX.Element {
-  const loggedUser = useSelector((state: RootState) => state.auth.user);
+  const loggedUser = useSelector((state: RootState) => state.auth.user) as User;
   const [priorityPopupIsOpen, setPriorityPopupIsOpen] = useState(false);
 
   const handlePriorityPopup = () => {

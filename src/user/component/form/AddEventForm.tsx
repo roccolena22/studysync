@@ -21,11 +21,11 @@ import { addEventRecord } from "../../../api/apiEvents";
 interface AddEventFormProps {
   handleClose: () => void;
   handleCreatedEventAlert: () => void;
+   loggedUserId: string;
   startDate?: any; 
   endDate?: any; 
   startTime?: any; 
   endTime?: any;
-  loggedUserId?: string;
 }
 
 export default function AddEventForm({
@@ -78,35 +78,44 @@ export default function AddEventForm({
     setFormattedEndDate(formatDateString(endDate));
   }, [endDate]);
 
-  const onSubmit: SubmitHandler<any> = async (data) => {
-    const start = new Date(data.startDate + " " + data.startTime);
-    const end = new Date(data.endDate + " " + data.endTime);
+ const onSubmit: SubmitHandler<any> = async (data) => {
+  const start = moment(`${data.startDate} ${data.startTime}`, "YYYY-MM-DD HH:mm").toDate();
+  const end = moment(`${data.endDate} ${data.endTime}`, "YYYY-MM-DD HH:mm").toDate();
+  const currentDate = new Date();
 
-    if (start <= currentDate || end <= currentDate) {
-      handleNoValidDateAlert();
-      setAlertMessage("You cannot create an event in the past");
-      return;
-    } else if (start >= end) {
-      handleNoValidDateAlert();
-      setAlertMessage("The start and end dates are not consistent");
-      return;
-    }
+  if (start <= currentDate || end <= currentDate) {
+    handleNoValidDateAlert();
+    setAlertMessage("You cannot create an event in the past");
+    return;
+  }
+  if (start >= end) {
+    handleNoValidDateAlert();
+    setAlertMessage("The start and end dates are not consistent");
+    return;
+  }
+  if (!loggedUserId) {
+    setAlertMessage("User not logged in");
+    setShowNoValidDateAlert(true);
+    return;
+  }
 
-    if (!loggedUserId) {
-      setAlertMessage("User not logged in");
-      setShowNoValidDateAlert(true);
-      return;
-    }
+  // Estrai startTime e endTime da data, mantenendo tutti gli altri campi
+  const { startTime, endTime, ...restData } = data;
 
-    const fullEvent = {
-      authorId: [loggedUserId],
-      ...data,
-    };
-
-    const result = await addEventRecord(fullEvent);
-    if (result) handleCreatedEventAlert();
-    handleClose();
+  // Crea l'evento con startDate e endDate modificati come Date oggetto
+  const fullEvent = {
+    ...restData,
+    startDate: start,
+    endDate: end,
+    authorId: [loggedUserId],
+    creationDate: new Date().toISOString(),
   };
+
+  const result = await addEventRecord(fullEvent);
+
+  if (result) handleCreatedEventAlert();
+  handleClose();
+};
 
   return (
     <div className="w-full text-sm">

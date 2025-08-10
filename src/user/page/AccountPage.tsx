@@ -6,11 +6,14 @@ import Loader from "../../shared/component/Loader";
 import { User } from "../models";
 import { useEffect, useState } from "react";
 import { DefaultColor } from "../../shared/models";
+import Icon from "../../shared/component/Icon";
+import { useNavigate } from "react-router-dom";
 
 export default function AccountPage(): JSX.Element {
-  const loggedUser = useSelector<any, User | undefined>(
-    (state) => state.auth.user
-  );
+
+ const navigate = useNavigate();
+
+  const loggedUser = useSelector((state: any) => state.auth.user) as User;
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -31,9 +34,13 @@ export default function AccountPage(): JSX.Element {
 
   return (
     <div className="flex flex-col items-center">
+      <div className="flex space-x-4 w-full items-center border-b border-slate-400 pb-2">
+        <Icon name="back" onClick={() => navigate(-1)}/>
       <Title title="Info Account">
         <Badge text={loggedUser?.role || ""} />
       </Title>
+        </div>
+        
       {loggedUser && (
         <AccountContentContainer loggedUserId={loggedUser.id} />
       )}

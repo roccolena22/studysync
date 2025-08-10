@@ -4,6 +4,7 @@ import Title from "./Title";
 import AddEventForm from "../form/AddEventForm";
 import AlertBanner from "../../../shared/component/AlertBanner";
 import { AlertTypes, DefaultColor } from "../../../shared/models";
+import { useSelector } from "react-redux";
 
 interface NewEventProps {
   name: string;
@@ -12,6 +13,7 @@ interface NewEventProps {
 export default function NewEvent({ name }: NewEventProps): JSX.Element {
   const [newEventPriorityPopup, setNewEventPriorityPopup] = useState(false);
   const [showCreatedEventAlert, setShowCreatedEventAlert] = useState(false);
+  const loggedUser = useSelector((state: any) => state.auth.user);
 
   const handleNewEventPriorityPopup = () => {
     setNewEventPriorityPopup(!newEventPriorityPopup);
@@ -36,6 +38,7 @@ export default function NewEvent({ name }: NewEventProps): JSX.Element {
             <AddEventForm
               handleCreatedEventAlert={handleCreatedEventAlert}
               handleClose={handleNewEventPriorityPopup}
+              loggedUserId={loggedUser.id}
             />
           </div>
         </PriorityPopup>

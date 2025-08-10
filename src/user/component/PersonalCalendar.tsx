@@ -16,7 +16,7 @@ import SummaryEventCard from "./card/SummaryEventCard";
 import { useSelector } from "react-redux";
 import AlertBanner from "../../shared/component/AlertBanner";
 import { AlertTypes, DefaultColor } from "../../shared/models";
-import { EventModel } from "../models";
+import { EventModel, User } from "../models";
 
 interface CalendarEvent extends RBCEvent {
   authorId: string;
@@ -29,7 +29,7 @@ interface PersonalCalendarProps {
 export default function PersonalCalendar({ events }: PersonalCalendarProps) {
   const localizer = momentLocalizer(moment);
 
- const loggedUser = useSelector((state: any) => state.auth.user);
+const loggedUser = useSelector((state: any) => state.auth.user) as User;
 
   const [newEventPriorityPopup, setNewEventPriorityPopup] = useState(false);
   const [eventSecondaryPopup, setEventsSecondaryPopup] = useState(false);

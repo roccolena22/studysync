@@ -5,10 +5,10 @@ import { getRecordsByLinkedField } from "../../../api/apiRequest";
 import { DefaultColor, TabelName } from "../../../shared/models";
 import { useSelector } from "react-redux";
 import { getFollowerRecordsByLinkedField } from "../../../api/apiFollowers";
-import { Follower } from "../../models";
+import { Follower, User } from "../../models";
 
 export default function ManageUsers(): JSX.Element {
-  const loggedUser = useSelector((state: any) => state.auth.user);
+  const loggedUser = useSelector((state: any) => state.auth.user) as User;
 
   const [priorityPopupIsOpen, setPriorityPopupIsOpen] = useState(false);
   const [indexClicked, setIndexClicked] = useState(0);

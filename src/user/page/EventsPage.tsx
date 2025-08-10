@@ -13,8 +13,13 @@ import { getBookingByFilter } from "../../api/apiBookings";
 import { EventModel } from "../models";
 import Loader from "../../shared/component/Loader"; // importa il loader
 import { DefaultColor } from "../../shared/models";
+import Icon from "../../shared/component/Icon";
+import { useNavigate } from "react-router-dom";
 
 export default function EventsPage() {
+
+   const navigate = useNavigate();
+
   const [indexSwitch, setIndexSwitch] = useState<number>(0);
   const [nextEvents, setNextEvents] = useState<EventModel[]>([]);
   const loggedUserId = useSelector((state: any) => state.auth.user.id);
@@ -79,6 +84,8 @@ export default function EventsPage() {
 
   return (
     <div className="flex flex-col items-center relative">
+      <div className="flex space-x-4 w-full items-center border-b border-slate-400 pb-2">
+              <Icon name="back" onClick={() => navigate(-1)}/>
       <Title title="Events">
         <div className="flex flex-col gap-2 sm:flex-row align-center justify-center items-center sm:space-x-4">
           <NewEvent name="New event" />
@@ -90,6 +97,7 @@ export default function EventsPage() {
           />
         </div>
       </Title>
+      </div>
       <div className="w-full">
         {indexSwitch === 0 ? (
           <EventList eventsToShow={activeEvents} />

@@ -6,7 +6,7 @@ import { User } from "../models";
 import { DefaultColor } from "../../shared/models";
 
 export default function ErrorContent(): JSX.Element {
-  const loggedUser = useSelector((state: any) => state.auth.user) as User | null;
+  const loggedUser = useSelector((state: any) => state.auth.user) as User;
 
   return (
     <div className="flex flex-col">

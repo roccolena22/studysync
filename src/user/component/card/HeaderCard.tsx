@@ -29,14 +29,12 @@ export default function HeaderCard({
       if (uniqueBookedIds.length === 0) {
         setUsers([]);
       } else {
-   
         const orConditions = uniqueBookedIds
           .map((id) => `{id} = "${id}"`)
           .join(",");
 
         const formula = `OR(${orConditions})`;
 
-    
         const fetchedUsers = await getUsersByFilter(formula);
 
         setUsers(fetchedUsers);
@@ -50,6 +48,30 @@ export default function HeaderCard({
     }
   };
 
+ const handleShareClick = async () => {
+ const baseUrl = window.location.origin;
+
+  const shareUrl = `${baseUrl}/studysync/event/${event.id}`;
+  if (navigator.share) {
+    try {
+      await navigator.share({
+        title: `Check out this event: ${event.title}`,
+        url: shareUrl,
+      });
+    } catch (err) {
+      console.log("Condivisione annullata o fallita", err);
+    }
+  } else {
+    // Fallback: copia il link negli appunti e mostra alert
+    try {
+      await navigator.clipboard.writeText(shareUrl);
+      alert("Link copiato negli appunti!");
+    } catch {
+      alert("Condivisione non supportata e copia negli appunti fallita");
+    }
+  }
+};
+
   return (
     <div className="w-full">
       <div className="flex w-full items-center justify-between">
@@ -60,13 +82,20 @@ export default function HeaderCard({
           role={event.role}
           id={event.authorId}
         />
-        {event.places !== undefined && (
+        <div className="flex space-x-2">
           <IconAndName
-            iconName="group"
-            onClick={handleReservationsPopup}
-            label={`${bookedUsers.length}/${event.places ?? ""}`}
+            iconName="share"
+            label="Share"
+            onClick={handleShareClick}
           />
-        )}
+          {event.places && (
+            <IconAndName
+              iconName="group"
+              onClick={handleReservationsPopup}
+              label={`${bookedUsers.length}/${event.places}`}
+            />
+          )}
+        </div>
       </div>
 
       {reservationsPriorityPopupIsOpen && (

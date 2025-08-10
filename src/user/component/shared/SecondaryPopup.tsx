@@ -16,7 +16,7 @@ export default function SecondaryPopup({
 }: SecondaryPopupProps): JSX.Element {
   return (
     <div
-  className={`fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-fit h-fit flex flex-col justify-center items-center z-[100] rounded-lg shadow-xl border ${DefaultColor.BORDER_PRIMARY_COLOR}`}
+  className={`bg-slate-50 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-fit h-fit flex flex-col justify-center items-center z-[100] rounded-lg shadow-xl border ${DefaultColor.BORDER_PRIMARY_COLOR}`}
 >
 
       <div className="w-full">

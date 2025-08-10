@@ -11,7 +11,7 @@ export default function Title({
   fontSize = "text-2xl",
   children,
 }: TitleProps): JSX.Element {
-  const titleClasses = `${fontSize} w-full flex justify-between font-semibold items-center border-b border-slate-400 pb-2`;
+  const titleClasses = `${fontSize} w-full flex justify-between font-semibold items-center`;
 
   return (
     <div className={titleClasses}>

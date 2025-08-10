@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 interface FollowAndUnfollowButtonsProps {
   user: User;
   isFollowed: boolean;
-  loading: boolean;
+  loading?: boolean;
   toggleFollow: (user: User, shouldFollow: boolean) => void;
 }
 

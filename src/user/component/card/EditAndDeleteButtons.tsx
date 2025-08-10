@@ -1,5 +1,3 @@
-import { useDispatch } from "react-redux";
-import { deleteRecordFromDatabase } from "../../../api/apiRequest";
 import { useState } from "react";
 import PriorityPopup from "../shared/PriorityPopup";
 import EditEventForm from "../form/EditEventForm";

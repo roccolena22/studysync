@@ -10,8 +10,13 @@ import { getEventRecordsByFilter } from "../../api/apiEvents";
 import { EventModel } from "../models";
 import Loader from "../../shared/component/Loader";
 import { DefaultColor } from "../../shared/models";
+import Icon from "../../shared/component/Icon";
+import { useNavigate } from "react-router-dom";
 
 export default function DashboardPage(): JSX.Element {
+
+   const navigate = useNavigate();
+
   const [indexSection, setIndexSection] = useState<number>(0);
 
   const [userActiveEvents, setUserActiveEvents] = useState<EventModel[]>([]);
@@ -83,9 +88,12 @@ export default function DashboardPage(): JSX.Element {
 
   return (
     <div className="flex flex-col items-center justify-center">
+      <div className="flex space-x-4 w-full items-center border-b border-slate-400 pb-2">
+        <Icon name="back" onClick={() => navigate(-1)}/>
       <Title title="Dashboard">
         <NewEvent name="New Event" />
       </Title>
+      </div>
 
       <StatisticsContainer
         userAllActiveEvents={userAllActiveEvents}
