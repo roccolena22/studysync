@@ -8,7 +8,6 @@ import { getEventRecordsByFilter } from "../../api/apiEvents";
 import { getFollowerRecordsByLinkedField } from "../../api/apiFollowers";
 import Loader from "../../shared/component/Loader";
 import { DefaultColor } from "../../shared/models";
-import IconAndName from "../component/shared/IconAndName";
 import { useNavigate } from "react-router-dom";
 import Icon from "../../shared/component/Icon";
 
@@ -46,17 +45,16 @@ export default function NetworkPage(): JSX.Element {
           return;
         }
 
-        const orAuthors = following
-          .map((f) => `{authorId} = '${f.idTo}'`)
-          .join(",");
+     const orAuthors = following.map((f) => `{authorId} = '${f.idTo}'`).join(",");
 
-        const formula = `AND(
-          OR(${orAuthors}),
-          OR(
-            IS_SAME(DATETIME_PARSE(CONCATENATE({endDate}, " ", {endTime}), 'YYYY-MM-DD HH:mm'), NOW()),
-            IS_AFTER(DATETIME_PARSE(CONCATENATE({endDate}, " ", {endTime}), 'YYYY-MM-DD HH:mm'), NOW())
-          )
-        )`;
+const formula = `AND(
+  OR(${orAuthors}),
+  OR(
+    IS_SAME({endDate}, NOW()),
+    IS_AFTER({endDate}, NOW())
+  )
+)`;
+
 
         const events = await getEventRecordsByFilter(formula);
         setNetworkEvents(events);
