@@ -1,9 +1,10 @@
 import { useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import PriorityPopup from "../shared/PriorityPopup";
 import EditEventForm from "../form/EditEventForm";
 import IconAndName from "../shared/IconAndName";
 import AlertBanner from "../../../shared/component/AlertBanner";
-import { AlertTypes, TabelName } from "../../../shared/models";
+import { AlertTypes } from "../../../shared/models";
 import { deleteEventRecord } from "../../../api/apiEvents";
 import { EventModel } from "../../models";
 
@@ -16,31 +17,32 @@ export default function EditAndDeleteButtons({ event }: Props): JSX.Element {
   const [showEditAlert, setShowEditAlert] = useState(false);
   const [showDeleteAlert, setShowDeleteAlert] = useState(false);
 
-  const currentDate = new Date();
+  const queryClient = useQueryClient();
 
-  const eventIsFinished =
-    new Date(`${event.endDate} ${event.endTime}`) < currentDate;
+  const currentDate = new Date();
+  const eventIsFinished = new Date(event.endDate) < currentDate;
 
   const toggleEditPriorityPopup = () => {
     setEditPriorityPopupIsOpen((prev) => !prev);
   };
 
-  const handleDelete = async (eventToDelete: any) => {
-    const isDeleted = await deleteEventRecord(
-      eventToDelete.id
-    );
+  const handleDelete = async (eventToDelete: EventModel) => {
+    const isDeleted = await deleteEventRecord(eventToDelete.id);
     if (isDeleted?.deleted === true) {
       setShowDeleteAlert(true);
+      // Invalida la cache degli eventi per rifare il fetch
+      queryClient.invalidateQueries({ queryKey: ["events"] });
     }
-    deleteEventRecord(eventToDelete);
   };
 
   const handleCloseEditPriorityPopup = () => {
     setEditPriorityPopupIsOpen(false);
   };
 
+  // Funzione da passare a EditEventForm per gestire l'alert e rifrescare eventi
   const handleIsEditedAlert = () => {
     setShowEditAlert(true);
+    queryClient.invalidateQueries({ queryKey: ["events"] });
   };
 
   return (
@@ -71,6 +73,7 @@ export default function EditAndDeleteButtons({ event }: Props): JSX.Element {
           />
         </PriorityPopup>
       )}
+
       {showEditAlert && (
         <AlertBanner
           type={AlertTypes.SUCCESS}
@@ -79,7 +82,7 @@ export default function EditAndDeleteButtons({ event }: Props): JSX.Element {
       )}
       {showDeleteAlert && (
         <AlertBanner
-          type={AlertTypes.ERROR}
+          type={AlertTypes.SUCCESS} // meglio SUCCESS per messaggio positivo
           text="Event deleted successfully!"
         />
       )}

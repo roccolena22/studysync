@@ -3,12 +3,12 @@ import Button from "../../../shared/component/Button";
 import { addRecordToDatabase } from "../../../api/apiRequest";
 import { deleteBooking } from "../../../api/apiBookings";
 import { TabelName } from "../../../shared/models";
-import { EventModel, User, Booking } from "../../models";
+import { EventModel, Booking } from "../../models";
 
 interface Props {
   event: EventModel;
-  bookedUsers: Booking[];      // Array di prenotazioni (bookings)
-  loggedUserId: string;            // Utente loggato
+  bookedUsers: Booking[];     
+  loggedUserId: string;            
   updateBookingForEvent: (eventId: string, newBookings: Booking[]) => void;
 }
 

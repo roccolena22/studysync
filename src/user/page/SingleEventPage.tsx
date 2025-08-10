@@ -14,9 +14,6 @@ export default function SingleEventPage() {
   const [bookedUsers, setBookedUsers] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
-
-console.log("event", event)
-
   useEffect(() => {
     async function fetchEventAndBookings() {
       if (!id) return;
@@ -55,7 +52,7 @@ console.log("event", event)
 
   if (loading) {
     return (
-       <div className="flex justify-center items-center h-screen">
+      <div className="flex justify-center items-center h-screen">
         <Loader size="h-22 w-22" color={DefaultColor.TEXT_PRIMARY_COLOR} />
       </div>
     );
@@ -65,10 +62,20 @@ console.log("event", event)
     return <p className="text-center py-10">Evento non trovato</p>;
   }
 
-  // funzione placeholder per aggiornare prenotazioni (da implementare)
+  // Funzione per aggiornare lo stato locale delle prenotazioni
   const updateBookingForEvent = (updatedBooking: any) => {
-    // Qui puoi fare PATCH o POST e aggiornare stato
-    console.log("Update booking:", updatedBooking);
+    setBookedUsers((prev) => {
+      const index = prev.findIndex(b => b.id === updatedBooking.id);
+      if (index === -1) {
+        // aggiungo nuova prenotazione
+        return [...prev, updatedBooking];
+      } else {
+        // sostituisco prenotazione esistente
+        const newArr = [...prev];
+        newArr[index] = updatedBooking;
+        return newArr;
+      }
+    });
   };
 
   return (

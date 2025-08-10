@@ -9,14 +9,21 @@ import { DefaultColor } from "../../../shared/models";
 
 interface EventListProps {
   eventsToShow: EventModel[];
+  onEventModified?: () => void;
 }
-
-export default function EventList({ eventsToShow }: EventListProps): JSX.Element {
+export default function EventList({ eventsToShow, onEventModified }: EventListProps): JSX.Element {
+  
   const [searchedEvents, setSearchedEvents] = useState<EventModel[]>([]);
   const [bookingsByEvent, setBookingsByEvent] = useState<Record<string, Booking[]>>({});
 
   const handleSearch = (dataFromSearch?: EventModel[]) => {
     setSearchedEvents(dataFromSearch ?? []);
+  };
+
+
+  const handleBookingChange = (eventId: string, newBookings: Booking[]) => {
+    updateBookingForEvent(eventId, newBookings);
+    if (onEventModified) onEventModified();
   };
 
   // Funzione per aggiornare localmente lo stato delle prenotazioni di un evento
@@ -78,7 +85,7 @@ export default function EventList({ eventsToShow }: EventListProps): JSX.Element
               <EventCard
                 event={event}
                 bookedUsers={bookingsByEvent[event.id] || []}
-                updateBookingForEvent={updateBookingForEvent}
+               updateBookingForEvent={handleBookingChange}
               />
             </div>
           )
