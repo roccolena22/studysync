@@ -55,7 +55,6 @@ const formula = `AND(
   )
 )`;
 
-
         const events = await getEventRecordsByFilter(formula);
         setNetworkEvents(events);
       } catch (error) {
