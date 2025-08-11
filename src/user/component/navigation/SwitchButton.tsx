@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Icon from "../../../shared/component/Icon";
+import { DefaultColor } from "../../../shared/models";
 
 interface SwitchButtonProps {
   firstItem: string;
@@ -26,11 +27,11 @@ const [index, setIndex] = useState<number>(indexSwitch);
     handleSwitch(newIndex);
   };
 
-  const sectionClass = (sectionIndex: number): string => {
-    return `w-1/2 cursor-pointer ${
-      index === sectionIndex ? "bg-white shadow-xl" : "bg-gray-50"
-    } flex justify-center rounded-full py-1`;
-  };
+ const sectionClass = (sectionIndex: number): string => {
+  return `w-1/2 cursor-pointer ${
+    index === sectionIndex ? `${DefaultColor.BG_SECONDARY_COLOR} shadow-xl` : "bg-slate-50"
+  } flex justify-center rounded-full py-1`;
+};
 
   return (
     <div className="w-24 rounded-full">

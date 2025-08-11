@@ -1,29 +1,29 @@
 import JoinAndLeaveButtons from "./JoinAndLeaveButtons";
 import EditAndDeleteButtons from "./EditAndDeleteButtons";
 import { useSelector } from "react-redux";
-
-// Tipi
-
-interface User {
-  id: string;
-  [key: string]: any;
-}
+import { Booking, EventModel } from "../../models";
 
 interface Props {
-  event: any;
-  bookedUsers: User[];
+  event: EventModel;
+  bookedUsers: Booking[];
+  updateBookingForEvent: (eventId: string, newBookings: Booking[]) => void;
 }
 
-export default function FooterCard({ event, bookedUsers }: Props): JSX.Element {
-  const loggedUser = useSelector((state: any) => state.auth.user as User);
-  const ownerEvent = loggedUser.id === event.authorId;
+export default function FooterCard({ event, bookedUsers, updateBookingForEvent }: Props): JSX.Element {
+  const loggedUserId = useSelector((state: any) => state.auth.user.id);
+  const ownerEvent = loggedUserId === event.authorId;
 
   return (
     <div>
       {ownerEvent ? (
         <EditAndDeleteButtons event={event} />
       ) : (
-        <JoinAndLeaveButtons event={event} bookedUsers={bookedUsers} />
+        <JoinAndLeaveButtons
+          event={event}
+          bookedUsers={bookedUsers}
+          updateBookingForEvent={updateBookingForEvent}
+          loggedUserId={loggedUserId}
+        />
       )}
     </div>
   );

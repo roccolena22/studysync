@@ -1,27 +1,17 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { UserInfoValidator } from "./validator/UserInfoValidator";
-
+import { AccountInfoValidator } from "./validator/AccountInfoValidator";
 import Button from "../../../shared/component/Button";
 import Input from "../../../shared/component/Input";
 import AlertBanner from "../../../shared/component/AlertBanner";
+import { updateUser, getUser } from "../../../api/apiUsers";
+import { AlertTypes } from "../../../shared/models";
+import { User } from "../../models";
 
-import { updateDatabaseRecord } from "../../../api/apiRequest";
-import { fetchUsers } from "../../Utilities/fetchFunctions";
-import { AlertTypes, TabelName } from "../../../shared/models";
-
-// Tipi
-interface LoggedUser {
-  id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-}
-
-interface Props {
-  loggedUser: LoggedUser;
+interface AccountInfoFormProps {
+  loggedUser: User;
+  onUserUpdated: (user: User) => void;
 }
 
 interface FormData {
@@ -30,10 +20,11 @@ interface FormData {
   email: string;
 }
 
-export default function ProfileInfoForm({ loggedUser }: Props): JSX.Element {
- const [showUpdatedAlert, setShowUpdatedAlert] = useState<boolean>(false);
-
-  const dispatch = useDispatch();
+export default function AccountInfoForm({
+  loggedUser,
+  onUserUpdated,
+}: AccountInfoFormProps): JSX.Element {
+  const [showUpdatedAlert, setShowUpdatedAlert] = useState<boolean>(false);
 
   const handleUpdatingAlert = () => {
     setShowUpdatedAlert(true);
@@ -56,7 +47,7 @@ export default function ProfileInfoForm({ loggedUser }: Props): JSX.Element {
     formState: { errors },
     register,
   } = useForm<FormData>({
-    resolver: yupResolver(UserInfoValidator),
+    resolver: yupResolver(AccountInfoValidator),
     defaultValues: {
       firstName: loggedUser.firstName,
       lastName: loggedUser.lastName,
@@ -65,14 +56,13 @@ export default function ProfileInfoForm({ loggedUser }: Props): JSX.Element {
   });
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
-    const recordUpdated = await updateDatabaseRecord(
-      TabelName.USERS,
-      loggedUser.id,
-      data
-    );
+    const recordUpdated = await updateUser(loggedUser.id, data);
+
     if (recordUpdated) {
       handleUpdatingAlert();
-      fetchUsers(dispatch);
+
+      const freshData = await getUser(loggedUser.id);
+      onUserUpdated({ id: loggedUser.id, ...freshData });
     }
   };
 
@@ -100,7 +90,7 @@ export default function ProfileInfoForm({ loggedUser }: Props): JSX.Element {
           errorMessage={errors.email?.message}
         />
         <div className="flex justify-end py-4">
-          <Button small type="submit" name="Save" />
+          <Button small type="submit" label="Save" />
         </div>
       </div>
       {showUpdatedAlert && (

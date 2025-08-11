@@ -1,4 +1,4 @@
-import { MessageTypes } from "../models";
+import { DefaultColor, MessageTypes } from "../models";
 import Icon from "./Icon";
 
 interface MessageProps {
@@ -21,10 +21,10 @@ export default function Message({
       className += "text-red-600";
       break;
     case "highlighted":
-      className += "text-cyan-700";
+      className += `${DefaultColor.TEXT_PRIMARY_COLOR}`;
       break;
     default:
-      className += "text-gray-600";
+      className += "text-slate-600";
   }
 
   return (

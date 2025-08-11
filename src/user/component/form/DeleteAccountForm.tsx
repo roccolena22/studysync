@@ -22,10 +22,8 @@ interface User {
 }
 
 export default function DeleteAccountForm() {
-  const loggedUser = useSelector<any, User | null>(
-    (state) => state.auth.user
-  );
 
+  const loggedUser = useSelector((state: any) => state.auth.user) as User;
   const [showPassword, setShowPassword] = useState(false);
   const [showAlertBanner, setShowAlertBanner] = useState(false);
   const [passwordIsWrong, setPasswordIsWrong] = useState(false);
@@ -87,7 +85,7 @@ export default function DeleteAccountForm() {
           )}
         </div>
         <div className="flex justify-end pt-10">
-          <Button name="Delete account" />
+          <Button label="Delete account" />
         </div>
       </form>
       {showAlertBanner && (

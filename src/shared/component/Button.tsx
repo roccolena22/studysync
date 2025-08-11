@@ -1,7 +1,8 @@
-import React, { MouseEventHandler, ButtonHTMLAttributes } from "react";
+import React, { MouseEventHandler } from "react";
+import { DefaultColor } from "../models";
 
 interface ButtonProps {
-  name: string;
+  label: string;
   outline?: boolean;
   onClick?: MouseEventHandler<HTMLButtonElement>;
   type?: "button" | "submit" | "reset";
@@ -10,28 +11,29 @@ interface ButtonProps {
 }
 
 export default function Button({
-  name,
+  label,
   outline = false,
   onClick,
   type = "button",
   small = false,
   disabled
 }: ButtonProps): JSX.Element {
-  const buttonStyle = outline
-    ? "text-cyan-700 hover:border-cyan-800 hover:text-white border border-cyan-700"
-    : "text-white bg-cyan-700";
+const buttonStyle = outline
+  ? `${DefaultColor.TEXT_PRIMARY_COLOR} hover:brightness-110 border ${DefaultColor.BORDER_PRIMARY_COLOR}`
+  : `${DefaultColor.TEXT_SECONDARY_COLOR} ${DefaultColor.BG_PRIMARY_COLOR}`;
+
 
   const buttonSize = small ? "w-20" : "w-32";
 
   return (
     <button
-      className={`py-1 rounded-lg flex justify-center hover:bg-cyan-800 transition duration-300 ease-in-out
+      className={`py-1 cursor-pointer rounded-lg flex justify-center hover:brightness-110 transition duration-300 ease-in-out
       ${buttonSize} ${buttonStyle}`}
       onClick={onClick}
       type={type}
       disabled={disabled}
     >
-      <p className="text-sm">{name}</p>
+      <p className="text-sm">{label}</p>
     </button>
   );
 }

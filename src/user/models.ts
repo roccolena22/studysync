@@ -7,28 +7,8 @@ role: string;
 password?: string;
 eventIds?: string[];
 followingIds?: string[];
-followerIds?: string[];
-}
-
-export interface Event {
-  id: string;
-  email: string;
-  role: string;
-  endDate: string;
-  endTime: string;
-  startDate: string;
-  startTime: string;
-  authorId: string;
-  bookingsRecordId?: string[];
-  places?: number;
-  title: string;
-  mode?: string;
-  location?: string;
-  platform?: string;
-  link?: string;
-  info?: string;
-  firstName?: string;
-  lastName?: string;
+followersIds?: string[];
+info?: string;
 }
 
 export interface Booking {
@@ -40,6 +20,26 @@ export interface Booking {
 
 export interface Follower{
   id: string;
-  idFrom: string;
-  idTo: string;
+  idFrom: string[];
+  idTo: string[];
+}
+
+export interface EventModel {
+  id: string;
+  email: string;
+  role: string;
+  endDate: Date;
+  startDate: Date;
+  authorId: string;
+  bookingsRecordId?: string[];
+  places: number;
+  title: string;
+  mode: string;
+  location?: string;
+  platform?: string;
+  link?: string;
+  info?: string;
+  firstName: string;
+  lastName: string;
+  creationDate: string;
 }

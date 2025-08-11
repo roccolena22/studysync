@@ -1,17 +1,10 @@
 import React from "react";
 import UserDetails from "../user/UserDetails";
 import BodyCard from "./BodyCard";
-
-interface Event {
-  firstName: string;
-  lastName: string;
-  role?: string;
-  email: string;
-  // aggiungi altre proprietà di event se necessarie
-}
+import { EventModel } from "../../models";
 
 interface SummaryEventCardProps {
-  event: any;
+  event: EventModel;
 }
 
 export default function SummaryEventCard({
@@ -20,13 +13,14 @@ export default function SummaryEventCard({
   return (
     <>
       <div
-        className="border-b border-gray-400"
+        className="border-b border-slate-400"
       >
         <UserDetails
           firstName={event.firstName}
           lastName={event.lastName}
           role={event.role}
           email={event.email}
+          id={event.authorId}
         />
       </div>
       <BodyCard event={event} />

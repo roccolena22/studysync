@@ -1,11 +1,12 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "../../user/component/navigation/Navbar";
 import Footer from "../../user/component/navigation/Footer";
+import { DefaultColor } from "../models";
 
 export default function UserTemplate(): JSX.Element {
   return (
     <div
-      className="flex flex-col min-h-screen items-center bg-gray-50 text-gray-700"
+      className={`flex flex-col min-h-screen items-center text-slate-700 bg-slate-100`}
     >
       <div className="sticky top-0 z-20 w-full">
         <Navbar />

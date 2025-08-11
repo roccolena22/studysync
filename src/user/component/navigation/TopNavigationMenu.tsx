@@ -1,9 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../../redux/slices/authSlice";
 import IconAndName from "../shared/IconAndName";
 import ToggleMenu from "./ToggleMenu";
 import { useEffect, useState } from "react";
+import { DefaultColor } from "../../../shared/models";
 
 export default function TopNavigationMenu(): JSX.Element {
   const [toggleMenuIsOpen, setToggleMenuIsOpen] = useState<boolean>(false);
@@ -27,24 +28,26 @@ export default function TopNavigationMenu(): JSX.Element {
       }
     };
     window.addEventListener("resize", handleResize);
-    // Cleanup on unmount
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
     <div className="flex space-x-5">
-      <div className="hidden md:block md:flex space-x-5">
+      <div className="hidden md:flex space-x-5">
         <IconAndName
+        color={DefaultColor.SECONDARY_COLOR}
           label="dashboard"
           iconName="dashboard"
           pathname="/studysync/"
         />
         <IconAndName
+        color={DefaultColor.SECONDARY_COLOR}
           label="events"
           iconName="calendar"
           pathname="/studysync/events"
         />
         <IconAndName
+        color={DefaultColor.SECONDARY_COLOR}
           label="network"
           iconName="network"
           pathname="/studysync/network"
@@ -52,19 +55,28 @@ export default function TopNavigationMenu(): JSX.Element {
       </div>
       <div className="sm:hidden">
         <IconAndName
+        color={DefaultColor.SECONDARY_COLOR}
           label="menu"
           iconName="menu"
           onClick={toggleNavigationMenu}
         />
       </div>
 
-      <div className="hidden sm:block sm:flex space-x-5">
+      <div className="hidden sm:flex space-x-5">
         <IconAndName
+  color={DefaultColor.SECONDARY_COLOR}
+  label="profile"
+  iconName="profile"
+  pathname={`/studysync/profile`}
+/>
+        <IconAndName
+        color={DefaultColor.SECONDARY_COLOR}
           label="account"
           iconName="account"
           pathname="/studysync/account"
         />
         <IconAndName
+        color={DefaultColor.SECONDARY_COLOR}
           label="logout"
           iconName="logout"
           pathname="/studysync/login"

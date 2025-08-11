@@ -1,92 +1,50 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
 import Button from "../../../shared/component/Button";
-import {
-  addRecordToDatabase,
-  deleteRecordFromDatabase,
-} from "../../../api/apiRequest";
-import { fetchFollowers } from "../../Utilities/fetchFunctions";
-import { TabelName } from "../../../shared/models";
+import { User } from "../../models";
+import { useSelector } from "react-redux";
 
-interface User {
-  id: string;
-  [key: string]: any;
-}
-
-interface Follower {
-  id?: string;
-  idFrom: string[];
-  idTo: string[];
-  [key: string]: any;
+interface FollowAndUnfollowButtonsProps {
+  user: User;
+  isFollowed: boolean;
+  loading?: boolean;
+  toggleFollow: (user: User, shouldFollow: boolean) => void;
 }
 
 interface RootState {
   auth: {
-    user: User,
+    user: User;
   };
-  followers: Follower[];
-}
-
-interface FollowAndUnfollowButtonsProps {
-  user: User;
 }
 
 export default function FollowAndUnfollowButtons({
   user,
+  isFollowed,
+  loading,
+  toggleFollow,
 }: FollowAndUnfollowButtonsProps): JSX.Element {
-  const [isFollowed, setIsFollowed] = useState(false);
   const loggedUser = useSelector((state: RootState) => state.auth.user);
-  const followers = useSelector((state: RootState) => state.followers);
   const isLoggedUser = loggedUser.id === user.id;
-
-  const dispatch = useDispatch();
-
-  const toggleFollow = async (userId: string, isAdding: boolean) => {
-    try {
-      const currentRecord = isAdding
-        ? { idFrom: [loggedUser.id], idTo: [userId] }
-        : followers?.find(
-            (item) =>
-              item.idTo[0] === userId && item.idFrom[0] === loggedUser.id
-          );
-      if (isAdding) {
-        await addRecordToDatabase(TabelName.FOLLOWERS, currentRecord);
-      } else if (currentRecord?.id) {
-        await deleteRecordFromDatabase(TabelName.FOLLOWERS, currentRecord.id);
-      }
-      fetchFollowers(dispatch);
-    } catch (error) {
-      console.error(
-        `Error ${isAdding ? "adding" : "removing"} follower`,
-        error
-      );
-    }
-  };
-
-  useEffect(() => {
-    const follow = followers.find(
-      (item) => item.idTo[0] === user.id && item.idFrom[0] === loggedUser.id
-    );
-    setIsFollowed(!!follow);
-  }, [followers, user.id, loggedUser.id]);
+  
+if (isLoggedUser) return <></>;
 
   return (
     <div>
-      {!isLoggedUser &&
-        (isFollowed ? (
-          <Button
-            small
-            outline
-            onClick={() => toggleFollow(user.id, false)}
-            name="Unfollow"
-          />
-        ) : (
-          <Button
-            small
-            onClick={() => toggleFollow(user.id, true)}
-            name="Follow"
-          />
-        ))}
+      {isFollowed ? (
+        <Button
+          small
+          outline
+          onClick={() => toggleFollow(user, false)}
+          label={loading ? "Unfollowing..." : "Unfollow"}
+          disabled={loading}
+        />
+      ) : (
+        <Button
+          small
+          onClick={() => toggleFollow(user, true)}
+          label={loading ? "Following..." : "Follow"}
+          disabled={loading}
+        />
+      )}
     </div>
   );
 }

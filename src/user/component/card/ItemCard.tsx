@@ -14,7 +14,7 @@ export default function ItemCard({
 }: ItemCardProps): JSX.Element {
   return (
     <div>
-      <p className="text-gray-700 font-semibold sm:text-md md:text-lg">
+      <p className="text-slate-700 font-semibold sm:text-md md:text-lg">
         {label}
       </p>
       {text && <span className="text-xs md:text-md">{text}</span>}

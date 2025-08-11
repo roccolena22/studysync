@@ -1,4 +1,5 @@
 import React from "react";
+import { DefaultColor } from "../models";
 
 interface ExternalLinkProps {
   link: string;
@@ -8,7 +9,7 @@ export default function ExternalLink({ link }: ExternalLinkProps): JSX.Element {
   return (
     <a
       href={link}
-      className="text-xs md:text-md text-cyan-700 cursor-pointer underline"
+      className={`text-xs md:text-md ${DefaultColor.TEXT_PRIMARY_COLOR} cursor-pointer underline`}
       target="_blank"
       rel="noopener noreferrer"
     >

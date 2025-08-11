@@ -1,4 +1,5 @@
 import React from "react";
+import { DefaultColor } from "../../../shared/models";
 
 interface BadgeProps {
   text: string;
@@ -14,13 +15,18 @@ export default function Badge({ text }: BadgeProps): JSX.Element {
     underway: "bg-green-600",
   };
 
-  const bgColor = colorMapping[text] || "bg-gray-800";
+  const bgColor = colorMapping[text] || "bg-slate-800";
 
   return (
-    <div
-      className={`${bgColor} text-[10px] text-white px-1 rounded-lg h-3 sm:h-4 flex justify-center items-center w-fit font-semibold`}
-    >
-      <p>{text.toUpperCase()}</p>
-    </div>
+    <>
+      {text && (
+        <div
+  className={`${bgColor} text-[9px] ${DefaultColor.TEXT_SECONDARY_COLOR} px-1 rounded-lg h-3 sm:h-4 flex justify-center items-center w-fit font-semibold`}
+
+        >
+          <p>{String(text).toUpperCase()}</p>
+        </div>
+      )}
+    </>
   );
 }

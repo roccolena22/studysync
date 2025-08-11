@@ -1,14 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { User } from "../../user/models";
 
-// Definisci il tipo utente (puoi estenderlo con le proprietà reali)
-export interface User {
-  id: string;
-  name: string;
-  email: string;
-  // Aggiungi altri campi se necessari
-}
-
-// Stato del reducer
 export interface AuthState {
   user: User | null;
 }

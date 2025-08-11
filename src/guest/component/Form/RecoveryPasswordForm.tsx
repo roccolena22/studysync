@@ -36,7 +36,6 @@ export default function RecoveryPasswordForm(): JSX.Element {
     try {
       // Simula richiesta API
       await new Promise((resolve) => setTimeout(resolve, 1000));
-      console.log("Recovery email sent to:", data.email);
       setSuccessMessage(guestTranslations.recoveryPassword.emailSended);
       setErrorMessage(null);
       reset();
@@ -60,7 +59,7 @@ export default function RecoveryPasswordForm(): JSX.Element {
         <div className="flex flex-col items-center py-4">
           <Button
             type="submit"
-            name={
+            label={
               isSubmitting
                 ? guestTranslations.recoveryPassword.loading
                 : guestTranslations.recoveryPassword.sendButton

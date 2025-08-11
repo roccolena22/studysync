@@ -6,7 +6,8 @@ import { MdManageAccounts } from "react-icons/md";
 import { FiMenu } from "react-icons/fi";
 import { IoCalendarOutline } from "react-icons/io5";
 import { RiDeleteBinLine } from "react-icons/ri";
-import { BiNetworkChart, BiSolidErrorAlt } from "react-icons/bi";
+import { BiSolidErrorAlt } from "react-icons/bi";
+import { MdShare } from "react-icons/md";
 import { MdOutlineEdit } from "react-icons/md";
 import { TfiSave } from "react-icons/tfi";
 import { IoIosClose } from "react-icons/io";
@@ -15,6 +16,10 @@ import { HiUserGroup } from "react-icons/hi";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { IoMdOpen } from "react-icons/io";
 import { CiGrid41 } from "react-icons/ci";
+import { MdOutlinePermIdentity } from "react-icons/md";
+import { PiGlobeLight } from "react-icons/pi";
+
+import { DefaultColor } from "../models";
 
 interface IconProps {
   name: string;
@@ -24,7 +29,7 @@ interface IconProps {
 }
 
 export default function Icon({ name, style = "", color, onClick }: IconProps) {
-  const colorClass = color ? `text-${color}` : "text-cyan-700";
+  const colorClass = color ? `text-${color}` : `${DefaultColor.TEXT_PRIMARY_COLOR}`;
   const classNames = `${style} ${colorClass}`.trim();
 
   const iconMapping: Record<string, JSX.Element> = {
@@ -55,6 +60,12 @@ export default function Icon({ name, style = "", color, onClick }: IconProps) {
         onClick={onClick}
       />
     ),
+    profile: (
+      <MdOutlinePermIdentity
+      className={classNames}
+        onClick={onClick}
+      />
+    ),
     calendar: (
       <IoCalendarOutline
         className={classNames}
@@ -67,8 +78,14 @@ export default function Icon({ name, style = "", color, onClick }: IconProps) {
         onClick={onClick}
       />
     ),
+    share: (
+      <MdShare
+        className={classNames}
+        onClick={onClick}
+      />
+    ),
     network: (
-      <BiNetworkChart
+      <PiGlobeLight
         className={classNames}
         onClick={onClick}
       />

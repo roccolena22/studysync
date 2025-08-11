@@ -1,5 +1,8 @@
-import React, { useEffect, useState, ChangeEvent } from "react";
+import React, { useEffect, useState, ChangeEvent, KeyboardEvent } from "react";
 import Icon from "../../../shared/component/Icon";
+import { getUsersByFilter } from "../../../api/apiUsers"; // API per cercare da server
+import { User } from "../../models";
+import { DefaultColor } from "../../../shared/models";
 
 interface SearchBarProps<T> {
   placeholder: string;
@@ -15,26 +18,50 @@ export default function SearchBar<T extends Record<string, any>>({
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [isSearching, setIsSearching] = useState<boolean>(false);
   const [filteredData, setFilteredData] = useState<T[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
 
-  const filterData = () => {
-    const lowerCaseSearchTerm = searchTerm.toLowerCase();
+ const filterData = async () => {
+  if (!searchTerm.trim()) return;
 
-    const filtered = data.filter((element) =>
-      ["title", "firstName", "lastName", "startDate", "email"].some(
-        (property) =>
-          typeof element[property] === "string" &&
-          element[property].toLowerCase().includes(lowerCaseSearchTerm)
-      )
-    );
+  setLoading(true);
 
-    setFilteredData(filtered);
-    setIsSearching(true);
-  };
+  const lowerCaseSearchTerm = searchTerm.toLowerCase();
+
+  let filtered = data.filter((element) =>
+    ["title", "firstName", "lastName", "startDate", "email"].some(
+      (property) =>
+        typeof element[property] === "string" &&
+        element[property].toLowerCase().includes(lowerCaseSearchTerm)
+    )
+  );
+
+  if (filtered.length === 0) {
+    try {
+    
+      const formula = `OR(
+        FIND('${lowerCaseSearchTerm}', LOWER({firstName})),
+        FIND('${lowerCaseSearchTerm}', LOWER({lastName})),
+        FIND('${lowerCaseSearchTerm}', LOWER({email}))
+      )`;
+
+      const fetchedUsers: User[] = await getUsersByFilter(formula);
+      filtered = fetchedUsers as unknown as T[];
+    } catch (error) {
+      console.error("Errore durante la ricerca da API:", error);
+    }
+  }
+
+  setFilteredData(filtered);
+  setIsSearching(true);
+  setLoading(false);
+};
+
 
   const clearSearch = () => {
     setSearchTerm("");
     setFilteredData([]);
     setIsSearching(false);
+    dataFromSearch([]);
   };
 
   useEffect(() => {
@@ -46,26 +73,30 @@ export default function SearchBar<T extends Record<string, any>>({
   }, [data.length]);
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setSearchTerm(value);
-    if (value === "") {
-      clearSearch();
-    } else {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
       filterData();
     }
   };
 
   return (
-    <div className="flex space-x-4 items-center w-full rounded-b-lg p-4 shadow-xl bg-white">
-      <div className="flex items-center border border-gray-400 rounded-lg py-1 sm:py-2 w-full bg-white">
+    <div className={`flex space-x-4 items-center w-full rounded-b-lg p-4 shadow-xl ${DefaultColor.BG_SECONDARY_COLOR}`}>
+      <div className={`flex items-center border border-slate-400 rounded-lg py-1 sm:py-2 w-full ${DefaultColor.BG_SECONDARY_COLOR}`}>
         <input
           placeholder={placeholder}
           value={searchTerm}
           onChange={handleInputChange}
-          className="w-full focus:outline-none bg-white px-1"
+          onKeyDown={handleKeyDown} // Avvia ricerca su Invio
+          className={`w-full focus:outline-none ${DefaultColor.BG_SECONDARY_COLOR} px-1`}
+
         />
       </div>
-      {isSearching ? (
+      {loading ? (
+        <span>🔄</span>
+      ) : isSearching ? (
         <Icon name="close" onClick={clearSearch} style="cursor-pointer h-4 w-4" />
       ) : (
         <Icon name="search" onClick={filterData} style="cursor-pointer h-4 w-4" />

@@ -3,28 +3,32 @@ import PriorityPopup from "./PriorityPopup";
 import Title from "./Title";
 import AddEventForm from "../form/AddEventForm";
 import AlertBanner from "../../../shared/component/AlertBanner";
-import { AlertTypes } from "../../../shared/models";
+import { AlertTypes, DefaultColor } from "../../../shared/models";
+import { useSelector } from "react-redux";
 
 interface NewEventProps {
   name: string;
+  onEventCreated: () => void;
 }
-
-export default function NewEvent({ name }: NewEventProps): JSX.Element {
+export default function NewEvent({ name, onEventCreated }: NewEventProps): JSX.Element {
   const [newEventPriorityPopup, setNewEventPriorityPopup] = useState(false);
   const [showCreatedEventAlert, setShowCreatedEventAlert] = useState(false);
+  const loggedUser = useSelector((state: any) => state.auth.user);
 
   const handleNewEventPriorityPopup = () => {
     setNewEventPriorityPopup(!newEventPriorityPopup);
   };
 
-  const handleCreatedEventAlert = () => {
+ const handleCreatedEventAlert = () => {
     setShowCreatedEventAlert(!showCreatedEventAlert);
+    onEventCreated(); // chiama il refresh degli eventi
   };
+
 
   return (
     <>
       <p
-        className="text-sm font-normal text-cyan-700 cursor-pointer"
+        className={`text-sm font-normal ${DefaultColor.TEXT_PRIMARY_COLOR} cursor-pointer`}
         onClick={handleNewEventPriorityPopup}
       >
         {name}
@@ -36,6 +40,7 @@ export default function NewEvent({ name }: NewEventProps): JSX.Element {
             <AddEventForm
               handleCreatedEventAlert={handleCreatedEventAlert}
               handleClose={handleNewEventPriorityPopup}
+              loggedUserId={loggedUser.id}
             />
           </div>
         </PriorityPopup>
@@ -45,7 +50,6 @@ export default function NewEvent({ name }: NewEventProps): JSX.Element {
         <AlertBanner
           text="Event created successfully."
           type={AlertTypes.SUCCESS}
-          onClose={() => setShowCreatedEventAlert(false)}
         />
       )}
     </>
