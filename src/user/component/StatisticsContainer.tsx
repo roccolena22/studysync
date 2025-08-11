@@ -20,13 +20,13 @@ export default function StatisticsContainer({
   const now = moment();
 
   const nextEvents = userAllActiveEvents.filter((e) =>
-    moment(`${e.startDate} ${e.startTime}`, "YYYY-MM-DD HH:mm").isAfter(now)
+    moment(`${e.startDate}`, "YYYY-MM-DD HH:mm").isAfter(now)
   );
 
   const underwayEvents = userAllActiveEvents.filter((e) =>
     now.isBetween(
-      moment(`${e.startDate} ${e.startTime}`, "YYYY-MM-DD HH:mm"),
-      moment(`${e.endDate} ${e.endTime}`, "YYYY-MM-DD HH:mm")
+      moment(`${e.startDate}`, "YYYY-MM-DD HH:mm"),
+      moment(`${e.endDate}`, "YYYY-MM-DD HH:mm")
     )
   );
 
@@ -58,12 +58,12 @@ export default function StatisticsContainer({
     (e) =>
       e.bookingsRecordId?.includes(loggedUserId) &&
       e.authorId !== loggedUserId &&
-      moment(`${e.endDate} ${e.endTime}`, "YYYY-MM-DD HH:mm").isBefore(now)
+      moment(`${e.endDate}`, "YYYY-MM-DD HH:mm").isBefore(now)
   );
 
   const remainingTimeString = nextEvents.length
     ? moment(
-        `${nextEvents[0].startDate} ${nextEvents[0].startTime}`,
+        `${nextEvents[0].startDate}`,
         "YYYY-MM-DD HH:mm"
       ).fromNow()
     : "";

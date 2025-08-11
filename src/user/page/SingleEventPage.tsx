@@ -65,7 +65,7 @@ export default function SingleEventPage() {
   // Funzione per aggiornare lo stato locale delle prenotazioni
   const updateBookingForEvent = (updatedBooking: any) => {
     setBookedUsers((prev) => {
-      const index = prev.findIndex(b => b.id === updatedBooking.id);
+      const index = prev.findIndex((b) => b.id === updatedBooking.id);
       if (index === -1) {
         // aggiungo nuova prenotazione
         return [...prev, updatedBooking];

@@ -4,18 +4,26 @@ import { getPaginatedUsers } from "../../api/apiUsers";
 import PaginationControls from "./PaginationControls";
 import UsersList from "./user/UserList";
 
-
-export function PaginatedUsersList({ loggedUserId }: { loggedUserId: string }): JSX.Element {
+export function PaginatedUsersList({
+  loggedUserId,
+}: {
+  loggedUserId: string;
+}): JSX.Element {
   const [users, setUsers] = React.useState<User[]>([]);
   const [offset, setOffset] = React.useState<string | undefined>(undefined);
-  const [offsetHistory, setOffsetHistory] = React.useState<(string | undefined)[]>([undefined]); // pagina 1
+  const [offsetHistory, setOffsetHistory] = React.useState<
+    (string | undefined)[]
+  >([undefined]); // pagina 1
   const [pageIndex, setPageIndex] = React.useState(1);
   const [loading, setLoading] = React.useState(false);
 
   const fetchUsers = async (newOffset?: string) => {
     setLoading(true);
     try {
-      const { records, offset: nextOffset } = await getPaginatedUsers(15, newOffset);
+      const { records, offset: nextOffset } = await getPaginatedUsers(
+        15,
+        newOffset
+      );
 
       // escludo utente loggato
       const filteredRecords = records.filter((u) => u.id !== loggedUserId);
@@ -59,12 +67,12 @@ export function PaginatedUsersList({ loggedUserId }: { loggedUserId: string }): 
         <>
           <UsersList usersToShow={users} />
 
-            <PaginationControls
-              onPrev={goPrev}
-              onNext={goNext}
-              pageIndex={pageIndex}
-              canNext={!!offset}
-            />
+          <PaginationControls
+            onPrev={goPrev}
+            onNext={goNext}
+            pageIndex={pageIndex}
+            canNext={!!offset}
+          />
         </>
       )}
     </div>

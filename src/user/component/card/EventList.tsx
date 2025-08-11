@@ -11,15 +11,18 @@ interface EventListProps {
   eventsToShow: EventModel[];
   onEventModified?: () => void;
 }
-export default function EventList({ eventsToShow, onEventModified }: EventListProps): JSX.Element {
-  
+export default function EventList({
+  eventsToShow,
+  onEventModified,
+}: EventListProps): JSX.Element {
   const [searchedEvents, setSearchedEvents] = useState<EventModel[]>([]);
-  const [bookingsByEvent, setBookingsByEvent] = useState<Record<string, Booking[]>>({});
+  const [bookingsByEvent, setBookingsByEvent] = useState<
+    Record<string, Booking[]>
+  >({});
 
   const handleSearch = (dataFromSearch?: EventModel[]) => {
     setSearchedEvents(dataFromSearch ?? []);
   };
-
 
   const handleBookingChange = (eventId: string, newBookings: Booking[]) => {
     updateBookingForEvent(eventId, newBookings);
@@ -61,7 +64,9 @@ export default function EventList({ eventsToShow, onEventModified }: EventListPr
   const sortedEvents = sortEventsByTime(eventsToShow);
 
   return (
-    <div className={`${DefaultColor.BG_SECONDARY_COLOR}shadow-xl rounded-b-lg w-full`}>
+    <div
+      className={`${DefaultColor.BG_SECONDARY_COLOR}shadow-xl rounded-b-lg w-full`}
+    >
       {eventsToShow.length > 0 && (
         <div className="sticky top-20 w-full z-10">
           <SearchBar
@@ -72,24 +77,25 @@ export default function EventList({ eventsToShow, onEventModified }: EventListPr
         </div>
       )}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 py-6">
-        {(searchedEvents && searchedEvents.length > 0 ? searchedEvents : sortedEvents).map(
-          (event, index) => (
-            <div
-              className={
-                sortedEvents.length % 2 === 1 && index === 0
-                  ? "sm:col-span-2"
-                  : "sm:col-span-1"
-              }
-              key={event.id ?? index}
-            >
-              <EventCard
-                event={event}
-                bookedUsers={bookingsByEvent[event.id] || []}
-               updateBookingForEvent={handleBookingChange}
-              />
-            </div>
-          )
-        )}
+        {(searchedEvents && searchedEvents.length > 0
+          ? searchedEvents
+          : sortedEvents
+        ).map((event, index) => (
+          <div
+            className={
+              sortedEvents.length % 2 === 1 && index === 0
+                ? "sm:col-span-2"
+                : "sm:col-span-1"
+            }
+            key={event.id ?? index}
+          >
+            <EventCard
+              event={event}
+              bookedUsers={bookingsByEvent[event.id] || []}
+              updateBookingForEvent={handleBookingChange}
+            />
+          </div>
+        ))}
       </div>
       {eventsToShow.length <= 0 && (
         <div className="py-6">

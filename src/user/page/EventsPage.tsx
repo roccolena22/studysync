@@ -23,35 +23,34 @@ export default function EventsPage() {
 
   const [indexSwitch, setIndexSwitch] = useState<number>(0);
 
-   const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
 
   // Query per prendere i booking dell'utente
   const bookingsQuery = useQuery({
-  queryKey: ["userBookings", loggedUserId],
-  queryFn: () => getBookingByFilter(`{bookedId} = '${loggedUserId}'`),
-  enabled: !!loggedUserId,
-});
-
+    queryKey: ["userBookings", loggedUserId],
+    queryFn: () => getBookingByFilter(`{bookedId} = '${loggedUserId}'`),
+    enabled: !!loggedUserId,
+  });
 
   // Query per prendere gli eventi (creati o prenotati)
-const eventsQuery = useQuery({
-  queryKey: [TabelName.EVENTS, loggedUserId, bookingsQuery.data],
-  queryFn: async () => {
-    if (!loggedUserId) return [];
+  const eventsQuery = useQuery({
+    queryKey: [TabelName.EVENTS, loggedUserId, bookingsQuery.data],
+    queryFn: async () => {
+      if (!loggedUserId) return [];
 
-    const bookedEventIds = bookingsQuery.data?.map((b: any) => b.eventId) || [];
+      const bookedEventIds =
+        bookingsQuery.data?.map((b: any) => b.eventId) || [];
 
-    let eventsFormula = `{authorId} = '${loggedUserId}'`;
-    if (bookedEventIds.length > 0) {
-      const idsOR = bookedEventIds.map((id) => `{id} = '${id}'`).join(",");
-      eventsFormula = `OR({authorId} = '${loggedUserId}', ${idsOR})`;
-    }
+      let eventsFormula = `{authorId} = '${loggedUserId}'`;
+      if (bookedEventIds.length > 0) {
+        const idsOR = bookedEventIds.map((id) => `{id} = '${id}'`).join(",");
+        eventsFormula = `OR({authorId} = '${loggedUserId}', ${idsOR})`;
+      }
 
-    return getEventRecordsByFilter(eventsFormula);
-  },
-  enabled: !!loggedUserId && !!bookingsQuery.data,
-});
-
+      return getEventRecordsByFilter(eventsFormula);
+    },
+    enabled: !!loggedUserId && !!bookingsQuery.data,
+  });
 
   const handleSwitch = (index: number) => {
     setIndexSwitch(index);
@@ -84,10 +83,12 @@ const eventsQuery = useQuery({
         <Icon name="back" onClick={() => navigate(-1)} />
         <Title title="Events">
           <div className="flex flex-col gap-2 sm:flex-row align-center justify-center items-center sm:space-x-4">
-             <NewEvent
-  name="New event"
-  onEventCreated={() => queryClient.invalidateQueries({ queryKey: [TabelName.EVENTS] })}
-/>
+            <NewEvent
+              name="New event"
+              onEventCreated={() =>
+                queryClient.invalidateQueries({ queryKey: [TabelName.EVENTS] })
+              }
+            />
             <SwitchButton
               firstItem="grid"
               secondItem="calendar"

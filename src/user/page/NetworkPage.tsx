@@ -21,8 +21,10 @@ export default function NetworkPage(): JSX.Element {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
-    const onEventModified = () => {
-    queryClient.invalidateQueries({ queryKey: [TabelName.EVENTS, "network", loggedUser?.id] });
+  const onEventModified = () => {
+    queryClient.invalidateQueries({
+      queryKey: [TabelName.EVENTS, "network", loggedUser?.id],
+    });
   };
 
   const loggedUser = useSelector((state: RootState) => state.auth.user);
@@ -35,7 +37,9 @@ export default function NetworkPage(): JSX.Element {
       return [];
     }
 
-    const orAuthors = following.map((f) => `{authorId} = '${f.idTo}'`).join(",");
+    const orAuthors = following
+      .map((f) => `{authorId} = '${f.idTo}'`)
+      .join(",");
 
     const formula = `AND(
       OR(${orAuthors}),
@@ -62,10 +66,7 @@ export default function NetworkPage(): JSX.Element {
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <Loader
-          size="h-22 w-22"
-          color={DefaultColor.TEXT_PRIMARY_COLOR}
-        />
+        <Loader size="h-22 w-22" color={DefaultColor.TEXT_PRIMARY_COLOR} />
       </div>
     );
   }
@@ -92,7 +93,10 @@ export default function NetworkPage(): JSX.Element {
       <Title fontSize="text-lg" title="Events of my following" />
 
       <div className="w-full">
-        <EventList eventsToShow={networkEvents} onEventModified={onEventModified}/>
+        <EventList
+          eventsToShow={networkEvents}
+          onEventModified={onEventModified}
+        />
       </div>
     </div>
   );

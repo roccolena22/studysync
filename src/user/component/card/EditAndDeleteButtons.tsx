@@ -32,6 +32,12 @@ export default function EditAndDeleteButtons({ event }: Props): JSX.Element {
       setShowDeleteAlert(true);
       // Invalida la cache degli eventi per rifare il fetch
       queryClient.invalidateQueries({ queryKey: ["events"] });
+      queryClient.invalidateQueries({
+        queryKey: ["ownedEvents", eventToDelete.authorId],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["allActiveEvents", eventToDelete.authorId],
+      });
     }
   };
 
@@ -43,6 +49,12 @@ export default function EditAndDeleteButtons({ event }: Props): JSX.Element {
   const handleIsEditedAlert = () => {
     setShowEditAlert(true);
     queryClient.invalidateQueries({ queryKey: ["events"] });
+    queryClient.invalidateQueries({
+      queryKey: ["ownedEvents", event.authorId],
+    });
+    queryClient.invalidateQueries({
+      queryKey: ["allActiveEvents", event.authorId],
+    });
   };
 
   return (

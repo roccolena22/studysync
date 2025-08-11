@@ -6,8 +6,8 @@ export const sortEventsByTime = (
   if (!eventsArray) return undefined;
 
   return [...eventsArray].sort((a, b) => {
-    const dateA = new Date(`${a.endDate} ${a.endTime}`).getTime();
-    const dateB = new Date(`${b.endDate} ${b.endTime}`).getTime();
+    const dateA = new Date(`${a.endDate}`).getTime();
+    const dateB = new Date(`${b.endDate}`).getTime();
     return dateA - dateB;
   });
 };

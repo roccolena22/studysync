@@ -29,7 +29,7 @@ interface PersonalCalendarProps {
 export default function PersonalCalendar({ events }: PersonalCalendarProps) {
   const localizer = momentLocalizer(moment);
 
-const loggedUser = useSelector((state: any) => state.auth.user) as User;
+  const loggedUser = useSelector((state: any) => state.auth.user) as User;
 
   const [newEventPriorityPopup, setNewEventPriorityPopup] = useState(false);
   const [eventSecondaryPopup, setEventsSecondaryPopup] = useState(false);
@@ -166,7 +166,7 @@ const loggedUser = useSelector((state: any) => state.auth.user) as User;
       {showNoValidDateAlert && (
         <AlertBanner
           text="You cannot create events in the past tense."
-          type={AlertTypes.ERROR}     
+          type={AlertTypes.ERROR}
         />
       )}
     </div>

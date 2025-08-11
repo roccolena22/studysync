@@ -1,17 +1,18 @@
-import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom"; // <-- importa useNavigate
+import { useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+
 import Loader from "../../shared/component/Loader";
 import { DefaultColor } from "../../shared/models";
 import { getUserByField } from "../../api/apiUsers";
+import { getEventRecordsByFilter } from "../../api/apiEvents";
 import { EventModel, User } from "../models";
-import { useSelector } from "react-redux";
-import IconAndName from "../component/shared/IconAndName";
-import FollowAndUnfollowButtons from "../component/user/FollowAndUnfollowButtons";
 import Badge from "../component/shared/Badge";
+import FollowAndUnfollowButtons from "../component/user/FollowAndUnfollowButtons";
 import PriorityPopup from "../component/shared/PriorityPopup";
 import EditUserInfoForm from "../component/form/EditUserInfoForm";
 import EventList from "../component/card/EventList";
-import { getEventRecordsByFilter } from "../../api/apiEvents";
 import Title from "../component/shared/Title";
 import Icon from "../../shared/component/Icon";
 
@@ -29,64 +30,66 @@ export default function UserProfilePage({ userId }: UserProfilePageProps): JSX.E
   const loggedUser = useSelector((state: RootState) => state.auth.user);
   const params = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const profileId = userId || params.id;
+  const queryClient = useQueryClient();
 
+  const profileId = userId || params.id;
   const isOwner = profileId === loggedUser?.id;
 
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
   const [isEditOpen, setIsEditOpen] = useState(false);
 
-  const [events, setEvents] = useState<EventModel[]>([]);
+  // Funzione per fetchare l'utente
+  const fetchUser = async (id: string): Promise<User | null> => {
+    const userData = await getUserByField("id", id);
+    return userData || null;
+  };
 
-  useEffect(() => {
-    async function fetchUserAndEvents() {
-      if (!profileId) return;
+  // Funzione per fetchare gli eventi dell'utente
+  const fetchUserEvents = async (user: User | null): Promise<EventModel[]> => {
+    if (!user?.eventIds?.length) return [];
+    const formula = `OR(${user.eventIds.map((id) => `RECORD_ID()="${id}"`).join(",")})`;
+    const events = await getEventRecordsByFilter(formula);
 
-      try {
-        const userData = await getUserByField("id", profileId);
-        setUser(userData || null);
+    const now = new Date();
+    return events.filter((event) => new Date(event.endDate) >= now);
+  };
 
-        if (userData?.eventIds?.length) {
-          const formula = `OR(${userData.eventIds.map(id => `RECORD_ID()="${id}"`).join(",")})`;
-          const eventsData = await getEventRecordsByFilter(formula);
+  // Query per il profilo utente
+  const { data: user, isLoading: loadingUser, isError: errorUser } = useQuery({
+    queryKey: ["user", profileId],
+    queryFn: () => fetchUser(profileId!),
+    enabled: !!profileId,
+    staleTime: 1000 * 60 * 5,
+  });
 
-          const today = new Date();
-          const activeEvents = eventsData.filter(event => new Date(event.endDate) >= today);
+  // Query per gli eventi, dipendente dalla query user (enabled)
+  const { data: events = [], isLoading: loadingEvents, isError: errorEvents } = useQuery({
+    queryKey: ["events", "user", profileId],
+    queryFn: () => fetchUserEvents(user),
+    enabled: !!user?.eventIds?.length,
+    staleTime: 1000 * 60 * 5,
+  });
 
-          setEvents(activeEvents);
-        } else {
-          setEvents([]);
-        }
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    }
+  const isFollowed = loggedUser?.followingIds?.includes(profileId || "") ?? false;
 
-    fetchUserAndEvents();
-  }, [profileId]);
-
-  const isFollowed = loggedUser?.followingIds?.includes(profileId || "");
-
+  // Aggiorna info in cache e chiudi popup
   const handleInfoUpdated = (newInfo: string) => {
-    if (user) {
-      setUser({ ...user, info: newInfo });
-    }
+    if (!user) return;
+    queryClient.setQueryData(["user", profileId], { ...user, info: newInfo });
     setIsEditOpen(false);
   };
 
-  // LOADING STATE
-  if (loading) {
+  if (loadingUser || loadingEvents) {
     return (
-       <div className="flex justify-center items-center h-screen">
+      <div className="flex justify-center items-center h-screen">
         <Loader size="h-22 w-22" color={DefaultColor.TEXT_PRIMARY_COLOR} />
       </div>
     );
   }
 
-  // USER NOT FOUND
+  if (errorUser) {
+    return <p className="text-center py-10 text-red-600">Failed to load user data</p>;
+  }
+
   if (!user) {
     return <p className="text-center py-10">Utente non trovato</p>;
   }
@@ -96,11 +99,12 @@ export default function UserProfilePage({ userId }: UserProfilePageProps): JSX.E
 
   return (
     <div>
-      {/* top bar */}
       <div className="flex w-full justify-between items-center mb-6">
-           <Icon name="back" onClick={() => navigate(-1)}/>
+        <Icon name="back" onClick={() => navigate(-1)} />
         <div className="flex flex-col items-center">
-          <h1 className="text-2xl font-bold">{user.firstName} {user.lastName}</h1>
+          <h1 className="text-2xl font-bold">
+            {user.firstName} {user.lastName}
+          </h1>
           <Badge text={loggedUser?.role || ""} />
         </div>
         {isOwner ? (
@@ -111,7 +115,6 @@ export default function UserProfilePage({ userId }: UserProfilePageProps): JSX.E
       </div>
 
       <div className="mb-6 space-y-2">
-        
         <div className="flex space-x-6 mt-4 w-full justify-center">
           <div className="flex flex-col items-center">
             <span className="text-lg font-semibold">{followerCount}</span>
@@ -127,10 +130,13 @@ export default function UserProfilePage({ userId }: UserProfilePageProps): JSX.E
 
       <div>
         <Title title="Events" />
-        <EventList eventsToShow={events} />
+        {errorEvents ? (
+          <p className="text-red-600 text-center">Failed to load events.</p>
+        ) : (
+          <EventList eventsToShow={events} />
+        )}
       </div>
 
-      {/* modale */}
       {isEditOpen && (
         <PriorityPopup handleClose={() => setIsEditOpen(false)} title="Modifica informazioni">
           <EditUserInfoForm
