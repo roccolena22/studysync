@@ -6,7 +6,6 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { UpdatePasswordValidator } from "./validator/UpdatePasswordValidator";
 import bcrypt from "bcryptjs";
-import { updateDatabaseRecord } from "../../../api/apiRequest";
 import AlertBanner from "../../../shared/component/AlertBanner";
 import { useDispatch } from "react-redux";
 import { logout } from "../../../redux/slices/authSlice";

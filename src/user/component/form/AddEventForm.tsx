@@ -1,15 +1,11 @@
 import {
   useForm,
   SubmitHandler,
-  FieldErrors,
-  UseFormRegister,
 } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Button from "../../../shared/component/Button";
 import { EventFormValidator } from "./validator/EventFormValidator";
 import Input from "../../../shared/component/Input";
-import { addRecordToDatabase } from "../../../api/apiRequest";
-import { useDispatch, useSelector } from "react-redux";
 import TimeEventSection from "./component/TimeEventSection";
 import DetailsEventInForm from "./component/DetailsEventInForm";
 import moment from "moment";

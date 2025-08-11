@@ -6,7 +6,7 @@ const VITE_BASE_ID = import.meta.env.VITE_BASE_ID;
 
 const airtableBaseUrl = `https://api.airtable.com/v0/${VITE_BASE_ID}`;
 
-// ✅ Normalizza i campi che Airtable restituisce come array, ma sono sempre singoli
+// Normalizza i campi che Airtable restituisce come array, ma sono sempre singoli
 function normalizeFields(fields: Record<string, any>) {
   const singleValueFields = ["firstName", "lastName", "email", "role", "authorId"];
   const normalized: Record<string, any> = {};
@@ -21,28 +21,7 @@ function normalizeFields(fields: Record<string, any>) {
   return normalized;
 }
 
-// ✅ GET Event list
-export async function getEventsList() {
-  try {
-    const response = await axios.get(`${airtableBaseUrl}/${TabelName.EVENTS}`, {
-      headers: {
-        Authorization: `Bearer ${VITE_API_KEY}`,
-      },
-    });
-
-    const responseData = response.data;
-
-    return responseData.records.map((element) => ({
-      id: element.id,
-      ...normalizeFields(element.fields),
-    }));
-  } catch (error) {
-    console.error("Error during GET request:", error.response || error);
-    throw error;
-  }
-}
-
-// ✅ GET single Event record
+// GET single Event record
 export async function getEventRecord(recordId: string) {
   try {
     const response = await axios.get(
@@ -61,62 +40,7 @@ export async function getEventRecord(recordId: string) {
   }
 }
 
-// ✅ GET filtered Event record by field
-export async function getEventRecordByField(fieldName: string, value: string) {
-  try {
-    const response = await axios.get(
-      `${airtableBaseUrl}/${TabelName.EVENTS}?filterByFormula=${encodeURIComponent(`{${fieldName}} = '${value}'`)}`,
-      {
-        headers: {
-          Authorization: `Bearer ${VITE_API_KEY}`,
-        },
-      }
-    );
-
-    const records = response.data.records;
-    if (records.length > 0) {
-      return {
-        id: records[0].id,
-        ...normalizeFields(records[0].fields),
-      };
-    } else {
-      return null;
-    }
-  } catch (error) {
-    console.error("Error during filtered GET request:", error.response || error);
-    throw error;
-  }
-}
-
-// ✅ GET all Event records where linked field contains a specific record ID
-export async function getEventRecordsByLinkedField(
-  fieldName: string,
-  recordId: string
-) {
-  try {
-    const filterFormula = `FIND("${recordId}", ARRAYJOIN({${fieldName}}))`;
-
-    const response = await axios.get(
-      `${airtableBaseUrl}/${TabelName.EVENTS}?filterByFormula=${encodeURIComponent(filterFormula)}`,
-      {
-        headers: {
-          Authorization: `Bearer ${VITE_API_KEY}`,
-        },
-      }
-    );
-
-    const responseData = response.data;
-    return responseData.records.map((element) => ({
-      id: element.id,
-      ...normalizeFields(element.fields),
-    }));
-  } catch (error) {
-    console.error("Error during linked field GET request:", error.response || error);
-    throw error;
-  }
-}
-
-// ✅ GET Event records using a custom Airtable formula
+// GET Event records using a custom Airtable formula
 export async function getEventRecordsByFilter(formula: string) {
   try {
     const response = await axios.get(
@@ -138,7 +62,7 @@ export async function getEventRecordsByFilter(formula: string) {
   }
 }
 
-// ✅ PATCH edit Event record
+// PATCH edit Event record
 export async function updateEventRecord(recordId: string, data: Record<string, any>) {
   try {
     const response = await axios.patch(
@@ -162,7 +86,7 @@ export async function updateEventRecord(recordId: string, data: Record<string, a
   }
 }
 
-// ✅ POST add Event record
+// POST add Event record
 export async function addEventRecord(data: Record<string, any>) {
   try {
     const response = await axios.post(
@@ -190,7 +114,7 @@ export async function addEventRecord(data: Record<string, any>) {
   }
 }
 
-// ✅ DELETE Event record
+// DELETE Event record
 export async function deleteEventRecord(recordId: string) {
   try {
     const response = await axios.delete(

@@ -80,35 +80,6 @@ export async function getUserByField(fieldName: string, value) {
   }
 }
 
-// GET all records where linked field contains a specific record ID
-export async function getUsersByLinkedField(
-  fieldName: string,
-  recordId: string
-) {
-  try {
-    const filterFormula = `FIND("${recordId}", ARRAYJOIN({${fieldName}}))`;
-
-    const response = await axios.get(
-      `${airtableBaseUrl}/${TabelName.USERS}?filterByFormula=${encodeURIComponent(filterFormula)}`,
-      {
-        headers: {
-          Authorization: `Bearer ${VITE_API_KEY}`,
-        },
-      }
-    );
-
-    const responseData = response.data;
-    return responseData.records.map((element) => ({
-      id: element.id,
-      ...element.fields,
-    }));
-  } catch (error) {
-    console.error("Error during linked field GET request:", error.response || error);
-    throw error;
-  }
-}
-
-
 // GET records using a custom Airtable formula
 export async function getUsersByFilter(formula: string) {
   try {

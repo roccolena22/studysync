@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import FollowerAndFollowedLists from "./FollowerAndFollowedLists";
 import PriorityPopup from "../shared/PriorityPopup";
-import { getRecordsByLinkedField } from "../../../api/apiRequest";
 import { DefaultColor, TabelName } from "../../../shared/models";
 import { useSelector } from "react-redux";
 import { getFollowerRecordsByLinkedField } from "../../../api/apiFollowers";

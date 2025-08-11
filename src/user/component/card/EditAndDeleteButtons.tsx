@@ -4,7 +4,7 @@ import PriorityPopup from "../shared/PriorityPopup";
 import EditEventForm from "../form/EditEventForm";
 import IconAndName from "../shared/IconAndName";
 import AlertBanner from "../../../shared/component/AlertBanner";
-import { AlertTypes } from "../../../shared/models";
+import { AlertTypes, TabelName } from "../../../shared/models";
 import { deleteEventRecord } from "../../../api/apiEvents";
 import { EventModel } from "../../models";
 
@@ -31,7 +31,14 @@ export default function EditAndDeleteButtons({ event }: Props): JSX.Element {
     if (isDeleted?.deleted === true) {
       setShowDeleteAlert(true);
       // Invalida la cache degli eventi per rifare il fetch
-      queryClient.invalidateQueries({ queryKey: ["events"] });
+      queryClient.invalidateQueries({ queryKey: [TabelName.EVENTS] });
+      queryClient.invalidateQueries({
+  predicate: (query) => {
+    const key = query.queryKey[0];
+    return key === TabelName.EVENTS || (typeof key === 'string' && key.toLowerCase().includes('event'));
+  }
+});
+
       queryClient.invalidateQueries({
         queryKey: ["ownedEvents", eventToDelete.authorId],
       });
@@ -48,7 +55,7 @@ export default function EditAndDeleteButtons({ event }: Props): JSX.Element {
   // Funzione da passare a EditEventForm per gestire l'alert e rifrescare eventi
   const handleIsEditedAlert = () => {
     setShowEditAlert(true);
-    queryClient.invalidateQueries({ queryKey: ["events"] });
+    queryClient.invalidateQueries({ queryKey: [TabelName.EVENTS] });
     queryClient.invalidateQueries({
       queryKey: ["ownedEvents", event.authorId],
     });

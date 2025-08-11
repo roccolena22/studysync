@@ -2,7 +2,6 @@ import { UseFormRegisterReturn } from "react-hook-form";
 import React, { ReactNode, KeyboardEvent } from "react";
 import { DefaultColor } from "../models";
 
-
 interface InputProps {
   label?: string;
   errorMessage?: string;
@@ -30,8 +29,9 @@ export default function Input({
         {label && <label className="font-semibold">{label}:</label>}
         {required && <p className="text-red-700 text-xs">*</p>}
       </div>
-<div className={`flex items-center border border-slate-400 rounded-lg px-3 py-2 w-full ${DefaultColor.BG_SECONDARY_COLOR}`}>
-
+      <div
+        className={`flex items-center border border-slate-400 rounded-lg px-3 py-2 w-full ${DefaultColor.BG_SECONDARY_COLOR}`}
+      >
         <input
           {...register}
           type={type}

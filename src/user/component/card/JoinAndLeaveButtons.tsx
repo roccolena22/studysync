@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import Button from "../../../shared/component/Button";
-import { addRecordToDatabase } from "../../../api/apiRequest";
-import { deleteBooking } from "../../../api/apiBookings";
-import { TabelName } from "../../../shared/models";
+import { addBooking, deleteBooking } from "../../../api/apiBookings";
 import { EventModel, Booking } from "../../models";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface Props {
   event: EventModel;
@@ -18,6 +17,8 @@ export default function JoinAndLeaveButtons({
   loggedUserId,
   updateBookingForEvent,
 }: Props): JSX.Element {
+
+    const queryClient = useQueryClient();
   const [isBooked, setIsBooked] = useState<boolean>(false);
 
   // Controlla se l'utente è già prenotato per questo evento
@@ -29,10 +30,9 @@ export default function JoinAndLeaveButtons({
   const toggleBooking = async (eventId: string, isAdding: boolean) => {
     try {
      if (isAdding) {
-  const response = await addRecordToDatabase(TabelName.BOOKINGS, {
+  const response = await addBooking({
     eventId: [eventId],
     bookedId: loggedUserId,
-    // authorId rimosso
   });
 
   const newBooking: Booking = {
@@ -43,6 +43,7 @@ export default function JoinAndLeaveButtons({
   };
 
   updateBookingForEvent(eventId, [...bookedUsers, newBooking]);
+  
 } else {
         // Trova la prenotazione da rimuovere (quella con bookedId = loggedUserId)
         const bookingToRemove = bookedUsers.find(b => b.bookedId === loggedUserId);
@@ -57,6 +58,8 @@ export default function JoinAndLeaveButtons({
           bookedUsers.filter(b => b.id !== bookingToRemove.id)
         );
       }
+       queryClient.invalidateQueries({ queryKey: ["ownedEvents", event.authorId] });
+      queryClient.invalidateQueries({ queryKey: ["allActiveEvents", event.authorId] });
     } catch (error) {
       console.error(`Errore ${isAdding ? "aggiungendo" : "rimuovendo"} la prenotazione`, error);
     }
