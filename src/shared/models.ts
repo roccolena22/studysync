@@ -25,14 +25,14 @@ FOLLOWERS = "followers"
 const primaryColor = "cyan-700"
 const secondaryColor = "white"
 
-export enum DefaultColor{
-  PRIMARY_COLOR = primaryColor,
-  SECONDARY_COLOR = secondaryColor,
-  BG_PRIMARY_COLOR = `bg-${primaryColor}`,
-  BG_SECONDARY_COLOR = `bg-${secondaryColor}`,
-  BORDER_PRIMARY_COLOR = `border-${primaryColor}`,
-  BORDER_SECONDARY_COLOR = `border-${secondaryColor}`,
-  TEXT_PRIMARY_COLOR = `text-${primaryColor}`,
-  TEXT_SECONDARY_COLOR = `text-${secondaryColor}`,
-  FROM_PRIMARY_COLOR = `from-${primaryColor}`
+export enum DefaultColor {
+  PRIMARY_COLOR = "cyan-700",
+  SECONDARY_COLOR = "white",
+  BG_PRIMARY_COLOR = "bg-cyan-700",
+  BG_SECONDARY_COLOR = "bg-white",
+  BORDER_PRIMARY_COLOR = "border-cyan-700",
+  BORDER_SECONDARY_COLOR = "border-white",
+  TEXT_PRIMARY_COLOR = "text-cyan-700",
+  TEXT_SECONDARY_COLOR = "text-white",
+  FROM_PRIMARY_COLOR = "from-cyan-700"
 }
